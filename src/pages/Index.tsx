@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -12,6 +13,22 @@ const Index = () => {
     name: '',
     phone: ''
   });
+
+  const [stats, setStats] = useState({
+    totalClosed: 1258,
+    inProgress: 4
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats(prev => ({
+        totalClosed: prev.totalClosed + Math.floor(Math.random() * 2),
+        inProgress: 3 + Math.floor(Math.random() * 3)
+      }));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +42,59 @@ const Index = () => {
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const liveVacancies = [
+    { title: 'Senior Full-Stack Developer', company: 'TechVision Solutions', candidates: 12, deadline: '4ч', match: 95, status: 'found' },
+    { title: 'Chief Financial Officer', company: 'FinanceHub Pro', candidates: 7, status: 'searching' },
+    { title: 'Head of Marketing', company: 'RetailMax Group', candidates: 15, status: 'found' },
+    { title: 'Lead Data Scientist', company: 'MedTech Innovations', candidates: 23, status: 'closed' },
+    { title: 'VP of Product', company: 'EduPlatform Digital', candidates: 9, status: 'searching' }
+  ];
+
+  const testimonials = [
+    {
+      name: 'Дмитрий Козлов',
+      position: 'Tech Lead',
+      company: 'NeoTech Solutions',
+      text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
+      rating: 5
+    },
+    {
+      name: 'Елена Соколова',
+      position: 'Head of AI Department',
+      company: 'FinServe Pro',
+      text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
+      rating: 5
+    },
+    {
+      name: 'Максим Петров',
+      position: 'Product Manager',
+      company: 'MobileHub',
+      text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг, улучшив всё приложение.',
+      rating: 5
+    },
+    {
+      name: 'Анна Смирнова',
+      position: 'COO',
+      company: 'MegaSell',
+      text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен.',
+      rating: 5
+    },
+    {
+      name: 'Алексей Морозов',
+      position: 'Sales Director',
+      company: 'TelecomPro',
+      text: 'ИИ-анализ показал скрытые навыки кандидата, которые мы бы упустили при обычном подборе. Результат превзошёл все ожидания!',
+      rating: 5
+    },
+    {
+      name: 'Ирина Федорова',
+      position: 'Head of Sales',
+      company: 'ConnectPlus',
+      text: 'Кандидат знал наших конкурентов изнутри. AI-система оценила это как преимущество. За месяц вернул трёх крупных клиентов.',
+      rating: 5
+    }
+  ];
 
   return (
     <div className="min-h-screen">
@@ -664,6 +734,116 @@ const Index = () => {
                       </li>
                     ))}
                   </ul>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="live-search" className="py-20 px-4 bg-muted/10">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🔴 Live поиск</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Вакансии закрываются прямо сейчас</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Смотрите, как наша система находит кандидатов в режиме реального времени
+            </p>
+          </div>
+
+          <div className="glass rounded-3xl p-8 mb-12 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 text-center">
+              <div className="space-y-2">
+                <div className="text-5xl font-bold neon-text animate-fade-in">{stats.totalClosed}</div>
+                <p className="text-muted-foreground">Вакансий закрыто всего</p>
+              </div>
+              <div className="space-y-2">
+                <div className="text-5xl font-bold text-secondary animate-fade-in">{stats.inProgress}</div>
+                <p className="text-muted-foreground">В работе сейчас</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {liveVacancies.map((vacancy, idx) => (
+              <Card key={idx} className="glass p-6 space-y-4 hover:neon-glow transition-all duration-300 animate-fade-in">
+                <div className="flex items-start justify-between">
+                  <h3 className="font-bold text-lg flex-1">{vacancy.title}</h3>
+                  {vacancy.status === 'found' && <Badge className="bg-primary/20 text-primary">Кандидаты найдены</Badge>}
+                  {vacancy.status === 'searching' && <Badge className="bg-secondary/20 text-secondary animate-pulse">Поиск кандидатов</Badge>}
+                  {vacancy.status === 'closed' && <Badge className="bg-accent/20 text-accent">Закрыта</Badge>}
+                </div>
+                <p className="text-sm text-muted-foreground">{vacancy.company}</p>
+                
+                {vacancy.status === 'found' && (
+                  <div className="grid grid-cols-3 gap-2 text-center py-3 border-y border-border/50">
+                    <div>
+                      <div className="text-2xl font-bold text-primary">{vacancy.candidates}</div>
+                      <div className="text-xs text-muted-foreground">Кандидатов</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-secondary">{vacancy.deadline}</div>
+                      <div className="text-xs text-muted-foreground">До дедлайна</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-accent">{vacancy.match}%</div>
+                      <div className="text-xs text-muted-foreground">Совпадение</div>
+                    </div>
+                  </div>
+                )}
+                
+                {vacancy.status === 'searching' && (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Icon name="Search" size={16} className="text-secondary animate-pulse" />
+                    <span>{vacancy.candidates} кандидатов в анализе...</span>
+                  </div>
+                )}
+                
+                {vacancy.status === 'closed' && (
+                  <div className="flex items-center gap-2 text-sm text-accent">
+                    <Icon name="CheckCircle2" size={16} />
+                    <span>Сотрудник вышел на работу</span>
+                  </div>
+                )}
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Реальные отзывы руководителей, которые уже нашли своих сотрудников
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {testimonials.map((testimonial, idx) => (
+              <Card key={idx} className="glass p-6 space-y-4 hover:neon-glow transition-all duration-300 hover-scale">
+                <div className="flex gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Icon key={i} name="Star" size={16} className="text-accent fill-accent" />
+                  ))}
+                </div>
+                
+                <p className="text-muted-foreground leading-relaxed italic">
+                  "{testimonial.text}"
+                </p>
+                
+                <div className="flex items-center gap-3 pt-4 border-t border-border/50">
+                  <Avatar className="w-12 h-12 border-2 border-primary/50">
+                    <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold">
+                      {testimonial.name.split(' ').map(n => n[0]).join('')}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="font-bold">{testimonial.name}</div>
+                    <div className="text-sm text-muted-foreground">{testimonial.position}</div>
+                    <div className="text-xs text-muted-foreground opacity-70">{testimonial.company}</div>
+                  </div>
                 </div>
               </Card>
             ))}
