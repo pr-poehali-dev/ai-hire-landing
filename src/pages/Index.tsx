@@ -166,14 +166,14 @@ const Index = () => {
   };
 
   const teamMembers = [
-    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://randomuser.me/api/portraits/women/12.jpg' },
-    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://randomuser.me/api/portraits/women/23.jpg' },
-    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://randomuser.me/api/portraits/women/36.jpg' },
-    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/47.jpg' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/18.jpg' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/31.jpg' },
-    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://randomuser.me/api/portraits/men/25.jpg' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://randomuser.me/api/portraits/women/19.jpg' }
+    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://i.pravatar.cc/200?img=5' },
+    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://i.pravatar.cc/200?img=9' },
+    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://i.pravatar.cc/200?img=10' },
+    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://i.pravatar.cc/200?img=16' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://i.pravatar.cc/200?img=11' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/200?img=20' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://i.pravatar.cc/200?img=13' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/200?img=26' }
   ];
 
   const testimonials = [
@@ -182,7 +182,7 @@ const Index = () => {
       person: 'Дмитрий Козлов',
       role: 'Tech Lead',
       text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
-      img: 'https://randomuser.me/api/portraits/men/32.jpg',
+      img: 'https://i.pravatar.cc/200?img=12',
       stats: { speed: '16ч', quality: '96%', period: '8 мес' },
       rating: 5,
       letterText: 'Выражаем благодарность HR-агентству 1 DAY HR за оперативный и качественный подбор IT-специалиста. Кандидат полностью соответствует нашим требованиям и успешно справляется с задачами.'
@@ -192,7 +192,7 @@ const Index = () => {
       person: 'Анна Смирнова',
       role: 'COO',
       text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://randomuser.me/api/portraits/women/17.jpg',
+      img: 'https://i.pravatar.cc/200?img=31',
       stats: { speed: '20ч', quality: '94%', period: '6 мес' },
       rating: 5,
       letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
@@ -202,7 +202,7 @@ const Index = () => {
       person: 'Елена Соколова',
       role: 'Head of AI Department',
       text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
-      img: 'https://randomuser.me/api/portraits/women/65.jpg',
+      img: 'https://i.pravatar.cc/200?img=38',
       stats: { speed: '24ч', quality: '98%', period: '10 мес' },
       rating: 5,
       letterText: 'Отмечаем высокий уровень сервиса агентства 1 DAY HR. Использование AI-технологий позволило найти уникального специалиста, который органично влился в нашу команду.'
@@ -212,7 +212,7 @@ const Index = () => {
       person: 'Максим Петров',
       role: 'Product Manager',
       text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения.',
-      img: 'https://randomuser.me/api/portraits/men/46.jpg',
+      img: 'https://i.pravatar.cc/200?img=14',
       stats: { speed: '18ч', quality: '95%', period: '7 мес' },
       rating: 5,
       letterText: 'Признательны агентству 1 DAY HR за срочный подбор разработчика. Кандидат превзошел ожидания, продемонстрировав глубокую экспертизу и инициативность.'
@@ -222,7 +222,7 @@ const Index = () => {
       person: 'Алексей Морозов',
       role: 'Sales Director',
       text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
-      img: 'https://randomuser.me/api/portraits/men/52.jpg',
+      img: 'https://i.pravatar.cc/200?img=33',
       stats: { speed: '22ч', quality: '93%', period: '5 мес' },
       rating: 5,
       letterText: 'Выражаем признательность 1 DAY HR за тщательный отбор кандидатов. Подобранный менеджер по продажам показал выдающиеся результаты с первых дней работы.'
@@ -232,7 +232,7 @@ const Index = () => {
       person: 'Ирина Федорова',
       role: 'Head of Sales',
       text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
-      img: 'https://randomuser.me/api/portraits/women/72.jpg',
+      img: 'https://i.pravatar.cc/200?img=47',
       stats: { speed: '19ч', quality: '97%', period: '9 мес' },
       rating: 5,
       letterText: 'Благодарим 1 DAY HR за системный подход к подбору персонала. Специалист не просто закрыл вакансию, а стал стратегическим игроком нашей команды.'
@@ -330,9 +330,9 @@ const Index = () => {
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-primary animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
+            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-secondary animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
               <p className="text-lg md:text-2xl font-bold">
-                Или вернем деньги. <span className="text-primary neon-text">Гарантия 100%</span>
+                Или вернем деньги. <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold">Гарантия 100%</span>
               </p>
             </div>
 
