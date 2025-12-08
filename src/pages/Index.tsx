@@ -113,9 +113,9 @@ const Index = () => {
     { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://i.pravatar.cc/200?img=10' },
     { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://i.pravatar.cc/200?img=16' },
     { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://i.pravatar.cc/200?img=13' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/200?img=1' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/200?img=26' },
     { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://i.pravatar.cc/200?img=14' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/200?img=26' }
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/200?img=20' }
   ];
 
   const testimonials = [
@@ -134,7 +134,7 @@ const Index = () => {
       person: 'Анна Смирнова',
       role: 'COO',
       text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://i.pravatar.cc/200?img=5',
+      img: 'https://i.pravatar.cc/200?img=10',
       stats: { speed: '20ч', quality: '94%', period: '6 мес' },
       rating: 5,
       letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
@@ -164,7 +164,7 @@ const Index = () => {
       person: 'Алексей Морозов',
       role: 'Sales Director',
       text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
-      img: 'https://i.pravatar.cc/200?img=15',
+      img: 'https://i.pravatar.cc/200?img=17',
       stats: { speed: '22ч', quality: '93%', period: '5 мес' },
       rating: 5,
       letterText: 'Выражаем признательность 1 DAY HR за тщательный отбор кандидатов. Подобранный менеджер по продажам показал выдающиеся результаты с первых дней работы.'
@@ -174,7 +174,7 @@ const Index = () => {
       person: 'Ирина Федорова',
       role: 'Head of Sales',
       text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
-      img: 'https://i.pravatar.cc/200?img=1',
+      img: 'https://i.pravatar.cc/200?img=20',
       stats: { speed: '19ч', quality: '97%', period: '9 мес' },
       rating: 5,
       letterText: 'Благодарим 1 DAY HR за системный подход к подбору персонала. Специалист не просто закрыл вакансию, а стал стратегическим игроком нашей команды.'
