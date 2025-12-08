@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import ChatWidget from '@/components/landing/ChatWidget';
+// import ChatWidget from '@/components/landing/ChatWidget';
 import ConsultationModal from '@/components/landing/ConsultationModal';
 import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 
@@ -1168,7 +1168,7 @@ const Index = () => {
           <span className="sm:hidden">Консультация</span>
         </Button>
         
-        <ChatWidget scrollToSection={scrollToSection} />
+        {/* <ChatWidget scrollToSection={scrollToSection} /> */}
       </div>
 
       <ConsultationModal 
