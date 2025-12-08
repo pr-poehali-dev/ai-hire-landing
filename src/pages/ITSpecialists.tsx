@@ -23,7 +23,10 @@ const ITSpecialists = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'it_specialists_page'
+          source: 'it_specialists_contact_form',
+          form_type: 'specialization_page',
+          page: 'it_specialists',
+          vacancy: 'IT-специалист'
         })
       });
       

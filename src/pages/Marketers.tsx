@@ -23,7 +23,10 @@ const Marketers = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'marketers_page'
+          source: 'marketers_contact_form',
+          form_type: 'specialization_page',
+          page: 'marketers',
+          vacancy: 'Маркетолог'
         })
       });
       

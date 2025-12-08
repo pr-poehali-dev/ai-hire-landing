@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import ConsultationModal from '@/components/landing/ConsultationModal';
+import AIScanModal from '@/components/landing/AIScanModal';
 import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 import {
   DropdownMenu,
@@ -30,6 +31,7 @@ const Index = () => {
     leadership: 0
   });
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
+  const [isAIScanOpen, setIsAIScanOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
@@ -71,7 +73,7 @@ const Index = () => {
     }
   }, [isAnalyzing]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, source: string = 'main_cta_form') => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -82,7 +84,9 @@ const Index = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'main_form'
+          source: source,
+          form_type: 'quick_contact',
+          page: 'main'
         })
       });
       
@@ -336,13 +340,19 @@ const Index = () => {
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              НАЙДЕМ СОТРУДНИКА<br />за 24 часа
+              Вакансия стоит уже неделю?<br />
+              <span className="text-secondary">Закроем за 24 часа</span>
             </h1>
             
-            <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-secondary animate-fade-in" style={{ animationDelay: '0.4s', boxShadow: '0 0 20px rgba(14, 165, 233, 0.3)' }}>
-              <p className="text-lg md:text-2xl font-bold">
-                Или вернем деньги. <span className="text-secondary font-extrabold">Гарантия 100%</span>
+            <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <p className="text-xl md:text-2xl text-muted-foreground">
+                Каждый день без сотрудника = упущенная прибыль, перегруженная команда и срыв планов
               </p>
+              <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
+                <p className="text-lg md:text-2xl font-bold">
+                  <span className="text-primary font-extrabold">Гарантия результата</span> или вернём 100% денег
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
@@ -360,8 +370,12 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
+                <Icon name="brain" className="mr-2" size={24} />
+                Бесплатное AI-сканирование
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8 border-2">
                 🔥 Найти сотрудника
               </Button>
             </div>
@@ -703,6 +717,146 @@ const Index = () => {
                 <Icon name="Target" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-us" className="py-12 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12 md:mb-16 space-y-3 md:space-y-4">
+            <Badge className="text-base md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">⭐ Почему мы</Badge>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold neon-text">Почему выбирают нас</h2>
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+              Мы объединили искусственный интеллект, 20+ лет опыта в продажах и систему финансовых гарантий
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Brain" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">ИИ-анализ без предвзятости</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Искусственный интеллект анализирует hard и soft skills объективно, без человеческого фактора
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Video" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="DollarSign" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Просрочка на день = -10% от оплаты. Задержка на 7 дней — вторая часть бесплатно
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="RefreshCcw" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На тарифе "Еще вчера" — бессрочная гарантия замены кандидата по любой причине
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Target" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Более 20 лет опыта в продажах — знаем специфику и понимаем вашу нишу
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Sparkles" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На премиум тарифе — отдельное собеседование с ИИ для проверки скрытых профессиональных качеств
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.7s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Eye" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Прозрачный процесс</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Google-таблица онлайн</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Формируем файл с анализом каждого кандидата — вы видите прогресс онлайн
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.8s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Briefcase" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Помогаем внедрить KPI и систему адаптации для максимальной эффективности нового сотрудника
+              </p>
+            </Card>
+          </div>
+
+          <div className="text-center mt-8 md:mt-12">
+            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8">
+              🚀 Получить кандидата завтра
+            </Button>
           </div>
         </div>
       </section>
@@ -1259,7 +1413,7 @@ const Index = () => {
                 Оставьте заявку сейчас — получите результат через 24 часа
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 max-w-md mx-auto pt-4 md:pt-6">
+              <form onSubmit={(e) => handleSubmit(e, 'main_cta_form')} className="space-y-3 sm:space-y-4 max-w-md mx-auto pt-4 md:pt-6">
                 <Input 
                   placeholder="Ваше имя *"
                   value={formData.name}
@@ -1363,21 +1517,37 @@ const Index = () => {
 
       <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
         <Button
-          onClick={() => setIsConsultFormOpen(true)}
+          onClick={() => setIsAIScanOpen(true)}
           size="sm"
-          className="neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
+          className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
         >
-          <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
-          <span className="hidden sm:inline">Бесплатная консультация</span>
-          <span className="sm:hidden">Консультация</span>
+          <Icon name="brain" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <span className="hidden sm:inline">Бесплатное AI-сканирование</span>
+          <span className="sm:hidden">AI-скан</span>
         </Button>
         
-        {/* <ChatWidget scrollToSection={scrollToSection} /> */}
+        <Button
+          onClick={() => setIsConsultFormOpen(true)}
+          size="sm"
+          variant="outline"
+          className="hover:neon-glow hover:scale-110 transition-all shadow-lg text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
+          style={{ animationDelay: '0.1s' }}
+        >
+          <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <span className="hidden sm:inline">Консультация</span>
+          <span className="sm:hidden">Звонок</span>
+        </Button>
       </div>
 
       <ConsultationModal 
         isOpen={isConsultFormOpen} 
         onClose={() => setIsConsultFormOpen(false)} 
+      />
+
+      <AIScanModal 
+        isOpen={isAIScanOpen} 
+        onClose={() => setIsAIScanOpen(false)}
+        source="main_hero_button"
       />
     </div>
   );

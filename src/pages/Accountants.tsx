@@ -23,7 +23,10 @@ const Accountants = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'accountants_page'
+          source: 'accountants_contact_form',
+          form_type: 'specialization_page',
+          page: 'accountants',
+          vacancy: 'Бухгалтер'
         })
       });
       

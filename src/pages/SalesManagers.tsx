@@ -23,7 +23,10 @@ const SalesManagers = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'sales_managers_page'
+          source: 'sales_managers_contact_form',
+          form_type: 'specialization_page',
+          page: 'sales_managers',
+          vacancy: 'Менеджер по продажам'
         })
       });
       

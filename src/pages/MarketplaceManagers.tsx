@@ -23,7 +23,10 @@ const MarketplaceManagers = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'marketplace_managers_page'
+          source: 'marketplace_managers_contact_form',
+          form_type: 'specialization_page',
+          page: 'marketplace_managers',
+          vacancy: 'Менеджер по маркетплейсам'
         })
       });
       

@@ -23,7 +23,10 @@ const Directors = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'directors_page'
+          source: 'directors_contact_form',
+          form_type: 'specialization_page',
+          page: 'directors',
+          vacancy: 'Директор'
         })
       });
       

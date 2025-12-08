@@ -28,7 +28,9 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
           phone: consultForm.phone,
           company: consultForm.company,
           vacancy: consultForm.vacancy,
-          source: 'consultation'
+          source: 'consultation_modal',
+          form_type: 'consultation',
+          page: window.location.pathname.split('/')[1] || 'main'
         })
       });
       

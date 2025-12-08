@@ -23,7 +23,10 @@ const RetailSales = () => {
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          source: 'retail_sales_page'
+          source: 'retail_sales_contact_form',
+          form_type: 'specialization_page',
+          page: 'retail_sales',
+          vacancy: 'Продавец-консультант'
         })
       });
       
