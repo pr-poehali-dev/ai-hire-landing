@@ -362,7 +362,7 @@ const Index = () => {
             </h2>
             <p className="text-xl text-gray-300">Профессионалы с многолетним опытом в рекрутинге</p>
           </div>
-          <TeamCarousel members={teamMembers} />
+          <TeamCarousel teamMembers={teamMembers} />
         </div>
       </section>
 
