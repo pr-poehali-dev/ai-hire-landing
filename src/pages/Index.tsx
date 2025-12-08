@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -871,6 +872,144 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="faq" className="py-20 px-4 bg-muted/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">❓ Частые вопросы</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Ответы на ваши вопросы</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Всё, что нужно знать о работе с 1 DAY HR
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Card className="glass-dark p-8 hover:neon-glow transition-all animate-fade-in">
+              <Accordion type="single" collapsible className="space-y-4">
+                <AccordionItem value="item-1" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Clock" size={20} className="text-primary" />
+                      Действительно ли вы находите за 24 часа?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Да! В 94% случаев мы находим подходящего кандидата за 24 часа. Это возможно благодаря AI-системе, которая анализирует тысячи резюме в режиме реального времени и оценивает кандидатов по 50+ параметрам. Если мы не найдём кандидата за обещанный срок — вернём деньги полностью.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-2" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Brain" size={20} className="text-secondary" />
+                      Как работает AI-анализ кандидатов?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Наш AI анализирует видео-интервью кандидата, оценивая речь, эмоции, невербальные сигналы и профессиональные компетенции. Система проверяет 15+ soft skills (коммуникация, стрессоустойчивость, мотивация) и сравнивает с профилем вашей вакансии. Точность прогноза успешности найма — 98%.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-3" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Shield" size={20} className="text-accent" />
+                      Что включает гарантия замены?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Если сотрудник не прошёл испытательный срок по любой причине (не справился с задачами, не подошёл по культуре компании, уволился сам), мы бесплатно найдём замену в течение 48 часов. Гарантия действует весь испытательный срок (до 3 месяцев). Это входит в стоимость подбора.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-4" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Wallet" size={20} className="text-primary" />
+                      Когда нужно оплачивать услугу?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Мы работаем по предоплате 50% для старта подбора. Оставшиеся 50% вы оплачиваете после одобрения кандидата и перед выходом на работу. Если мы не найдём кандидата за обещанный срок или вам не понравится ни один из предложенных специалистов — вернём предоплату полностью.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-5" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Users" size={20} className="text-secondary" />
+                      Сколько кандидатов вы представите?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Мы не работаем по принципу "закидать резюме". AI-система отбирает топ-3 лучших кандидата по совместимости с вашей вакансией. Каждый кандидат проходит видео-интервью, проверку рекомендаций и тестовое задание. Вы получаете только релевантных специалистов с прогнозом успешности 85%+.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-6" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="MapPin" size={20} className="text-accent" />
+                      В каких городах вы работаете?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Мы работаем по всей России и СНГ. Основной фокус — Москва, Санкт-Петербург, Екатеринбург, Новосибирск, Казань. Также подбираем специалистов для удалённой работы из любой точки мира. AI-система не ограничена географией и находит лучших кандидатов независимо от локации.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-7" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Target" size={20} className="text-primary" />
+                      Какие вакансии вы закрываете?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Специализируемся на подборе менеджеров по продажам всех уровней (от Junior до Head of Sales), IT-специалистов, маркетологов и руководителей. Закрываем вакансии в B2B, B2C, SaaS, e-commerce, телекоме, финтехе. Не работаем с массовым подбором (операторы, курьеры, грузчики).
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-8" className="border-border/30">
+                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Star" size={20} className="text-secondary" />
+                      Чем вы отличаетесь от обычных HR-агентств?
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
+                    Обычные агентства тратят 4-8 недель на подбор, отправляют десятки нерелевантных резюме и берут комиссию 20-30% годового дохода. Мы находим за 24 часа благодаря AI, представляем только 3 лучших кандидата, работаем за фиксированную цену (35-110к) и даём гарантию замены. Экономите время, деньги и нервы.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </Card>
+
+            <Card className="glass-dark p-6 mt-8 border-primary/30 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="MessageCircle" size={24} className="text-white" />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="font-bold text-lg mb-1">Не нашли ответ на свой вопрос?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Свяжитесь с нами, и мы ответим в течение 15 минут
+                  </p>
+                </div>
+                <div className="flex gap-2 flex-shrink-0">
+                  <Button variant="outline" className="hover:neon-glow hover:scale-105 transition-all">
+                    <Icon name="Phone" size={16} className="mr-2" />
+                    Позвонить
+                  </Button>
+                  <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
+                    <Icon name="Send" size={16} className="mr-2" />
+                    Написать
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       <section id="cta" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="glass-dark rounded-3xl p-8 md:p-12 neon-glow max-w-2xl mx-auto animate-scale-in">
@@ -950,9 +1089,9 @@ const Index = () => {
               <h4 className="font-bold">Навигация</h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <button onClick={() => scrollToSection('demo')} className="text-left hover:text-primary transition-all hover:scale-110">AI Демо</button>
-                <button onClick={() => scrollToSection('benefits')} className="text-left hover:text-primary transition-all hover:scale-110">Преимущества</button>
-                <button onClick={() => scrollToSection('team')} className="text-left hover:text-primary transition-all hover:scale-110">Команда</button>
-                <button onClick={() => scrollToSection('testimonials')} className="text-left hover:text-primary transition-all hover:scale-110">Отзывы</button>
+                <button onClick={() => scrollToSection('calculator')} className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</button>
+                <button onClick={() => scrollToSection('video-cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
+                <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
               </div>
             </div>
           </div>
