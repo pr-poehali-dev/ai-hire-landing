@@ -1046,22 +1046,22 @@ const Index = () => {
 
       <section id="cta" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
-          <div className="glass-dark rounded-3xl p-8 md:p-12 neon-glow max-w-2xl mx-auto animate-scale-in">
-            <div className="text-center space-y-6">
-              <h2 className="text-3xl md:text-5xl font-bold neon-text">
+          <div className="glass-dark rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-12 neon-glow max-w-2xl mx-auto animate-scale-in">
+            <div className="text-center space-y-4 md:space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold neon-text">
                 Получите идеального кандидата завтра!
               </h2>
-              <p className="text-lg md:text-xl text-muted-foreground">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
                 Оставьте заявку сейчас — получите результат через 24 часа
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto pt-6">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 max-w-md mx-auto pt-4 md:pt-6">
                 <Input 
                   placeholder="Ваше имя *"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   required
-                  className="glass border-primary/30 h-14 text-lg focus:neon-glow transition-all"
+                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
                 />
 
                 <Input 
@@ -1070,10 +1070,10 @@ const Index = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   required
-                  className="glass border-primary/30 h-14 text-lg focus:neon-glow transition-all"
+                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
                 />
 
-                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xl py-8" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-base sm:text-lg md:text-xl py-6 sm:py-7 md:py-8" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Icon name="Loader2" className="animate-spin mr-2" size={20} />
