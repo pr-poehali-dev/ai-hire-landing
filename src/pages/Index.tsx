@@ -61,6 +61,39 @@ const Index = () => {
     { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Svetlana', description: '9 лет в EdTech и Healthcare, 290+ специалистов' }
   ];
 
+  const testimonials = [
+    { 
+      company: 'TechFlow Solutions',
+      person: 'Дмитрий Козлов',
+      role: 'Tech Lead',
+      text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
+      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dmitry',
+      stats: { speed: '16ч', quality: '96%', period: '8 мес' },
+      rating: 5,
+      letterText: 'Выражаем благодарность HR-агентству 1 DAY HR за оперативный и качественный подбор IT-специалиста. Кандидат полностью соответствует нашим требованиям и успешно справляется с задачами.'
+    },
+    { 
+      company: 'MegaSell Pro',
+      person: 'Анна Смирнова',
+      role: 'COO',
+      text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
+      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Anna',
+      stats: { speed: '20ч', quality: '94%', period: '6 мес' },
+      rating: 5,
+      letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
+    },
+    { 
+      company: 'FinServe AI',
+      person: 'Елена Соколова',
+      role: 'Head of AI Department',
+      text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
+      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Elena',
+      stats: { speed: '24ч', quality: '98%', period: '10 мес' },
+      rating: 5,
+      letterText: 'Отмечаем высокий уровень сервиса агентства 1 DAY HR. Использование AI-технологий позволило найти уникального специалиста, который органично влился в нашу команду.'
+    }
+  ];
+
   const caseStudies = [
     { 
       company: 'TechFlow Solutions',
@@ -427,7 +460,7 @@ const Index = () => {
               Мнения руководителей компаний о результатах нашей работы
             </p>
             
-            <TestimonialsCarousel />
+            <TestimonialsCarousel testimonials={testimonials} />
           </div>
         </div>
       </section>
