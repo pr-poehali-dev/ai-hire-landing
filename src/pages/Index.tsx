@@ -563,43 +563,7 @@ const Index = () => {
             </Card>
           </div>
 
-          <Card className="glass-dark p-8 space-y-6 max-w-7xl mx-auto hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold">Динамика роста производительности</h3>
-              <Icon name="TrendingUp" size={24} className="text-accent animate-pulse" />
-            </div>
 
-            <div className="grid md:grid-cols-6 gap-4">
-              {[
-                { month: 'Месяц 1', value: 45, label: '45%' },
-                { month: 'Месяц 2', value: 62, label: '62%' },
-                { month: 'Месяц 3', value: 78, label: '78%' },
-                { month: 'Месяц 4', value: 85, label: '85%' },
-                { month: 'Месяц 5', value: 92, label: '92%' },
-                { month: 'Месяц 6', value: 98, label: '98%' }
-              ].map((item, idx) => (
-                <div key={idx} className="text-center space-y-2 hover-scale">
-                  <div className="h-32 flex items-end justify-center">
-                    <div 
-                      className="w-full bg-gradient-to-t from-primary to-secondary rounded-t-lg neon-glow animate-scale-in" 
-                      style={{ 
-                        height: `${item.value}%`,
-                        animationDelay: `${idx * 0.1}s`
-                      }}
-                    />
-                  </div>
-                  <div className="text-lg font-bold text-primary">{item.label}</div>
-                  <div className="text-xs text-muted-foreground">{item.month}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="glass p-4 rounded-lg text-center mt-6">
-              <p className="text-sm text-muted-foreground">
-                🚀 Сотрудники, найденные через 1 DAY HR, достигают максимальной производительности в 2 раза быстрее
-              </p>
-            </div>
-          </Card>
         </div>
       </section>
 
@@ -607,7 +571,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Отзывы от компаний</h2>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Более 120 компаний уже нашли своих сотрудников через нас
             </p>
@@ -619,97 +583,109 @@ const Index = () => {
                 company: 'TechFlow Solutions',
                 person: 'Дмитрий Козлов',
                 role: 'Tech Lead',
-                text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно. За 8 месяцев работы он стал ключевым членом команды.',
+                text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
                 img: 'https://i.pravatar.cc/300?img=12',
-                stats: { speed: '16ч', quality: '96%', period: '8 мес' }
+                stats: { speed: '16ч', quality: '96%', period: '8 мес' },
+                rating: 5
               },
               { 
                 company: 'MegaSell Pro',
                 person: 'Анна Смирнова',
                 role: 'COO',
-                text: 'Критически важно было найти человека быстро для запуска нового направления. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж составил +40% за первый квартал.',
+                text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
                 img: 'https://i.pravatar.cc/300?img=23',
-                stats: { speed: '20ч', quality: '94%', period: '6 мес' }
+                stats: { speed: '20ч', quality: '94%', period: '6 мес' },
+                rating: 5
               },
               { 
                 company: 'FinServe AI',
                 person: 'Елена Соколова',
                 role: 'Head of AI Department',
-                text: 'Искали полгода классическими методами без результата. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%. Сейчас работает над ключевым ML-проектом.',
+                text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
                 img: 'https://i.pravatar.cc/300?img=20',
-                stats: { speed: '24ч', quality: '98%', period: '10 мес' }
+                stats: { speed: '24ч', quality: '98%', period: '10 мес' },
+                rating: 5
               },
               { 
                 company: 'MobileHub',
                 person: 'Максим Петров',
                 role: 'Product Manager',
-                text: 'Боялись, что проект встанет из-за ухода iOS-разработчика. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения. Качество кода выросло на 50%.',
+                text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения.',
                 img: 'https://i.pravatar.cc/300?img=13',
-                stats: { speed: '18ч', quality: '95%', period: '7 мес' }
+                stats: { speed: '18ч', quality: '95%', period: '7 мес' },
+                rating: 5
               },
               { 
                 company: 'TelecomPro',
                 person: 'Алексей Морозов',
                 role: 'Sales Director',
-                text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили при обычном подборе. За первый месяц вернул трёх крупных клиентов, которых потеряли год назад. Результат превзошёл все ожидания!',
+                text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
                 img: 'https://i.pravatar.cc/300?img=33',
-                stats: { speed: '22ч', quality: '93%', period: '5 мес' }
+                stats: { speed: '22ч', quality: '93%', period: '5 мес' },
+                rating: 5
               },
               { 
                 company: 'ConnectPlus',
                 person: 'Ирина Федорова',
                 role: 'Head of Sales',
-                text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж. Лучший найм за последние 3 года!',
+                text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
                 img: 'https://i.pravatar.cc/300?img=47',
-                stats: { speed: '19ч', quality: '97%', period: '9 мес' }
+                stats: { speed: '19ч', quality: '97%', period: '9 мес' },
+                rating: 5
               },
               { 
                 company: 'DataSphere Analytics',
                 person: 'Сергей Волков',
                 role: 'CTO',
-                text: 'Нужен был data scientist с опытом в финтех. AI подобрал кандидата, который раньше работал в смежной сфере. За полгода создал 5 ML-моделей, которые принесли компании дополнительно 20 млн рублей.',
+                text: 'Нужен был data scientist с опытом в финтех. AI подобрал кандидата, который раньше работал в смежной сфере. За полгода создал 5 ML-моделей.',
                 img: 'https://i.pravatar.cc/300?img=14',
-                stats: { speed: '21ч', quality: '99%', period: '6 мес' }
+                stats: { speed: '21ч', quality: '99%', period: '6 мес' },
+                rating: 5
               },
               { 
                 company: 'CloudNine Technologies',
                 person: 'Мария Новикова',
                 role: 'HR Director',
-                text: 'Искали DevOps-инженера с опытом в Kubernetes. За 15 часов получили 3 сильных кандидата, выбрали лучшего. Он автоматизировал CI/CD pipeline, сократив время деплоя с 2 часов до 15 минут.',
+                text: 'Искали DevOps-инженера с опытом в Kubernetes. За 15 часов получили 3 сильных кандидата, выбрали лучшего. Он автоматизировал CI/CD pipeline.',
                 img: 'https://i.pravatar.cc/300?img=25',
-                stats: { speed: '15ч', quality: '96%', period: '4 мес' }
+                stats: { speed: '15ч', quality: '96%', period: '4 мес' },
+                rating: 5
               },
               { 
                 company: 'RetailMax Group',
                 person: 'Виктор Соловьёв',
                 role: 'CEO',
-                text: 'Нужен был COO для масштабирования бизнеса. AI-анализ выявил кандидата с успешным опытом выхода на маркетплейсы. За 3 месяца увеличил оборот на 60% и открыл 4 новых направления.',
+                text: 'Нужен был COO для масштабирования бизнеса. AI-анализ выявил кандидата с успешным опытом выхода на маркетплейсы. За 3 месяца увеличил оборот на 60%.',
                 img: 'https://i.pravatar.cc/300?img=32',
-                stats: { speed: '23ч', quality: '95%', period: '3 мес' }
+                stats: { speed: '23ч', quality: '95%', period: '3 мес' },
+                rating: 5
               },
               { 
                 company: 'EduTech Innovations',
                 person: 'Ольга Романова',
                 role: 'Founder',
-                text: 'Искали senior front-end разработчика для EdTech платформы. За сутки нашли специалиста, который переписал интерфейс с нуля. Конверсия регистраций выросла на 80%, отзывы пользователей стали на 4.8 из 5.',
+                text: 'Искали senior front-end разработчика для EdTech платформы. За сутки нашли специалиста, который переписал интерфейс с нуля. Конверсия выросла на 80%.',
                 img: 'https://i.pravatar.cc/300?img=28',
-                stats: { speed: '24ч', quality: '98%', period: '5 мес' }
+                stats: { speed: '24ч', quality: '98%', period: '5 мес' },
+                rating: 5
               },
               { 
                 company: 'GreenEnergy Solutions',
                 person: 'Андрей Белов',
                 role: 'Managing Partner',
-                text: 'Критически нужен был project manager для запуска нового проекта в энергетике. 1 DAY HR нашли профессионала за 17 часов. Проект запустился в срок, привлекли инвестиции на 50 млн рублей.',
+                text: 'Критически нужен был project manager для запуска нового проекта в энергетике. 1 DAY HR нашли профессионала за 17 часов. Проект запустился в срок.',
                 img: 'https://i.pravatar.cc/300?img=35',
-                stats: { speed: '17ч', quality: '94%', period: '8 мес' }
+                stats: { speed: '17ч', quality: '94%', period: '8 мес' },
+                rating: 5
               },
               { 
                 company: 'HealthCare Digital',
                 person: 'Татьяна Кузнецова',
                 role: 'Medical Director',
-                text: 'Искали специалиста на стык медицины и IT для цифровизации клиники. AI нашёл уникального кандидата с опытом в обеих областях. За 4 месяца внедрили электронные карты и автоматизацию записи. Экономия 30% времени врачей.',
+                text: 'Искали специалиста на стык медицины и IT для цифровизации клиники. AI нашёл уникального кандидата с опытом в обеих областях.',
                 img: 'https://i.pravatar.cc/300?img=41',
-                stats: { speed: '20ч', quality: '97%', period: '4 мес' }
+                stats: { speed: '20ч', quality: '97%', period: '4 мес' },
+                rating: 5
               }
             ].map((testimonial, idx) => (
               <Card key={idx} className="glass-dark overflow-hidden hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: `${idx * 0.05}s` }}>
@@ -723,9 +699,52 @@ const Index = () => {
                 </div>
 
                 <div className="p-6 space-y-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {testimonial.text}
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Icon key={i} name="Star" size={16} className="text-accent fill-accent" />
+                    ))}
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed italic">
+                    "{testimonial.text}"
                   </p>
+
+                  <div className="glass p-4 rounded-lg space-y-3 mt-4 border border-primary/20">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Благодарственное письмо</p>
+                        <p className="text-sm font-bold">{testimonial.company}</p>
+                      </div>
+                      <div className="relative">
+                        <div className="w-16 h-16 rounded-full border-4 border-primary/30 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
+                          <Icon name="BadgeCheck" size={32} className="text-primary" />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                          <Icon name="Award" size={14} className="text-white" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                      Выражаем благодарность агентству 1 DAY HR за профессиональный подбор персонала и высокое качество оказанных услуг.
+                    </p>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-border/30">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-8 h-8 border-2 border-primary/50">
+                          <AvatarImage src={testimonial.img} alt={testimonial.name} />
+                          <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
+                            {testimonial.name.split(' ').map(n => n[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="text-xs font-bold">{testimonial.person}</div>
+                          <div className="text-xs text-muted-foreground">{testimonial.role}</div>
+                        </div>
+                      </div>
+                      <Icon name="FileCheck" size={20} className="text-primary/50" />
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border/50">
                     <div className="text-center">
@@ -787,46 +806,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="testimonials" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Реальные отзывы руководителей, которые уже нашли своих сотрудников
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="glass-dark p-6 space-y-4 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="flex gap-1">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Icon key={i} name="Star" size={16} className="text-accent fill-accent animate-pulse" style={{ animationDelay: `${i * 0.1}s` }} />
-                  ))}
-                </div>
-                
-                <p className="text-muted-foreground leading-relaxed italic text-sm">
-                  "{testimonial.text}"
-                </p>
-                
-                <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                  <Avatar className="w-12 h-12 border-2 border-primary/50">
-                    <AvatarImage src={testimonial.img} alt={testimonial.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold">
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="font-bold text-sm">{testimonial.name}</div>
-                    <div className="text-xs text-muted-foreground">{testimonial.position}</div>
-                    <div className="text-xs text-muted-foreground opacity-70">{testimonial.company}</div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section id="faq" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
