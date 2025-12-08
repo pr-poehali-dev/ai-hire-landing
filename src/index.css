@@ -24,7 +24,7 @@
     --muted: 264 30% 15%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 328 86% 70%;
+    --accent: 180 70% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -38,7 +38,7 @@
 
     --neon-purple: 262 83% 58%;
     --neon-blue: 198 93% 60%;
-    --neon-pink: 328 86% 70%;
+    --neon-cyan: 180 70% 50%;
   }
 }
 
@@ -83,7 +83,7 @@
       ),
       radial-gradient(
         circle at 50% 50%,
-        rgba(217, 70, 239, 0.08) 0%,
+        rgba(14, 165, 233, 0.08) 0%,
         transparent 60%
       );
     pointer-events: none;

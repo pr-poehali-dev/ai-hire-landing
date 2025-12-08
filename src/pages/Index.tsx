@@ -185,7 +185,7 @@ const Index = () => {
     <div className="min-h-screen relative">
       <div className="fixed top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-orb animate-pulse" style={{ animationDuration: '4s' }}></div>
       <div className="fixed bottom-20 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-orb animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-accent/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
+      <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-secondary/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
 
       <header className="fixed top-0 left-0 right-0 z-50 glass animate-fade-in">
         <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
@@ -193,9 +193,9 @@ const Index = () => {
             <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
               <div className="relative">
                 <div className="text-2xl md:text-3xl font-black tracking-tight">
-                  <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-accent bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                  <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
                   <span className="text-lg md:text-xl font-light text-muted-foreground mx-1">AY</span>
-                  <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent neon-text">HR</span>
+                  <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent neon-text">HR</span>
                 </div>
               </div>
             </div>
@@ -275,7 +275,7 @@ const Index = () => {
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-secondary/50 animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
+            <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-secondary animate-fade-in" style={{ animationDelay: '0.4s', boxShadow: '0 0 20px rgba(14, 165, 233, 0.3)' }}>
               <p className="text-lg md:text-2xl font-bold">
                 Или вернем деньги. <span className="text-secondary font-extrabold">Гарантия 100%</span>
               </p>
@@ -291,7 +291,7 @@ const Index = () => {
                 <span className="text-xs md:text-base">Пожизненная гарантия</span>
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Target" size={18} className="md:w-5 md:h-5 text-accent animate-pulse" style={{ animationDelay: '1s' }} />
+                <Icon name="Target" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '1s' }} />
                 <span className="text-xs md:text-base">Ролевые проверки</span>
               </div>
             </div>
@@ -319,7 +319,7 @@ const Index = () => {
             <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Icon name="Star" size={24} className="text-accent" />
+                  <Icon name="Star" size={24} className="text-secondary" />
                   <h3 className="text-2xl font-bold">Анализ завершен</h3>
                 </div>
                 <Badge className="bg-primary/20 text-primary neon-glow">AI-A</Badge>
@@ -366,7 +366,7 @@ const Index = () => {
                     <p className="text-xs text-muted-foreground mt-1">Автоматическая оценка</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-accent">24 часа</p>
+                    <p className="text-2xl font-bold text-secondary">24 часа</p>
                     <p className="text-xs text-muted-foreground">на подбор</p>
                   </div>
                 </div>
@@ -413,7 +413,7 @@ const Index = () => {
 
               <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.2s' }}>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
                     <Icon name="MessageSquare" size={24} className="text-white" />
                   </div>
                   <div>
@@ -424,7 +424,7 @@ const Index = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Проведено интервью:</span>
-                    <span className="font-bold text-accent">1,258+</span>
+                    <span className="font-bold text-secondary">1,258+</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Средняя оценка:</span>
@@ -435,7 +435,7 @@ const Index = () => {
 
               <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.4s' }}>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
                     <Icon name="TrendingUp" size={24} className="text-white" />
                   </div>
                   <div>
@@ -493,9 +493,9 @@ const Index = () => {
                       </Card>
                       <Card className="glass p-4 border-accent/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
                         <div className="text-center">
-                          <div className="text-4xl font-bold text-accent mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
+                          <div className="text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
                           <div className="text-sm text-muted-foreground">Опыт в продажах</div>
-                          <Badge className="mt-2 bg-accent/20 text-accent">Middle</Badge>
+                          <Badge className="mt-2 bg-secondary/20 text-secondary">Middle</Badge>
                         </div>
                       </Card>
                     </div>
@@ -524,7 +524,7 @@ const Index = () => {
                           <div className="animate-fade-in" style={{ animationDelay: '1.1s' }}>
                             <div className="flex justify-between text-sm mb-1">
                               <span>Открытость опыту</span>
-                              <span className="font-bold text-accent">82%</span>
+                              <span className="font-bold text-secondary">82%</span>
                             </div>
                             <Progress value={82} className="h-2" />
                           </div>
@@ -560,10 +560,10 @@ const Index = () => {
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.3s' }}>
                             <div className="flex items-center gap-2">
-                              <Icon name="Shield" size={16} className="text-accent" />
+                              <Icon name="Shield" size={16} className="text-secondary" />
                               <span className="text-sm">Стрессоустойчивость</span>
                             </div>
-                            <Badge className="bg-accent/20 text-accent">83%</Badge>
+                            <Badge className="bg-secondary/20 text-secondary">83%</Badge>
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.4s' }}>
                             <div className="flex items-center gap-2">
@@ -578,7 +578,7 @@ const Index = () => {
 
                     <Card className="glass-dark p-6 border-accent/30 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '1.5s' }}>
                       <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                        <Icon name="Lightbulb" size={20} className="text-accent animate-pulse" />
+                        <Icon name="Lightbulb" size={20} className="text-secondary animate-pulse" />
                         Рекомендации AI
                       </h4>
                       <div className="space-y-3 text-sm text-muted-foreground">
@@ -587,7 +587,7 @@ const Index = () => {
                           <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
                         </div>
                         <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.7s' }}>
-                          <Icon name="AlertCircle" size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                          <Icon name="AlertCircle" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
                           <p><strong className="text-foreground">Области развития:</strong> Стоит обратить внимание на управление стрессом в высоконагруженных ситуациях</p>
                         </div>
                         <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.8s' }}>
@@ -629,9 +629,9 @@ const Index = () => {
                 <Icon name="Clock" size={20} className="md:w-6 md:h-6 text-secondary mx-auto animate-pulse" />
               </div>
               <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
-                <div className="text-3xl md:text-6xl font-bold text-accent animate-fade-in">24ч</div>
+                <div className="text-3xl md:text-6xl font-bold text-secondary animate-fade-in">24ч</div>
                 <p className="text-xs md:text-base text-muted-foreground">Среднее время</p>
-                <Icon name="Zap" size={20} className="md:w-6 md:h-6 text-accent mx-auto animate-pulse" />
+                <Icon name="Zap" size={20} className="md:w-6 md:h-6 text-secondary mx-auto animate-pulse" />
               </div>
               <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
                 <div className="text-3xl md:text-6xl font-bold text-primary animate-fade-in">90%</div>
@@ -680,7 +680,7 @@ const Index = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Маркетинг</span>
-                    <span className="font-bold text-accent">20 часов</span>
+                    <span className="font-bold text-secondary">20 часов</span>
                   </div>
                   <Progress value={90} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #D946EF, #E879F9)' } as React.CSSProperties} />
                 </div>
@@ -717,7 +717,7 @@ const Index = () => {
               <div className="glass p-4 rounded-lg space-y-3 mt-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">С заменой по гарантии:</span>
-                  <span className="font-bold text-accent">4%</span>
+                  <span className="font-bold text-secondary">4%</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Без замены:</span>
@@ -786,7 +786,7 @@ const Index = () => {
 
             <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
                   <Icon name="TrendingUp" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold">Продажи</h3>
@@ -803,24 +803,24 @@ const Index = () => {
 
             <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
                   <Icon name="ShoppingCart" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold">Маркетплейсы</h3>
               </div>
               <p className="text-sm text-muted-foreground">Wildberries, Ozon, Яндекс.Маркет, Lamoda</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-accent/20 text-accent text-xs">Category Manager</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">Content Manager</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">Аналитик</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">SMM</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">+2</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Category Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
               </div>
             </Card>
 
             <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center neon-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
                   <Icon name="Crown" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold">Руководители</h3>
@@ -854,18 +854,18 @@ const Index = () => {
 
             <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center neon-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
                   <Icon name="Headphones" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold">Поддержка</h3>
               </div>
               <p className="text-sm text-muted-foreground">Customer Success, техподдержка, операторы</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-accent/20 text-accent text-xs">Customer Success</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">Support</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">Operators</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">Service Manager</Badge>
-                <Badge className="bg-accent/20 text-accent text-xs">+1</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Operators</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Service Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
               </div>
             </Card>
 
@@ -888,7 +888,7 @@ const Index = () => {
 
             <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.7s' }}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
                   <Icon name="Cog" size={24} className="text-white" />
                 </div>
                 <h3 className="text-xl font-bold">Производство</h3>
@@ -946,7 +946,7 @@ const Index = () => {
                 <AccordionItem value="item-3" className="border-border/30">
                   <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
                     <div className="flex items-center gap-3">
-                      <Icon name="Shield" size={20} className="text-accent" />
+                      <Icon name="Shield" size={20} className="text-secondary" />
                       Что включает гарантия замены?
                     </div>
                   </AccordionTrigger>
@@ -982,7 +982,7 @@ const Index = () => {
                 <AccordionItem value="item-6" className="border-border/30">
                   <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
                     <div className="flex items-center gap-3">
-                      <Icon name="MapPin" size={20} className="text-accent" />
+                      <Icon name="MapPin" size={20} className="text-secondary" />
                       В каких городах вы работаете?
                     </div>
                   </AccordionTrigger>
@@ -1100,9 +1100,9 @@ const Index = () => {
               <div className="flex items-center gap-2 hover-scale cursor-pointer">
                 <div className="relative">
                   <div className="text-2xl md:text-3xl font-black tracking-tight">
-                    <span className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary via-secondary to-accent bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                    <span className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
                     <span className="text-base md:text-lg font-light text-muted-foreground mx-1">AY</span>
-                    <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent neon-text">HR</span>
+                    <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent neon-text">HR</span>
                   </div>
                 </div>
               </div>
@@ -1122,8 +1122,8 @@ const Index = () => {
                   <Icon name="MessageCircle" size={16} className="text-secondary" />
                   <a href="https://t.me/your_telegram">Telegram</a>
                 </p>
-                <p className="flex items-center gap-2 hover:text-accent transition-all cursor-pointer hover-scale">
-                  <Icon name="Mail" size={16} className="text-accent" />
+                <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
+                  <Icon name="Mail" size={16} className="text-secondary" />
                   <a href="mailto:info@1dayhr.ru">info@1dayhr.ru</a>
                 </p>
               </div>
@@ -1161,7 +1161,7 @@ const Index = () => {
         <Button
           onClick={() => setIsConsultFormOpen(true)}
           size="sm"
-          className="neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
+          className="neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
         >
           <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
           <span className="hidden sm:inline">Бесплатная консультация</span>
