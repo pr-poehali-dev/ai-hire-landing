@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Login with invalid credentials",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "nonexistent@example.com",
+        "password": "wrongpassword"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "Invalid email or password"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Login without email",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "password": "test123456"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Email and password are required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

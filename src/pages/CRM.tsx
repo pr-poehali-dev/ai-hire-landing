@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface Lead {
   id: number;
@@ -19,6 +20,7 @@ interface Lead {
 
 const CRM = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [filteredLeads, setFilteredLeads] = useState<Lead[]>([]);
   const [total, setTotal] = useState(0);
@@ -28,6 +30,16 @@ const CRM = () => {
   const [sourceFilter, setSourceFilter] = useState<string>('all');
 
   useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      toast({
+        title: 'Требуется авторизация',
+        description: 'Пожалуйста, войдите в систему',
+        variant: 'destructive'
+      });
+      navigate('/login');
+      return;
+    }
     fetchLeads();
   }, []);
 
@@ -136,10 +148,29 @@ const CRM = () => {
               <span className="text-xl font-bold neon-text">1 DAY HR - CRM</span>
             </button>
 
-            <Button onClick={fetchLeads} variant="outline" size="sm">
-              <Icon name="RefreshCw" size={16} className="mr-2" />
-              Обновить
-            </Button>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground hidden md:inline">
+                {localStorage.getItem('user_name') || localStorage.getItem('user_email')}
+              </span>
+              <Button onClick={fetchLeads} variant="outline" size="sm">
+                <Icon name="RefreshCw" size={16} className="mr-2" />
+                Обновить
+              </Button>
+              <Button 
+                onClick={() => {
+                  localStorage.removeItem('auth_token');
+                  localStorage.removeItem('user_email');
+                  localStorage.removeItem('user_name');
+                  toast({ title: 'Выход выполнен', description: 'До встречи!' });
+                  navigate('/login');
+                }}
+                variant="outline" 
+                size="sm"
+              >
+                <Icon name="LogOut" size={16} className="mr-2" />
+                Выйти
+              </Button>
+            </div>
           </div>
         </div>
       </header>

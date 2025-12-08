@@ -1,4 +1,6 @@
 {
+  "register": "https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071",
+  "login": "https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656",
   "get-leads": "https://functions.poehali.dev/a93ddbce-6315-4a84-8e82-7f3434116541",
   "submit-lead": "https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267"
 }

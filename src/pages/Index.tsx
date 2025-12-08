@@ -1006,6 +1006,10 @@ const Index = () => {
                 <button onClick={() => scrollToSection('calculator')} className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</button>
                 <button onClick={() => scrollToSection('cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
                 <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
+                <a href="/crm" className="text-left hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
+                  <Icon name="LayoutDashboard" size={14} />
+                  CRM
+                </a>
               </div>
             </div>
           </div>

@@ -1,0 +1,213 @@
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const url = isLogin 
+        ? 'https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656'
+        : 'https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071';
+
+      const body = isLogin 
+        ? { email: formData.email, password: formData.password }
+        : { email: formData.email, password: formData.password, name: formData.name };
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        if (isLogin) {
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('user_email', data.user.email);
+          localStorage.setItem('user_name', data.user.name || '');
+          
+          toast({ 
+            title: 'Добро пожаловать! 🚀', 
+            description: 'Вы успешно вошли в систему' 
+          });
+          
+          navigate('/crm');
+        } else {
+          toast({ 
+            title: 'Регистрация завершена! 🎉', 
+            description: 'Теперь войдите в систему' 
+          });
+          setIsLogin(true);
+          setFormData({ email: formData.email, password: '', name: '' });
+        }
+      } else {
+        throw new Error(data.error || 'Ошибка');
+      }
+    } catch (error: any) {
+      toast({ 
+        title: 'Ошибка', 
+        description: error.message || 'Попробуйте еще раз',
+        variant: 'destructive' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen relative flex items-center justify-center px-4">
+      <div className="fixed top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-orb animate-pulse" style={{ animationDuration: '4s' }}></div>
+      <div className="fixed bottom-20 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-orb animate-pulse" style={{ animationDuration: '6s' }}></div>
+
+      <Card className="glass-dark p-8 max-w-md w-full neon-glow animate-scale-in relative z-10">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+              <Icon name="Sparkles" size={24} className="text-white animate-pulse" />
+            </div>
+            <span className="text-2xl font-bold neon-text">1 DAY HR</span>
+          </div>
+          
+          <h1 className="text-3xl font-bold neon-text mb-2">
+            {isLogin ? 'Вход в CRM' : 'Регистрация'}
+          </h1>
+          <p className="text-muted-foreground">
+            {isLogin ? 'Войдите в систему управления заявками' : 'Создайте аккаунт для доступа к CRM'}
+          </p>
+        </div>
+
+        <div className="flex gap-2 mb-6">
+          <Button
+            type="button"
+            variant={isLogin ? 'default' : 'outline'}
+            className={`flex-1 ${isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
+            onClick={() => setIsLogin(true)}
+          >
+            Вход
+          </Button>
+          <Button
+            type="button"
+            variant={!isLogin ? 'default' : 'outline'}
+            className={`flex-1 ${!isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
+            onClick={() => setIsLogin(false)}
+          >
+            Регистрация
+          </Button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {!isLogin && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Icon name="User" size={16} className="text-primary" />
+                Имя
+              </label>
+              <Input
+                placeholder="Иван Иванов"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+              />
+            </div>
+          )}
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium flex items-center gap-2">
+              <Icon name="Mail" size={16} className="text-primary" />
+              Email *
+            </label>
+            <Input
+              type="email"
+              placeholder="example@mail.com"
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              required
+              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium flex items-center gap-2">
+              <Icon name="Lock" size={16} className="text-secondary" />
+              Пароль *
+            </label>
+            <Input
+              type="password"
+              placeholder="Минимум 6 символов"
+              value={formData.password}
+              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              required
+              minLength={6}
+              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+            />
+          </div>
+
+          <Button
+            type="submit"
+            size="lg"
+            disabled={isSubmitting}
+            className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-lg py-6 mt-6"
+          >
+            {isSubmitting ? (
+              <>
+                <Icon name="Loader2" className="animate-spin mr-2" size={20} />
+                Загрузка...
+              </>
+            ) : (
+              <>
+                <Icon name={isLogin ? "LogIn" : "UserPlus"} size={20} className="mr-2" />
+                {isLogin ? 'Войти' : 'Зарегистрироваться'}
+              </>
+            )}
+          </Button>
+        </form>
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => navigate('/')}
+            className="text-sm text-muted-foreground hover:text-primary transition-all"
+          >
+            <Icon name="ArrowLeft" size={14} className="inline mr-1" />
+            Вернуться на главную
+          </button>
+        </div>
+
+        {!isLogin && (
+          <Card className="glass p-4 border-accent/30 mt-6">
+            <div className="flex items-start gap-3">
+              <Icon name="Info" size={20} className="text-accent flex-shrink-0 mt-0.5" />
+              <div className="text-xs text-muted-foreground">
+                <p className="font-medium text-foreground mb-1">Требования к паролю:</p>
+                <ul className="space-y-1">
+                  <li>• Минимум 6 символов</li>
+                  <li>• Используйте надежный пароль</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        )}
+      </Card>
+    </div>
+  );
+};
+
+export default Login;

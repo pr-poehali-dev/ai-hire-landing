@@ -1,0 +1,46 @@
+{
+  "tests": [
+    {
+      "name": "Register new user",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test@example.com",
+        "password": "test123456",
+        "name": "Test User"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Register without email",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "password": "test123456"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Email and password are required"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Register with short password",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test2@example.com",
+        "password": "123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Password must be at least 6 characters"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
