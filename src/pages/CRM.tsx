@@ -113,6 +113,7 @@ const CRM = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [isMangoSettingsOpen, setIsMangoSettingsOpen] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
@@ -378,14 +379,29 @@ const CRM = () => {
         });
         fetchLeadDetails(selectedLead.id);
       } else {
-        toast({ 
-          title: 'Ошибка звонка', 
-          description: data.error,
-          variant: 'destructive' 
-        });
+        const errorMsg = data.error || 'Неизвестная ошибка';
+        
+        if (errorMsg.includes('credentials') || errorMsg.includes('не настроен') || errorMsg.includes('ключи')) {
+          setIsMangoSettingsOpen(true);
+          toast({ 
+            title: 'Настройте Mango Office', 
+            description: 'Для звонков требуется указать ключи API в секретах проекта',
+            variant: 'destructive'
+          });
+        } else {
+          toast({ 
+            title: 'Ошибка звонка', 
+            description: errorMsg,
+            variant: 'destructive' 
+          });
+        }
       }
     } catch (error) {
-      toast({ title: 'Ошибка звонка', description: 'Проверьте настройки Mango Office', variant: 'destructive' });
+      toast({ 
+        title: 'Ошибка соединения', 
+        description: 'Не удалось связаться с сервером звонков',
+        variant: 'destructive' 
+      });
     }
   };
 
@@ -1132,6 +1148,84 @@ const CRM = () => {
                   Удалить
                 </Button>
               )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isMangoSettingsOpen} onOpenChange={setIsMangoSettingsOpen}>
+        <DialogContent className="glass-dark max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="neon-text flex items-center gap-2">
+              <Icon name="Phone" size={24} />
+              Настройка Mango Office
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+              <div className="flex gap-3">
+                <Icon name="AlertCircle" size={20} className="text-yellow-400 flex-shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="font-semibold text-yellow-400 mb-2">Требуется настройка интеграции</p>
+                  <p className="text-muted-foreground">Для совершения звонков через систему необходимо добавить API ключи Mango Office в секреты проекта.</p>
+                </div>
+              </div>
+            </div>
+
+            <Card className="glass p-4">
+              <h3 className="font-bold mb-3 flex items-center gap-2">
+                <Icon name="Settings" size={18} />
+                Необходимые секреты:
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                  <Icon name="Key" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-mono font-semibold">MANGO_VPB_KEY</p>
+                    <p className="text-muted-foreground text-xs mt-1">Уникальный код вашей АТС Mango Office</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                  <Icon name="Key" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-mono font-semibold">MANGO_SIGN_KEY</p>
+                    <p className="text-muted-foreground text-xs mt-1">Ключ для подписи API запросов</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                  <Icon name="Key" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-mono font-semibold">MANGO_API_URL</p>
+                    <p className="text-muted-foreground text-xs mt-1">URL API (по умолчанию: https://app.mango-office.ru/vpbx/)</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="glass p-4">
+              <h3 className="font-bold mb-3 flex items-center gap-2">
+                <Icon name="BookOpen" size={18} />
+                Инструкция:
+              </h3>
+              <ol className="space-y-2 text-sm text-muted-foreground list-decimal list-inside">
+                <li>Войдите в личный кабинет Mango Office</li>
+                <li>Перейдите в раздел "Настройки" → "API"</li>
+                <li>Скопируйте VPB ключ и ключ подписи</li>
+                <li>Добавьте эти значения в секреты проекта poehali.dev через кнопку "Секреты" в редакторе</li>
+                <li>Перезагрузите CRM и попробуйте позвонить снова</li>
+              </ol>
+            </Card>
+
+            <div className="flex gap-2">
+              <Button className="flex-1 neon-glow" onClick={() => {
+                window.open('https://app.mango-office.ru', '_blank');
+              }}>
+                <Icon name="ExternalLink" size={16} className="mr-2" />
+                Открыть Mango Office
+              </Button>
+              <Button variant="outline" onClick={() => setIsMangoSettingsOpen(false)}>
+                Закрыть
+              </Button>
             </div>
           </div>
         </DialogContent>
