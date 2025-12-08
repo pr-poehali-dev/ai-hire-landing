@@ -61,11 +61,31 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         conn = psycopg2.connect(database_url)
         cursor = conn.cursor()
         
-        cursor.execute(
-            "INSERT INTO t_p27512893_ai_hire_landing.leads (name, phone, company, vacancy, source) "
-            "VALUES (%s, %s, %s, %s, %s) RETURNING id",
-            (name, phone, company if company else None, vacancy if vacancy else None, source)
-        )
+        # Экранируем одинарные кавычки для Simple Query Protocol
+        name_escaped = name.replace("'", "''")
+        phone_escaped = phone.replace("'", "''")
+        company_escaped = company.replace("'", "''") if company else ''
+        vacancy_escaped = vacancy.replace("'", "''") if vacancy else ''
+        source_escaped = source.replace("'", "''")
+        
+        company_value = f"'{company_escaped}'" if company else 'NULL'
+        vacancy_value = f"'{vacancy_escaped}'" if vacancy else 'NULL'
+        
+        # Сначала сохраняем в таблицу leads (старая таблица)
+        query_leads = f"""
+            INSERT INTO t_p27512893_ai_hire_landing.leads (name, phone, company, vacancy, source) 
+            VALUES ('{name_escaped}', '{phone_escaped}', {company_value}, {vacancy_value}, '{source_escaped}')
+        """
+        cursor.execute(query_leads)
+        
+        # Теперь сохраняем в lead_data (для CRM) со статусом "Новый лид" (stage_id = 1)
+        query_lead_data = f"""
+            INSERT INTO t_p27512893_ai_hire_landing.lead_data 
+            (name, phone, company, vacancy, source, stage_id, priority, created_at, updated_at) 
+            VALUES ('{name_escaped}', '{phone_escaped}', {company_value}, {vacancy_value}, '{source_escaped}', 1, 'medium', NOW(), NOW())
+            RETURNING id
+        """
+        cursor.execute(query_lead_data)
         
         lead_id = cursor.fetchone()[0]
         conn.commit()

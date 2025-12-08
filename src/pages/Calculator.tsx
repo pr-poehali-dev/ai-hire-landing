@@ -174,7 +174,7 @@ const Calculator = () => {
                       <h3 className="text-base md:text-lg font-bold">Уровень специалиста</h3>
                       <p className="text-xs md:text-sm text-muted-foreground">Какую позицию нужно закрыть</p>
                     </div>
-                    <Badge className="text-base md:text-lg px-3 md:px-4 py-1.5 md:py-2 bg-accent/20 text-accent neon-glow">
+                    <Badge className="text-base md:text-lg px-3 md:px-4 py-1.5 md:py-2 bg-secondary/20 text-secondary neon-glow">
                       {getLevelName(calcParams.level)}
                     </Badge>
                   </div>
@@ -221,7 +221,7 @@ const Calculator = () => {
                     </div>
                     <div className="flex justify-between items-center text-sm md:text-base">
                       <span className="text-muted-foreground">Уровень:</span>
-                      <span className="font-bold text-accent">{getLevelName(calcParams.level)}</span>
+                      <span className="font-bold text-secondary">{getLevelName(calcParams.level)}</span>
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ const Calculator = () => {
 
               <Card className="glass-dark p-4 md:p-6 space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
                 <div className="flex items-center gap-3">
-                  <Icon name="Gift" size={20} className="md:w-6 md:h-6 text-accent animate-pulse" />
+                  <Icon name="Gift" size={20} className="md:w-6 md:h-6 text-secondary animate-pulse" />
                   <h4 className="font-bold text-sm md:text-base">Что входит в стоимость:</h4>
                 </div>
                 <ul className="space-y-2 text-xs md:text-sm text-muted-foreground">
@@ -256,10 +256,10 @@ const Calculator = () => {
                 </ul>
               </Card>
 
-              <Card className="glass-dark p-4 md:p-6 border-accent/30 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <Card className="glass-dark p-4 md:p-6 border-secondary/30 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                 <div className="flex items-center gap-3 mb-3">
-                  <Icon name="Percent" size={20} className="md:w-6 md:h-6 text-accent animate-pulse" />
-                  <h4 className="font-bold text-accent text-sm md:text-base">Специальное предложение</h4>
+                  <Icon name="Percent" size={20} className="md:w-6 md:h-6 text-secondary animate-pulse" />
+                  <h4 className="font-bold text-secondary text-sm md:text-base">Специальное предложение</h4>
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground">
                   При заказе от 3 вакансий — скидка 15%. При заказе от 5 вакансий — скидка 25%!

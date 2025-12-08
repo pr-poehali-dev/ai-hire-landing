@@ -1093,9 +1093,9 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-8 md:py-12 px-4 md:px-6 pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
+      <footer className="py-8 md:py-12 px-4 md:px-6 pb-24 sm:pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 hover-scale cursor-pointer">
                 <div className="relative">
@@ -1144,12 +1144,12 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-12 pt-8 border-t border-border/50">
-            <div className="text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border/50">
+            <div className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
               © 2024 1 DAY HR. Все права защищены.
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-muted-foreground">
               <a href="#" className="hover:text-primary transition-all hover:scale-110">Политика конфиденциальности</a>
               <a href="#" className="hover:text-primary transition-all hover:scale-110">Обработка персональных данных</a>
             </div>
