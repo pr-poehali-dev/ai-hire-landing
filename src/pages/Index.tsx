@@ -1264,7 +1264,7 @@ const Index = () => {
                 </p>
                 <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
                   <Icon name="Mail" size={16} className="text-secondary" />
-                  <a href="mailto:info@1dayhr.ru">info@1dayhr.ru</a>
+                  <a href="mailto:1dayhunter24@gmail.com">1dayhunter24@gmail.com</a>
                 </p>
               </div>
             </div>
