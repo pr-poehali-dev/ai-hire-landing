@@ -10,6 +10,7 @@ import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import AIAssistant from '@/components/AIAssistant';
 
 interface Lead {
   id: number;
@@ -521,6 +522,21 @@ const CRM = () => {
                       className="glass mt-1 min-h-[100px]"
                     />
                   </div>
+                </TabsContent>
+
+                <TabsContent value="ai" className="mt-4">
+                  <AIAssistant 
+                    leadId={selectedLead.id} 
+                    onCreateTask={(task) => {
+                      setTaskForm({
+                        title: task.title,
+                        description: task.description,
+                        due_date: '',
+                        priority: task.priority
+                      });
+                      setIsTaskDialogOpen(true);
+                    }}
+                  />
                 </TabsContent>
 
                 <TabsContent value="tasks" className="space-y-4 mt-4">
