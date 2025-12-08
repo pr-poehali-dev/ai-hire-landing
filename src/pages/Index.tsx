@@ -159,13 +159,13 @@ const Index = () => {
       <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-accent/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
 
       <header className="fixed top-0 left-0 right-0 z-50 glass animate-fade-in">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 hover-scale cursor-pointer">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                <Icon name="Sparkles" size={20} className="text-white animate-pulse" />
+            <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+                <Icon name="Sparkles" size={16} className="md:w-5 md:h-5 text-white animate-pulse" />
               </div>
-              <span className="text-xl font-bold neon-text">1 DAY HR</span>
+              <span className="text-base md:text-xl font-bold neon-text">1 DAY HR</span>
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
@@ -175,45 +175,46 @@ const Index = () => {
               <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
             </nav>
 
-            <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
-              Найти сотрудника
+            <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
+              <span className="hidden sm:inline">Найти сотрудника</span>
+              <span className="sm:hidden">Заявка</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-3 md:px-4 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <Badge className="glass text-lg px-6 py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
+          <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
+            <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
               ✨ Первое HR-агентство с AI подбором
             </Badge>
             
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in px-2" style={{ animationDelay: '0.2s' }}>
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <p className="text-2xl text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg md:text-2xl text-muted-foreground animate-fade-in px-2" style={{ animationDelay: '0.4s' }}>
               Или вернем деньги. Гарантия 100%
             </p>
 
-            <div className="flex flex-wrap justify-center gap-6 text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="flex items-center gap-2 hover-scale cursor-pointer">
-                <Icon name="Brain" size={20} className="text-primary animate-pulse" />
-                <span>ИИ-анализ навыков</span>
+            <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in px-2" style={{ animationDelay: '0.6s' }}>
+              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
+                <Icon name="Brain" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" />
+                <span className="text-xs md:text-base">ИИ-анализ</span>
               </div>
-              <div className="flex items-center gap-2 hover-scale cursor-pointer">
-                <Icon name="Shield" size={20} className="text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <span>Гарантия замены</span>
+              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
+                <Icon name="Shield" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
+                <span className="text-xs md:text-base">Гарантия</span>
               </div>
-              <div className="flex items-center gap-2 hover-scale cursor-pointer">
-                <Icon name="Target" size={20} className="text-accent animate-pulse" style={{ animationDelay: '1s' }} />
-                <span>Ролевые проверки</span>
+              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
+                <Icon name="Target" size={18} className="md:w-5 md:h-5 text-accent animate-pulse" style={{ animationDelay: '1s' }} />
+                <span className="text-xs md:text-base">Проверки</span>
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-xl px-12 py-8">
+            <div className="flex justify-center gap-4 pt-2 md:pt-4 animate-fade-in px-2" style={{ animationDelay: '0.8s' }}>
+              <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
                 🔥 Найти сотрудника
               </Button>
             </div>
@@ -221,18 +222,18 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="demo" className="py-20 px-4 bg-muted/5">
+      <section id="demo" className="py-12 md:py-20 px-3 md:px-4 bg-muted/5">
         <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
+            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
+            <h2 className="text-2xl md:text-5xl font-bold neon-text px-2">Как мы находим лучших кандидатов</h2>
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
               AI анализирует видео-интервью и оценивает компетенции
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
-            <Card className="glass-dark p-8 space-y-6 animate-scale-in hover:neon-glow transition-all">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 md:gap-8">
+            <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Icon name="Star" size={24} className="text-accent" />
@@ -288,16 +289,17 @@ const Index = () => {
                 </div>
               </Card>
 
-              <Button onClick={startDemo} className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all" disabled={isAnalyzing}>
+              <Button onClick={startDemo} className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-sm md:text-base" disabled={isAnalyzing}>
                 {isAnalyzing ? (
                   <>
-                    <Icon name="Loader2" className="animate-spin mr-2" />
-                    {['Загрузка видео...', 'Анализ речи...', 'Оценка эмоций...', 'Формирование профиля...', 'Анализ завершен!'][analysisStep]}
+                    <Icon name="Loader2" className="animate-spin mr-2" size={18} />
+                    <span className="text-xs md:text-sm">{['Загрузка видео...', 'Анализ речи...', 'Оценка эмоций...', 'Формирование профиля...', 'Анализ завершен!'][analysisStep]}</span>
                   </>
                 ) : (
                   <>
-                    <Icon name="Play" className="mr-2" />
-                    Запустить демонстрацию
+                    <Icon name="Play" className="mr-2" size={18} />
+                    <span className="hidden sm:inline">Запустить демонстрацию</span>
+                    <span className="sm:hidden">Запустить</span>
                   </>
                 )}
               </Button>
@@ -368,29 +370,29 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="stats" className="py-20 px-4">
+      <section id="stats" className="py-12 md:py-20 px-3 md:px-4">
         <div className="container mx-auto">
-          <div className="glass rounded-3xl p-12 max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
-              <div className="space-y-3 hover-scale cursor-pointer">
-                <div className="text-5xl md:text-6xl font-bold neon-text animate-fade-in">{stats.totalClosed}</div>
-                <p className="text-muted-foreground">Вакансий закрыто</p>
-                <Icon name="TrendingUp" size={24} className="text-primary mx-auto animate-pulse" />
+          <div className="glass rounded-2xl md:rounded-3xl p-6 md:p-12 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
+                <div className="text-3xl md:text-6xl font-bold neon-text animate-fade-in">{stats.totalClosed}</div>
+                <p className="text-xs md:text-base text-muted-foreground">Вакансий закрыто</p>
+                <Icon name="TrendingUp" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
               </div>
-              <div className="space-y-3 hover-scale cursor-pointer">
-                <div className="text-5xl md:text-6xl font-bold text-secondary animate-fade-in">{stats.inProgress}</div>
-                <p className="text-muted-foreground">В работе сейчас</p>
-                <Icon name="Clock" size={24} className="text-secondary mx-auto animate-pulse" />
+              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
+                <div className="text-3xl md:text-6xl font-bold text-secondary animate-fade-in">{stats.inProgress}</div>
+                <p className="text-xs md:text-base text-muted-foreground">В работе сейчас</p>
+                <Icon name="Clock" size={20} className="md:w-6 md:h-6 text-secondary mx-auto animate-pulse" />
               </div>
-              <div className="space-y-3 hover-scale cursor-pointer">
-                <div className="text-5xl md:text-6xl font-bold text-accent animate-fade-in">24ч</div>
-                <p className="text-muted-foreground">Среднее время</p>
-                <Icon name="Zap" size={24} className="text-accent mx-auto animate-pulse" />
+              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
+                <div className="text-3xl md:text-6xl font-bold text-accent animate-fade-in">24ч</div>
+                <p className="text-xs md:text-base text-muted-foreground">Среднее время</p>
+                <Icon name="Zap" size={20} className="md:w-6 md:h-6 text-accent mx-auto animate-pulse" />
               </div>
-              <div className="space-y-3 hover-scale cursor-pointer">
-                <div className="text-5xl md:text-6xl font-bold text-primary animate-fade-in">90%</div>
-                <p className="text-muted-foreground">Точность подбора</p>
-                <Icon name="Target" size={24} className="text-primary mx-auto animate-pulse" />
+              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
+                <div className="text-3xl md:text-6xl font-bold text-primary animate-fade-in">90%</div>
+                <p className="text-xs md:text-base text-muted-foreground">Точность подбора</p>
+                <Icon name="Target" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
               </div>
             </div>
           </div>
@@ -1145,28 +1147,29 @@ const Index = () => {
       </footer>
 
       {!isChatOpen && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end animate-fade-in">
+        <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end animate-fade-in">
           <Button
             onClick={() => setIsConsultFormOpen(true)}
-            size="lg"
-            className="neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl"
+            size="sm"
+            className="neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto"
           >
-            <Icon name="Calendar" size={20} className="mr-2" />
-            Бесплатная консультация
+            <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+            <span className="hidden sm:inline">Бесплатная консультация</span>
+            <span className="sm:hidden">Консультация</span>
           </Button>
           
           <button
             onClick={() => setIsChatOpen(true)}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow hover:scale-110 transition-all shadow-2xl relative"
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow hover:scale-110 transition-all shadow-2xl relative"
           >
-            <Icon name="MessageCircle" size={28} className="text-white" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse" />
+            <Icon name="MessageCircle" size={24} className="md:w-7 md:h-7 text-white" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-accent rounded-full animate-pulse" />
           </button>
         </div>
       )}
 
       {isChatOpen && (
-        <Card className="fixed bottom-6 right-6 z-50 w-96 h-[600px] glass-dark border-primary/30 neon-glow flex flex-col animate-scale-in shadow-2xl">
+        <Card className="fixed bottom-0 md:bottom-6 right-0 md:right-6 z-50 w-full md:w-96 h-[100dvh] md:h-[600px] md:rounded-lg glass-dark border-primary/30 neon-glow flex flex-col animate-scale-in shadow-2xl">
           <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/20 to-secondary/20">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
@@ -1253,8 +1256,8 @@ const Index = () => {
       )}
 
       {isConsultFormOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in" onClick={() => setIsConsultFormOpen(false)}>
-          <Card className="glass-dark p-8 max-w-lg w-full neon-glow animate-scale-in" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-4 animate-fade-in" onClick={() => setIsConsultFormOpen(false)}>
+          <Card className="glass-dark p-5 md:p-8 max-w-lg w-full neon-glow animate-scale-in max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow">
