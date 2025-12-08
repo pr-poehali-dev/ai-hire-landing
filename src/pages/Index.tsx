@@ -214,7 +214,7 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-3 md:px-4 relative overflow-hidden">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
             {[
@@ -264,21 +264,21 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="container mx-auto relative z-10">
+        <div className="container mx-auto relative z-10 px-4">
           <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
               ✨ Первое HR-агентство с AI подбором
             </Badge>
             
-            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in px-2" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <p className="text-lg md:text-2xl text-muted-foreground animate-fade-in px-2" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg md:text-2xl text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s' }}>
               Или вернем деньги. Гарантия 100%
             </p>
 
-            <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in px-2" style={{ animationDelay: '0.6s' }}>
+            <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
                 <Icon name="Brain" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" />
                 <span className="text-xs md:text-base">ИИ-анализ</span>
@@ -293,7 +293,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 pt-2 md:pt-4 animate-fade-in px-2" style={{ animationDelay: '0.8s' }}>
+            <div className="flex justify-center gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
               <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
                 🔥 Найти сотрудника
               </Button>
@@ -302,12 +302,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="demo" className="py-12 md:py-20 px-3 md:px-4 bg-muted/5">
+      <section id="demo" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
             <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
-            <h2 className="text-2xl md:text-5xl font-bold neon-text px-2">Как мы находим лучших кандидатов</h2>
-            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+            <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
               AI анализирует видео-интервью и оценивает компетенции
             </p>
           </div>
@@ -450,7 +450,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="stats" className="py-12 md:py-20 px-3 md:px-4">
+      <section id="stats" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="glass rounded-2xl md:rounded-3xl p-6 md:p-12 max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
@@ -479,7 +479,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="success-charts" className="py-20 px-4">
+      <section id="success-charts" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">📊 Аналитика успешности</Badge>
@@ -603,7 +603,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="cases" className="py-20 px-4 bg-muted/5">
+      <section id="cases" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
@@ -748,7 +748,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="team" className="py-20 px-4 bg-muted/5">
+      <section id="team" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Наша команда</h2>
@@ -787,7 +787,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20 px-4">
+      <section id="testimonials" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
@@ -828,7 +828,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="faq" className="py-20 px-4 bg-muted/5">
+      <section id="faq" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">❓ Частые вопросы</Badge>
@@ -966,7 +966,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="cta" className="py-20 px-4">
+      <section id="cta" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="glass-dark rounded-3xl p-8 md:p-12 neon-glow max-w-2xl mx-auto animate-scale-in">
             <div className="text-center space-y-6">
@@ -1015,7 +1015,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-12 px-4 pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
+      <footer className="py-8 md:py-12 px-4 md:px-6 pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
