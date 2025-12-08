@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,7 +7,6 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { Slider } from '@/components/ui/slider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
@@ -23,11 +23,6 @@ const Index = () => {
     stress: 0,
     leadership: 0
   });
-  const [calcParams, setCalcParams] = useState({
-    positions: 1,
-    urgency: 24,
-    level: 2
-  });
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     { role: 'bot', text: 'Привет! 👋 Я Юра, виртуальный HR-ассистент. Чем могу помочь?', time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) }
@@ -35,26 +30,8 @@ const Index = () => {
   const [chatInput, setChatInput] = useState('');
   const [consultForm, setConsultForm] = useState({ name: '', phone: '', company: '', vacancy: '' });
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
-
-  const calculatePrice = () => {
-    const basePrice = 35000;
-    const positionMultiplier = calcParams.positions;
-    const urgencyMultiplier = calcParams.urgency === 12 ? 1.5 : calcParams.urgency === 24 ? 1 : 0.85;
-    const levelMultiplier = calcParams.level === 1 ? 1 : calcParams.level === 2 ? 2.14 : 3.14;
-    return Math.round(basePrice * positionMultiplier * urgencyMultiplier * levelMultiplier);
-  };
-
-  const getLevelName = (level: number) => {
-    if (level === 1) return 'Junior / Middle';
-    if (level === 2) return 'Senior';
-    return 'Team Lead / C-level';
-  };
-
-  const getUrgencyName = (hours: number) => {
-    if (hours === 12) return '12 часов';
-    if (hours === 24) return '24 часа';
-    return '48 часов';
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isConsultSubmitting, setIsConsultSubmitting] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -93,17 +70,67 @@ const Index = () => {
     }
   }, [isAnalyzing]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: 'Заявка отправлена! 🚀', description: 'Мы свяжемся с вами в течение 2 часов' });
-    setFormData({ name: '', phone: '' });
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          source: 'main_form'
+        })
+      });
+      
+      if (!response.ok) throw new Error('Failed to submit');
+      
+      toast({ title: 'Заявка отправлена! 🚀', description: 'Мы свяжемся с вами в течение 2 часов' });
+      setFormData({ name: '', phone: '' });
+    } catch (error) {
+      toast({ 
+        title: 'Ошибка отправки', 
+        description: 'Попробуйте еще раз или позвоните нам',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleConsultSubmit = (e: React.FormEvent) => {
+  const handleConsultSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
-    setConsultForm({ name: '', phone: '', company: '', vacancy: '' });
-    setIsConsultFormOpen(false);
+    setIsConsultSubmitting(true);
+    
+    try {
+      const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: consultForm.name,
+          phone: consultForm.phone,
+          company: consultForm.company,
+          vacancy: consultForm.vacancy,
+          source: 'consultation'
+        })
+      });
+      
+      if (!response.ok) throw new Error('Failed to submit');
+      
+      toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
+      setConsultForm({ name: '', phone: '', company: '', vacancy: '' });
+      setIsConsultFormOpen(false);
+    } catch (error) {
+      toast({ 
+        title: 'Ошибка отправки', 
+        description: 'Попробуйте еще раз или позвоните нам',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsConsultSubmitting(false);
+    }
   };
 
   const sendChatMessage = () => {
@@ -140,7 +167,11 @@ const Index = () => {
     { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://i.pravatar.cc/150?img=5' },
     { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://i.pravatar.cc/150?img=9' },
     { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://i.pravatar.cc/150?img=10' },
-    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://i.pravatar.cc/150?img=16' }
+    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://i.pravatar.cc/150?img=16' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://i.pravatar.cc/150?img=12' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/150?img=32' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://i.pravatar.cc/150?img=15' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/150?img=28' }
   ];
 
   const testimonials = [
@@ -170,8 +201,8 @@ const Index = () => {
 
             <nav className="hidden md:flex items-center gap-6">
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
-              <button onClick={() => scrollToSection('calculator')} className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</button>
-              <button onClick={() => scrollToSection('video-cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>
+              <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
+              <button onClick={() => scrollToSection('cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>
               <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
             </nav>
 
@@ -523,13 +554,13 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="video-cases" className="py-20 px-4 bg-muted/5">
+      <section id="cases" className="py-20 px-4 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎥 Видео-кейсы</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Истории успеха наших клиентов</h2>
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Отзывы от компаний</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Реальные руководители делятся опытом работы с нами
+              Более 120 компаний уже нашли своих сотрудников через нас
             </p>
           </div>
 
@@ -539,8 +570,7 @@ const Index = () => {
                 company: 'TechFlow Solutions',
                 person: 'Дмитрий Козлов',
                 role: 'Tech Lead',
-                position: 'Senior Backend Developer',
-                result: 'Найден за 16 часов',
+                text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно. За 8 месяцев работы он стал ключевым членом команды.',
                 img: 'https://i.pravatar.cc/300?img=12',
                 stats: { speed: '16ч', quality: '96%', period: '8 мес' }
               },
@@ -548,17 +578,15 @@ const Index = () => {
                 company: 'MegaSell Pro',
                 person: 'Анна Смирнова',
                 role: 'COO',
-                position: 'Head of Sales',
-                result: 'Рост продаж +40%',
+                text: 'Критически важно было найти человека быстро для запуска нового направления. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж составил +40% за первый квартал.',
                 img: 'https://i.pravatar.cc/300?img=23',
                 stats: { speed: '20ч', quality: '94%', period: '6 мес' }
               },
               { 
                 company: 'FinServe AI',
                 person: 'Елена Соколова',
-                role: 'Head of AI',
-                position: 'ML Engineer',
-                result: 'После 6 мес поиска',
+                role: 'Head of AI Department',
+                text: 'Искали полгода классическими методами без результата. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%. Сейчас работает над ключевым ML-проектом.',
                 img: 'https://i.pravatar.cc/300?img=20',
                 stats: { speed: '24ч', quality: '98%', period: '10 мес' }
               },
@@ -566,8 +594,7 @@ const Index = () => {
                 company: 'MobileHub',
                 person: 'Максим Петров',
                 role: 'Product Manager',
-                position: 'Senior iOS Developer',
-                result: 'Критичная позиция',
+                text: 'Боялись, что проект встанет из-за ухода iOS-разработчика. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения. Качество кода выросло на 50%.',
                 img: 'https://i.pravatar.cc/300?img=13',
                 stats: { speed: '18ч', quality: '95%', period: '7 мес' }
               },
@@ -575,8 +602,7 @@ const Index = () => {
                 company: 'TelecomPro',
                 person: 'Алексей Морозов',
                 role: 'Sales Director',
-                position: 'B2B Sales Manager',
-                result: 'Вернул 3 клиентов',
+                text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили при обычном подборе. За первый месяц вернул трёх крупных клиентов, которых потеряли год назад. Результат превзошёл все ожидания!',
                 img: 'https://i.pravatar.cc/300?img=33',
                 stats: { speed: '22ч', quality: '93%', period: '5 мес' }
               },
@@ -584,247 +610,91 @@ const Index = () => {
                 company: 'ConnectPlus',
                 person: 'Ирина Федорова',
                 role: 'Head of Sales',
-                position: 'Account Manager',
-                result: '+150% к выручке',
+                text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж. Лучший найм за последние 3 года!',
                 img: 'https://i.pravatar.cc/300?img=47',
                 stats: { speed: '19ч', quality: '97%', period: '9 мес' }
+              },
+              { 
+                company: 'DataSphere Analytics',
+                person: 'Сергей Волков',
+                role: 'CTO',
+                text: 'Нужен был data scientist с опытом в финтех. AI подобрал кандидата, который раньше работал в смежной сфере. За полгода создал 5 ML-моделей, которые принесли компании дополнительно 20 млн рублей.',
+                img: 'https://i.pravatar.cc/300?img=14',
+                stats: { speed: '21ч', quality: '99%', period: '6 мес' }
+              },
+              { 
+                company: 'CloudNine Technologies',
+                person: 'Мария Новикова',
+                role: 'HR Director',
+                text: 'Искали DevOps-инженера с опытом в Kubernetes. За 15 часов получили 3 сильных кандидата, выбрали лучшего. Он автоматизировал CI/CD pipeline, сократив время деплоя с 2 часов до 15 минут.',
+                img: 'https://i.pravatar.cc/300?img=25',
+                stats: { speed: '15ч', quality: '96%', period: '4 мес' }
+              },
+              { 
+                company: 'RetailMax Group',
+                person: 'Виктор Соловьёв',
+                role: 'CEO',
+                text: 'Нужен был COO для масштабирования бизнеса. AI-анализ выявил кандидата с успешным опытом выхода на маркетплейсы. За 3 месяца увеличил оборот на 60% и открыл 4 новых направления.',
+                img: 'https://i.pravatar.cc/300?img=32',
+                stats: { speed: '23ч', quality: '95%', period: '3 мес' }
+              },
+              { 
+                company: 'EduTech Innovations',
+                person: 'Ольга Романова',
+                role: 'Founder',
+                text: 'Искали senior front-end разработчика для EdTech платформы. За сутки нашли специалиста, который переписал интерфейс с нуля. Конверсия регистраций выросла на 80%, отзывы пользователей стали на 4.8 из 5.',
+                img: 'https://i.pravatar.cc/300?img=28',
+                stats: { speed: '24ч', quality: '98%', period: '5 мес' }
+              },
+              { 
+                company: 'GreenEnergy Solutions',
+                person: 'Андрей Белов',
+                role: 'Managing Partner',
+                text: 'Критически нужен был project manager для запуска нового проекта в энергетике. 1 DAY HR нашли профессионала за 17 часов. Проект запустился в срок, привлекли инвестиции на 50 млн рублей.',
+                img: 'https://i.pravatar.cc/300?img=35',
+                stats: { speed: '17ч', quality: '94%', period: '8 мес' }
+              },
+              { 
+                company: 'HealthCare Digital',
+                person: 'Татьяна Кузнецова',
+                role: 'Medical Director',
+                text: 'Искали специалиста на стык медицины и IT для цифровизации клиники. AI нашёл уникального кандидата с опытом в обеих областях. За 4 месяца внедрили электронные карты и автоматизацию записи. Экономия 30% времени врачей.',
+                img: 'https://i.pravatar.cc/300?img=41',
+                stats: { speed: '20ч', quality: '97%', period: '4 мес' }
               }
-            ].map((videoCase, idx) => (
-              <Card key={idx} className="glass-dark overflow-hidden hover:neon-glow transition-all hover-scale animate-fade-in group" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 overflow-hidden">
-                  <img src={videoCase.img} alt={videoCase.person} className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow group-hover:scale-110 transition-transform cursor-pointer">
-                      <Icon name="Play" size={32} className="text-white ml-1" />
-                    </div>
+            ].map((testimonial, idx) => (
+              <Card key={idx} className="glass-dark overflow-hidden hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: `${idx * 0.05}s` }}>
+                <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 overflow-hidden">
+                  <img src={testimonial.img} alt={testimonial.person} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="font-bold text-lg text-white drop-shadow-lg">{testimonial.company}</h3>
+                    <p className="text-sm text-white/90 drop-shadow-md">{testimonial.person} • {testimonial.role}</p>
                   </div>
-                  <Badge className="absolute top-4 right-4 bg-accent/90 text-white neon-glow">
-                    {videoCase.result}
-                  </Badge>
                 </div>
 
                 <div className="p-6 space-y-4">
-                  <div>
-                    <h3 className="font-bold text-lg">{videoCase.company}</h3>
-                    <p className="text-sm text-muted-foreground">{videoCase.person} • {videoCase.role}</p>
-                  </div>
-
-                  <div className="glass p-3 rounded-lg">
-                    <p className="text-sm text-primary font-medium mb-1">Закрытая вакансия:</p>
-                    <p className="text-xs text-muted-foreground">{videoCase.position}</p>
-                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {testimonial.text}
+                  </p>
 
                   <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border/50">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{videoCase.stats.speed}</div>
+                      <div className="text-lg font-bold text-primary">{testimonial.stats.speed}</div>
                       <div className="text-xs text-muted-foreground">найден</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg font-bold text-secondary">{videoCase.stats.quality}</div>
+                      <div className="text-lg font-bold text-secondary">{testimonial.stats.quality}</div>
                       <div className="text-xs text-muted-foreground">качество</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg font-bold text-accent">{videoCase.stats.period}</div>
+                      <div className="text-lg font-bold text-accent">{testimonial.stats.period}</div>
                       <div className="text-xs text-muted-foreground">работает</div>
                     </div>
                   </div>
                 </div>
               </Card>
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Card className="glass-dark p-8 max-w-3xl mx-auto hover:neon-glow transition-all">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Video" size={32} className="text-white" />
-                </div>
-                <div className="flex-1 text-left">
-                  <h3 className="text-xl font-bold mb-2">Хотите попасть в видео-кейс?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Расскажите свою историю успеха и получите скидку 20% на следующий подбор
-                  </p>
-                </div>
-                <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all flex-shrink-0">
-                  Участвовать
-                </Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="calculator" className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💰 Калькулятор стоимости</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Рассчитайте стоимость подбора</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Настройте параметры и узнайте точную цену прямо сейчас
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-8">
-            <Card className="glass-dark p-8 space-y-8 hover:neon-glow transition-all animate-fade-in">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="text-lg font-bold">Количество вакансий</h3>
-                      <p className="text-sm text-muted-foreground">Сколько сотрудников нужно найти</p>
-                    </div>
-                    <Badge className="text-2xl px-6 py-2 bg-primary/20 text-primary neon-glow">
-                      {calcParams.positions}
-                    </Badge>
-                  </div>
-                  <Slider 
-                    value={[calcParams.positions]} 
-                    onValueChange={(v) => setCalcParams({...calcParams, positions: v[0]})}
-                    min={1}
-                    max={10}
-                    step={1}
-                    className="cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>1 человек</span>
-                    <span>10 человек</span>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border/50" />
-
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="text-lg font-bold">Срочность</h3>
-                      <p className="text-sm text-muted-foreground">За какое время нужен результат</p>
-                    </div>
-                    <Badge className="text-lg px-4 py-2 bg-secondary/20 text-secondary neon-glow">
-                      {getUrgencyName(calcParams.urgency)}
-                    </Badge>
-                  </div>
-                  <Slider 
-                    value={[calcParams.urgency === 12 ? 0 : calcParams.urgency === 24 ? 1 : 2]} 
-                    onValueChange={(v) => {
-                      const urgencyMap = [12, 24, 48];
-                      setCalcParams({...calcParams, urgency: urgencyMap[v[0]]});
-                    }}
-                    min={0}
-                    max={2}
-                    step={1}
-                    className="cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>12 часов</span>
-                    <span>24 часа</span>
-                    <span>48 часов</span>
-                  </div>
-                </div>
-
-                <div className="h-px bg-border/50" />
-
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="text-lg font-bold">Уровень специалиста</h3>
-                      <p className="text-sm text-muted-foreground">Какую позицию нужно закрыть</p>
-                    </div>
-                    <Badge className="text-lg px-4 py-2 bg-accent/20 text-accent neon-glow">
-                      {getLevelName(calcParams.level)}
-                    </Badge>
-                  </div>
-                  <Slider 
-                    value={[calcParams.level]} 
-                    onValueChange={(v) => setCalcParams({...calcParams, level: v[0]})}
-                    min={1}
-                    max={3}
-                    step={1}
-                    className="cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Junior/Middle</span>
-                    <span>Senior</span>
-                    <span>Lead/C-level</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <div className="space-y-6">
-              <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                <div className="text-center space-y-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <Icon name="Calculator" size={32} className="text-primary animate-pulse" />
-                    <h3 className="text-2xl font-bold">Итоговая стоимость</h3>
-                  </div>
-                  
-                  <div className="py-8">
-                    <div className="text-7xl font-bold neon-text animate-scale-in">
-                      {calculatePrice().toLocaleString('ru-RU')}
-                    </div>
-                    <div className="text-2xl text-muted-foreground mt-2">рублей</div>
-                  </div>
-
-                  <div className="glass p-6 rounded-lg space-y-3 text-left">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Количество:</span>
-                      <span className="font-bold">{calcParams.positions} {calcParams.positions === 1 ? 'вакансия' : 'вакансии'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Срок:</span>
-                      <span className="font-bold text-secondary">{getUrgencyName(calcParams.urgency)}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Уровень:</span>
-                      <span className="font-bold text-accent">{getLevelName(calcParams.level)}</span>
-                    </div>
-                  </div>
-
-                  <Button onClick={() => scrollToSection('cta')} size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-lg py-6 mt-4">
-                    🔥 Заказать подбор
-                  </Button>
-                </div>
-              </Card>
-
-              <Card className="glass-dark p-6 space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                <div className="flex items-center gap-3">
-                  <Icon name="Gift" size={24} className="text-accent animate-pulse" />
-                  <h4 className="font-bold">Что входит в стоимость:</h4>
-                </div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>AI-анализ кандидатов и видео-интервью</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>Проверка рекомендаций и опыта работы</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>Гарантия замены на испытательном сроке</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>Поддержка HR-специалиста весь период</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>Возврат денег, если не найдем кандидата</span>
-                  </li>
-                </ul>
-              </Card>
-
-              <Card className="glass-dark p-6 border-accent/30 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <div className="flex items-center gap-3 mb-3">
-                  <Icon name="Percent" size={24} className="text-accent animate-pulse" />
-                  <h4 className="font-bold text-accent">Специальное предложение</h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  При заказе от 3 вакансий — скидка 15%. При заказе от 5 вакансий — скидка 25%!
-                </p>
-              </Card>
-            </div>
           </div>
         </div>
       </section>
@@ -1076,8 +946,15 @@ const Index = () => {
                   className="glass border-primary/30 h-14 text-lg focus:neon-glow transition-all"
                 />
 
-                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xl py-8">
-                  🔥 Найти сотрудника
+                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xl py-8" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Icon name="Loader2" className="animate-spin mr-2" size={20} />
+                      Отправка...
+                    </>
+                  ) : (
+                    <>🔥 Найти сотрудника</>
+                  )}
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">
@@ -1127,7 +1004,7 @@ const Index = () => {
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <button onClick={() => scrollToSection('demo')} className="text-left hover:text-primary transition-all hover:scale-110">AI Демо</button>
                 <button onClick={() => scrollToSection('calculator')} className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</button>
-                <button onClick={() => scrollToSection('video-cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
+                <button onClick={() => scrollToSection('cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
                 <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
               </div>
             </div>
@@ -1363,9 +1240,19 @@ const Index = () => {
                 type="submit"
                 size="lg"
                 className="w-full neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-105 transition-all text-lg py-6"
+                disabled={isConsultSubmitting}
               >
-                <Icon name="Rocket" size={20} className="mr-2" />
-                Заказать консультацию
+                {isConsultSubmitting ? (
+                  <>
+                    <Icon name="Loader2" className="animate-spin mr-2" size={20} />
+                    Отправка...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="Rocket" size={20} className="mr-2" />
+                    Заказать консультацию
+                  </>
+                )}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">

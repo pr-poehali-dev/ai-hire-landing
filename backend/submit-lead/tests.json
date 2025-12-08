@@ -1,0 +1,48 @@
+{
+  "tests": [
+    {
+      "name": "Submit lead with all fields",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Иванов",
+        "phone": "+7 999 123-45-67",
+        "company": "ООО Тестовая",
+        "vacancy": "Senior Developer",
+        "source": "calculator"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Submit lead with required fields only",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Петр Петров",
+        "phone": "+7 999 999-99-99"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Submit lead without phone (should fail)",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test User"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
