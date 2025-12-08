@@ -48,6 +48,21 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         if method == 'POST':
             body_data = json.loads(event.get('body', '{}'))
             action = body_data.get('action', 'analyze')
+            
+            if action == 'daily_plan':
+                leads_data = body_data.get('leads', [])
+                daily_tasks = generate_daily_plan(leads_data, cursor, openai_key)
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({
+                        'success': True,
+                        'daily_tasks': daily_tasks
+                    }),
+                    'isBase64Encoded': False
+                }
+            
             lead_id = body_data.get('lead_id')
             
             if not lead_id:
@@ -320,6 +335,84 @@ def summarize_lead(lead_context: dict, comments: list, api_key: str) -> str:
     
     except:
         return f"Лид {lead_context['name']} на этапе {lead_context['stage']}. Компания: {lead_context.get('company', 'не указана')}."
+
+
+def generate_daily_plan(leads_data: list, cursor, api_key: str) -> list:
+    '''Генерация плана задач на день на основе анализа всех лидов'''
+    from openai import OpenAI
+    
+    if not leads_data:
+        return []
+    
+    client = OpenAI(api_key=api_key)
+    
+    leads_summary = []
+    for lead in leads_data[:20]:
+        cursor.execute('''
+            SELECT 
+                COUNT(CASE WHEN completed = false THEN 1 END) as open_tasks,
+                COUNT(*) as total_tasks
+            FROM lead_tasks
+            WHERE lead_id = %s
+        ''', (lead['id'],))
+        tasks_info = cursor.fetchone()
+        
+        cursor.execute('''
+            SELECT COUNT(*) as calls_count,
+                   MAX(started_at) as last_call
+            FROM lead_calls
+            WHERE lead_id = %s
+        ''', (lead['id'],))
+        calls_info = cursor.fetchone()
+        
+        leads_summary.append({
+            'id': lead['id'],
+            'name': lead['name'],
+            'stage_id': lead['stage_id'],
+            'priority': lead['priority'],
+            'open_tasks': tasks_info['open_tasks'] if tasks_info else 0,
+            'last_call': str(calls_info['last_call']) if calls_info and calls_info['last_call'] else 'никогда'
+        })
+    
+    prompt = f"""Ты - AI-помощник HR-менеджера. Проанализируй список лидов и составь оптимальный план работы на день.
+
+Лиды:
+{json.dumps(leads_summary, ensure_ascii=False, indent=2)}
+
+Создай список из 5-7 самых важных задач на день. Учитывай:
+- Приоритет лида (high > medium > low)
+- Незавершенные задачи
+- Давность последнего звонка
+- Этап воронки (early stage = срочнее)
+
+Для каждой задачи укажи lead_id, lead_name, action, priority, reason, estimated_time.
+
+Ответ в JSON формате (массив объектов)."""
+    
+    try:
+        response = client.chat.completions.create(
+            model='gpt-4o-mini',
+            messages=[{'role': 'user', 'content': prompt}],
+            temperature=0.7,
+            max_tokens=1500,
+            response_format={"type": "json_object"}
+        )
+        
+        result = json.loads(response.choices[0].message.content)
+        daily_tasks = result.get('tasks', result.get('daily_tasks', []))
+        return daily_tasks[:7]
+        
+    except Exception as e:
+        return [
+            {
+                "lead_id": leads_data[0]['id'],
+                "lead_name": leads_data[0]['name'],
+                "action": "Связаться с клиентом",
+                "priority": "high",
+                "reason": f"Автоматическая рекомендация",
+                "estimated_time": "15 минут"
+            }
+        ]
 
 
 def generate_quick_insights(lead: dict, api_key: str) -> list:

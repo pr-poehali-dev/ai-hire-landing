@@ -6,14 +6,17 @@ from psycopg2.extras import RealDictCursor
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    CRM API для управления лидами: получение, создание, обновление, удаление
-    GET /leads - список всех лидов
-    GET /leads?id=123 - получить конкретный лид
+    CRM API для управления лидами и этапами
+    GET /leads - список всех лидов и этапов
+    GET /leads?id=123 - получить конкретный лид с деталями
     POST /leads - создать лид
-    PUT /leads - обновить лид
-    PATCH /leads/stage - изменить этап лида
+    PATCH /leads - обновить лид или изменить этап
+    POST /stages - создать этап
+    PATCH /stages - обновить этап
+    DELETE /stages/:id - удалить этап
     '''
     method: str = event.get('httpMethod', 'GET')
+    path: str = event.get('path', '')
     
     if method == 'OPTIONS':
         return {
@@ -101,30 +104,51 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         elif method == 'POST':
             body_data = json.loads(event.get('body', '{}'))
             
-            cursor.execute('''
-                INSERT INTO lead_data (name, phone, email, company, vacancy, source, priority, notes)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                RETURNING id
-            ''', (
-                body_data.get('name'),
-                body_data.get('phone'),
-                body_data.get('email'),
-                body_data.get('company'),
-                body_data.get('vacancy'),
-                body_data.get('source', 'manual'),
-                body_data.get('priority', 'medium'),
-                body_data.get('notes')
-            ))
-            
-            lead_id = cursor.fetchone()['id']
-            conn.commit()
-            
-            return {
-                'statusCode': 200,
-                'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-                'body': json.dumps({'success': True, 'lead_id': lead_id}),
-                'isBase64Encoded': False
-            }
+            if 'stages' in path:
+                cursor.execute('SELECT MAX(position) as max_pos FROM lead_stages')
+                result = cursor.fetchone()
+                next_position = (result['max_pos'] or 0) + 1
+                
+                cursor.execute('''
+                    INSERT INTO lead_stages (name, color, position)
+                    VALUES (%s, %s, %s)
+                    RETURNING id
+                ''', (body_data.get('name'), body_data.get('color', '#3b82f6'), body_data.get('position', next_position)))
+                
+                stage_id = cursor.fetchone()['id']
+                conn.commit()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True, 'stage_id': stage_id}),
+                    'isBase64Encoded': False
+                }
+            else:
+                cursor.execute('''
+                    INSERT INTO lead_data (name, phone, email, company, vacancy, source, priority, notes)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING id
+                ''', (
+                    body_data.get('name'),
+                    body_data.get('phone'),
+                    body_data.get('email'),
+                    body_data.get('company'),
+                    body_data.get('vacancy'),
+                    body_data.get('source', 'manual'),
+                    body_data.get('priority', 'medium'),
+                    body_data.get('notes')
+                ))
+                
+                lead_id = cursor.fetchone()['id']
+                conn.commit()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True, 'lead_id': lead_id}),
+                    'isBase64Encoded': False
+                }
         
         elif method == 'PUT':
             body_data = json.loads(event.get('body', '{}'))
@@ -164,26 +188,83 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         elif method == 'PATCH':
             body_data = json.loads(event.get('body', '{}'))
-            lead_id = body_data.get('id')
-            stage_id = body_data.get('stage_id')
             
-            if not lead_id or not stage_id:
+            if 'stages' in path:
+                stage_id = body_data.get('id')
+                if not stage_id:
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({'success': False, 'error': 'Stage ID required'}),
+                        'isBase64Encoded': False
+                    }
+                
+                cursor.execute('''
+                    UPDATE lead_stages
+                    SET name = %s, color = %s, position = %s
+                    WHERE id = %s
+                ''', (body_data.get('name'), body_data.get('color'), body_data.get('position', 0), stage_id))
+                conn.commit()
+                
                 return {
-                    'statusCode': 400,
+                    'statusCode': 200,
                     'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-                    'body': json.dumps({'success': False, 'error': 'Lead ID and Stage ID required'}),
+                    'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
-            
-            cursor.execute('UPDATE lead_data SET stage_id = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s', (stage_id, lead_id))
-            conn.commit()
-            
-            return {
-                'statusCode': 200,
-                'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-                'body': json.dumps({'success': True}),
-                'isBase64Encoded': False
-            }
+            else:
+                lead_id = body_data.get('id')
+                if not lead_id:
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({'success': False, 'error': 'Lead ID required'}),
+                        'isBase64Encoded': False
+                    }
+                
+                updates = []
+                params = []
+                
+                for field in ['name', 'phone', 'email', 'company', 'vacancy', 'priority', 'notes', 'stage_id']:
+                    if field in body_data:
+                        updates.append(f'{field} = %s')
+                        params.append(body_data[field])
+                
+                if updates:
+                    params.append(lead_id)
+                    cursor.execute(f'''
+                        UPDATE lead_data
+                        SET {', '.join(updates)}, updated_at = CURRENT_TIMESTAMP
+                        WHERE id = %s
+                    ''', params)
+                    conn.commit()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
+        
+        elif method == 'DELETE':
+            if 'stages' in path:
+                stage_id = path.split('/')[-1]
+                
+                cursor.execute('SELECT id FROM lead_stages ORDER BY position LIMIT 1')
+                first_stage = cursor.fetchone()
+                
+                if first_stage:
+                    cursor.execute('UPDATE lead_data SET stage_id = %s WHERE stage_id = %s', (first_stage['id'], stage_id))
+                
+                cursor.execute('DELETE FROM lead_stages WHERE id = %s', (stage_id,))
+                conn.commit()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
         
         return {
             'statusCode': 405,

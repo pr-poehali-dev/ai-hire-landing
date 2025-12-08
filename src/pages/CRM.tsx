@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
@@ -64,6 +65,15 @@ interface Call {
   started_at: string;
 }
 
+interface DailyTask {
+  lead_id: number;
+  lead_name: string;
+  action: string;
+  priority: string;
+  reason: string;
+  estimated_time: string;
+}
+
 const CRM = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -72,11 +82,41 @@ const CRM = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban');
-  const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
-  const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
-  const [taskForm, setTaskForm] = useState({ title: '', description: '', due_date: '', priority: 'medium' });
+  const [filterPriority, setFilterPriority] = useState<string>('all');
+  const [filterSource, setFilterSource] = useState<string>('all');
+  const [isLeadDialogOpen, setIsLeadDialogOpen] = useState(false);
+  const [isStageDialogOpen, setIsStageDialogOpen] = useState(false);
+  const [isDailyPlanOpen, setIsDailyPlanOpen] = useState(false);
+  const [dailyTasks, setDailyTasks] = useState<DailyTask[]>([]);
+  const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
+  
+  const [leadForm, setLeadForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    company: '',
+    vacancy: '',
+    source: 'manual',
+    priority: 'medium',
+    notes: ''
+  });
+
+  const [stageForm, setStageForm] = useState({
+    id: 0,
+    name: '',
+    color: '#3b82f6',
+    position: 0
+  });
+
+  const [taskForm, setTaskForm] = useState({
+    title: '',
+    description: '',
+    due_date: '',
+    priority: 'medium'
+  });
+
   const [commentText, setCommentText] = useState('');
+  const [editingLead, setEditingLead] = useState<Partial<Lead>>({});
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
@@ -113,9 +153,101 @@ const CRM = () => {
       const data = await response.json();
       if (data.success) {
         setSelectedLead(data.lead);
+        setEditingLead(data.lead);
       }
     } catch (error) {
       console.error('Error fetching lead details:', error);
+    }
+  };
+
+  const createLead = async () => {
+    if (!leadForm.name || !leadForm.phone) {
+      toast({ title: 'Заполните обязательные поля', variant: 'destructive' });
+      return;
+    }
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadForm)
+      });
+
+      if (response.ok) {
+        toast({ title: 'Лид создан!' });
+        setIsLeadDialogOpen(false);
+        setLeadForm({
+          name: '',
+          phone: '',
+          email: '',
+          company: '',
+          vacancy: '',
+          source: 'manual',
+          priority: 'medium',
+          notes: ''
+        });
+        fetchLeads();
+      }
+    } catch (error) {
+      toast({ title: 'Ошибка создания лида', variant: 'destructive' });
+    }
+  };
+
+  const updateLead = async () => {
+    if (!selectedLead) return;
+
+    try {
+      await fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: selectedLead.id, ...editingLead })
+      });
+
+      toast({ title: 'Лид обновлен' });
+      fetchLeads();
+      fetchLeadDetails(selectedLead.id);
+    } catch (error) {
+      toast({ title: 'Ошибка обновления', variant: 'destructive' });
+    }
+  };
+
+  const saveStage = async () => {
+    if (!stageForm.name) {
+      toast({ title: 'Введите название этапа', variant: 'destructive' });
+      return;
+    }
+
+    try {
+      const method = stageForm.id ? 'PATCH' : 'POST';
+      const response = await fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6/stages', {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(stageForm)
+      });
+
+      if (response.ok) {
+        toast({ title: stageForm.id ? 'Этап обновлен' : 'Этап создан' });
+        setIsStageDialogOpen(false);
+        setStageForm({ id: 0, name: '', color: '#3b82f6', position: 0 });
+        fetchLeads();
+      }
+    } catch (error) {
+      toast({ title: 'Ошибка сохранения этапа', variant: 'destructive' });
+    }
+  };
+
+  const deleteStage = async (stageId: number) => {
+    if (!confirm('Удалить этап? Все лиды будут перемещены в первый этап.')) return;
+
+    try {
+      await fetch(`https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6/stages/${stageId}`, {
+        method: 'DELETE'
+      });
+
+      toast({ title: 'Этап удален' });
+      fetchLeads();
+    } catch (error) {
+      toast({ title: 'Ошибка удаления', variant: 'destructive' });
     }
   };
 
@@ -137,9 +269,9 @@ const CRM = () => {
         lead.id === leadId ? { ...lead, stage_id: newStageId } : lead
       ));
 
-      toast({ title: 'Этап изменен', description: 'Лид перемещен успешно' });
+      toast({ title: 'Этап изменен' });
     } catch (error) {
-      toast({ title: 'Ошибка', description: 'Не удалось переместить лид', variant: 'destructive' });
+      toast({ title: 'Ошибка', variant: 'destructive' });
     }
   };
 
@@ -150,38 +282,45 @@ const CRM = () => {
       await fetch('https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lead_id: selectedLead.id,
-          ...taskForm
-        })
+        body: JSON.stringify({ lead_id: selectedLead.id, ...taskForm })
       });
 
-      toast({ title: 'Задача создана' });
-      setIsTaskDialogOpen(false);
+      toast({ title: 'Задача добавлена' });
       setTaskForm({ title: '', description: '', due_date: '', priority: 'medium' });
       fetchLeadDetails(selectedLead.id);
     } catch (error) {
-      toast({ title: 'Ошибка создания задачи', variant: 'destructive' });
+      toast({ title: 'Ошибка добавления задачи', variant: 'destructive' });
+    }
+  };
+
+  const toggleTask = async (taskId: number, completed: boolean) => {
+    if (!selectedLead) return;
+
+    try {
+      await fetch('https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: taskId, completed })
+      });
+
+      fetchLeadDetails(selectedLead.id);
+    } catch (error) {
+      toast({ title: 'Ошибка обновления задачи', variant: 'destructive' });
     }
   };
 
   const addComment = async () => {
-    if (!selectedLead || !commentText) return;
+    if (!selectedLead || !commentText.trim()) return;
 
     try {
       await fetch('https://functions.poehali.dev/7a588f89-07d2-4cbe-9eec-6ef7c265b718', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lead_id: selectedLead.id,
-          author_name: localStorage.getItem('user_name') || 'HR Manager',
-          text: commentText
-        })
+        body: JSON.stringify({ lead_id: selectedLead.id, text: commentText })
       });
 
       toast({ title: 'Комментарий добавлен' });
       setCommentText('');
-      setIsCommentDialogOpen(false);
       fetchLeadDetails(selectedLead.id);
     } catch (error) {
       toast({ title: 'Ошибка добавления комментария', variant: 'destructive' });
@@ -206,39 +345,57 @@ const CRM = () => {
       if (data.success) {
         toast({ 
           title: 'Звонок инициирован', 
-          description: data.message || 'Подключите Манго Офис для реальных звонков'
+          description: data.message || 'Звонок отправлен в Mango Office'
         });
         fetchLeadDetails(selectedLead.id);
+      } else {
+        toast({ 
+          title: 'Ошибка звонка', 
+          description: data.error,
+          variant: 'destructive' 
+        });
       }
     } catch (error) {
       toast({ title: 'Ошибка звонка', variant: 'destructive' });
     }
   };
 
-  const updateLead = async (updates: Partial<Lead>) => {
-    if (!selectedLead) return;
-
+  const generateDailyPlan = async () => {
+    setIsGeneratingPlan(true);
     try {
-      await fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6', {
-        method: 'PUT',
+      const response = await fetch('https://functions.poehali.dev/b5093c80-da38-4c7f-8452-5125c945efe3', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: selectedLead.id, ...updates })
+        body: JSON.stringify({ 
+          action: 'daily_plan',
+          leads: leads.map(l => ({ id: l.id, name: l.name, stage_id: l.stage_id, priority: l.priority }))
+        })
       });
 
-      toast({ title: 'Лид обновлен' });
-      fetchLeads();
-      fetchLeadDetails(selectedLead.id);
+      const data = await response.json();
+      
+      if (data.success && data.daily_tasks) {
+        setDailyTasks(data.daily_tasks);
+        setIsDailyPlanOpen(true);
+        toast({ title: 'План на день готов!' });
+      }
     } catch (error) {
-      toast({ title: 'Ошибка обновления', variant: 'destructive' });
+      toast({ title: 'Ошибка генерации плана', variant: 'destructive' });
+    } finally {
+      setIsGeneratingPlan(false);
     }
   };
 
-  const filteredLeads = leads.filter(lead =>
-    lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    lead.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    lead.company?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    lead.vacancy?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredLeads = leads.filter(lead => {
+    const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.company?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesPriority = filterPriority === 'all' || lead.priority === filterPriority;
+    const matchesSource = filterSource === 'all' || lead.source === filterSource;
+    
+    return matchesSearch && matchesPriority && matchesSource;
+  });
 
   const getLeadsByStage = (stageId: number) => {
     return filteredLeads.filter(lead => lead.stage_id === stageId);
@@ -246,9 +403,9 @@ const CRM = () => {
 
   const getPriorityColor = (priority: string) => {
     const colors: Record<string, string> = {
-      high: 'bg-red-500/20 text-red-400',
-      medium: 'bg-yellow-500/20 text-yellow-400',
-      low: 'bg-green-500/20 text-green-400'
+      high: 'bg-red-500/20 text-red-400 border-red-500/30',
+      medium: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+      low: 'bg-green-500/20 text-green-400 border-green-500/30'
     };
     return colors[priority] || colors.medium;
   };
@@ -262,6 +419,8 @@ const CRM = () => {
       minute: '2-digit'
     });
   };
+
+  const sources = Array.from(new Set(leads.map(l => l.source)));
 
   return (
     <div className="min-h-screen bg-background">
@@ -279,9 +438,13 @@ const CRM = () => {
             </button>
 
             <div className="flex items-center gap-2">
-              <Button onClick={() => setViewMode(viewMode === 'kanban' ? 'list' : 'kanban')} variant="outline" size="sm">
-                <Icon name={viewMode === 'kanban' ? 'List' : 'Columns'} size={16} className="mr-2" />
-                {viewMode === 'kanban' ? 'Список' : 'Канбан'}
+              <Button onClick={() => setIsLeadDialogOpen(true)} className="neon-glow">
+                <Icon name="Plus" size={16} className="mr-2" />
+                Добавить лид
+              </Button>
+              <Button onClick={generateDailyPlan} variant="outline" disabled={isGeneratingPlan}>
+                <Icon name={isGeneratingPlan ? "Loader2" : "CalendarCheck"} size={16} className={`mr-2 ${isGeneratingPlan ? 'animate-spin' : ''}`} />
+                План на день
               </Button>
               <Button onClick={fetchLeads} variant="outline" size="sm">
                 <Icon name="RefreshCw" size={16} className="mr-2" />
@@ -308,17 +471,63 @@ const CRM = () => {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-4xl font-bold neon-text">CRM система</h1>
-              <Badge className="text-lg px-4 py-2 neon-glow">{filteredLeads.length} лидов</Badge>
+              <div className="flex items-center gap-4">
+                <Badge className="text-lg px-4 py-2 neon-glow">{filteredLeads.length} лидов</Badge>
+                <Button onClick={() => setIsStageDialogOpen(true)} variant="outline" size="sm">
+                  <Icon name="Settings" size={16} className="mr-2" />
+                  Настройка этапов
+                </Button>
+              </div>
             </div>
 
-            <div className="relative max-w-md">
-              <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input 
-                placeholder="Поиск по имени, телефону, компании..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 glass border-primary/30 h-12"
-              />
+            <div className="flex gap-4 items-center">
+              <div className="relative flex-1 max-w-md">
+                <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input 
+                  placeholder="Поиск по имени, телефону, компании..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 glass border-primary/30"
+                />
+              </div>
+
+              <Select value={filterPriority} onValueChange={setFilterPriority}>
+                <SelectTrigger className="w-40 glass">
+                  <SelectValue placeholder="Приоритет" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Все приоритеты</SelectItem>
+                  <SelectItem value="high">Высокий</SelectItem>
+                  <SelectItem value="medium">Средний</SelectItem>
+                  <SelectItem value="low">Низкий</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={filterSource} onValueChange={setFilterSource}>
+                <SelectTrigger className="w-40 glass">
+                  <SelectValue placeholder="Источник" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Все источники</SelectItem>
+                  {sources.map(source => (
+                    <SelectItem key={source} value={source}>{source}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {(filterPriority !== 'all' || filterSource !== 'all') && (
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => {
+                    setFilterPriority('all');
+                    setFilterSource('all');
+                  }}
+                >
+                  <Icon name="X" size={16} className="mr-2" />
+                  Сбросить
+                </Button>
+              )}
             </div>
           </div>
 
@@ -326,26 +535,42 @@ const CRM = () => {
             <div className="flex items-center justify-center py-20">
               <Icon name="Loader2" size={48} className="animate-spin text-primary" />
             </div>
-          ) : viewMode === 'kanban' ? (
+          ) : (
             <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <div className="flex gap-4 overflow-x-auto pb-4">
                 {stages.map(stage => (
                   <Droppable key={stage.id} droppableId={String(stage.id)}>
                     {(provided) => (
-                      <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <Card className="glass-dark p-4">
+                      <div 
+                        ref={provided.innerRef} 
+                        {...provided.droppableProps}
+                        className="flex-shrink-0 w-80"
+                      >
+                        <Card className="glass-dark p-4 h-full">
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
                               <div 
                                 className="w-3 h-3 rounded-full" 
                                 style={{ backgroundColor: stage.color }}
                               />
-                              <h3 className="font-bold text-sm">{stage.name}</h3>
+                              <h3 className="font-bold">{stage.name}</h3>
                             </div>
-                            <Badge className="bg-muted">{getLeadsByStage(stage.id).length}</Badge>
+                            <div className="flex items-center gap-2">
+                              <Badge className="bg-muted">{getLeadsByStage(stage.id).length}</Badge>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => {
+                                  setStageForm(stage);
+                                  setIsStageDialogOpen(true);
+                                }}
+                              >
+                                <Icon name="Edit" size={14} />
+                              </Button>
+                            </div>
                           </div>
 
-                          <div className="space-y-2 min-h-[200px]">
+                          <div className="space-y-2 min-h-[400px] max-h-[calc(100vh-280px)] overflow-y-auto">
                             {getLeadsByStage(stage.id).map((lead, index) => (
                               <Draggable key={lead.id} draggableId={String(lead.id)} index={index}>
                                 {(provided) => (
@@ -377,6 +602,10 @@ const CRM = () => {
                                             {lead.company}
                                           </div>
                                         )}
+                                        <div className="flex items-center gap-1">
+                                          <Icon name="Tag" size={12} />
+                                          {lead.source}
+                                        </div>
                                       </div>
                                     </div>
                                   </Card>
@@ -392,313 +621,491 @@ const CRM = () => {
                 ))}
               </div>
             </DragDropContext>
-          ) : (
-            <div className="grid gap-4">
-              {filteredLeads.map(lead => (
-                <Card 
-                  key={lead.id} 
-                  className="glass-dark p-6 hover:neon-glow transition-all cursor-pointer"
-                  onClick={() => {
-                    setSelectedLead(lead);
-                    fetchLeadDetails(lead.id);
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <Icon name="User" size={24} className="text-primary" />
-                      <div>
-                        <h3 className="font-bold text-lg">{lead.name}</h3>
-                        <p className="text-sm text-muted-foreground">{lead.phone}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge className={getPriorityColor(lead.priority)}>{lead.priority}</Badge>
-                      <Badge style={{ backgroundColor: lead.stage_color }}>{lead.stage_name}</Badge>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
           )}
         </div>
       </section>
 
-      <Dialog open={!!selectedLead} onOpenChange={() => setSelectedLead(null)}>
+      <Dialog open={!!selectedLead} onOpenChange={(open) => !open && setSelectedLead(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-dark">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span className="text-2xl neon-text">{selectedLead?.name}</span>
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => selectedLead && initiateCall(selectedLead.phone)}>
+                  <Icon name="Phone" size={16} className="mr-2" />
+                  Позвонить
+                </Button>
+                <Button size="sm" onClick={updateLead} className="neon-glow">
+                  <Icon name="Save" size={16} className="mr-2" />
+                  Сохранить
+                </Button>
+              </div>
+            </DialogTitle>
+          </DialogHeader>
+
           {selectedLead && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="text-2xl neon-text flex items-center justify-between">
-                  <span>{selectedLead.name}</span>
-                  <div className="flex gap-2">
-                    <Button size="sm" onClick={() => initiateCall(selectedLead.phone)} className="neon-glow">
-                      <Icon name="Phone" size={16} className="mr-1" />
-                      Позвонить
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => setSelectedLead(null)}>
-                      <Icon name="X" size={16} />
-                    </Button>
-                  </div>
-                </DialogTitle>
-              </DialogHeader>
+            <Tabs defaultValue="info" className="mt-4">
+              <TabsList className="grid w-full grid-cols-5 glass">
+                <TabsTrigger value="info">
+                  <Icon name="User" size={16} className="mr-2" />
+                  Информация
+                </TabsTrigger>
+                <TabsTrigger value="tasks">
+                  <Icon name="CheckSquare" size={16} className="mr-2" />
+                  Задачи ({selectedLead.tasks?.length || 0})
+                </TabsTrigger>
+                <TabsTrigger value="comments">
+                  <Icon name="MessageSquare" size={16} className="mr-2" />
+                  Комментарии ({selectedLead.comments?.length || 0})
+                </TabsTrigger>
+                <TabsTrigger value="calls">
+                  <Icon name="Phone" size={16} className="mr-2" />
+                  Звонки ({selectedLead.calls?.length || 0})
+                </TabsTrigger>
+                <TabsTrigger value="ai">
+                  <Icon name="Sparkles" size={16} className="mr-2" />
+                  AI-анализ
+                </TabsTrigger>
+              </TabsList>
 
-              <Tabs defaultValue="info" className="mt-4">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="info">Информация</TabsTrigger>
-                  <TabsTrigger value="tasks">Задачи ({selectedLead.tasks?.length || 0})</TabsTrigger>
-                  <TabsTrigger value="comments">Комментарии ({selectedLead.comments?.length || 0})</TabsTrigger>
-                  <TabsTrigger value="calls">Звонки ({selectedLead.calls?.length || 0})</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="info" className="space-y-4 mt-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm text-muted-foreground">Имя</label>
-                      <Input 
-                        value={selectedLead.name} 
-                        onChange={(e) => setSelectedLead({...selectedLead, name: e.target.value})}
-                        onBlur={() => updateLead({ name: selectedLead.name })}
-                        className="glass mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Телефон</label>
-                      <Input 
-                        value={selectedLead.phone}
-                        onChange={(e) => setSelectedLead({...selectedLead, phone: e.target.value})}
-                        onBlur={() => updateLead({ phone: selectedLead.phone })}
-                        className="glass mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Email</label>
-                      <Input 
-                        value={selectedLead.email || ''}
-                        onChange={(e) => setSelectedLead({...selectedLead, email: e.target.value})}
-                        onBlur={() => updateLead({ email: selectedLead.email })}
-                        className="glass mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Компания</label>
-                      <Input 
-                        value={selectedLead.company || ''}
-                        onChange={(e) => setSelectedLead({...selectedLead, company: e.target.value})}
-                        onBlur={() => updateLead({ company: selectedLead.company })}
-                        className="glass mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Вакансия</label>
-                      <Input 
-                        value={selectedLead.vacancy || ''}
-                        onChange={(e) => setSelectedLead({...selectedLead, vacancy: e.target.value})}
-                        onBlur={() => updateLead({ vacancy: selectedLead.vacancy })}
-                        className="glass mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Приоритет</label>
-                      <select 
-                        value={selectedLead.priority}
-                        onChange={(e) => {
-                          setSelectedLead({...selectedLead, priority: e.target.value});
-                          updateLead({ priority: e.target.value });
-                        }}
-                        className="glass border border-primary/30 rounded-md px-4 py-2 h-10 bg-background text-foreground w-full mt-1"
-                      >
-                        <option value="low">Низкий</option>
-                        <option value="medium">Средний</option>
-                        <option value="high">Высокий</option>
-                      </select>
-                    </div>
-                  </div>
+              <TabsContent value="info" className="space-y-4 mt-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm text-muted-foreground">Заметки</label>
-                    <Textarea 
-                      value={selectedLead.notes || ''}
-                      onChange={(e) => setSelectedLead({...selectedLead, notes: e.target.value})}
-                      onBlur={() => updateLead({ notes: selectedLead.notes })}
-                      className="glass mt-1 min-h-[100px]"
+                    <label className="text-sm text-muted-foreground">Имя</label>
+                    <Input 
+                      value={editingLead.name || ''} 
+                      onChange={(e) => setEditingLead({ ...editingLead, name: e.target.value })}
+                      className="glass mt-1"
                     />
                   </div>
-                </TabsContent>
-
-                <TabsContent value="ai" className="mt-4">
-                  <AIAssistant 
-                    leadId={selectedLead.id} 
-                    onCreateTask={(task) => {
-                      setTaskForm({
-                        title: task.title,
-                        description: task.description,
-                        due_date: '',
-                        priority: task.priority
-                      });
-                      setIsTaskDialogOpen(true);
-                    }}
+                  <div>
+                    <label className="text-sm text-muted-foreground">Телефон</label>
+                    <Input 
+                      value={editingLead.phone || ''} 
+                      onChange={(e) => setEditingLead({ ...editingLead, phone: e.target.value })}
+                      className="glass mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Email</label>
+                    <Input 
+                      value={editingLead.email || ''} 
+                      onChange={(e) => setEditingLead({ ...editingLead, email: e.target.value })}
+                      className="glass mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Компания</label>
+                    <Input 
+                      value={editingLead.company || ''} 
+                      onChange={(e) => setEditingLead({ ...editingLead, company: e.target.value })}
+                      className="glass mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Вакансия</label>
+                    <Input 
+                      value={editingLead.vacancy || ''} 
+                      onChange={(e) => setEditingLead({ ...editingLead, vacancy: e.target.value })}
+                      className="glass mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Приоритет</label>
+                    <Select 
+                      value={editingLead.priority || 'medium'} 
+                      onValueChange={(v) => setEditingLead({ ...editingLead, priority: v })}
+                    >
+                      <SelectTrigger className="glass mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="high">Высокий</SelectItem>
+                        <SelectItem value="medium">Средний</SelectItem>
+                        <SelectItem value="low">Низкий</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground">Заметки</label>
+                  <Textarea 
+                    value={editingLead.notes || ''} 
+                    onChange={(e) => setEditingLead({ ...editingLead, notes: e.target.value })}
+                    className="glass mt-1 min-h-[100px]"
                   />
-                </TabsContent>
-
-                <TabsContent value="tasks" className="space-y-4 mt-4">
-                  <Button onClick={() => setIsTaskDialogOpen(true)} className="w-full neon-glow">
-                    <Icon name="Plus" size={16} className="mr-2" />
-                    Добавить задачу
-                  </Button>
-
-                  <div className="space-y-2">
-                    {selectedLead.tasks?.map(task => (
-                      <Card key={task.id} className="glass p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-3 flex-1">
-                            <input 
-                              type="checkbox" 
-                              checked={task.completed}
-                              className="mt-1"
-                              readOnly
-                            />
-                            <div className="flex-1">
-                              <h4 className="font-bold">{task.title}</h4>
-                              {task.description && <p className="text-sm text-muted-foreground mt-1">{task.description}</p>}
-                              {task.due_date && (
-                                <p className="text-xs text-muted-foreground mt-2">
-                                  <Icon name="Clock" size={12} className="inline mr-1" />
-                                  {formatDate(task.due_date)}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                          <Badge className={getPriorityColor(task.priority)}>{task.priority}</Badge>
-                        </div>
-                      </Card>
-                    ))}
+                </div>
+                <Card className="glass p-4">
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">Источник:</span>
+                      <span className="ml-2 font-bold">{selectedLead.source}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Создан:</span>
+                      <span className="ml-2 font-bold">{formatDate(selectedLead.created_at)}</span>
+                    </div>
                   </div>
-                </TabsContent>
+                </Card>
+              </TabsContent>
 
-                <TabsContent value="comments" className="space-y-4 mt-4">
-                  <Button onClick={() => setIsCommentDialogOpen(true)} className="w-full neon-glow">
-                    <Icon name="MessageSquare" size={16} className="mr-2" />
-                    Добавить комментарий
-                  </Button>
-
-                  <div className="space-y-2">
-                    {selectedLead.comments?.map(comment => (
-                      <Card key={comment.id} className="glass p-4">
-                        <div className="flex items-start gap-3">
-                          <Icon name="User" size={20} className="text-primary mt-1" />
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="font-bold text-sm">{comment.author_name || 'HR Manager'}</span>
-                              <span className="text-xs text-muted-foreground">{formatDate(comment.created_at)}</span>
-                            </div>
-                            <p className="text-sm">{comment.text}</p>
-                          </div>
-                        </div>
-                      </Card>
-                    ))}
+              <TabsContent value="tasks" className="space-y-4 mt-4">
+                <Card className="glass p-4">
+                  <div className="space-y-3">
+                    <Input 
+                      placeholder="Название задачи" 
+                      value={taskForm.title}
+                      onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+                      className="glass"
+                    />
+                    <Textarea 
+                      placeholder="Описание (опционально)" 
+                      value={taskForm.description}
+                      onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
+                      className="glass"
+                    />
+                    <div className="flex gap-2">
+                      <Input 
+                        type="datetime-local"
+                        value={taskForm.due_date}
+                        onChange={(e) => setTaskForm({ ...taskForm, due_date: e.target.value })}
+                        className="glass"
+                      />
+                      <Select 
+                        value={taskForm.priority} 
+                        onValueChange={(v) => setTaskForm({ ...taskForm, priority: v })}
+                      >
+                        <SelectTrigger className="glass w-32">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="high">Высокий</SelectItem>
+                          <SelectItem value="medium">Средний</SelectItem>
+                          <SelectItem value="low">Низкий</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button onClick={addTask} className="w-full neon-glow">
+                      <Icon name="Plus" size={16} className="mr-2" />
+                      Добавить задачу
+                    </Button>
                   </div>
-                </TabsContent>
+                </Card>
 
-                <TabsContent value="calls" className="space-y-4 mt-4">
-                  <div className="space-y-2">
-                    {selectedLead.calls?.map(call => (
-                      <Card key={call.id} className="glass p-4">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-3">
-                            <Icon name={call.direction === 'outbound' ? 'PhoneOutgoing' : 'PhoneIncoming'} size={20} className="text-primary mt-1" />
-                            <div>
-                              <div className="font-bold">{call.phone_number}</div>
-                              <div className="text-sm text-muted-foreground mt-1">
-                                {formatDate(call.started_at)} • {call.duration} сек
+                <div className="space-y-2">
+                  {selectedLead.tasks?.map(task => (
+                    <Card key={task.id} className="glass p-4 hover:neon-glow transition-all">
+                      <div className="flex items-start gap-3">
+                        <button 
+                          onClick={() => toggleTask(task.id, !task.completed)}
+                          className="mt-1"
+                        >
+                          <Icon 
+                            name={task.completed ? "CheckSquare" : "Square"} 
+                            size={20} 
+                            className={task.completed ? "text-primary" : "text-muted-foreground"}
+                          />
+                        </button>
+                        <div className="flex-1">
+                          <h4 className={`font-bold ${task.completed ? 'line-through text-muted-foreground' : ''}`}>
+                            {task.title}
+                          </h4>
+                          {task.description && (
+                            <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
+                          )}
+                          <div className="flex items-center gap-3 mt-2">
+                            {task.due_date && (
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                <Icon name="Calendar" size={12} />
+                                {formatDate(task.due_date)}
                               </div>
-                              {call.recording_url && (
-                                <a href={call.recording_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-2 inline-block">
-                                  <Icon name="Play" size={12} className="inline mr-1" />
-                                  Прослушать запись
-                                </a>
-                              )}
-                            </div>
+                            )}
+                            <Badge className={getPriorityColor(task.priority)} style={{ fontSize: '10px', padding: '2px 6px' }}>
+                              {task.priority}
+                            </Badge>
                           </div>
-                          <Badge>{call.status}</Badge>
                         </div>
-                      </Card>
-                    ))}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="comments" className="space-y-4 mt-4">
+                <Card className="glass p-4">
+                  <div className="space-y-3">
+                    <Textarea 
+                      placeholder="Добавить комментарий..." 
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                      className="glass min-h-[80px]"
+                    />
+                    <Button onClick={addComment} className="w-full neon-glow">
+                      <Icon name="Send" size={16} className="mr-2" />
+                      Добавить комментарий
+                    </Button>
                   </div>
-                </TabsContent>
-              </Tabs>
-            </>
+                </Card>
+
+                <div className="space-y-2">
+                  {selectedLead.comments?.map(comment => (
+                    <Card key={comment.id} className="glass p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <span className="font-bold text-sm">{comment.author_name || 'Менеджер'}</span>
+                        <span className="text-xs text-muted-foreground">{formatDate(comment.created_at)}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{comment.text}</p>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="calls" className="space-y-4 mt-4">
+                <div className="space-y-2">
+                  {selectedLead.calls?.map(call => (
+                    <Card key={call.id} className="glass p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Icon 
+                            name={call.direction === 'inbound' ? 'PhoneIncoming' : 'PhoneOutgoing'} 
+                            size={20} 
+                            className="text-primary"
+                          />
+                          <div>
+                            <p className="font-bold">{call.phone_number}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {call.direction === 'inbound' ? 'Входящий' : 'Исходящий'} • {call.duration}с
+                            </p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <Badge className={call.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}>
+                            {call.status}
+                          </Badge>
+                          <p className="text-xs text-muted-foreground mt-1">{formatDate(call.started_at)}</p>
+                        </div>
+                      </div>
+                      {call.recording_url && (
+                        <div className="mt-3">
+                          <audio controls src={call.recording_url} className="w-full" />
+                        </div>
+                      )}
+                    </Card>
+                  ))}
+                  {(!selectedLead.calls || selectedLead.calls.length === 0) && (
+                    <Card className="glass p-6 text-center">
+                      <Icon name="Phone" size={32} className="mx-auto mb-2 text-muted-foreground" />
+                      <p className="text-muted-foreground">История звонков пуста</p>
+                    </Card>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="ai" className="mt-4">
+                <AIAssistant leadId={selectedLead.id} />
+              </TabsContent>
+            </Tabs>
           )}
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
+      <Dialog open={isLeadDialogOpen} onOpenChange={setIsLeadDialogOpen}>
         <DialogContent className="glass-dark">
           <DialogHeader>
-            <DialogTitle className="neon-text">Новая задача</DialogTitle>
+            <DialogTitle className="neon-text">Создать лид</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <div>
-              <label className="text-sm text-muted-foreground">Название задачи</label>
+              <label className="text-sm text-muted-foreground">Имя *</label>
               <Input 
-                value={taskForm.title}
-                onChange={(e) => setTaskForm({...taskForm, title: e.target.value})}
+                value={leadForm.name} 
+                onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                 className="glass mt-1"
-                placeholder="Перезвонить клиенту"
+                placeholder="Иван Иванов"
               />
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Описание</label>
-              <Textarea 
-                value={taskForm.description}
-                onChange={(e) => setTaskForm({...taskForm, description: e.target.value})}
+              <label className="text-sm text-muted-foreground">Телефон *</label>
+              <Input 
+                value={leadForm.phone} 
+                onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                 className="glass mt-1"
-                placeholder="Детали задачи..."
+                placeholder="+7 999 123-45-67"
               />
             </div>
             <div>
-              <label className="text-sm text-muted-foreground">Срок выполнения</label>
+              <label className="text-sm text-muted-foreground">Email</label>
               <Input 
-                type="datetime-local"
-                value={taskForm.due_date}
-                onChange={(e) => setTaskForm({...taskForm, due_date: e.target.value})}
+                value={leadForm.email} 
+                onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                 className="glass mt-1"
+                placeholder="email@example.com"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground">Компания</label>
+              <Input 
+                value={leadForm.company} 
+                onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                className="glass mt-1"
+                placeholder="ООО Компания"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground">Вакансия</label>
+              <Input 
+                value={leadForm.vacancy} 
+                onChange={(e) => setLeadForm({ ...leadForm, vacancy: e.target.value })}
+                className="glass mt-1"
+                placeholder="Senior Developer"
               />
             </div>
             <div>
               <label className="text-sm text-muted-foreground">Приоритет</label>
-              <select 
-                value={taskForm.priority}
-                onChange={(e) => setTaskForm({...taskForm, priority: e.target.value})}
-                className="glass border border-primary/30 rounded-md px-4 py-2 h-10 bg-background text-foreground w-full mt-1"
-              >
-                <option value="low">Низкий</option>
-                <option value="medium">Средний</option>
-                <option value="high">Высокий</option>
-              </select>
+              <Select value={leadForm.priority} onValueChange={(v) => setLeadForm({ ...leadForm, priority: v })}>
+                <SelectTrigger className="glass mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="high">Высокий</SelectItem>
+                  <SelectItem value="medium">Средний</SelectItem>
+                  <SelectItem value="low">Низкий</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <Button onClick={addTask} className="w-full neon-glow">
+            <div>
+              <label className="text-sm text-muted-foreground">Заметки</label>
+              <Textarea 
+                value={leadForm.notes} 
+                onChange={(e) => setLeadForm({ ...leadForm, notes: e.target.value })}
+                className="glass mt-1"
+                placeholder="Дополнительная информация..."
+              />
+            </div>
+            <Button onClick={createLead} className="w-full neon-glow">
               <Icon name="Plus" size={16} className="mr-2" />
-              Создать задачу
+              Создать лид
             </Button>
           </div>
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isCommentDialogOpen} onOpenChange={setIsCommentDialogOpen}>
+      <Dialog open={isStageDialogOpen} onOpenChange={setIsStageDialogOpen}>
         <DialogContent className="glass-dark">
           <DialogHeader>
-            <DialogTitle className="neon-text">Новый комментарий</DialogTitle>
+            <DialogTitle className="neon-text">
+              {stageForm.id ? 'Редактировать этап' : 'Новый этап'}
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <Textarea 
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              className="glass min-h-[120px]"
-              placeholder="Введите комментарий..."
-            />
-            <Button onClick={addComment} className="w-full neon-glow">
-              <Icon name="MessageSquare" size={16} className="mr-2" />
-              Добавить комментарий
-            </Button>
+            <div>
+              <label className="text-sm text-muted-foreground">Название</label>
+              <Input 
+                value={stageForm.name} 
+                onChange={(e) => setStageForm({ ...stageForm, name: e.target.value })}
+                className="glass mt-1"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground">Цвет</label>
+              <Input 
+                type="color"
+                value={stageForm.color} 
+                onChange={(e) => setStageForm({ ...stageForm, color: e.target.value })}
+                className="glass mt-1 h-12"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={saveStage} className="flex-1 neon-glow">
+                <Icon name="Save" size={16} className="mr-2" />
+                Сохранить
+              </Button>
+              {stageForm.id > 0 && (
+                <Button 
+                  onClick={() => {
+                    deleteStage(stageForm.id);
+                    setIsStageDialogOpen(false);
+                  }} 
+                  variant="destructive"
+                >
+                  <Icon name="Trash2" size={16} className="mr-2" />
+                  Удалить
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-border/30">
+            <h4 className="text-sm font-bold mb-3">Текущие этапы</h4>
+            <div className="space-y-2">
+              {stages.map(stage => (
+                <Card 
+                  key={stage.id} 
+                  className="glass p-3 cursor-pointer hover:neon-glow transition-all"
+                  onClick={() => setStageForm(stage)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div 
+                        className="w-4 h-4 rounded-full" 
+                        style={{ backgroundColor: stage.color }}
+                      />
+                      <span className="font-bold">{stage.name}</span>
+                    </div>
+                    <Badge>{getLeadsByStage(stage.id).length}</Badge>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDailyPlanOpen} onOpenChange={setIsDailyPlanOpen}>
+        <DialogContent className="max-w-3xl glass-dark">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl neon-text">
+              <Icon name="CalendarCheck" size={24} className="text-primary" />
+              План работы на день
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 mt-4 max-h-[60vh] overflow-y-auto">
+            {dailyTasks.map((task, idx) => (
+              <Card key={idx} className="glass p-4 hover:neon-glow transition-all">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="font-bold text-primary">{idx + 1}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold">{task.lead_name}</h4>
+                      <Badge className={getPriorityColor(task.priority)}>
+                        {task.priority}
+                      </Badge>
+                    </div>
+                    <p className="text-sm font-bold text-primary mb-1">{task.action}</p>
+                    <p className="text-sm text-muted-foreground mb-2">{task.reason}</p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Icon name="Clock" size={12} />
+                      {task.estimated_time}
+                    </div>
+                  </div>
+                  <Button 
+                    size="sm"
+                    onClick={() => {
+                      const lead = leads.find(l => l.id === task.lead_id);
+                      if (lead) {
+                        setSelectedLead(lead);
+                        fetchLeadDetails(lead.id);
+                        setIsDailyPlanOpen(false);
+                      }
+                    }}
+                  >
+                    Открыть
+                  </Button>
+                </div>
+              </Card>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
