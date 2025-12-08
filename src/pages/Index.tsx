@@ -335,7 +335,262 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="team" className="py-20 px-4 bg-muted/5">
+      <section id="success-charts" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">📊 Аналитика успешности</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Результаты нашей работы</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Данные по успешности найма за последние 12 месяцев
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto mb-12">
+            <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold">Скорость найма по отраслям</h3>
+                <Icon name="BarChart3" size={24} className="text-primary animate-pulse" />
+              </div>
+              
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>IT / Tech</span>
+                    <span className="font-bold text-primary">18 часов</span>
+                  </div>
+                  <Progress value={95} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #8B5CF6, #A855F7)' } as React.CSSProperties} />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Продажи / B2B</span>
+                    <span className="font-bold text-secondary">22 часа</span>
+                  </div>
+                  <Progress value={85} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #0EA5E9, #38BDF8)' } as React.CSSProperties} />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Маркетинг</span>
+                    <span className="font-bold text-accent">20 часов</span>
+                  </div>
+                  <Progress value={90} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #D946EF, #E879F9)' } as React.CSSProperties} />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Финансы</span>
+                    <span className="font-bold text-green-400">24 часа</span>
+                  </div>
+                  <Progress value={80} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #10B981, #34D399)' } as React.CSSProperties} />
+                </div>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold">Прохождение испытательного срока</h3>
+                <Icon name="PieChart" size={24} className="text-secondary animate-pulse" />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center space-y-2">
+                  <div className="text-6xl font-bold neon-text">94%</div>
+                  <p className="text-sm text-muted-foreground">Успешно прошли</p>
+                  <Icon name="CheckCircle2" size={32} className="text-primary mx-auto animate-pulse" />
+                </div>
+                <div className="text-center space-y-2">
+                  <div className="text-6xl font-bold text-muted-foreground">6%</div>
+                  <p className="text-sm text-muted-foreground">Не прошли</p>
+                  <Icon name="XCircle" size={32} className="text-muted-foreground mx-auto" />
+                </div>
+              </div>
+
+              <div className="glass p-4 rounded-lg space-y-3 mt-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">С заменой по гарантии:</span>
+                  <span className="font-bold text-accent">4%</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Без замены:</span>
+                  <span className="font-bold text-muted-foreground">2%</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <Card className="glass-dark p-8 space-y-6 max-w-7xl mx-auto hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold">Динамика роста производительности</h3>
+              <Icon name="TrendingUp" size={24} className="text-accent animate-pulse" />
+            </div>
+
+            <div className="grid md:grid-cols-6 gap-4">
+              {[
+                { month: 'Месяц 1', value: 45, label: '45%' },
+                { month: 'Месяц 2', value: 62, label: '62%' },
+                { month: 'Месяц 3', value: 78, label: '78%' },
+                { month: 'Месяц 4', value: 85, label: '85%' },
+                { month: 'Месяц 5', value: 92, label: '92%' },
+                { month: 'Месяц 6', value: 98, label: '98%' }
+              ].map((item, idx) => (
+                <div key={idx} className="text-center space-y-2 hover-scale">
+                  <div className="h-32 flex items-end justify-center">
+                    <div 
+                      className="w-full bg-gradient-to-t from-primary to-secondary rounded-t-lg neon-glow animate-scale-in" 
+                      style={{ 
+                        height: `${item.value}%`,
+                        animationDelay: `${idx * 0.1}s`
+                      }}
+                    />
+                  </div>
+                  <div className="text-lg font-bold text-primary">{item.label}</div>
+                  <div className="text-xs text-muted-foreground">{item.month}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="glass p-4 rounded-lg text-center mt-6">
+              <p className="text-sm text-muted-foreground">
+                🚀 Сотрудники, найденные через 1 DAY HR, достигают максимальной производительности в 2 раза быстрее
+              </p>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section id="video-cases" className="py-20 px-4 bg-muted/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎥 Видео-кейсы</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Истории успеха наших клиентов</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Реальные руководители делятся опытом работы с нами
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {[
+              { 
+                company: 'TechFlow Solutions',
+                person: 'Дмитрий Козлов',
+                role: 'Tech Lead',
+                position: 'Senior Backend Developer',
+                result: 'Найден за 16 часов',
+                img: 'https://i.pravatar.cc/300?img=12',
+                stats: { speed: '16ч', quality: '96%', period: '8 мес' }
+              },
+              { 
+                company: 'MegaSell Pro',
+                person: 'Анна Смирнова',
+                role: 'COO',
+                position: 'Head of Sales',
+                result: 'Рост продаж +40%',
+                img: 'https://i.pravatar.cc/300?img=23',
+                stats: { speed: '20ч', quality: '94%', period: '6 мес' }
+              },
+              { 
+                company: 'FinServe AI',
+                person: 'Елена Соколова',
+                role: 'Head of AI',
+                position: 'ML Engineer',
+                result: 'После 6 мес поиска',
+                img: 'https://i.pravatar.cc/300?img=20',
+                stats: { speed: '24ч', quality: '98%', period: '10 мес' }
+              },
+              { 
+                company: 'MobileHub',
+                person: 'Максим Петров',
+                role: 'Product Manager',
+                position: 'Senior iOS Developer',
+                result: 'Критичная позиция',
+                img: 'https://i.pravatar.cc/300?img=13',
+                stats: { speed: '18ч', quality: '95%', period: '7 мес' }
+              },
+              { 
+                company: 'TelecomPro',
+                person: 'Алексей Морозов',
+                role: 'Sales Director',
+                position: 'B2B Sales Manager',
+                result: 'Вернул 3 клиентов',
+                img: 'https://i.pravatar.cc/300?img=33',
+                stats: { speed: '22ч', quality: '93%', period: '5 мес' }
+              },
+              { 
+                company: 'ConnectPlus',
+                person: 'Ирина Федорова',
+                role: 'Head of Sales',
+                position: 'Account Manager',
+                result: '+150% к выручке',
+                img: 'https://i.pravatar.cc/300?img=47',
+                stats: { speed: '19ч', quality: '97%', period: '9 мес' }
+              }
+            ].map((videoCase, idx) => (
+              <Card key={idx} className="glass-dark overflow-hidden hover:neon-glow transition-all hover-scale animate-fade-in group" style={{ animationDelay: `${idx * 0.1}s` }}>
+                <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 overflow-hidden">
+                  <img src={videoCase.img} alt={videoCase.person} className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow group-hover:scale-110 transition-transform cursor-pointer">
+                      <Icon name="Play" size={32} className="text-white ml-1" />
+                    </div>
+                  </div>
+                  <Badge className="absolute top-4 right-4 bg-accent/90 text-white neon-glow">
+                    {videoCase.result}
+                  </Badge>
+                </div>
+
+                <div className="p-6 space-y-4">
+                  <div>
+                    <h3 className="font-bold text-lg">{videoCase.company}</h3>
+                    <p className="text-sm text-muted-foreground">{videoCase.person} • {videoCase.role}</p>
+                  </div>
+
+                  <div className="glass p-3 rounded-lg">
+                    <p className="text-sm text-primary font-medium mb-1">Закрытая вакансия:</p>
+                    <p className="text-xs text-muted-foreground">{videoCase.position}</p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border/50">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-primary">{videoCase.stats.speed}</div>
+                      <div className="text-xs text-muted-foreground">найден</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-secondary">{videoCase.stats.quality}</div>
+                      <div className="text-xs text-muted-foreground">качество</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-accent">{videoCase.stats.period}</div>
+                      <div className="text-xs text-muted-foreground">работает</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Card className="glass-dark p-8 max-w-3xl mx-auto hover:neon-glow transition-all">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Video" size={32} className="text-white" />
+                </div>
+                <div className="flex-1 text-left">
+                  <h3 className="text-xl font-bold mb-2">Хотите попасть в видео-кейс?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Расскажите свою историю успеха и получите скидку 20% на следующий подбор
+                  </p>
+                </div>
+                <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all flex-shrink-0">
+                  Участвовать
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="team" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Наша команда</h2>
