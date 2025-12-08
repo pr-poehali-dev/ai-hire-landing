@@ -505,6 +505,112 @@ const Index = () => {
               </Card>
             </div>
           </div>
+
+          <div className="max-w-6xl mx-auto mt-12 md:mt-20">
+            <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow animate-fade-in">
+              <div className="text-center mb-8">
+                <Badge className="text-lg px-6 py-2 neon-glow mb-4">📊 Итоги AI-анализа</Badge>
+                <h3 className="text-3xl md:text-4xl font-bold neon-text mb-4">Что вы получаете после анализа</h3>
+                <p className="text-muted-foreground text-lg">Полный профиль кандидата за 30 секунд</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                <div className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="Brain" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Психологический профиль</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Анализ типа личности, мотивации, стрессоустойчивости и эмоционального интеллекта по модели Big Five</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="Users" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Soft Skills оценка</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">15+ навыков: коммуникация, работа в команде, лидерство, адаптивность, критическое мышление</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="Video" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Анализ видео-интервью</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Распознавание речи, эмоций, жестов, мимики и интонации с помощью компьютерного зрения</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="TrendingUp" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Прогноз успешности</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">ML-модель предсказывает вероятность прохождения испытательного срока с точностью 92%</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="Shield" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Проверка достоверности</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">Детекция несоответствий в резюме, верификация опыта работы и рекомендаций</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                      <Icon name="FileText" size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Подробный отчёт</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">PDF-документ с графиками, рекомендациями и сравнением с профилем вакансии</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 p-6 glass rounded-lg border border-accent/30">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+                    <Icon name="Sparkles" size={32} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-xl mb-1">Уникальность нашего AI</h4>
+                    <p className="text-sm text-muted-foreground">Обучен на 50,000+ успешных наймов в российских компаниях</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                  <div>
+                    <div className="text-3xl font-bold text-primary mb-1">50K+</div>
+                    <div className="text-xs text-muted-foreground">Кандидатов</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-secondary mb-1">98%</div>
+                    <div className="text-xs text-muted-foreground">Точность</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-accent mb-1">30 сек</div>
+                    <div className="text-xs text-muted-foreground">Анализ</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-primary mb-1">15+</div>
+                    <div className="text-xs text-muted-foreground">Параметров</div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 
