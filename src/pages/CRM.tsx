@@ -114,6 +114,7 @@ const CRM = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [isMangoSettingsOpen, setIsMangoSettingsOpen] = useState(false);
+  const [isTestingMango, setIsTestingMango] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
@@ -381,12 +382,21 @@ const CRM = () => {
       } else {
         const errorMsg = data.error || 'Неизвестная ошибка';
         
-        if (errorMsg.includes('credentials') || errorMsg.includes('не настроен') || errorMsg.includes('ключи')) {
+        console.log('Mango Office error:', data);
+        
+        if (errorMsg.includes('credentials') || errorMsg.includes('не настроен') || errorMsg.includes('ключи') || errorMsg.includes('Unauthorized')) {
           setIsMangoSettingsOpen(true);
+          
+          let detailMsg = 'Проверьте правильность ключей API';
+          if (data.debug_info) {
+            detailMsg = `VPB ключ: ${data.debug_info.vpb_key_length} символов, Sign ключ: ${data.debug_info.sign_key_length} символов. Проверьте, что ключи скопированы полностью без пробелов.`;
+          }
+          
           toast({ 
-            title: 'Настройте Mango Office', 
-            description: 'Для звонков требуется указать ключи API в секретах проекта',
-            variant: 'destructive'
+            title: 'Неверные ключи Mango Office', 
+            description: detailMsg,
+            variant: 'destructive',
+            duration: 8000
           });
         } else {
           toast({ 
@@ -1162,12 +1172,18 @@ const CRM = () => {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
               <div className="flex gap-3">
-                <Icon name="AlertCircle" size={20} className="text-yellow-400 flex-shrink-0 mt-0.5" />
+                <Icon name="AlertCircle" size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
-                  <p className="font-semibold text-yellow-400 mb-2">Требуется настройка интеграции</p>
-                  <p className="text-muted-foreground">Для совершения звонков через систему необходимо добавить API ключи Mango Office в секреты проекта.</p>
+                  <p className="font-semibold text-red-400 mb-2">Ошибка аутентификации Mango Office</p>
+                  <p className="text-muted-foreground mb-3">API Mango Office отклонил запрос с указанными ключами. Это означает, что:</p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                    <li>Ключи указаны неверно или устарели</li>
+                    <li>При копировании добавились лишние пробелы или символы</li>
+                    <li>API доступ не активирован в настройках АТС</li>
+                    <li>IP адрес сервера не добавлен в белый список (если настроено)</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -1205,16 +1221,46 @@ const CRM = () => {
             <Card className="glass p-4">
               <h3 className="font-bold mb-3 flex items-center gap-2">
                 <Icon name="BookOpen" size={18} />
-                Инструкция:
+                Как исправить:
               </h3>
-              <ol className="space-y-2 text-sm text-muted-foreground list-decimal list-inside">
-                <li>Войдите в личный кабинет Mango Office</li>
-                <li>Перейдите в раздел "Настройки" → "API"</li>
-                <li>Скопируйте VPB ключ и ключ подписи</li>
-                <li>Добавьте эти значения в секреты проекта poehali.dev через кнопку "Секреты" в редакторе</li>
-                <li>Перезагрузите CRM и попробуйте позвонить снова</li>
+              <ol className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex gap-2">
+                  <span className="font-bold text-primary">1.</span>
+                  <div>
+                    <p className="font-semibold text-foreground mb-1">Проверьте активацию API</p>
+                    <p>В личном кабинете Mango Office → Настройки → API убедитесь, что API доступ активирован</p>
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-primary">2.</span>
+                  <div>
+                    <p className="font-semibold text-foreground mb-1">Перекопируйте ключи заново</p>
+                    <p>Выделите ключ полностью (двойной клик), скопируйте без пробелов в начале/конце. Вставьте в секреты проекта poehali.dev</p>
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-primary">3.</span>
+                  <div>
+                    <p className="font-semibold text-foreground mb-1">Проверьте названия секретов</p>
+                    <p>Названия должны быть точно: <code className="bg-muted px-1 rounded">MANGO_VPB_KEY</code> и <code className="bg-muted px-1 rounded">MANGO_SIGN_KEY</code></p>
+                  </div>
+                </li>
+                <li className="flex gap-2">
+                  <span className="font-bold text-primary">4.</span>
+                  <div>
+                    <p className="font-semibold text-foreground mb-1">Пересоздайте функцию</p>
+                    <p>После изменения секретов нажмите "Синхронизировать" в редакторе backend функции mango-call</p>
+                  </div>
+                </li>
               </ol>
             </Card>
+
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+              <p className="text-sm text-muted-foreground mb-2">
+                <Icon name="Info" size={14} className="inline mr-1" />
+                После исправления секретов обязательно пересоздайте функцию, чтобы изменения вступили в силу.
+              </p>
+            </div>
 
             <div className="flex gap-2">
               <Button className="flex-1 neon-glow" onClick={() => {

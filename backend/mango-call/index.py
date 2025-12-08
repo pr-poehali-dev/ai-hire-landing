@@ -99,8 +99,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     }
                 
                 api_url = os.environ.get('MANGO_API_URL', 'https://app.mango-office.ru/vpbx/')
-                vpb_key = os.environ.get('MANGO_VPB_KEY', '')
-                sign_key = os.environ.get('MANGO_SIGN_KEY', '')
+                vpb_key = os.environ.get('MANGO_VPB_KEY', '').strip()
+                sign_key = os.environ.get('MANGO_SIGN_KEY', '').strip()
                 
                 if not vpb_key or not sign_key:
                     cursor.execute('''
@@ -117,7 +117,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
                         'body': json.dumps({
                             'success': False,
-                            'error': 'Mango Office не настроен. Добавьте ключи MANGO_VPB_KEY и MANGO_SIGN_KEY'
+                            'error': f'Mango Office не настроен. VPB_KEY: {"есть" if vpb_key else "отсутствует"}, SIGN_KEY: {"есть" if sign_key else "отсутствует"}'
                         }),
                         'isBase64Encoded': False
                     }
@@ -181,13 +181,20 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         call_id = cursor.fetchone()['id']
                         conn.commit()
                         
+                        error_msg = mango_data.get('message', mango_data.get('error', 'Unknown error'))
+                        
                         return {
                             'statusCode': 200,
                             'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
                             'body': json.dumps({
                                 'success': False,
-                                'error': f'Mango Office error: {mango_data.get("message", "Unknown error")}',
-                                'mango_response': mango_data
+                                'error': f'Mango Office error: {error_msg}',
+                                'debug_info': {
+                                    'status_code': mango_response.status_code,
+                                    'vpb_key_length': len(vpb_key),
+                                    'sign_key_length': len(sign_key),
+                                    'response': mango_data
+                                }
                             }),
                             'isBase64Encoded': False
                         }
