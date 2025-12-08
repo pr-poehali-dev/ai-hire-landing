@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Create task",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "lead_id": 1,
+        "title": "Test Task",
+        "description": "Test description"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

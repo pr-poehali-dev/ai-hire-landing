@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Add comment",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "lead_id": 1,
+        "author_name": "Test User",
+        "text": "Test comment"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

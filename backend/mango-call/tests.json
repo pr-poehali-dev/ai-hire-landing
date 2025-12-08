@@ -1,0 +1,18 @@
+{
+  "tests": [
+    {
+      "name": "Initiate call",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "lead_id": 1,
+        "phone": "+79991234567"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

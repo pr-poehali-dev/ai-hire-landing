@@ -1,0 +1,31 @@
+{
+  "tests": [
+    {
+      "name": "Get all leads",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "leads": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create lead",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test Lead",
+        "phone": "+79991234567",
+        "email": "test@example.com",
+        "source": "test"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

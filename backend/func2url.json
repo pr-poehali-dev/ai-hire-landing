@@ -1,4 +1,8 @@
 {
+  "crm-comments": "https://functions.poehali.dev/7a588f89-07d2-4cbe-9eec-6ef7c265b718",
+  "crm-tasks": "https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665",
+  "mango-call": "https://functions.poehali.dev/35742c04-37f7-41e3-9817-10f7d03806b3",
+  "crm-leads": "https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6",
   "reset-password": "https://functions.poehali.dev/594ecf2c-625e-46c1-ac73-2078fdcd39e0",
   "request-reset": "https://functions.poehali.dev/5abb26ce-21bf-442e-a2d0-45f452b38e21",
   "register": "https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071",
