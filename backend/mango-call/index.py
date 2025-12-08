@@ -5,6 +5,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import hashlib
 import hmac
+import requests
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
@@ -87,6 +88,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             else:
                 lead_id = body_data.get('lead_id')
                 phone = body_data.get('phone')
+                from_extension = body_data.get('from_extension', '101')
                 
                 if not lead_id or not phone:
                     return {
@@ -96,25 +98,119 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'isBase64Encoded': False
                     }
                 
-                cursor.execute('''
-                    INSERT INTO lead_calls (lead_id, phone_number, direction, status)
-                    VALUES (%s, %s, %s, %s)
-                    RETURNING id
-                ''', (lead_id, phone, 'outbound', 'initiated'))
+                api_url = os.environ.get('MANGO_API_URL', 'https://app.mango-office.ru/vpbx/')
+                vpb_key = os.environ.get('MANGO_VPB_KEY', '')
+                sign_key = os.environ.get('MANGO_SIGN_KEY', '')
                 
-                call_id = cursor.fetchone()['id']
-                conn.commit()
+                if not vpb_key or not sign_key:
+                    cursor.execute('''
+                        INSERT INTO lead_calls (lead_id, phone_number, direction, status)
+                        VALUES (%s, %s, %s, %s)
+                        RETURNING id
+                    ''', (lead_id, phone, 'outbound', 'failed'))
+                    
+                    call_id = cursor.fetchone()['id']
+                    conn.commit()
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({
+                            'success': False,
+                            'error': 'Mango Office не настроен. Добавьте ключи MANGO_VPB_KEY и MANGO_SIGN_KEY'
+                        }),
+                        'isBase64Encoded': False
+                    }
                 
-                return {
-                    'statusCode': 200,
-                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-                    'body': json.dumps({
-                        'success': True, 
-                        'call_id': call_id,
-                        'message': 'Call initiated. Configure Mango Office API for real calls.'
-                    }),
-                    'isBase64Encoded': False
-                }
+                json_data = json.dumps({
+                    'command_id': 'call',
+                    'from': {'extension': from_extension},
+                    'to_number': phone
+                }, separators=(',', ':'))
+                
+                sign = hmac.new(
+                    sign_key.encode('utf-8'),
+                    (vpb_key + json_data + sign_key).encode('utf-8'),
+                    hashlib.sha256
+                ).hexdigest()
+                
+                try:
+                    mango_response = requests.post(
+                        f'{api_url}commands/callback',
+                        json=json.loads(json_data),
+                        headers={
+                            'Content-Type': 'application/json'
+                        },
+                        params={
+                            'vpbx_api_key': vpb_key,
+                            'sign': sign
+                        },
+                        timeout=10
+                    )
+                    
+                    mango_data = mango_response.json()
+                    
+                    if mango_response.status_code == 200:
+                        cursor.execute('''
+                            INSERT INTO lead_calls (lead_id, phone_number, direction, status, mango_call_id)
+                            VALUES (%s, %s, %s, %s, %s)
+                            RETURNING id
+                        ''', (lead_id, phone, 'outbound', 'initiated', mango_data.get('call_id')))
+                        
+                        call_id = cursor.fetchone()['id']
+                        conn.commit()
+                        
+                        return {
+                            'statusCode': 200,
+                            'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                            'body': json.dumps({
+                                'success': True,
+                                'call_id': call_id,
+                                'message': 'Звонок инициирован через Mango Office',
+                                'mango_response': mango_data
+                            }),
+                            'isBase64Encoded': False
+                        }
+                    else:
+                        cursor.execute('''
+                            INSERT INTO lead_calls (lead_id, phone_number, direction, status)
+                            VALUES (%s, %s, %s, %s)
+                            RETURNING id
+                        ''', (lead_id, phone, 'outbound', 'failed'))
+                        
+                        call_id = cursor.fetchone()['id']
+                        conn.commit()
+                        
+                        return {
+                            'statusCode': 200,
+                            'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                            'body': json.dumps({
+                                'success': False,
+                                'error': f'Mango Office error: {mango_data.get("message", "Unknown error")}',
+                                'mango_response': mango_data
+                            }),
+                            'isBase64Encoded': False
+                        }
+                
+                except Exception as e:
+                    cursor.execute('''
+                        INSERT INTO lead_calls (lead_id, phone_number, direction, status)
+                        VALUES (%s, %s, %s, %s)
+                        RETURNING id
+                    ''', (lead_id, phone, 'outbound', 'failed'))
+                    
+                    call_id = cursor.fetchone()['id']
+                    conn.commit()
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({
+                            'success': False,
+                            'error': f'Connection error: {str(e)}'
+                        }),
+                        'isBase64Encoded': False
+                    }
         
         return {
             'statusCode': 405,
