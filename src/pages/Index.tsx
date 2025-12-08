@@ -2,16 +2,15 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
+import ChatWidget from '@/components/landing/ChatWidget';
+import ConsultationModal from '@/components/landing/ConsultationModal';
+import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 
 const Index = () => {
   const { toast } = useToast();
@@ -25,15 +24,8 @@ const Index = () => {
     stress: 0,
     leadership: 0
   });
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState([
-    { role: 'bot', text: 'Привет! 👋 Я Юра, виртуальный HR-ассистент. Чем могу помочь?', time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) }
-  ]);
-  const [chatInput, setChatInput] = useState('');
-  const [consultForm, setConsultForm] = useState({ name: '', phone: '', company: '', vacancy: '' });
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isConsultSubmitting, setIsConsultSubmitting] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
   useEffect(() => {
@@ -102,59 +94,6 @@ const Index = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleConsultSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsConsultSubmitting(true);
-    
-    try {
-      const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: consultForm.name,
-          phone: consultForm.phone,
-          company: consultForm.company,
-          vacancy: consultForm.vacancy,
-          source: 'consultation'
-        })
-      });
-      
-      if (!response.ok) throw new Error('Failed to submit');
-      
-      toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
-      setConsultForm({ name: '', phone: '', company: '', vacancy: '' });
-      setIsConsultFormOpen(false);
-    } catch (error) {
-      toast({ 
-        title: 'Ошибка отправки', 
-        description: 'Попробуйте еще раз или позвоните нам',
-        variant: 'destructive'
-      });
-    } finally {
-      setIsConsultSubmitting(false);
-    }
-  };
-
-  const sendChatMessage = () => {
-    if (!chatInput.trim()) return;
-    
-    const userMsg = { role: 'user', text: chatInput, time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) };
-    setChatMessages(prev => [...prev, userMsg]);
-    setChatInput('');
-
-    setTimeout(() => {
-      const responses = [
-        'Отличный вопрос! Наш AI анализирует кандидатов по 50+ параметрам за считанные секунды. Хотите узнать подробнее?',
-        'Средняя скорость подбора — 18-24 часа. Для срочных заказов можем найти за 12 часов с доплатой 50%.',
-        'Да, гарантия замены действует весь испытательный срок (до 3 месяцев). Это бесплатно!',
-        'Стоимость от 35,000₽ до 110,000₽ в зависимости от уровня позиции. Попробуйте наш калькулятор выше!',
-        'Конечно! Я могу помочь с любым вопросом. Напишите подробнее, что вас интересует, или оставьте заявку на консультацию.'
-      ];
-      const botMsg = { role: 'bot', text: responses[Math.floor(Math.random() * responses.length)], time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) };
-      setChatMessages(prev => [...prev, botMsg]);
-    }, 1000);
   };
 
   const scrollToSection = (id: string) => {
@@ -787,8 +726,6 @@ const Index = () => {
               </div>
             </Card>
           </div>
-
-
         </div>
       </section>
 
@@ -818,8 +755,6 @@ const Index = () => {
           <TeamCarousel teamMembers={teamMembers} />
         </div>
       </section>
-
-
 
       <section id="faq" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
@@ -1072,388 +1007,24 @@ const Index = () => {
         </div>
       </footer>
 
-      {!isChatOpen && (
-        <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end animate-fade-in">
-          <Button
-            onClick={() => setIsConsultFormOpen(true)}
-            size="sm"
-            className="neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto"
-          >
-            <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
-            <span className="hidden sm:inline">Бесплатная консультация</span>
-            <span className="sm:hidden">Консультация</span>
-          </Button>
-          
-          <button
-            onClick={() => setIsChatOpen(true)}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow hover:scale-110 transition-all shadow-2xl relative"
-          >
-            <Icon name="MessageCircle" size={24} className="md:w-7 md:h-7 text-white" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-accent rounded-full animate-pulse" />
-          </button>
-        </div>
-      )}
-
-      {isChatOpen && (
-        <Card className="fixed bottom-0 md:bottom-6 right-0 md:right-6 z-50 w-full md:w-96 h-[100dvh] md:h-[600px] md:rounded-lg glass-dark border-primary/30 neon-glow flex flex-col animate-scale-in shadow-2xl">
-          <div className="flex items-center justify-between p-4 border-b border-border/50 bg-gradient-to-r from-primary/20 to-secondary/20">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                <Icon name="Bot" size={20} className="text-white" />
-              </div>
-              <div>
-                <h3 className="font-bold">Юра — HR-ассистент</h3>
-                <p className="text-xs text-muted-foreground flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  Онлайн
-                </p>
-              </div>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsChatOpen(false)}
-              className="hover:bg-destructive/20 hover:text-destructive"
-            >
-              <Icon name="X" size={20} />
-            </Button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {chatMessages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}>
-                <div className={`max-w-[80%] space-y-1`}>
-                  <div className={`p-3 rounded-lg ${
-                    msg.role === 'user' 
-                      ? 'bg-gradient-to-r from-primary to-secondary text-white ml-auto' 
-                      : 'glass border border-border/50'
-                  }`}>
-                    <p className="text-sm">{msg.text}</p>
-                  </div>
-                  <p className={`text-xs text-muted-foreground ${
-                    msg.role === 'user' ? 'text-right' : 'text-left'
-                  }`}>
-                    {msg.time}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-4 border-t border-border/50 space-y-2">
-            <div className="flex gap-2">
-              <Input
-                placeholder="Напишите сообщение..."
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
-                className="glass border-primary/30"
-              />
-              <Button
-                onClick={sendChatMessage}
-                size="icon"
-                className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-              >
-                <Icon name="Send" size={18} />
-              </Button>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              <Badge
-                onClick={() => setChatInput('Сколько стоит подбор?')}
-                className="cursor-pointer hover:scale-105 transition-all bg-primary/20 text-primary text-xs"
-              >
-                💰 Стоимость
-              </Badge>
-              <Badge
-                onClick={() => setChatInput('Как быстро найдёте кандидата?')}
-                className="cursor-pointer hover:scale-105 transition-all bg-secondary/20 text-secondary text-xs"
-              >
-                ⚡ Скорость
-              </Badge>
-              <Badge
-                onClick={() => setChatInput('Есть гарантия?')}
-                className="cursor-pointer hover:scale-105 transition-all bg-accent/20 text-accent text-xs"
-              >
-                🛡️ Гарантия
-              </Badge>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {isConsultFormOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-4 animate-fade-in" onClick={() => setIsConsultFormOpen(false)}>
-          <Card className="glass-dark p-5 md:p-8 max-w-lg w-full neon-glow animate-scale-in max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow">
-                  <Icon name="Calendar" size={24} className="text-white" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold neon-text">Бесплатная консультация</h2>
-                  <p className="text-sm text-muted-foreground">Перезвоним в течение 30 минут</p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsConsultFormOpen(false)}
-                className="hover:bg-destructive/20 hover:text-destructive"
-              >
-                <Icon name="X" size={20} />
-              </Button>
-            </div>
-
-            <form onSubmit={handleConsultSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2">
-                  <Icon name="User" size={16} className="text-primary" />
-                  Ваше имя *
-                </label>
-                <Input
-                  placeholder="Иван Иванов"
-                  value={consultForm.name}
-                  onChange={(e) => setConsultForm({...consultForm, name: e.target.value})}
-                  required
-                  className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2">
-                  <Icon name="Phone" size={16} className="text-secondary" />
-                  Телефон *
-                </label>
-                <Input
-                  type="tel"
-                  placeholder="+7 (999) 123-45-67"
-                  value={consultForm.phone}
-                  onChange={(e) => setConsultForm({...consultForm, phone: e.target.value})}
-                  required
-                  className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2">
-                  <Icon name="Building2" size={16} className="text-accent" />
-                  Компания
-                </label>
-                <Input
-                  placeholder="ООО 'Ваша компания'"
-                  value={consultForm.company}
-                  onChange={(e) => setConsultForm({...consultForm, company: e.target.value})}
-                  className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center gap-2">
-                  <Icon name="Briefcase" size={16} className="text-primary" />
-                  Вакансия
-                </label>
-                <Input
-                  placeholder="Менеджер по продажам"
-                  value={consultForm.vacancy}
-                  onChange={(e) => setConsultForm({...consultForm, vacancy: e.target.value})}
-                  className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-                />
-              </div>
-
-              <Card className="glass p-4 border-accent/30 space-y-2">
-                <div className="flex items-center gap-2">
-                  <Icon name="Gift" size={20} className="text-accent" />
-                  <h4 className="font-bold text-accent">Что вы получите:</h4>
-                </div>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <Icon name="CheckCircle2" size={14} className="text-primary flex-shrink-0" />
-                    Разбор вашей вакансии и требований
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Icon name="CheckCircle2" size={14} className="text-primary flex-shrink-0" />
-                    Расчёт точной стоимости подбора
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Icon name="CheckCircle2" size={14} className="text-primary flex-shrink-0" />
-                    Прогноз сроков и план поиска
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Icon name="CheckCircle2" size={14} className="text-primary flex-shrink-0" />
-                    Ответы на все ваши вопросы
-                  </li>
-                </ul>
-              </Card>
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-105 transition-all text-lg py-6"
-                disabled={isConsultSubmitting}
-              >
-                {isConsultSubmitting ? (
-                  <>
-                    <Icon name="Loader2" className="animate-spin mr-2" size={20} />
-                    Отправка...
-                  </>
-                ) : (
-                  <>
-                    <Icon name="Rocket" size={20} className="mr-2" />
-                    Заказать консультацию
-                  </>
-                )}
-              </Button>
-
-              <p className="text-xs text-muted-foreground text-center">
-                Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-              </p>
-            </form>
-          </Card>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const TestimonialsCarousel = ({ testimonials }: { testimonials: any[] }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 4000, stopOnInteraction: false })]);
-
-  return (
-    <div className="overflow-hidden" ref={emblaRef}>
-      <div className="flex gap-6">
-        {testimonials.map((testimonial, idx) => (
-          <div key={idx} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3">
-            <Card className="glass-dark overflow-hidden hover:neon-glow transition-all h-full">
-              <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 overflow-hidden">
-                <img src={testimonial.img} alt={testimonial.person} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="font-bold text-lg text-white drop-shadow-lg">{testimonial.company}</h3>
-                  <p className="text-sm text-white/90 drop-shadow-md">{testimonial.person} • {testimonial.role}</p>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-4">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Icon key={i} name="Star" size={16} className="text-accent fill-accent" />
-                  ))}
-                </div>
-
-                <p className="text-sm text-muted-foreground leading-relaxed italic">
-                  "{testimonial.text}"
-                </p>
-
-                <div className="relative glass p-4 rounded-lg border border-primary/20 overflow-hidden">
-                  <div className="absolute inset-0 opacity-5">
-                    <div className="absolute inset-0" style={{ 
-                      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)',
-                    }}></div>
-                  </div>
-                  
-                  <div className="relative space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Icon name="FileCheck" size={16} className="text-primary" />
-                          <p className="text-xs font-bold uppercase tracking-wider text-primary">Благодарственное письмо</p>
-                        </div>
-                        <p className="text-sm font-bold mb-2">{testimonial.company}</p>
-                        <p className="text-xs text-muted-foreground/90 leading-relaxed">
-                          {testimonial.letterText}
-                        </p>
-                      </div>
-                      
-                      <div className="relative ml-4 flex-shrink-0">
-                        <div className="w-20 h-20 rounded-full border-4 border-primary/40 flex items-center justify-center bg-gradient-to-br from-primary/30 to-secondary/30 relative">
-                          <Icon name="Stamp" size={28} className="text-primary" />
-                          <div className="absolute inset-0 rounded-full opacity-20" style={{
-                            background: 'radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.4), transparent)'
-                          }}></div>
-                        </div>
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-accent rounded-full flex items-center justify-center shadow-lg">
-                          <Icon name="Award" size={16} className="text-white" />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between pt-3 border-t border-border/30">
-                      <div className="flex items-center gap-2">
-                        <Avatar className="w-8 h-8 border-2 border-primary/50">
-                          <AvatarImage src={testimonial.img} alt={testimonial.person} />
-                          <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
-                            {testimonial.person.split(' ').map((n: string) => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="text-xs font-bold">{testimonial.person}</div>
-                          <div className="text-xs text-muted-foreground">{testimonial.role}</div>
-                        </div>
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {new Date().toLocaleDateString('ru-RU')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border/50">
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-primary">{testimonial.stats.speed}</div>
-                    <div className="text-xs text-muted-foreground">найден</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-secondary">{testimonial.stats.quality}</div>
-                    <div className="text-xs text-muted-foreground">качество</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-accent">{testimonial.stats.period}</div>
-                    <div className="text-xs text-muted-foreground">работает</div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ))}
+      <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
+        <Button
+          onClick={() => setIsConsultFormOpen(true)}
+          size="sm"
+          className="neon-glow bg-gradient-to-r from-accent to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
+        >
+          <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <span className="hidden sm:inline">Бесплатная консультация</span>
+          <span className="sm:hidden">Консультация</span>
+        </Button>
+        
+        <ChatWidget scrollToSection={scrollToSection} />
       </div>
-    </div>
-  );
-};
 
-const TeamCarousel = ({ teamMembers }: { teamMembers: any[] }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: false })]);
-
-  return (
-    <div className="overflow-hidden" ref={emblaRef}>
-      <div className="flex gap-6">
-        {teamMembers.map((member, idx) => (
-          <div key={idx} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_25%] min-w-0 px-3">
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all h-full">
-              <Avatar className="w-24 h-24 mx-auto border-4 border-primary/50 neon-glow">
-                <AvatarImage src={member.img} alt={member.name} />
-                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-2xl">
-                  {member.name.split(' ').map((n: string) => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              <div className="text-center space-y-2">
-                <h3 className="font-bold text-lg">{member.name}</h3>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
-                <Badge className="bg-primary/20 text-primary">{member.spec}</Badge>
-              </div>
-              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-border/50">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-primary">{member.exp}</div>
-                  <div className="text-xs text-muted-foreground">опыта</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-secondary">{member.hires}</div>
-                  <div className="text-xs text-muted-foreground">найма</div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ))}
-      </div>
+      <ConsultationModal 
+        isOpen={isConsultFormOpen} 
+        onClose={() => setIsConsultFormOpen(false)} 
+      />
     </div>
   );
 };
