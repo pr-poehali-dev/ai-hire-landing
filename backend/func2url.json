@@ -1,4 +1,6 @@
 {
+  "notifications": "https://functions.poehali.dev/798a79c3-974a-4494-a98e-7fcf168bd3e9",
+  "export-leads": "https://functions.poehali.dev/f9015ccd-0c31-47ee-be4f-f5c16ba760f6",
   "ai-assistant": "https://functions.poehali.dev/b5093c80-da38-4c7f-8452-5125c945efe3",
   "crm-comments": "https://functions.poehali.dev/7a588f89-07d2-4cbe-9eec-6ef7c265b718",
   "crm-tasks": "https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665",

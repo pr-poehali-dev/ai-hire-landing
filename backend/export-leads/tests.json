@@ -1,0 +1,15 @@
+{
+  "tests": [
+    {
+      "name": "Export leads as JSON",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "leads": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

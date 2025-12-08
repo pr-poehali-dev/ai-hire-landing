@@ -74,6 +74,19 @@ interface DailyTask {
   estimated_time: string;
 }
 
+interface Notification {
+  id: string;
+  type: string;
+  urgency: string;
+  title: string;
+  lead_id?: number;
+  lead_name?: string;
+  priority?: string;
+  message?: string;
+  due_date?: string;
+  created_at: string;
+}
+
 const CRM = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -89,6 +102,9 @@ const CRM = () => {
   const [isDailyPlanOpen, setIsDailyPlanOpen] = useState(false);
   const [dailyTasks, setDailyTasks] = useState<DailyTask[]>([]);
   const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
@@ -130,6 +146,10 @@ const CRM = () => {
       return;
     }
     fetchLeads();
+    fetchNotifications();
+    
+    const notifInterval = setInterval(fetchNotifications, 60000);
+    return () => clearInterval(notifInterval);
   }, []);
 
   const fetchLeads = async () => {
@@ -360,6 +380,19 @@ const CRM = () => {
     }
   };
 
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/798a79c3-974a-4494-a98e-7fcf168bd3e9');
+      const data = await response.json();
+      
+      if (data.success) {
+        setNotifications(data.notifications || []);
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    }
+  };
+
   const generateDailyPlan = async () => {
     setIsGeneratingPlan(true);
     try {
@@ -383,6 +416,36 @@ const CRM = () => {
       toast({ title: 'Ошибка генерации плана', variant: 'destructive' });
     } finally {
       setIsGeneratingPlan(false);
+    }
+  };
+
+  const exportToExcel = async () => {
+    setIsExporting(true);
+    try {
+      const params = new URLSearchParams({ format: 'excel' });
+      
+      if (filterPriority !== 'all') params.append('priority', filterPriority);
+      if (filterSource !== 'all') params.append('source', filterSource);
+      
+      const response = await fetch(`https://functions.poehali.dev/f9015ccd-0c31-47ee-be4f-f5c16ba760f6?${params}`);
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `leads_export_${new Date().toISOString().split('T')[0]}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        toast({ title: 'Экспорт завершен!' });
+      }
+    } catch (error) {
+      toast({ title: 'Ошибка экспорта', variant: 'destructive' });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -446,6 +509,93 @@ const CRM = () => {
                 <Icon name={isGeneratingPlan ? "Loader2" : "CalendarCheck"} size={16} className={`mr-2 ${isGeneratingPlan ? 'animate-spin' : ''}`} />
                 План на день
               </Button>
+              <Button onClick={exportToExcel} variant="outline" disabled={isExporting}>
+                <Icon name={isExporting ? "Loader2" : "Download"} size={16} className={`mr-2 ${isExporting ? 'animate-spin' : ''}`} />
+                Экспорт Excel
+              </Button>
+              <div className="relative">
+                <Button 
+                  onClick={() => setShowNotifications(!showNotifications)} 
+                  variant="outline" 
+                  size="sm"
+                  className="relative"
+                >
+                  <Icon name="Bell" size={16} className="mr-2" />
+                  Уведомления
+                  {notifications.filter(n => n.urgency === 'urgent' || n.urgency === 'overdue').length > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                      {notifications.filter(n => n.urgency === 'urgent' || n.urgency === 'overdue').length}
+                    </span>
+                  )}
+                </Button>
+                
+                {showNotifications && (
+                  <Card className="absolute right-0 top-12 w-96 max-h-96 overflow-y-auto glass-dark z-50 shadow-2xl">
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-bold">Уведомления</h3>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => setShowNotifications(false)}
+                        >
+                          <Icon name="X" size={16} />
+                        </Button>
+                      </div>
+                      
+                      {notifications.length === 0 ? (
+                        <div className="text-center py-8">
+                          <Icon name="CheckCircle" size={32} className="mx-auto mb-2 text-green-500" />
+                          <p className="text-sm text-muted-foreground">Нет новых уведомлений</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {notifications.map(notif => (
+                            <Card 
+                              key={notif.id} 
+                              className={`glass p-3 cursor-pointer hover:neon-glow transition-all ${
+                                notif.urgency === 'overdue' ? 'border-red-500/50' : 
+                                notif.urgency === 'urgent' ? 'border-yellow-500/50' : ''
+                              }`}
+                              onClick={() => {
+                                if (notif.lead_id) {
+                                  const lead = leads.find(l => l.id === notif.lead_id);
+                                  if (lead) {
+                                    setSelectedLead(lead);
+                                    fetchLeadDetails(lead.id);
+                                    setShowNotifications(false);
+                                  }
+                                }
+                              }}
+                            >
+                              <div className="flex items-start gap-2">
+                                <Icon 
+                                  name={notif.type === 'task' ? 'CheckSquare' : 'AlertCircle'} 
+                                  size={16} 
+                                  className={
+                                    notif.urgency === 'overdue' ? 'text-red-500' : 
+                                    notif.urgency === 'urgent' ? 'text-yellow-500' : 
+                                    'text-blue-500'
+                                  }
+                                />
+                                <div className="flex-1">
+                                  <p className="text-sm font-bold">{notif.title}</p>
+                                  {notif.message && (
+                                    <p className="text-xs text-muted-foreground mt-1">{notif.message}</p>
+                                  )}
+                                  {notif.lead_name && (
+                                    <p className="text-xs text-primary mt-1">{notif.lead_name}</p>
+                                  )}
+                                </div>
+                              </div>
+                            </Card>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                )}
+              </div>
               <Button onClick={fetchLeads} variant="outline" size="sm">
                 <Icon name="RefreshCw" size={16} className="mr-2" />
                 Обновить

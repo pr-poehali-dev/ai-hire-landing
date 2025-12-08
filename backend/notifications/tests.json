@@ -1,0 +1,15 @@
+{
+  "tests": [
+    {
+      "name": "Get notifications",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "notifications": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
