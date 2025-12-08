@@ -108,14 +108,14 @@ const Index = () => {
   };
 
   const teamMembers = [
-    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://i.pravatar.cc/200?img=5' },
-    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://i.pravatar.cc/200?img=9' },
-    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://i.pravatar.cc/200?img=10' },
+    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://i.pravatar.cc/200?img=45' },
+    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://i.pravatar.cc/200?img=47' },
+    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://i.pravatar.cc/200?img=49' },
     { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://i.pravatar.cc/200?img=48' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://i.pravatar.cc/200?img=11' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/200?img=20' },
-    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://i.pravatar.cc/200?img=13' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/200?img=26' }
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://i.pravatar.cc/200?img=52' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://i.pravatar.cc/200?img=44' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://i.pravatar.cc/200?img=54' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://i.pravatar.cc/200?img=43' }
   ];
 
   const testimonials = [
@@ -134,7 +134,7 @@ const Index = () => {
       person: 'Анна Смирнова',
       role: 'COO',
       text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://i.pravatar.cc/200?img=10',
+      img: 'https://i.pravatar.cc/200?img=16',
       stats: { speed: '20ч', quality: '94%', period: '6 мес' },
       rating: 5,
       letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
@@ -144,7 +144,7 @@ const Index = () => {
       person: 'Елена Соколова',
       role: 'Head of AI Department',
       text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
-      img: 'https://i.pravatar.cc/200?img=5',
+      img: 'https://i.pravatar.cc/200?img=19',
       stats: { speed: '24ч', quality: '98%', period: '10 мес' },
       rating: 5,
       letterText: 'Отмечаем высокий уровень сервиса агентства 1 DAY HR. Использование AI-технологий позволило найти уникального специалиста, который органично влился в нашу команду.'
@@ -154,7 +154,7 @@ const Index = () => {
       person: 'Максим Петров',
       role: 'Product Manager',
       text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения.',
-      img: 'https://i.pravatar.cc/200?img=12',
+      img: 'https://i.pravatar.cc/200?img=17',
       stats: { speed: '18ч', quality: '95%', period: '7 мес' },
       rating: 5,
       letterText: 'Признательны агентству 1 DAY HR за срочный подбор разработчика. Кандидат превзошел ожидания, продемонстрировав глубокую экспертизу и инициативность.'
@@ -164,7 +164,7 @@ const Index = () => {
       person: 'Алексей Морозов',
       role: 'Sales Director',
       text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
-      img: 'https://i.pravatar.cc/200?img=13',
+      img: 'https://i.pravatar.cc/200?img=56',
       stats: { speed: '22ч', quality: '93%', period: '5 мес' },
       rating: 5,
       letterText: 'Выражаем признательность 1 DAY HR за тщательный отбор кандидатов. Подобранный менеджер по продажам показал выдающиеся результаты с первых дней работы.'
@@ -174,7 +174,7 @@ const Index = () => {
       person: 'Ирина Федорова',
       role: 'Head of Sales',
       text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
-      img: 'https://i.pravatar.cc/200?img=9',
+      img: 'https://i.pravatar.cc/200?img=24',
       stats: { speed: '19ч', quality: '97%', period: '9 мес' },
       rating: 5,
       letterText: 'Благодарим 1 DAY HR за системный подход к подбору персонала. Специалист не просто закрыл вакансию, а стал стратегическим игроком нашей команды.'
@@ -275,9 +275,9 @@ const Index = () => {
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-secondary animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
+            <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-primary/50 animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
               <p className="text-lg md:text-2xl font-bold">
-                Или вернем деньги. <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold">Гарантия 100%</span>
+                Или вернем деньги. <span className="text-accent font-extrabold">Гарантия 100%</span>
               </p>
             </div>
 
@@ -366,8 +366,8 @@ const Index = () => {
                     <p className="text-xs text-muted-foreground mt-1">Автоматическая оценка</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-accent">~30 сек</p>
-                    <p className="text-xs text-muted-foreground">на анализ</p>
+                    <p className="text-2xl font-bold text-accent">24 часа</p>
+                    <p className="text-xs text-muted-foreground">на подбор</p>
                   </div>
                 </div>
               </Card>
@@ -753,6 +753,156 @@ const Index = () => {
           </div>
 
           <TeamCarousel teamMembers={teamMembers} />
+        </div>
+      </section>
+
+      <section id="specialists" className="py-12 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Специализация</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Каких специалистов мы нанимаем</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Подбираем специалистов любого профиля за 24 часа с помощью AI-технологий
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+                  <Icon name="Code" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">IT-специалисты</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Разработчики, DevOps, тестировщики, аналитики данных</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Full-Stack</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow">
+                  <Icon name="TrendingUp" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Продажи</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">B2B, B2C, Key Account, региональные менеджеры</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Sales Director</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow">
+                  <Icon name="ShoppingCart" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Маркетплейсы</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Wildberries, Ozon, Яндекс.Маркет, Lamoda</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-accent/20 text-accent text-xs">Category Manager</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">Content Manager</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">Аналитик</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">SMM</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">+2</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center neon-glow">
+                  <Icon name="Crown" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Руководители</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">CEO, COO, директора направлений, топ-менеджеры</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CTO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
+                  <Icon name="Megaphone" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Маркетологи</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Digital, SMM, контент, performance, бренд-менеджеры</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Digital Marketing</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Performance</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center neon-glow">
+                  <Icon name="Headphones" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Поддержка</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Customer Success, техподдержка, операторы</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-accent/20 text-accent text-xs">Customer Success</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">Support</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">Operators</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">Service Manager</Badge>
+                <Badge className="bg-accent/20 text-accent text-xs">+1</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+                  <Icon name="DollarSign" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Финансисты</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Бухгалтеры, финансовые аналитики, экономисты</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Экономист</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Казначей</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">+1</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.7s' }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow">
+                  <Icon name="Cog" size={24} className="text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Производство</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Инженеры, технологи, производственные специалисты</p>
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Мастер участка</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Наладчик</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 
