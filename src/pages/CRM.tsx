@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import AIAssistant from '@/components/AIAssistant';
+import { Separator } from '@/components/ui/separator';
 
 interface Lead {
   id: number;
@@ -46,6 +46,7 @@ interface Task {
   due_date?: string;
   completed: boolean;
   priority: string;
+  created_at?: string;
 }
 
 interface Comment {
@@ -63,6 +64,13 @@ interface Call {
   recording_url?: string;
   status: string;
   started_at: string;
+}
+
+interface TimelineEvent {
+  id: string;
+  type: 'task' | 'comment' | 'call' | 'info';
+  timestamp: string;
+  data: any;
 }
 
 interface DailyTask {
@@ -285,45 +293,46 @@ const CRM = () => {
         body: JSON.stringify({ id: leadId, stage_id: newStageId })
       });
 
-      setLeads(prev => prev.map(lead => 
-        lead.id === leadId ? { ...lead, stage_id: newStageId } : lead
-      ));
-
-      toast({ title: 'Этап изменен' });
+      toast({ title: 'Лид перемещен' });
+      fetchLeads();
     } catch (error) {
-      toast({ title: 'Ошибка', variant: 'destructive' });
+      toast({ title: 'Ошибка перемещения', variant: 'destructive' });
     }
   };
 
-  const addTask = async () => {
-    if (!selectedLead || !taskForm.title) return;
+  const createTask = async () => {
+    if (!selectedLead || !taskForm.title) {
+      toast({ title: 'Заполните название задачи', variant: 'destructive' });
+      return;
+    }
 
     try {
-      await fetch('https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665', {
+      await fetch('https://functions.poehali.dev/0aa01a4e-3c3d-4dff-8c77-0fa33c30c2c0', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lead_id: selectedLead.id, ...taskForm })
       });
 
-      toast({ title: 'Задача добавлена' });
+      toast({ title: 'Задача создана' });
       setTaskForm({ title: '', description: '', due_date: '', priority: 'medium' });
       fetchLeadDetails(selectedLead.id);
     } catch (error) {
-      toast({ title: 'Ошибка добавления задачи', variant: 'destructive' });
+      toast({ title: 'Ошибка создания задачи', variant: 'destructive' });
     }
   };
 
   const toggleTask = async (taskId: number, completed: boolean) => {
-    if (!selectedLead) return;
-
     try {
-      await fetch('https://functions.poehali.dev/9861dc82-040e-4a0d-927d-4b27b1dac665', {
+      await fetch('https://functions.poehali.dev/0aa01a4e-3c3d-4dff-8c77-0fa33c30c2c0', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: taskId, completed })
       });
 
-      fetchLeadDetails(selectedLead.id);
+      toast({ title: completed ? 'Задача выполнена' : 'Задача открыта' });
+      if (selectedLead) {
+        fetchLeadDetails(selectedLead.id);
+      }
     } catch (error) {
       toast({ title: 'Ошибка обновления задачи', variant: 'destructive' });
     }
@@ -376,15 +385,14 @@ const CRM = () => {
         });
       }
     } catch (error) {
-      toast({ title: 'Ошибка звонка', variant: 'destructive' });
+      toast({ title: 'Ошибка звонка', description: 'Проверьте настройки Mango Office', variant: 'destructive' });
     }
   };
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch('https://functions.poehali.dev/798a79c3-974a-4494-a98e-7fcf168bd3e9');
+      const response = await fetch('https://functions.poehali.dev/08fef88e-bbab-4bb2-8cdd-44b75c800c91');
       const data = await response.json();
-      
       if (data.success) {
         setNotifications(data.notifications || []);
       }
@@ -396,7 +404,7 @@ const CRM = () => {
   const generateDailyPlan = async () => {
     setIsGeneratingPlan(true);
     try {
-      const response = await fetch('https://functions.poehali.dev/b5093c80-da38-4c7f-8452-5125c945efe3', {
+      const response = await fetch('https://functions.poehali.dev/9a25ae9c-7d92-4d92-8c25-89148f59fb7d', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -483,6 +491,52 @@ const CRM = () => {
     });
   };
 
+  const formatDuration = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const buildTimeline = (lead: Lead): TimelineEvent[] => {
+    const events: TimelineEvent[] = [];
+
+    events.push({
+      id: `info-${lead.id}`,
+      type: 'info',
+      timestamp: lead.created_at,
+      data: { action: 'created', lead }
+    });
+
+    lead.tasks?.forEach(task => {
+      events.push({
+        id: `task-${task.id}`,
+        type: 'task',
+        timestamp: task.created_at || lead.created_at,
+        data: task
+      });
+    });
+
+    lead.comments?.forEach(comment => {
+      events.push({
+        id: `comment-${comment.id}`,
+        type: 'comment',
+        timestamp: comment.created_at,
+        data: comment
+      });
+    });
+
+    lead.calls?.forEach(call => {
+      events.push({
+        id: `call-${call.id}`,
+        type: 'call',
+        timestamp: call.started_at,
+        data: call
+      });
+    });
+
+    return events.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  };
+
   const sources = Array.from(new Set(leads.map(l => l.source)));
 
   return (
@@ -497,147 +551,82 @@ const CRM = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
                 <Icon name="Sparkles" size={20} className="text-white animate-pulse" />
               </div>
-              <span className="text-xl font-bold neon-text">1 DAY HR - CRM</span>
+              <span className="text-xl font-bold neon-text">CRM Система</span>
             </button>
 
-            <div className="flex items-center gap-2">
-              <Button onClick={() => setIsLeadDialogOpen(true)} className="neon-glow">
-                <Icon name="Plus" size={16} className="mr-2" />
-                Добавить лид
-              </Button>
-              <Button onClick={generateDailyPlan} variant="outline" disabled={isGeneratingPlan}>
-                <Icon name={isGeneratingPlan ? "Loader2" : "CalendarCheck"} size={16} className={`mr-2 ${isGeneratingPlan ? 'animate-spin' : ''}`} />
-                План на день
-              </Button>
-              <Button onClick={exportToExcel} variant="outline" disabled={isExporting}>
-                <Icon name={isExporting ? "Loader2" : "Download"} size={16} className={`mr-2 ${isExporting ? 'animate-spin' : ''}`} />
-                Экспорт Excel
-              </Button>
+            <div className="flex items-center gap-3">
               <div className="relative">
                 <Button 
-                  onClick={() => setShowNotifications(!showNotifications)} 
                   variant="outline" 
                   size="sm"
+                  onClick={() => setShowNotifications(!showNotifications)}
                   className="relative"
                 >
-                  <Icon name="Bell" size={16} className="mr-2" />
-                  Уведомления
-                  {notifications.filter(n => n.urgency === 'urgent' || n.urgency === 'overdue').length > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                      {notifications.filter(n => n.urgency === 'urgent' || n.urgency === 'overdue').length}
+                  <Icon name="Bell" size={16} />
+                  {notifications.length > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center">
+                      {notifications.length}
                     </span>
                   )}
                 </Button>
-                
-                {showNotifications && (
-                  <Card className="absolute right-0 top-12 w-96 max-h-96 overflow-y-auto glass-dark z-50 shadow-2xl">
-                    <div className="p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-bold">Уведомления</h3>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={() => setShowNotifications(false)}
-                        >
-                          <Icon name="X" size={16} />
-                        </Button>
+
+                {showNotifications && notifications.length > 0 && (
+                  <Card className="absolute right-0 top-12 w-80 max-h-96 overflow-y-auto glass-dark p-4 space-y-2 z-50">
+                    {notifications.map(notif => (
+                      <div key={notif.id} className="p-3 bg-muted/50 rounded-lg cursor-pointer hover:bg-muted" onClick={() => {
+                        if (notif.lead_id) {
+                          const lead = leads.find(l => l.id === notif.lead_id);
+                          if (lead) {
+                            setSelectedLead(lead);
+                            fetchLeadDetails(notif.lead_id);
+                            setShowNotifications(false);
+                          }
+                        }
+                      }}>
+                        <div className="flex items-start gap-2">
+                          <Badge className={notif.urgency === 'high' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}>
+                            {notif.type}
+                          </Badge>
+                          <div className="flex-1 text-sm">
+                            <p className="font-semibold">{notif.title}</p>
+                            {notif.message && <p className="text-muted-foreground text-xs mt-1">{notif.message}</p>}
+                          </div>
+                        </div>
                       </div>
-                      
-                      {notifications.length === 0 ? (
-                        <div className="text-center py-8">
-                          <Icon name="CheckCircle" size={32} className="mx-auto mb-2 text-green-500" />
-                          <p className="text-sm text-muted-foreground">Нет новых уведомлений</p>
-                        </div>
-                      ) : (
-                        <div className="space-y-2">
-                          {notifications.map(notif => (
-                            <Card 
-                              key={notif.id} 
-                              className={`glass p-3 cursor-pointer hover:neon-glow transition-all ${
-                                notif.urgency === 'overdue' ? 'border-red-500/50' : 
-                                notif.urgency === 'urgent' ? 'border-yellow-500/50' : ''
-                              }`}
-                              onClick={() => {
-                                if (notif.lead_id) {
-                                  const lead = leads.find(l => l.id === notif.lead_id);
-                                  if (lead) {
-                                    setSelectedLead(lead);
-                                    fetchLeadDetails(lead.id);
-                                    setShowNotifications(false);
-                                  }
-                                }
-                              }}
-                            >
-                              <div className="flex items-start gap-2">
-                                <Icon 
-                                  name={notif.type === 'task' ? 'CheckSquare' : 'AlertCircle'} 
-                                  size={16} 
-                                  className={
-                                    notif.urgency === 'overdue' ? 'text-red-500' : 
-                                    notif.urgency === 'urgent' ? 'text-yellow-500' : 
-                                    'text-blue-500'
-                                  }
-                                />
-                                <div className="flex-1">
-                                  <p className="text-sm font-bold">{notif.title}</p>
-                                  {notif.message && (
-                                    <p className="text-xs text-muted-foreground mt-1">{notif.message}</p>
-                                  )}
-                                  {notif.lead_name && (
-                                    <p className="text-xs text-primary mt-1">{notif.lead_name}</p>
-                                  )}
-                                </div>
-                              </div>
-                            </Card>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    ))}
                   </Card>
                 )}
               </div>
-              <Button onClick={fetchLeads} variant="outline" size="sm">
-                <Icon name="RefreshCw" size={16} className="mr-2" />
-                Обновить
+
+              <Button size="sm" onClick={generateDailyPlan} disabled={isGeneratingPlan} className="glass">
+                <Icon name="Calendar" size={16} className="mr-2" />
+                {isGeneratingPlan ? 'Генерация...' : 'План дня'}
               </Button>
-              <Button 
-                onClick={() => {
-                  localStorage.clear();
-                  navigate('/login');
-                }}
-                variant="outline" 
-                size="sm"
-              >
-                <Icon name="LogOut" size={16} className="mr-2" />
-                Выйти
+
+              <Button size="sm" onClick={exportToExcel} disabled={isExporting} className="glass">
+                <Icon name="Download" size={16} className="mr-2" />
+                {isExporting ? 'Экспорт...' : 'Экспорт'}
+              </Button>
+
+              <Button size="sm" onClick={() => navigate('/login')} variant="ghost">
+                <Icon name="LogOut" size={16} />
               </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <section className="pt-24 pb-12 px-4">
-        <div className="container mx-auto max-w-full">
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-4xl font-bold neon-text">CRM система</h1>
-              <div className="flex items-center gap-4">
-                <Badge className="text-lg px-4 py-2 neon-glow">{filteredLeads.length} лидов</Badge>
-                <Button onClick={() => setIsStageDialogOpen(true)} variant="outline" size="sm">
-                  <Icon name="Settings" size={16} className="mr-2" />
-                  Настройка этапов
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-center">
-              <div className="relative flex-1 max-w-md">
+      <section className="pt-28 pb-20">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4 flex-1 max-w-3xl">
+              <div className="relative flex-1">
                 <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <Input 
-                  placeholder="Поиск по имени, телефону, компании..."
+                  placeholder="Поиск по имени, телефону, компании..." 
+                  className="pl-10 glass"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 glass border-primary/30"
                 />
               </div>
 
@@ -646,7 +635,7 @@ const CRM = () => {
                   <SelectValue placeholder="Приоритет" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Все приоритеты</SelectItem>
+                  <SelectItem value="all">Все</SelectItem>
                   <SelectItem value="high">Высокий</SelectItem>
                   <SelectItem value="medium">Средний</SelectItem>
                   <SelectItem value="low">Низкий</SelectItem>
@@ -659,44 +648,40 @@ const CRM = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Все источники</SelectItem>
-                  {sources.map(source => (
-                    <SelectItem key={source} value={source}>{source}</SelectItem>
+                  {sources.map(s => (
+                    <SelectItem key={s} value={s}>{s}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+            </div>
 
-              {(filterPriority !== 'all' || filterSource !== 'all') && (
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => {
-                    setFilterPriority('all');
-                    setFilterSource('all');
-                  }}
-                >
-                  <Icon name="X" size={16} className="mr-2" />
-                  Сбросить
-                </Button>
-              )}
+            <div className="flex gap-2">
+              <Button onClick={() => setIsLeadDialogOpen(true)} className="neon-glow">
+                <Icon name="Plus" size={18} className="mr-2" />
+                Новый лид
+              </Button>
+              <Button variant="outline" onClick={() => {
+                setStageForm({ id: 0, name: '', color: '#3b82f6', position: stages.length });
+                setIsStageDialogOpen(true);
+              }}>
+                <Icon name="Settings" size={18} className="mr-2" />
+                Настроить этапы
+              </Button>
             </div>
           </div>
 
           {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Icon name="Loader2" size={48} className="animate-spin text-primary" />
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
             </div>
           ) : (
             <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="flex gap-4 overflow-x-auto pb-4">
-                {stages.map(stage => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {stages.map((stage) => (
                   <Droppable key={stage.id} droppableId={String(stage.id)}>
                     {(provided) => (
-                      <div 
-                        ref={provided.innerRef} 
-                        {...provided.droppableProps}
-                        className="flex-shrink-0 w-80"
-                      >
-                        <Card className="glass-dark p-4 h-full">
+                      <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <Card className="glass-dark p-4">
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
                               <div 
@@ -776,7 +761,7 @@ const CRM = () => {
       </section>
 
       <Dialog open={!!selectedLead} onOpenChange={(open) => !open && setSelectedLead(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-dark">
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden glass-dark flex flex-col">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between">
               <span className="text-2xl neon-text">{selectedLead?.name}</span>
@@ -794,138 +779,62 @@ const CRM = () => {
           </DialogHeader>
 
           {selectedLead && (
-            <Tabs defaultValue="info" className="mt-4">
-              <TabsList className="grid w-full grid-cols-5 glass">
-                <TabsTrigger value="info">
-                  <Icon name="User" size={16} className="mr-2" />
-                  Информация
-                </TabsTrigger>
-                <TabsTrigger value="tasks">
-                  <Icon name="CheckSquare" size={16} className="mr-2" />
-                  Задачи ({selectedLead.tasks?.length || 0})
-                </TabsTrigger>
-                <TabsTrigger value="comments">
-                  <Icon name="MessageSquare" size={16} className="mr-2" />
-                  Комментарии ({selectedLead.comments?.length || 0})
-                </TabsTrigger>
-                <TabsTrigger value="calls">
-                  <Icon name="Phone" size={16} className="mr-2" />
-                  Звонки ({selectedLead.calls?.length || 0})
-                </TabsTrigger>
-                <TabsTrigger value="ai">
-                  <Icon name="Sparkles" size={16} className="mr-2" />
-                  AI-анализ
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="info" className="space-y-4 mt-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground">Имя</label>
-                    <Input 
-                      value={editingLead.name || ''} 
-                      onChange={(e) => setEditingLead({ ...editingLead, name: e.target.value })}
-                      className="glass mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">Телефон</label>
-                    <Input 
-                      value={editingLead.phone || ''} 
-                      onChange={(e) => setEditingLead({ ...editingLead, phone: e.target.value })}
-                      className="glass mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">Email</label>
-                    <Input 
-                      value={editingLead.email || ''} 
-                      onChange={(e) => setEditingLead({ ...editingLead, email: e.target.value })}
-                      className="glass mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">Компания</label>
-                    <Input 
-                      value={editingLead.company || ''} 
-                      onChange={(e) => setEditingLead({ ...editingLead, company: e.target.value })}
-                      className="glass mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">Вакансия</label>
-                    <Input 
-                      value={editingLead.vacancy || ''} 
-                      onChange={(e) => setEditingLead({ ...editingLead, vacancy: e.target.value })}
-                      className="glass mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground">Приоритет</label>
-                    <Select 
-                      value={editingLead.priority || 'medium'} 
-                      onValueChange={(v) => setEditingLead({ ...editingLead, priority: v })}
-                    >
-                      <SelectTrigger className="glass mt-1">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="high">Высокий</SelectItem>
-                        <SelectItem value="medium">Средний</SelectItem>
-                        <SelectItem value="low">Низкий</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">Заметки</label>
-                  <Textarea 
-                    value={editingLead.notes || ''} 
-                    onChange={(e) => setEditingLead({ ...editingLead, notes: e.target.value })}
-                    className="glass mt-1 min-h-[100px]"
-                  />
-                </div>
-                <Card className="glass p-4">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">Источник:</span>
-                      <span className="ml-2 font-bold">{selectedLead.source}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Создан:</span>
-                      <span className="ml-2 font-bold">{formatDate(selectedLead.created_at)}</span>
-                    </div>
-                  </div>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="tasks" className="space-y-4 mt-4">
-                <Card className="glass p-4">
+            <div className="grid grid-cols-3 gap-6 flex-1 overflow-hidden">
+              <div className="col-span-1 space-y-4 overflow-y-auto pr-4">
+                <Card className="glass p-4 space-y-4">
+                  <h3 className="font-bold flex items-center gap-2">
+                    <Icon name="User" size={18} />
+                    Информация
+                  </h3>
+                  
                   <div className="space-y-3">
-                    <Input 
-                      placeholder="Название задачи" 
-                      value={taskForm.title}
-                      onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
-                      className="glass"
-                    />
-                    <Textarea 
-                      placeholder="Описание (опционально)" 
-                      value={taskForm.description}
-                      onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
-                      className="glass"
-                    />
-                    <div className="flex gap-2">
+                    <div>
+                      <label className="text-xs text-muted-foreground">Имя</label>
                       <Input 
-                        type="datetime-local"
-                        value={taskForm.due_date}
-                        onChange={(e) => setTaskForm({ ...taskForm, due_date: e.target.value })}
-                        className="glass"
+                        value={editingLead.name || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, name: e.target.value })}
+                        className="glass mt-1"
                       />
+                    </div>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Телефон</label>
+                      <Input 
+                        value={editingLead.phone || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, phone: e.target.value })}
+                        className="glass mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Email</label>
+                      <Input 
+                        value={editingLead.email || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, email: e.target.value })}
+                        className="glass mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Компания</label>
+                      <Input 
+                        value={editingLead.company || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, company: e.target.value })}
+                        className="glass mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Вакансия</label>
+                      <Input 
+                        value={editingLead.vacancy || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, vacancy: e.target.value })}
+                        className="glass mt-1"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Приоритет</label>
                       <Select 
-                        value={taskForm.priority} 
-                        onValueChange={(v) => setTaskForm({ ...taskForm, priority: v })}
+                        value={editingLead.priority || 'medium'} 
+                        onValueChange={(v) => setEditingLead({ ...editingLead, priority: v })}
                       >
-                        <SelectTrigger className="glass w-32">
+                        <SelectTrigger className="glass mt-1">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -935,126 +844,179 @@ const CRM = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    <Button onClick={addTask} className="w-full neon-glow">
-                      <Icon name="Plus" size={16} className="mr-2" />
-                      Добавить задачу
-                    </Button>
+                    <div>
+                      <label className="text-xs text-muted-foreground">Заметки</label>
+                      <Textarea 
+                        value={editingLead.notes || ''} 
+                        onChange={(e) => setEditingLead({ ...editingLead, notes: e.target.value })}
+                        className="glass mt-1 min-h-[100px]"
+                      />
+                    </div>
                   </div>
                 </Card>
 
-                <div className="space-y-2">
-                  {selectedLead.tasks?.map(task => (
-                    <Card key={task.id} className="glass p-4 hover:neon-glow transition-all">
-                      <div className="flex items-start gap-3">
-                        <button 
-                          onClick={() => toggleTask(task.id, !task.completed)}
-                          className="mt-1"
-                        >
-                          <Icon 
-                            name={task.completed ? "CheckSquare" : "Square"} 
-                            size={20} 
-                            className={task.completed ? "text-primary" : "text-muted-foreground"}
-                          />
-                        </button>
-                        <div className="flex-1">
-                          <h4 className={`font-bold ${task.completed ? 'line-through text-muted-foreground' : ''}`}>
-                            {task.title}
-                          </h4>
-                          {task.description && (
-                            <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
-                          )}
-                          <div className="flex items-center gap-3 mt-2">
-                            {task.due_date && (
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <Icon name="Calendar" size={12} />
-                                {formatDate(task.due_date)}
-                              </div>
-                            )}
-                            <Badge className={getPriorityColor(task.priority)} style={{ fontSize: '10px', padding: '2px 6px' }}>
-                              {task.priority}
-                            </Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
+                <Card className="glass p-4">
+                  <h3 className="font-bold flex items-center gap-2 mb-4">
+                    <Icon name="Sparkles" size={18} />
+                    AI-Ассистент
+                  </h3>
+                  <AIAssistant />
+                </Card>
+              </div>
 
-              <TabsContent value="comments" className="space-y-4 mt-4">
+              <div className="col-span-2 flex flex-col gap-4 overflow-hidden">
+                <Card className="glass p-4 flex-1 overflow-hidden flex flex-col">
+                  <h3 className="font-bold flex items-center gap-2 mb-4">
+                    <Icon name="Clock" size={18} />
+                    История взаимодействий
+                  </h3>
+
+                  <div className="space-y-4 overflow-y-auto flex-1 pr-2">
+                    {buildTimeline(selectedLead).map((event) => (
+                      <div key={event.id} className="relative pl-8 pb-4 border-l-2 border-muted-foreground/20">
+                        <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-2 border-background"></div>
+                        
+                        <div className="text-xs text-muted-foreground mb-2">
+                          {formatDate(event.timestamp)}
+                        </div>
+
+                        {event.type === 'info' && (
+                          <Card className="glass p-3">
+                            <div className="flex items-center gap-2">
+                              <Icon name="UserPlus" size={16} className="text-green-400" />
+                              <span className="text-sm">Лид создан</span>
+                            </div>
+                          </Card>
+                        )}
+
+                        {event.type === 'task' && (
+                          <Card className="glass p-3">
+                            <div className="flex items-start gap-3">
+                              <div onClick={() => toggleTask(event.data.id, !event.data.completed)} className="cursor-pointer mt-0.5">
+                                <Icon 
+                                  name={event.data.completed ? "CheckCircle2" : "Circle"} 
+                                  size={18} 
+                                  className={event.data.completed ? "text-green-400" : "text-muted-foreground"}
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className={`text-sm font-medium ${event.data.completed ? 'line-through text-muted-foreground' : ''}`}>
+                                    {event.data.title}
+                                  </span>
+                                  <Badge className={getPriorityColor(event.data.priority)} style={{ fontSize: '9px', padding: '2px 6px' }}>
+                                    {event.data.priority}
+                                  </Badge>
+                                </div>
+                                {event.data.description && (
+                                  <p className="text-xs text-muted-foreground">{event.data.description}</p>
+                                )}
+                                {event.data.due_date && (
+                                  <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
+                                    <Icon name="Calendar" size={12} />
+                                    {formatDate(event.data.due_date)}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </Card>
+                        )}
+
+                        {event.type === 'comment' && (
+                          <Card className="glass p-3">
+                            <div className="flex items-start gap-2">
+                              <Icon name="MessageSquare" size={16} className="text-blue-400 mt-0.5" />
+                              <div className="flex-1">
+                                {event.data.author_name && (
+                                  <p className="text-xs font-semibold text-primary mb-1">{event.data.author_name}</p>
+                                )}
+                                <p className="text-sm">{event.data.text}</p>
+                              </div>
+                            </div>
+                          </Card>
+                        )}
+
+                        {event.type === 'call' && (
+                          <Card className="glass p-3">
+                            <div className="flex items-start gap-2">
+                              <Icon 
+                                name={event.data.direction === 'inbound' ? "PhoneIncoming" : "PhoneOutgoing"} 
+                                size={16} 
+                                className={event.data.status === 'completed' ? "text-green-400" : "text-red-400"}
+                                style={{ marginTop: '2px' }}
+                              />
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-sm font-medium">
+                                    {event.data.direction === 'inbound' ? 'Входящий' : 'Исходящий'} звонок
+                                  </span>
+                                  <Badge className={event.data.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}>
+                                    {event.data.status}
+                                  </Badge>
+                                </div>
+                                <div className="text-xs text-muted-foreground space-y-1">
+                                  <p>Номер: {event.data.phone_number}</p>
+                                  {event.data.duration > 0 && (
+                                    <p>Длительность: {formatDuration(event.data.duration)}</p>
+                                  )}
+                                  {event.data.recording_url && (
+                                    <a href={event.data.recording_url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
+                                      <Icon name="Play" size={12} />
+                                      Прослушать запись
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </Card>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
                 <Card className="glass p-4">
                   <div className="space-y-3">
-                    <Textarea 
-                      placeholder="Добавить комментарий..." 
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
-                      className="glass min-h-[80px]"
-                    />
-                    <Button onClick={addComment} className="w-full neon-glow">
-                      <Icon name="Send" size={16} className="mr-2" />
-                      Добавить комментарий
-                    </Button>
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="Добавить задачу..."
+                        value={taskForm.title}
+                        onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+                        className="glass flex-1"
+                        onKeyPress={(e) => e.key === 'Enter' && createTask()}
+                      />
+                      <Select value={taskForm.priority} onValueChange={(v) => setTaskForm({ ...taskForm, priority: v })}>
+                        <SelectTrigger className="w-32 glass">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="high">Высокий</SelectItem>
+                          <SelectItem value="medium">Средний</SelectItem>
+                          <SelectItem value="low">Низкий</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button onClick={createTask} size="sm">
+                        <Icon name="Plus" size={16} />
+                      </Button>
+                    </div>
+
+                    <Separator />
+
+                    <div className="flex gap-2">
+                      <Textarea
+                        placeholder="Добавить комментарий..."
+                        value={commentText}
+                        onChange={(e) => setCommentText(e.target.value)}
+                        className="glass min-h-[60px]"
+                      />
+                      <Button onClick={addComment} size="sm">
+                        <Icon name="Send" size={16} />
+                      </Button>
+                    </div>
                   </div>
                 </Card>
-
-                <div className="space-y-2">
-                  {selectedLead.comments?.map(comment => (
-                    <Card key={comment.id} className="glass p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <span className="font-bold text-sm">{comment.author_name || 'Менеджер'}</span>
-                        <span className="text-xs text-muted-foreground">{formatDate(comment.created_at)}</span>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{comment.text}</p>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="calls" className="space-y-4 mt-4">
-                <div className="space-y-2">
-                  {selectedLead.calls?.map(call => (
-                    <Card key={call.id} className="glass p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Icon 
-                            name={call.direction === 'inbound' ? 'PhoneIncoming' : 'PhoneOutgoing'} 
-                            size={20} 
-                            className="text-primary"
-                          />
-                          <div>
-                            <p className="font-bold">{call.phone_number}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {call.direction === 'inbound' ? 'Входящий' : 'Исходящий'} • {call.duration}с
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <Badge className={call.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}>
-                            {call.status}
-                          </Badge>
-                          <p className="text-xs text-muted-foreground mt-1">{formatDate(call.started_at)}</p>
-                        </div>
-                      </div>
-                      {call.recording_url && (
-                        <div className="mt-3">
-                          <audio controls src={call.recording_url} className="w-full" />
-                        </div>
-                      )}
-                    </Card>
-                  ))}
-                  {(!selectedLead.calls || selectedLead.calls.length === 0) && (
-                    <Card className="glass p-6 text-center">
-                      <Icon name="Phone" size={32} className="mx-auto mb-2 text-muted-foreground" />
-                      <p className="text-muted-foreground">История звонков пуста</p>
-                    </Card>
-                  )}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="ai" className="mt-4">
-                <AIAssistant leadId={selectedLead.id} />
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
           )}
         </DialogContent>
       </Dialog>
@@ -1062,66 +1024,63 @@ const CRM = () => {
       <Dialog open={isLeadDialogOpen} onOpenChange={setIsLeadDialogOpen}>
         <DialogContent className="glass-dark">
           <DialogHeader>
-            <DialogTitle className="neon-text">Создать лид</DialogTitle>
+            <DialogTitle className="neon-text">Новый лид</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <div>
-              <label className="text-sm text-muted-foreground">Имя *</label>
-              <Input 
-                value={leadForm.name} 
-                onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                className="glass mt-1"
-                placeholder="Иван Иванов"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground">Телефон *</label>
-              <Input 
-                value={leadForm.phone} 
-                onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
-                className="glass mt-1"
-                placeholder="+7 999 123-45-67"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground">Email</label>
-              <Input 
-                value={leadForm.email} 
-                onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                className="glass mt-1"
-                placeholder="email@example.com"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground">Компания</label>
-              <Input 
-                value={leadForm.company} 
-                onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
-                className="glass mt-1"
-                placeholder="ООО Компания"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground">Вакансия</label>
-              <Input 
-                value={leadForm.vacancy} 
-                onChange={(e) => setLeadForm({ ...leadForm, vacancy: e.target.value })}
-                className="glass mt-1"
-                placeholder="Senior Developer"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-muted-foreground">Приоритет</label>
-              <Select value={leadForm.priority} onValueChange={(v) => setLeadForm({ ...leadForm, priority: v })}>
-                <SelectTrigger className="glass mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="high">Высокий</SelectItem>
-                  <SelectItem value="medium">Средний</SelectItem>
-                  <SelectItem value="low">Низкий</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm text-muted-foreground">Имя *</label>
+                <Input 
+                  value={leadForm.name} 
+                  onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                  className="glass mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Телефон *</label>
+                <Input 
+                  value={leadForm.phone} 
+                  onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
+                  className="glass mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Email</label>
+                <Input 
+                  value={leadForm.email} 
+                  onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                  className="glass mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Компания</label>
+                <Input 
+                  value={leadForm.company} 
+                  onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                  className="glass mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Вакансия</label>
+                <Input 
+                  value={leadForm.vacancy} 
+                  onChange={(e) => setLeadForm({ ...leadForm, vacancy: e.target.value })}
+                  className="glass mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Приоритет</label>
+                <Select value={leadForm.priority} onValueChange={(v) => setLeadForm({ ...leadForm, priority: v })}>
+                  <SelectTrigger className="glass mt-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="high">Высокий</SelectItem>
+                    <SelectItem value="medium">Средний</SelectItem>
+                    <SelectItem value="low">Низкий</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div>
               <label className="text-sm text-muted-foreground">Заметки</label>
@@ -1129,11 +1088,9 @@ const CRM = () => {
                 value={leadForm.notes} 
                 onChange={(e) => setLeadForm({ ...leadForm, notes: e.target.value })}
                 className="glass mt-1"
-                placeholder="Дополнительная информация..."
               />
             </div>
             <Button onClick={createLead} className="w-full neon-glow">
-              <Icon name="Plus" size={16} className="mr-2" />
               Создать лид
             </Button>
           </div>
@@ -1143,9 +1100,7 @@ const CRM = () => {
       <Dialog open={isStageDialogOpen} onOpenChange={setIsStageDialogOpen}>
         <DialogContent className="glass-dark">
           <DialogHeader>
-            <DialogTitle className="neon-text">
-              {stageForm.id ? 'Редактировать этап' : 'Новый этап'}
-            </DialogTitle>
+            <DialogTitle className="neon-text">{stageForm.id ? 'Редактировать этап' : 'Новый этап'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <div>
@@ -1167,64 +1122,42 @@ const CRM = () => {
             </div>
             <div className="flex gap-2">
               <Button onClick={saveStage} className="flex-1 neon-glow">
-                <Icon name="Save" size={16} className="mr-2" />
-                Сохранить
+                {stageForm.id ? 'Сохранить' : 'Создать'}
               </Button>
-              {stageForm.id > 0 && (
-                <Button 
-                  onClick={() => {
-                    deleteStage(stageForm.id);
-                    setIsStageDialogOpen(false);
-                  }} 
-                  variant="destructive"
-                >
-                  <Icon name="Trash2" size={16} className="mr-2" />
+              {stageForm.id && (
+                <Button variant="destructive" onClick={() => {
+                  deleteStage(stageForm.id);
+                  setIsStageDialogOpen(false);
+                }}>
                   Удалить
                 </Button>
               )}
-            </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-border/30">
-            <h4 className="text-sm font-bold mb-3">Текущие этапы</h4>
-            <div className="space-y-2">
-              {stages.map(stage => (
-                <Card 
-                  key={stage.id} 
-                  className="glass p-3 cursor-pointer hover:neon-glow transition-all"
-                  onClick={() => setStageForm(stage)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-4 h-4 rounded-full" 
-                        style={{ backgroundColor: stage.color }}
-                      />
-                      <span className="font-bold">{stage.name}</span>
-                    </div>
-                    <Badge>{getLeadsByStage(stage.id).length}</Badge>
-                  </div>
-                </Card>
-              ))}
             </div>
           </div>
         </DialogContent>
       </Dialog>
 
       <Dialog open={isDailyPlanOpen} onOpenChange={setIsDailyPlanOpen}>
-        <DialogContent className="max-w-3xl glass-dark">
+        <DialogContent className="glass-dark max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-2xl neon-text">
-              <Icon name="CalendarCheck" size={24} className="text-primary" />
-              План работы на день
+            <DialogTitle className="neon-text flex items-center gap-2">
+              <Icon name="Calendar" size={24} />
+              План на день
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-3 mt-4 max-h-[60vh] overflow-y-auto">
-            {dailyTasks.map((task, idx) => (
-              <Card key={idx} className="glass p-4 hover:neon-glow transition-all">
+            {dailyTasks.map((task, index) => (
+              <Card key={index} className="glass p-4 hover:neon-glow transition-all cursor-pointer" onClick={() => {
+                const lead = leads.find(l => l.id === task.lead_id);
+                if (lead) {
+                  setSelectedLead(lead);
+                  fetchLeadDetails(task.lead_id);
+                  setIsDailyPlanOpen(false);
+                }
+              }}>
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="font-bold text-primary">{idx + 1}</span>
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold">
+                    {index + 1}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
@@ -1233,26 +1166,13 @@ const CRM = () => {
                         {task.priority}
                       </Badge>
                     </div>
-                    <p className="text-sm font-bold text-primary mb-1">{task.action}</p>
-                    <p className="text-sm text-muted-foreground mb-2">{task.reason}</p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <p className="text-sm mb-1"><strong>Действие:</strong> {task.action}</p>
+                    <p className="text-sm text-muted-foreground mb-1">{task.reason}</p>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Icon name="Clock" size={12} />
-                      {task.estimated_time}
+                      <span>{task.estimated_time}</span>
                     </div>
                   </div>
-                  <Button 
-                    size="sm"
-                    onClick={() => {
-                      const lead = leads.find(l => l.id === task.lead_id);
-                      if (lead) {
-                        setSelectedLead(lead);
-                        fetchLeadDetails(lead.id);
-                        setIsDailyPlanOpen(false);
-                      }
-                    }}
-                  >
-                    Открыть
-                  </Button>
                 </div>
               </Card>
             ))}
