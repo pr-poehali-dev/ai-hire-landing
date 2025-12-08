@@ -330,9 +330,11 @@ const Index = () => {
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <p className="text-lg md:text-2xl text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              Или вернем деньги. Гарантия 100%
-            </p>
+            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-accent/20 to-secondary/20 border-2 border-accent animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
+              <p className="text-lg md:text-2xl font-bold">
+                Или вернем деньги. <span className="text-accent neon-text">Гарантия 100%</span>
+              </p>
+            </div>
 
             <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
@@ -341,11 +343,11 @@ const Index = () => {
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
                 <Icon name="Shield" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <span className="text-xs md:text-base">Гарантия</span>
+                <span className="text-xs md:text-base">Пожизненная гарантия</span>
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
                 <Icon name="Target" size={18} className="md:w-5 md:h-5 text-accent animate-pulse" style={{ animationDelay: '1s' }} />
-                <span className="text-xs md:text-base">Проверки</span>
+                <span className="text-xs md:text-base">Ролевые проверки</span>
               </div>
             </div>
 
