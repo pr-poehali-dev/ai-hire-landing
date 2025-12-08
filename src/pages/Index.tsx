@@ -208,8 +208,8 @@ const Index = () => {
             </nav>
 
             <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
-              <span className="hidden sm:inline">Найти сотрудника</span>
-              <span className="sm:hidden">Заявка</span>
+              <span className="hidden sm:inline">Подобрать сотрудника</span>
+              <span className="sm:hidden">Подобрать</span>
             </Button>
           </div>
         </div>
