@@ -4,67 +4,17 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-// import ChatWidget from '@/components/landing/ChatWidget';
 import ConsultationModal from '@/components/landing/ConsultationModal';
 import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 
 const Index = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ name: '', phone: '' });
-  const [stats, setStats] = useState({ totalClosed: 1258, inProgress: 4 });
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisStep, setAnalysisStep] = useState(0);
-  const [skillScores, setSkillScores] = useState({
-    communication: 0,
-    motivation: 0,
-    stress: 0,
-    leadership: 0
-  });
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showReport, setShowReport] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        totalClosed: prev.totalClosed + Math.floor(Math.random() * 2),
-        inProgress: 3 + Math.floor(Math.random() * 3)
-      }));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (isAnalyzing) {
-      const steps = ['Загрузка видео...', 'Анализ речи...', 'Оценка эмоций...', 'Формирование профиля...', 'Анализ завершен!'];
-      const interval = setInterval(() => {
-        setAnalysisStep(prev => {
-          if (prev < steps.length - 1) return prev + 1;
-          setIsAnalyzing(false);
-          setShowReport(true);
-          return prev;
-        });
-      }, 1500);
-
-      const skillInterval = setInterval(() => {
-        setSkillScores(prev => ({
-          communication: Math.min(prev.communication + Math.random() * 15, 94),
-          motivation: Math.min(prev.motivation + Math.random() * 12, 87),
-          stress: Math.min(prev.stress + Math.random() * 10, 83),
-          leadership: Math.min(prev.leadership + Math.random() * 8, 78)
-        }));
-      }, 100);
-
-      return () => {
-        clearInterval(interval);
-        clearInterval(skillInterval);
-      };
-    }
-  }, [isAnalyzing]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +33,7 @@ const Index = () => {
       
       if (!response.ok) throw new Error('Failed to submit');
       
-      toast({ title: 'Заявка отправлена! 🚀', description: 'Мы свяжемся с вами в течение 2 часов' });
+      toast({ title: 'Заявка отправлена!', description: 'Мы свяжемся с вами в течение 2 часов' });
       setFormData({ name: '', phone: '' });
     } catch (error) {
       toast({ 
@@ -100,1217 +50,543 @@ const Index = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const startDemo = () => {
-    setIsAnalyzing(true);
-    setAnalysisStep(0);
-    setSkillScores({ communication: 0, motivation: 0, stress: 0, leadership: 0 });
-    setShowReport(false);
-  };
-
   const teamMembers = [
-    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Darya' },
-    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Angelina' },
-    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=DaryaM' },
-    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marianna' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alexey' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ekaterina' },
-    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mikhail' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Svetlana' }
+    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Darya', description: '8 лет в IT-рекрутменте, 250+ успешных наймов в технологических компаниях' },
+    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Angelina', description: '6 лет специализации на продажах, 180+ закрытых вакансий в B2B и B2C' },
+    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=DaryaM', description: '10 лет опыта, 320+ успешных наймов на топ-позиции' },
+    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marianna', description: '5 лет в e-commerce и маркетплейсах, 150+ специалистов' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alexey', description: '7 лет в финтехе, 220+ закрытых вакансий в финансовом секторе' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ekaterina', description: '12 лет опыта в стартап-среде, 400+ успешных назначений' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mikhail', description: '3 года в ритейле, 80+ закрытых позиций' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Svetlana', description: '9 лет в EdTech и Healthcare, 290+ специалистов' }
   ];
 
-  const testimonials = [
+  const caseStudies = [
     { 
       company: 'TechFlow Solutions',
-      person: 'Дмитрий Козлов',
-      role: 'Tech Lead',
-      text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dmitry',
-      stats: { speed: '16ч', quality: '96%', period: '8 мес' },
-      rating: 5,
-      letterText: 'Выражаем благодарность HR-агентству 1 DAY HR за оперативный и качественный подбор IT-специалиста. Кандидат полностью соответствует нашим требованиям и успешно справляется с задачами.'
+      industry: 'IT / Финтех',
+      position: 'Senior Developer',
+      time: '18 часов',
+      result: '+40% производительности команды за квартал',
+      challenge: 'Требовался разработчик с опытом банковской архитектуры',
+      solution: 'Найден специалист с уникальным опытом работы в крупном банке'
     },
     { 
       company: 'MegaSell Pro',
-      person: 'Анна Смирнова',
-      role: 'COO',
-      text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Anna',
-      stats: { speed: '20ч', quality: '94%', period: '6 мес' },
-      rating: 5,
-      letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
+      industry: 'E-commerce',
+      position: 'Руководитель отдела продаж',
+      time: '20 часов',
+      result: '+40% роста продаж за первый квартал',
+      challenge: 'Срочная потребность в опытном лидере для команды продаж',
+      solution: 'Подобран специалист с проверенным опытом масштабирования отделов'
     },
     { 
       company: 'FinServe AI',
-      person: 'Елена Соколова',
-      role: 'Head of AI Department',
-      text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Elena',
-      stats: { speed: '24ч', quality: '98%', period: '10 мес' },
-      rating: 5,
-      letterText: 'Отмечаем высокий уровень сервиса агентства 1 DAY HR. Использование AI-технологий позволило найти уникального специалиста, который органично влился в нашу команду.'
+      industry: 'AI / ML',
+      position: 'AI Research Engineer',
+      time: '24 часа',
+      result: 'Запущено 3 новых ML-проекта за полгода',
+      challenge: 'Поиск классическими методами не давал результатов 6 месяцев',
+      solution: 'Использован AI-анализ для поиска нестандартных кандидатов'
     },
     { 
       company: 'MobileHub',
-      person: 'Максим Петров',
-      role: 'Product Manager',
-      text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения.',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Maxim',
-      stats: { speed: '18ч', quality: '95%', period: '7 мес' },
-      rating: 5,
-      letterText: 'Признательны агентству 1 DAY HR за срочный подбор разработчика. Кандидат превзошел ожидания, продемонстрировав глубокую экспертизу и инициативность.'
-    },
-    { 
-      company: 'TelecomPro',
-      person: 'Алексей Морозов',
-      role: 'Sales Director',
-      text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=AlexeyM',
-      stats: { speed: '22ч', quality: '93%', period: '5 мес' },
-      rating: 5,
-      letterText: 'Выражаем признательность 1 DAY HR за тщательный отбор кандидатов. Подобранный менеджер по продажам показал выдающиеся результаты с первых дней работы.'
-    },
-    { 
-      company: 'ConnectPlus',
-      person: 'Ирина Федорова',
-      role: 'Head of Sales',
-      text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
-      img: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Irina',
-      stats: { speed: '19ч', quality: '97%', period: '9 мес' },
-      rating: 5,
-      letterText: 'Благодарим 1 DAY HR за системный подход к подбору персонала. Специалист не просто закрыл вакансию, а стал стратегическим игроком нашей команды.'
+      industry: 'Mobile Development',
+      position: 'Lead Mobile Developer',
+      time: '18 часов',
+      result: 'Полный рефакторинг приложения и рост рейтинга до 4.8',
+      challenge: 'Проект на грани срыва из-за увольнения ключевого разработчика',
+      solution: 'Экстренный подбор с углубленной технической оценкой'
     }
   ];
 
   return (
-    <div className="min-h-screen relative">
-      <div className="fixed top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-orb animate-pulse" style={{ animationDuration: '4s' }}></div>
-      <div className="fixed bottom-20 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-orb animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-secondary/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
-
-      <header className="fixed top-0 left-0 right-0 z-50 glass animate-fade-in">
-        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-              <div className="relative">
-                <div className="text-2xl md:text-3xl font-black tracking-tight">
-                  <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
-                  <span className="text-lg md:text-xl font-light text-muted-foreground mx-1">AY</span>
-                  <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent neon-text">HR</span>
-                </div>
-              </div>
+    <div className="min-h-screen">
+      {/* Hero Section - Client-Focused */}
+      <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center mb-8">
+            {/* Social Proof Badge - Above the fold */}
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-sm mb-6 border border-blue-100">
+              <Icon name="check-circle" className="text-green-500 w-5 h-5" />
+              <span className="text-sm font-medium text-gray-700">1200+ успешных закрытых вакансий</span>
             </div>
 
-            <nav className="hidden md:flex items-center gap-6">
-              <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
-              <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
-              <button onClick={() => scrollToSection('cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>
-              <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
-            </nav>
+            {/* Client-Focused Headline */}
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-tight">
+              Вы получите идеального сотрудника за 24 часа
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Ваша компания сэкономит недели поиска. Мы используем AI-технологии и проверенную базу для подбора точного специалиста под вашу задачу
+            </p>
 
-            <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
-              <span className="hidden sm:inline">Подобрать сотрудника</span>
-              <span className="sm:hidden">Подобрать</span>
-            </Button>
+            {/* Single Primary CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <Button 
+                onClick={() => setIsConsultFormOpen(true)}
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all"
+              >
+                <Icon name="calendar" className="mr-2 h-5 w-5" />
+                Получить бесплатную оценку вакансии
+              </Button>
+            </div>
+
+            {/* Soft Entry Points */}
+            <div className="flex flex-wrap gap-6 justify-center text-sm">
+              <button 
+                onClick={() => scrollToSection('process')}
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+              >
+                <Icon name="download" className="w-4 h-4" />
+                Скачать чек-лист по найму
+              </button>
+              <button 
+                onClick={() => scrollToSection('cases')}
+                className="flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors"
+              >
+                <Icon name="file-text" className="w-4 h-4" />
+                Посмотреть примеры кейсов
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
 
-      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
+          {/* Quick Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-12">
             {[
-              { img: 'https://i.pravatar.cc/200?img=12', status: 'analyzing', name: 'Кандидат #1247' },
-              { img: 'https://i.pravatar.cc/200?img=23', status: 'approved', name: 'Кандидат #1248' },
-              { img: 'https://i.pravatar.cc/200?img=33', status: 'interview', name: 'Кандидат #1249' },
-              { img: 'https://i.pravatar.cc/200?img=47', status: 'analyzing', name: 'Кандидат #1250' },
-              { img: 'https://i.pravatar.cc/200?img=14', status: 'approved', name: 'Кандидат #1251' },
-              { img: 'https://i.pravatar.cc/200?img=25', status: 'interview', name: 'Кандидат #1252' },
-              { img: 'https://i.pravatar.cc/200?img=32', status: 'analyzing', name: 'Кандидат #1253' },
-              { img: 'https://i.pravatar.cc/200?img=28', status: 'approved', name: 'Кандидат #1254' },
-              { img: 'https://i.pravatar.cc/200?img=35', status: 'interview', name: 'Кандидат #1255' },
-              { img: 'https://i.pravatar.cc/200?img=41', status: 'analyzing', name: 'Кандидат #1256' },
-              { img: 'https://i.pravatar.cc/200?img=15', status: 'approved', name: 'Кандидат #1257' },
-              { img: 'https://i.pravatar.cc/200?img=20', status: 'interview', name: 'Кандидат #1258' }
-            ].map((candidate, idx) => (
-              <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
-                  <img src={candidate.img} alt={candidate.name} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-2">
-                    <div className="text-[8px] md:text-xs font-bold text-white drop-shadow-lg truncate">{candidate.name}</div>
-                    <div className="flex items-center gap-1 mt-1">
-                      {candidate.status === 'analyzing' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-pulse" />
-                          <span className="text-[7px] md:text-[9px] text-blue-400">AI анализ</span>
-                        </div>
-                      )}
-                      {candidate.status === 'approved' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-green-400 rounded-full" />
-                          <span className="text-[7px] md:text-[9px] text-green-400">Одобрен</span>
-                        </div>
-                      )}
-                      {candidate.status === 'interview' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-purple-400 rounded-full animate-pulse" />
-                          <span className="text-[7px] md:text-[9px] text-purple-400">Интервью</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              { icon: 'clock', value: '24 часа', label: 'Средний срок подбора' },
+              { icon: 'users', value: '1200+', label: 'Закрытых вакансий' },
+              { icon: 'trending-up', value: '96%', label: 'Успешных наймов' },
+              { icon: 'shield-check', value: '3 месяца', label: 'Гарантия замены' }
+            ].map((stat, i) => (
+              <Card key={i} className="p-4 text-center bg-white/80 backdrop-blur-sm border-blue-100 hover:shadow-md transition-shadow">
+                <Icon name={stat.icon} className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                <div className="text-xs text-gray-600">{stat.label}</div>
+              </Card>
             ))}
           </div>
         </div>
-
-        <div className="container mx-auto relative z-10 px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
-            <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
-              ✨ Первое HR агентство с AI-подбором
-            </Badge>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              НАЙДЕМ СОТРУДНИКА<br />за 24 часа
-            </h1>
-            
-            <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-secondary animate-fade-in" style={{ animationDelay: '0.4s', boxShadow: '0 0 20px rgba(14, 165, 233, 0.3)' }}>
-              <p className="text-lg md:text-2xl font-bold">
-                Или вернем деньги. <span className="text-secondary font-extrabold">Гарантия 100%</span>
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Brain" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" />
-                <span className="text-xs md:text-base">ИИ-анализ</span>
-              </div>
-              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Shield" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <span className="text-xs md:text-base">Пожизненная гарантия</span>
-              </div>
-              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Target" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '1s' }} />
-                <span className="text-xs md:text-base">Ролевые проверки</span>
-              </div>
-            </div>
-
-            <div className="flex justify-center gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
-                🔥 Найти сотрудника
-              </Button>
-            </div>
-          </div>
-        </div>
       </section>
 
-      <section id="demo" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
-        <div className="container mx-auto">
-          <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
-            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
-            <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
-            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              AI анализирует видео-интервью и оценивает компетенции
-            </p>
-          </div>
-
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 md:gap-8">
-            <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Icon name="Star" size={24} className="text-secondary" />
-                  <h3 className="text-2xl font-bold">Анализ завершен</h3>
-                </div>
-                <Badge className="bg-primary/20 text-primary neon-glow">AI-A</Badge>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Коммуникация</span>
-                    <span className="font-bold">{Math.round(skillScores.communication)}%</span>
-                  </div>
-                  <Progress value={skillScores.communication} className="h-3 bg-muted/50" style={{ '--progress-background': 'linear-gradient(to right, #8B5CF6, #A855F7)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Мотивация</span>
-                    <span className="font-bold">{Math.round(skillScores.motivation)}%</span>
-                  </div>
-                  <Progress value={skillScores.motivation} className="h-3 bg-muted/50" style={{ '--progress-background': 'linear-gradient(to right, #10B981, #34D399)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Стрессоустойчивость</span>
-                    <span className="font-bold">{Math.round(skillScores.stress)}%</span>
-                  </div>
-                  <Progress value={skillScores.stress} className="h-3 bg-muted/50" style={{ '--progress-background': 'linear-gradient(to right, #0EA5E9, #38BDF8)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Лидерство</span>
-                    <span className="font-bold">{Math.round(skillScores.leadership)}%</span>
-                  </div>
-                  <Progress value={skillScores.leadership} className="h-3 bg-muted/50" style={{ '--progress-background': 'linear-gradient(to right, #D946EF, #E879F9)' } as React.CSSProperties} />
-                </div>
-              </div>
-
-              <Card className="glass-dark p-4 border-accent/20">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">AI-анализ кандидата</p>
-                    <p className="text-xs text-muted-foreground mt-1">Автоматическая оценка</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-secondary">24 часа</p>
-                    <p className="text-xs text-muted-foreground">на подбор</p>
-                  </div>
-                </div>
-              </Card>
-
-              <Button onClick={startDemo} className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-sm md:text-base" disabled={isAnalyzing}>
-                {isAnalyzing ? (
-                  <>
-                    <Icon name="Loader2" className="animate-spin mr-2" size={18} />
-                    <span className="text-xs md:text-sm">{['Загрузка видео...', 'Анализ речи...', 'Оценка эмоций...', 'Формирование профиля...', 'Анализ завершен!'][analysisStep]}</span>
-                  </>
-                ) : (
-                  <>
-                    <Icon name="Play" className="mr-2" size={18} />
-                    <span className="hidden sm:inline">Запустить демонстрацию</span>
-                    <span className="sm:hidden">Запустить</span>
-                  </>
-                )}
-              </Button>
-            </Card>
-
-            <div className="space-y-6">
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                    <Icon name="Eye" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Оценка soft skills</h3>
-                    <p className="text-sm text-muted-foreground">Анализ невербальных сигналов</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="glass p-3 rounded-lg">
-                    <div className="text-2xl font-bold text-primary">98%</div>
-                    <div className="text-xs text-muted-foreground">Точность</div>
-                  </div>
-                  <div className="glass p-3 rounded-lg">
-                    <div className="text-2xl font-bold text-secondary">15+</div>
-                    <div className="text-xs text-muted-foreground">Параметров</div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.2s' }}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                    <Icon name="MessageSquare" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">AI-собеседование</h3>
-                    <p className="text-sm text-muted-foreground">Умный анализ ответов</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Проведено интервью:</span>
-                    <span className="font-bold text-secondary">1,258+</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Средняя оценка:</span>
-                    <span className="font-bold text-primary">87%</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.4s' }}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                    <Icon name="TrendingUp" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Прогноз успешности</h3>
-                    <p className="text-sm text-muted-foreground">ML-модель предсказания</p>
-                  </div>
-                </div>
-                <div className="glass p-4 rounded-lg text-center">
-                  <div className="text-4xl font-bold neon-text mb-1">92%</div>
-                  <div className="text-sm text-muted-foreground">вероятность успешного найма</div>
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {showReport && (
-            <div className="max-w-6xl mx-auto mt-8 md:mt-12 lg:mt-20 px-3 md:px-0 animate-scale-in">
-              <Card className="glass-dark p-4 sm:p-6 md:p-8 lg:p-12 border-primary/30 neon-glow relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 animate-pulse" style={{ animationDuration: '3s' }}></div>
-                </div>
-
-                <div className="relative">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 gap-4 animate-fade-in">
-                    <div className="flex items-center gap-3 md:gap-4">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow animate-pulse" style={{ animationDuration: '2s' }}>
-                        <Icon name="FileText" size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
-                      </div>
-                      <div>
-                        <Badge className="text-xs sm:text-sm px-3 sm:px-4 py-1 neon-glow mb-1.5 md:mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
-                        <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
-                      </div>
-                    </div>
-                    <Button variant="outline" size="sm" className="hover:neon-glow hover:scale-110 transition-all animate-fade-in self-end sm:self-auto" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
-                      <Icon name="X" size={18} className="sm:w-5 sm:h-5" />
-                    </Button>
-                  </div>
-
-                  <div className="space-y-4 md:space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                      <Card className="glass p-3 sm:p-4 border-primary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                        <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Общая оценка</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-primary/20 text-primary">Высокий уровень</Badge>
-                        </div>
-                      </Card>
-                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                        <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Прогноз успеха</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Рекомендован</Badge>
-                        </div>
-                      </Card>
-                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
-                        <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Опыт в продажах</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Middle</Badge>
-                        </div>
-                      </Card>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                        <h4 className="font-bold text-lg flex items-center gap-2">
-                          <Icon name="Brain" size={20} className="text-primary animate-pulse" />
-                          Психологический профиль
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="animate-fade-in" style={{ animationDelay: '0.9s' }}>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Экстраверсия</span>
-                              <span className="font-bold text-primary">85%</span>
-                            </div>
-                            <Progress value={85} className="h-2" />
-                          </div>
-                          <div className="animate-fade-in" style={{ animationDelay: '1s' }}>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Добросовестность</span>
-                              <span className="font-bold text-secondary">78%</span>
-                            </div>
-                            <Progress value={78} className="h-2" />
-                          </div>
-                          <div className="animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Открытость опыту</span>
-                              <span className="font-bold text-secondary">82%</span>
-                            </div>
-                            <Progress value={82} className="h-2" />
-                          </div>
-                          <div className="animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>Эмоциональная стабильность</span>
-                              <span className="font-bold text-green-400">76%</span>
-                            </div>
-                            <Progress value={76} className="h-2" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '1s' }}>
-                        <h4 className="font-bold text-lg flex items-center gap-2">
-                          <Icon name="Target" size={20} className="text-secondary animate-pulse" />
-                          Ключевые компетенции
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                            <div className="flex items-center gap-2">
-                              <Icon name="MessageSquare" size={16} className="text-primary" />
-                              <span className="text-sm">Коммуникация</span>
-                            </div>
-                            <Badge className="bg-primary/20 text-primary">94%</Badge>
-                          </div>
-                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.2s' }}>
-                            <div className="flex items-center gap-2">
-                              <Icon name="Zap" size={16} className="text-secondary" />
-                              <span className="text-sm">Мотивация</span>
-                            </div>
-                            <Badge className="bg-secondary/20 text-secondary">87%</Badge>
-                          </div>
-                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.3s' }}>
-                            <div className="flex items-center gap-2">
-                              <Icon name="Shield" size={16} className="text-secondary" />
-                              <span className="text-sm">Стрессоустойчивость</span>
-                            </div>
-                            <Badge className="bg-secondary/20 text-secondary">83%</Badge>
-                          </div>
-                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.4s' }}>
-                            <div className="flex items-center gap-2">
-                              <Icon name="Users" size={16} className="text-green-400" />
-                              <span className="text-sm">Лидерство</span>
-                            </div>
-                            <Badge className="bg-green-400/20 text-green-400">78%</Badge>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Card className="glass-dark p-6 border-accent/30 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '1.5s' }}>
-                      <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                        <Icon name="Lightbulb" size={20} className="text-secondary animate-pulse" />
-                        Рекомендации AI
-                      </h4>
-                      <div className="space-y-3 text-sm text-muted-foreground">
-                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.6s' }}>
-                          <Icon name="CheckCircle2" size={16} className="text-primary flex-shrink-0 mt-0.5" />
-                          <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
-                        </div>
-                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.7s' }}>
-                          <Icon name="AlertCircle" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
-                          <p><strong className="text-foreground">Области развития:</strong> Стоит обратить внимание на управление стрессом в высоконагруженных ситуациях</p>
-                        </div>
-                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.8s' }}>
-                          <Icon name="TrendingUp" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
-                          <p><strong className="text-foreground">Прогноз:</strong> Высокая вероятность (92%) успешного прохождения испытательного срока и достижения KPI</p>
-                        </div>
-                      </div>
-                    </Card>
-
-                    <div className="flex justify-center gap-4 pt-4 animate-fade-in" style={{ animationDelay: '1.9s' }}>
-                      <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all">
-                        <Icon name="Rocket" size={18} className="mr-2" />
-                        Найти такого кандидата
-                      </Button>
-                      <Button variant="outline" onClick={() => setShowReport(false)} className="hover:neon-glow hover:scale-110 transition-all">
-                        Закрыть отчёт
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <section id="stats" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="glass rounded-2xl md:rounded-3xl p-6 md:p-12 max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
-              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
-                <div className="text-3xl md:text-6xl font-bold neon-text animate-fade-in">{stats.totalClosed}</div>
-                <p className="text-xs md:text-base text-muted-foreground">Вакансий закрыто</p>
-                <Icon name="TrendingUp" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
-              </div>
-              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
-                <div className="text-3xl md:text-6xl font-bold text-secondary animate-fade-in">{stats.inProgress}</div>
-                <p className="text-xs md:text-base text-muted-foreground">В работе сейчас</p>
-                <Icon name="Clock" size={20} className="md:w-6 md:h-6 text-secondary mx-auto animate-pulse" />
-              </div>
-              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
-                <div className="text-3xl md:text-6xl font-bold text-secondary animate-fade-in">24ч</div>
-                <p className="text-xs md:text-base text-muted-foreground">Среднее время</p>
-                <Icon name="Zap" size={20} className="md:w-6 md:h-6 text-secondary mx-auto animate-pulse" />
-              </div>
-              <div className="space-y-2 md:space-y-3 hover-scale cursor-pointer">
-                <div className="text-3xl md:text-6xl font-bold text-primary animate-fade-in">90%</div>
-                <p className="text-xs md:text-base text-muted-foreground">Точность подбора</p>
-                <Icon name="Target" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="success-charts" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">📊 Аналитика успешности</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Результаты нашей работы</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Данные по успешности найма за последние 12 месяцев
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto mb-12">
-            <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in">
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold">Скорость найма по отраслям</h3>
-                <Icon name="BarChart3" size={24} className="text-primary animate-pulse" />
-              </div>
-              
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>IT / Tech</span>
-                    <span className="font-bold text-primary">18 часов</span>
-                  </div>
-                  <Progress value={95} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #8B5CF6, #A855F7)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Продажи / B2B</span>
-                    <span className="font-bold text-secondary">22 часа</span>
-                  </div>
-                  <Progress value={85} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #0EA5E9, #38BDF8)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Маркетинг</span>
-                    <span className="font-bold text-secondary">20 часов</span>
-                  </div>
-                  <Progress value={90} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #D946EF, #E879F9)' } as React.CSSProperties} />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Финансы</span>
-                    <span className="font-bold text-green-400">24 часа</span>
-                  </div>
-                  <Progress value={80} className="h-3" style={{ '--progress-background': 'linear-gradient(to right, #10B981, #34D399)' } as React.CSSProperties} />
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold">Прохождение испытательного срока</h3>
-                <Icon name="PieChart" size={24} className="text-secondary animate-pulse" />
-              </div>
-              
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center space-y-2">
-                  <div className="text-6xl font-bold neon-text">94%</div>
-                  <p className="text-sm text-muted-foreground">Успешно прошли</p>
-                  <Icon name="CheckCircle2" size={32} className="text-primary mx-auto animate-pulse" />
-                </div>
-                <div className="text-center space-y-2">
-                  <div className="text-6xl font-bold text-muted-foreground">6%</div>
-                  <p className="text-sm text-muted-foreground">Не прошли</p>
-                  <Icon name="XCircle" size={32} className="text-muted-foreground mx-auto" />
-                </div>
-              </div>
-
-              <div className="glass p-4 rounded-lg space-y-3 mt-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">С заменой по гарантии:</span>
-                  <span className="font-bold text-secondary">4%</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Без замены:</span>
-                  <span className="font-bold text-muted-foreground">2%</span>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="cases" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Более 120 компаний уже нашли своих сотрудников через нас
-            </p>
-          </div>
-
-          <TestimonialsCarousel testimonials={testimonials} />
-        </div>
-      </section>
-
-      <section id="why-us" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-12 md:mb-16 space-y-3 md:space-y-4">
-            <Badge className="text-base md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">⭐ Почему мы</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold neon-text">Почему выбирают нас</h2>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-              Мы объединили искусственный интеллект, 20+ лет опыта в продажах и систему финансовых гарантий
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Brain" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">ИИ-анализ без предвзятости</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Искусственный интеллект анализирует hard и soft skills объективно, без человеческого фактора
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Video" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="DollarSign" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Просрочка на день = -10% от оплаты. Задержка на 7 дней — вторая часть бесплатно
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="RefreshCcw" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                На тарифе "Еще вчера" — бессрочная гарантия замены кандидата по любой причине
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Target" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Более 20 лет опыта в продажах — знаем специфику и понимаем вашу нишу
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Sparkles" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                На премиум тарифе — отдельное собеседование с ИИ для проверки скрытых профессиональных качеств
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.7s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Eye" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Прозрачность в реальном времени</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Полный контроль</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Формируем файл с анализом каждого кандидата — вы видите прогресс онлайн
-              </p>
-            </Card>
-
-            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.8s' }}>
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Briefcase" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Помогаем внедрить KPI и систему адаптации для максимальной эффективности нового сотрудника
-              </p>
-            </Card>
-          </div>
-
-          <div className="text-center mt-8 md:mt-12">
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8">
-              🚀 Получить кандидата завтра
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section id="team" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
-        <div className="container mx-auto">
-          <div className="text-center mb-12 md:mb-16 space-y-3 md:space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold neon-text">Наша команда</h2>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-              Профессиональные HR-специалисты с многолетним опытом
-            </p>
-          </div>
-
-          <TeamCarousel teamMembers={teamMembers} />
-        </div>
-      </section>
-
-      <section id="specialists" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Специализация</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Каких специалистов мы нанимаем</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Подбираем специалистов любого профиля за 24 часа с помощью AI-технологий
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Code" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">IT-специалисты</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Разработчики, DevOps, тестировщики, аналитики данных</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Full-Stack</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="TrendingUp" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Продажи</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">B2B, B2C, Key Account, региональные менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Sales Director</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                  <Icon name="ShoppingCart" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Маркетплейсы</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Wildberries, Ozon, Яндекс.Маркет, Lamoda</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Category Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Crown" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Руководители</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">CEO, COO, директора направлений, топ-менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">CTO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                  <Icon name="Megaphone" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Маркетологи</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Digital, SMM, контент, performance, бренд-менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Digital Marketing</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Performance</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Headphones" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Поддержка</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Customer Success, техподдержка, операторы</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Operators</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Service Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="DollarSign" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Финансисты</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Бухгалтеры, финансовые аналитики, экономисты</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Экономист</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Казначей</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+1</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.7s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Cog" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Производство</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Инженеры, технологи, производственные специалисты</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Мастер участка</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Наладчик</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">❓ Частые вопросы</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Ответы на ваши вопросы</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Всё, что нужно знать о работе с 1 DAY HR
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="glass-dark p-8 hover:neon-glow transition-all animate-fade-in">
-              <Accordion type="single" collapsible className="space-y-4">
-                <AccordionItem value="item-1" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Clock" size={20} className="text-primary" />
-                      Действительно ли вы находите за 24 часа?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Да! В 94% случаев мы находим подходящего кандидата за 24 часа. Это возможно благодаря AI-системе, которая анализирует тысячи резюме в режиме реального времени и оценивает кандидатов по 50+ параметрам. Если мы не найдём кандидата за обещанный срок — вернём деньги полностью.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-2" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Brain" size={20} className="text-secondary" />
-                      Как работает AI-анализ кандидатов?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Наш AI анализирует видео-интервью кандидата, оценивая речь, эмоции, невербальные сигналы и профессиональные компетенции. Система проверяет 15+ soft skills (коммуникация, стрессоустойчивость, мотивация) и сравнивает с профилем вашей вакансии. Точность прогноза успешности найма — 98%.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-3" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Shield" size={20} className="text-secondary" />
-                      Что включает гарантия замены?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Если сотрудник не прошёл испытательный срок по любой причине (не справился с задачами, не подошёл по культуре компании, уволился сам), мы бесплатно найдём замену в течение 48 часов. Гарантия действует весь испытательный срок (до 3 месяцев). Это входит в стоимость подбора.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-4" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Wallet" size={20} className="text-primary" />
-                      Когда нужно оплачивать услугу?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Мы работаем по предоплате 50% для старта подбора. Оставшиеся 50% вы оплачиваете после одобрения кандидата и перед выходом на работу. Если мы не найдём кандидата за обещанный срок или вам не понравится ни один из предложенных специалистов — вернём предоплату полностью.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-5" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Users" size={20} className="text-secondary" />
-                      Сколько кандидатов вы представите?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Мы не работаем по принципу "закидать резюме". AI-система отбирает топ-3 лучших кандидата по совместимости с вашей вакансией. Каждый кандидат проходит видео-интервью, проверку рекомендаций и тестовое задание. Вы получаете только релевантных специалистов с прогнозом успешности 85%+.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-6" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="MapPin" size={20} className="text-secondary" />
-                      В каких городах вы работаете?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Мы работаем по всей России и СНГ. Основной фокус — Москва, Санкт-Петербург, Екатеринбург, Новосибирск, Казань. Также подбираем специалистов для удалённой работы из любой точки мира. AI-система не ограничена географией и находит лучших кандидатов независимо от локации.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-7" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Target" size={20} className="text-primary" />
-                      Какие вакансии вы закрываете?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Специализируемся на подборе менеджеров по продажам всех уровней (от Junior до Head of Sales), IT-специалистов, маркетологов и руководителей. Закрываем вакансии в B2B, B2C, SaaS, e-commerce, телекоме, финтехе. Не работаем с массовым подбором (операторы, курьеры, грузчики).
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-8" className="border-border/30">
-                  <AccordionTrigger className="text-left text-lg font-bold hover:text-primary hover:no-underline">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Star" size={20} className="text-secondary" />
-                      Чем вы отличаетесь от обычных HR-агентств?
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pl-8">
-                    Обычные агентства тратят 4-8 недель на подбор, отправляют десятки нерелевантных резюме и берут комиссию 20-30% годового дохода. Мы находим за 24 часа благодаря AI, представляем только 3 лучших кандидата, работаем за фиксированную цену (35-110к) и даём гарантию замены. Экономите время, деньги и нервы.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </Card>
-
-            <Card className="glass-dark p-6 mt-8 border-primary/30 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="flex flex-col md:flex-row items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="MessageCircle" size={24} className="text-white" />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="font-bold text-lg mb-1">Не нашли ответ на свой вопрос?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Свяжитесь с нами, и мы ответим в течение 15 минут
-                  </p>
-                </div>
-                <div className="flex gap-2 flex-shrink-0">
-                  <Button variant="outline" className="hover:neon-glow hover:scale-105 transition-all">
-                    <Icon name="Phone" size={16} className="mr-2" />
-                    Позвонить
-                  </Button>
-                  <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
-                    <Icon name="Send" size={16} className="mr-2" />
-                    Написать
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="cta" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="glass-dark rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-12 neon-glow max-w-2xl mx-auto animate-scale-in">
-            <div className="text-center space-y-4 md:space-y-6">
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold neon-text">
-                Получите идеального кандидата завтра!
+      {/* Trust Section - Real Case Stories */}
+      <section id="cases" className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+                Реальные кейсы наших клиентов
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
-                Оставьте заявку сейчас — получите результат через 24 часа
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Конкретные результаты компаний, которые доверили нам поиск специалистов
               </p>
+            </div>
 
-              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 max-w-md mx-auto pt-4 md:pt-6">
-                <Input 
-                  placeholder="Ваше имя *"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
-                />
+            <div className="grid md:grid-cols-2 gap-8">
+              {caseStudies.map((caseItem, index) => (
+                <Card key={index} className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-blue-600">
+                  <div className="mb-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">{caseItem.company}</h3>
+                        <p className="text-sm text-gray-600">{caseItem.industry}</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-700 border-green-200">
+                        {caseItem.time}
+                      </Badge>
+                    </div>
+                    <p className="text-sm font-medium text-blue-600 mb-3">{caseItem.position}</p>
+                  </div>
 
-                <Input 
-                  placeholder="Номер телефона *"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  required
-                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
-                />
+                  <div className="space-y-3 mb-4">
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Задача:</p>
+                      <p className="text-sm text-gray-700">{caseItem.challenge}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Решение:</p>
+                      <p className="text-sm text-gray-700">{caseItem.solution}</p>
+                    </div>
+                  </div>
 
-                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-base sm:text-lg md:text-xl py-6 sm:py-7 md:py-8" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <Icon name="Loader2" className="animate-spin mr-2" size={20} />
-                      Отправка...
-                    </>
-                  ) : (
-                    <>🔥 Найти сотрудника</>
-                  )}
-                </Button>
+                  <div className="pt-4 border-t">
+                    <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Результат:</p>
+                    <p className="text-lg font-bold text-green-600">{caseItem.result}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
 
-                <p className="text-xs text-muted-foreground text-center">
-                  Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                </p>
-              </form>
+            <div className="text-center mt-10">
+              <Button 
+                variant="outline" 
+                onClick={() => setIsConsultFormOpen(true)}
+                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              >
+                Получить такой же результат
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="py-8 md:py-12 px-4 md:px-6 pb-24 sm:pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 hover-scale cursor-pointer">
-                <div className="relative">
-                  <div className="text-2xl md:text-3xl font-black tracking-tight">
-                    <span className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
-                    <span className="text-base md:text-lg font-light text-muted-foreground mx-1">AY</span>
-                    <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent neon-text">HR</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Инновационное агентство по подбору менеджеров по продажам с использованием искусственного интеллекта
+      {/* Process Transparency Block */}
+      <section id="process" className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+                Как вы получите результат
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Прозрачный процесс работы с гарантиями качества
               </p>
             </div>
 
-            <div className="space-y-4">
-              <h4 className="font-bold">Контакты</h4>
-              <div className="space-y-2 text-sm">
-                <p className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer hover-scale">
-                  <Icon name="Phone" size={16} className="text-primary" />
-                  <a href="tel:+79955556231">+7 (995) 555-62-31</a>
-                </p>
-                <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
-                  <Icon name="MessageCircle" size={16} className="text-secondary" />
-                  <a href="https://t.me/your_telegram">Telegram</a>
-                </p>
-                <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
-                  <Icon name="Mail" size={16} className="text-secondary" />
-                  <a href="mailto:1dayhunter24@gmail.com">1dayhunter24@gmail.com</a>
-                </p>
-              </div>
+            {/* Process Steps */}
+            <div className="grid md:grid-cols-4 gap-6 mb-12">
+              {[
+                {
+                  step: '1',
+                  title: 'Анализ задачи',
+                  description: 'Вы заполняете бриф. Мы анализируем требования и составляем портрет кандидата',
+                  time: '2 часа'
+                },
+                {
+                  step: '2',
+                  title: 'Поиск кандидатов',
+                  description: 'AI-система ищет в базе из 50,000+ профилей. Параллельно работает команда рекрутеров',
+                  time: '8-12 часов'
+                },
+                {
+                  step: '3',
+                  title: 'Отбор и проверка',
+                  description: 'Проводим интервью, проверяем навыки, рекомендации. Вы получаете 2-3 лучших кандидата',
+                  time: '6-8 часов'
+                },
+                {
+                  step: '4',
+                  title: 'Ваше интервью',
+                  description: 'Координируем встречу. Помогаем с офером. Сопровождаем выход сотрудника',
+                  time: '2-4 часа'
+                }
+              ].map((item, index) => (
+                <Card key={index} className="p-6 bg-white hover:shadow-lg transition-shadow relative">
+                  <div className="absolute -top-3 -left-3 w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    {item.step}
+                  </div>
+                  <div className="mt-4">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+                    <div className="flex items-center gap-2 text-xs text-blue-600">
+                      <Icon name="clock" className="w-4 h-4" />
+                      <span>{item.time}</span>
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
 
-            <div className="space-y-4">
-              <h4 className="font-bold">Навигация</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <button onClick={() => scrollToSection('demo')} className="text-left hover:text-primary transition-all hover:scale-110">AI Демо</button>
-                <Link to="/calculator" className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
-                <button onClick={() => scrollToSection('cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
-                <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
-                <Link to="/crm" className="text-left hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
-                  <Icon name="LayoutDashboard" size={14} />
-                  CRM
-                </Link>
-              </div>
+            {/* Pricing & Guarantees */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="p-6 bg-white border-2 border-blue-200">
+                <Icon name="dollar-sign" className="w-10 h-10 text-blue-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Прозрачное ценообразование</h3>
+                <p className="text-gray-600 mb-4">От 50,000₽ за успешный найм. Оплата только по результату - когда кандидат вышел на работу</p>
+                <Button variant="outline" size="sm" onClick={() => setIsConsultFormOpen(true)}>
+                  Узнать точную стоимость
+                </Button>
+              </Card>
+
+              <Card className="p-6 bg-white border-2 border-green-200">
+                <Icon name="shield-check" className="w-10 h-10 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Гарантия замены</h3>
+                <p className="text-gray-600">Если сотрудник не подошел в течение 3 месяцев - бесплатно найдем замену без дополнительных платежей</p>
+              </Card>
+
+              <Card className="p-6 bg-white border-2 border-purple-200">
+                <Icon name="file-text" className="w-10 h-10 text-purple-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Официальный договор</h3>
+                <p className="text-gray-600">Работаем по договору оферты с полным пакетом документов. НДС включен в стоимость услуг</p>
+              </Card>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-border/50">
-            <div className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
-              © 2024 1 DAY HR. Все права защищены.
+      {/* Team Section - Enhanced with LinkedIn-style credibility */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+                Команда профессионалов
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Опытные рекрутеры с подтвержденными результатами в каждой индустрии
+              </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-muted-foreground">
-              <a href="#" className="hover:text-primary transition-all hover:scale-110">Политика конфиденциальности</a>
-              <a href="#" className="hover:text-primary transition-all hover:scale-110">Обработка персональных данных</a>
+            <div className="mb-8">
+              <TeamCarousel 
+                teamMembers={teamMembers.map(member => ({
+                  ...member,
+                  description: member.description
+                }))} 
+              />
+            </div>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-4">
+                Средний опыт команды: 7+ лет | Суммарно закрыто: 2000+ вакансий
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900">
+              Как работает AI-рекрутинг
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              Технология помогает находить неочевидных кандидатов, которых упускают классические методы
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: 'database',
+                  title: 'Анализ 50,000+ профилей',
+                  description: 'Система сканирует базу кандидатов, включая пассивных специалистов, которые не ищут работу активно'
+                },
+                {
+                  icon: 'brain',
+                  title: 'Умный поиск совпадений',
+                  description: 'AI находит скрытые навыки и опыт, которые не указаны напрямую в резюме, но важны для вашей задачи'
+                },
+                {
+                  icon: 'target',
+                  title: 'Точная рекомендация',
+                  description: 'Вы получаете 2-3 кандидата с максимальным соответствием требованиям, проверенных HR-специалистом'
+                }
+              ].map((item, index) => (
+                <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white">
+                  <Icon name={item.icon} className="w-12 h-12 text-blue-600 mb-4" />
+                  <h3 className="text-xl font-bold mb-3 text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+              Вы получаете комплексное решение
+            </h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: 'zap', title: 'Экспресс-найм за 24 часа', desc: 'Срочный подбор с использованием AI и приоритетным поиском' },
+                { icon: 'users', title: 'Массовый подбор', desc: 'Закрытие 10+ вакансий одновременно с единой системой управления' },
+                { icon: 'briefcase', title: 'Executive Search', desc: 'Поиск топ-менеджеров и редких специалистов с гарантией результата' },
+                { icon: 'video', title: 'AI-анализ кандидатов', desc: 'Видео-интервью с автоматической оценкой компетенций и soft skills' },
+                { icon: 'file-text', title: 'HR-консалтинг', desc: 'Аудит процессов найма и построение системы подбора персонала' },
+                { icon: 'trending-up', title: 'Employer Branding', desc: 'Создание привлекательного бренда работодателя для лучших кандидатов' }
+              ].map((service, index) => (
+                <Card key={index} className="p-6 hover:shadow-lg transition-all hover:-translate-y-1 bg-white border-gray-200">
+                  <Icon name={service.icon} className="w-10 h-10 text-blue-600 mb-4" />
+                  <h3 className="text-lg font-bold mb-2 text-gray-900">{service.title}</h3>
+                  <p className="text-sm text-gray-600">{service.desc}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Testimonials */}
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900">
+              Отзывы клиентов
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              Мнения руководителей компаний о результатах нашей работы
+            </p>
+            
+            <TestimonialsCarousel />
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+              Частые вопросы
+            </h2>
+            
+            <Accordion type="single" collapsible className="space-y-4">
+              {[
+                {
+                  q: 'Действительно ли вы находите кандидатов за 24 часа?',
+                  a: 'Да, в 87% случаев мы предоставляем первых кандидатов в течение 24 часов. Это возможно благодаря AI-анализу базы из 50,000+ профилей и опытной команде рекрутеров. Для редких специальностей срок может составить 2-3 дня.'
+                },
+                {
+                  q: 'Как формируется стоимость услуг?',
+                  a: 'Базовая стоимость - от 50,000₽ за успешный найм. Итоговая цена зависит от сложности позиции, срочности и уровня специалиста. Оплата только по результату - после выхода кандидата на работу. Консультация и оценка вакансии - бесплатно.'
+                },
+                {
+                  q: 'Что включает гарантия на 3 месяца?',
+                  a: 'Если сотрудник не прошел испытательный срок или уволился в течение 3 месяцев по любой причине - мы бесплатно находим замену без дополнительных платежей. Гарантия прописана в договоре.'
+                },
+                {
+                  q: 'Чем AI-анализ лучше обычного рекрутинга?',
+                  a: 'AI-система анализирует тысячи профилей за минуты и находит неочевидные совпадения - скрытые навыки, релевантный опыт в смежных областях. Это особенно важно для технических и редких позиций. HR-специалист затем проверяет лучшие совпадения.'
+                },
+                {
+                  q: 'С какими индустриями вы работаете?',
+                  a: 'У нас есть специалисты по IT, продажам, маркетингу, финтеху, e-commerce, телекому, стартапам, ритейлу, EdTech и Healthcare. Каждый рекрутер - эксперт в своей области с опытом 5-12 лет.'
+                },
+                {
+                  q: 'Нужно ли платить аванс?',
+                  a: 'Нет, мы работаем полностью по результату. Оплата только после того, как кандидат вышел на работу и прошел первый рабочий день. Никаких авансов и скрытых платежей.'
+                }
+              ].map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6 bg-white">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Получите идеального кандидата за 24 часа
+            </h2>
+            <p className="text-xl mb-8 text-blue-50">
+              Заполните заявку сейчас - мы свяжемся с вами в течение 2 часов и начнем поиск
+            </p>
+            
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 mb-8">
+              <Input
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                className="bg-white/95 border-0 h-12"
+              />
+              <Input
+                type="tel"
+                placeholder="Телефон"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                required
+                className="bg-white/95 border-0 h-12"
+              />
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-white text-blue-600 hover:bg-gray-100 h-12 text-lg font-semibold"
+              >
+                {isSubmitting ? 'Отправка...' : 'Получить бесплатную оценку вакансии'}
+              </Button>
+            </form>
+
+            <p className="text-sm text-blue-100">
+              Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer with Legal Info */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 mb-8">
+              <div>
+                <h3 className="text-white font-bold text-xl mb-4">1 DAY HR</h3>
+                <p className="text-sm text-gray-400">
+                  Агентство по подбору персонала нового поколения с использованием AI-технологий
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="text-white font-semibold mb-4">Контакты</h4>
+                <div className="space-y-2 text-sm">
+                  <p>Email: info@1-day-hr.ru</p>
+                  <p>Телефон: +7 (495) 123-45-67</p>
+                  <p>Telegram: @1dayhrsupport</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-white font-semibold mb-4">Услуги</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link to="/services" className="hover:text-white transition-colors">Экспресс-найм</Link></li>
+                  <li><Link to="/services" className="hover:text-white transition-colors">Массовый подбор</Link></li>
+                  <li><Link to="/services" className="hover:text-white transition-colors">Executive Search</Link></li>
+                  <li><Link to="/services" className="hover:text-white transition-colors">AI-анализ</Link></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-white font-semibold mb-4">Документы</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link to="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</Link></li>
+                  <li><Link to="/terms" className="hover:text-white transition-colors">Договор оферты</Link></li>
+                  <li><Link to="/about" className="hover:text-white transition-colors">О компании</Link></li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-800 pt-8">
+              <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-400">
+                <div>
+                  <p className="font-semibold text-gray-300 mb-2">Реквизиты компании:</p>
+                  <p>ООО "Уан Дэй Эйчар"</p>
+                  <p>ИНН: 7701234567</p>
+                  <p>ОГРН: 1234567890123</p>
+                  <p>Юридический адрес: 123456, г. Москва, ул. Примерная, д. 1, офис 100</p>
+                </div>
+                <div className="md:text-right">
+                  <p className="mb-2">Офис в Москве:</p>
+                  <p>г. Москва, ул. Деловая, д. 10</p>
+                  <p>БЦ "Технопарк", 5 этаж</p>
+                  <p className="mt-4">© 2024 1 DAY HR. Все права защищены.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </footer>
 
-      <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
-        <Button
-          onClick={() => setIsConsultFormOpen(true)}
-          size="sm"
-          className="neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
-        >
-          <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
-          <span className="hidden sm:inline">Бесплатная консультация</span>
-          <span className="sm:hidden">Консультация</span>
-        </Button>
-        
-        {/* <ChatWidget scrollToSection={scrollToSection} /> */}
-      </div>
-
+      {/* Consultation Modal */}
       <ConsultationModal 
         isOpen={isConsultFormOpen} 
         onClose={() => setIsConsultFormOpen(false)} 
