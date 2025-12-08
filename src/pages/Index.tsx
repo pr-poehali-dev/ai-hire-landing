@@ -166,14 +166,14 @@ const Index = () => {
   };
 
   const teamMembers = [
-    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://randomuser.me/api/portraits/women/44.jpg' },
-    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://randomuser.me/api/portraits/women/65.jpg' },
-    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://randomuser.me/api/portraits/women/68.jpg' },
-    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/72.jpg' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/32.jpg' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/90.jpg' },
-    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://randomuser.me/api/portraits/men/46.jpg' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://randomuser.me/api/portraits/women/85.jpg' }
+    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://randomuser.me/api/portraits/women/12.jpg' },
+    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://randomuser.me/api/portraits/women/23.jpg' },
+    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://randomuser.me/api/portraits/women/36.jpg' },
+    { name: 'Марианна Ильясовна', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/47.jpg' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/18.jpg' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/31.jpg' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://randomuser.me/api/portraits/men/25.jpg' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://randomuser.me/api/portraits/women/19.jpg' }
   ];
 
   const testimonials = [
@@ -192,7 +192,7 @@ const Index = () => {
       person: 'Анна Смирнова',
       role: 'COO',
       text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://randomuser.me/api/portraits/women/44.jpg',
+      img: 'https://randomuser.me/api/portraits/women/17.jpg',
       stats: { speed: '20ч', quality: '94%', period: '6 мес' },
       rating: 5,
       letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
