@@ -252,10 +252,13 @@ const Index = () => {
         <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                <Icon name="Sparkles" size={16} className="md:w-5 md:h-5 text-white animate-pulse" />
+              <div className="relative">
+                <div className="text-2xl md:text-3xl font-black tracking-tight">
+                  <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-accent bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                  <span className="text-lg md:text-xl font-light text-muted-foreground mx-1">AY</span>
+                  <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent neon-text">HR</span>
+                </div>
               </div>
-              <span className="text-base md:text-xl font-bold neon-text">1 DAY HR</span>
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
@@ -1010,10 +1013,13 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 hover-scale cursor-pointer">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Sparkles" size={20} className="text-white" />
+                <div className="relative">
+                  <div className="text-2xl md:text-3xl font-black tracking-tight">
+                    <span className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary via-secondary to-accent bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                    <span className="text-base md:text-lg font-light text-muted-foreground mx-1">AY</span>
+                    <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent neon-text">HR</span>
+                  </div>
                 </div>
-                <span className="text-xl font-bold neon-text">1 DAY HR</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Инновационное агентство по подбору менеджеров по продажам с использованием искусственного интеллекта
