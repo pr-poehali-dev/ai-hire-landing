@@ -732,9 +732,9 @@ const Index = () => {
                     <div className="flex items-center justify-between pt-2 border-t border-border/30">
                       <div className="flex items-center gap-2">
                         <Avatar className="w-8 h-8 border-2 border-primary/50">
-                          <AvatarImage src={testimonial.img} alt={testimonial.name} />
+                          <AvatarImage src={testimonial.img} alt={testimonial.person} />
                           <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
-                            {testimonial.name.split(' ').map(n => n[0]).join('')}
+                            {testimonial.person.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div>
