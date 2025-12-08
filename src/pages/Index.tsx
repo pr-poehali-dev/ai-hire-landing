@@ -34,6 +34,7 @@ const Index = () => {
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConsultSubmitting, setIsConsultSubmitting] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +53,7 @@ const Index = () => {
         setAnalysisStep(prev => {
           if (prev < steps.length - 1) return prev + 1;
           setIsAnalyzing(false);
+          setShowReport(true);
           return prev;
         });
       }, 1500);
@@ -163,6 +165,7 @@ const Index = () => {
     setIsAnalyzing(true);
     setAnalysisStep(0);
     setSkillScores({ communication: 0, motivation: 0, stress: 0, leadership: 0 });
+    setShowReport(false);
   };
 
   const teamMembers = [
@@ -506,111 +509,160 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="max-w-6xl mx-auto mt-12 md:mt-20">
-            <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow animate-fade-in">
-              <div className="text-center mb-8">
-                <Badge className="text-lg px-6 py-2 neon-glow mb-4">📊 Итоги AI-анализа</Badge>
-                <h3 className="text-3xl md:text-4xl font-bold neon-text mb-4">Что вы получаете после анализа</h3>
-                <p className="text-muted-foreground text-lg">Полный профиль кандидата за 30 секунд</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="Brain" size={24} className="text-white" />
+          {showReport && (
+            <div className="max-w-6xl mx-auto mt-12 md:mt-20 animate-fade-in">
+              <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+                      <Icon name="FileText" size={32} className="text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-2">Психологический профиль</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">Анализ типа личности, мотивации, стрессоустойчивости и эмоционального интеллекта по модели Big Five</p>
+                      <Badge className="text-sm px-4 py-1 neon-glow mb-2">📊 Пример отчёта</Badge>
+                      <h3 className="text-2xl md:text-3xl font-bold neon-text">Детальный отчёт кандидата</h3>
+                      <p className="text-sm text-muted-foreground">Александр Петров • Менеджер по продажам</p>
                     </div>
                   </div>
-
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-secondary to-accent flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="Users" size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Soft Skills оценка</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">15+ навыков: коммуникация, работа в команде, лидерство, адаптивность, критическое мышление</p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="Video" size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Анализ видео-интервью</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">Распознавание речи, эмоций, жестов, мимики и интонации с помощью компьютерного зрения</p>
-                    </div>
-                  </div>
+                  <Button variant="outline" className="hover:neon-glow" onClick={() => setShowReport(false)}>
+                    <Icon name="X" size={20} />
+                  </Button>
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="TrendingUp" size={24} className="text-white" />
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <Card className="glass p-4 border-primary/20">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-primary mb-1">{Math.round(skillScores.communication)}%</div>
+                        <div className="text-sm text-muted-foreground">Общая оценка</div>
+                        <Badge className="mt-2 bg-primary/20 text-primary">Высокий уровень</Badge>
+                      </div>
+                    </Card>
+                    <Card className="glass p-4 border-secondary/20">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-secondary mb-1">92%</div>
+                        <div className="text-sm text-muted-foreground">Прогноз успеха</div>
+                        <Badge className="mt-2 bg-secondary/20 text-secondary">Рекомендован</Badge>
+                      </div>
+                    </Card>
+                    <Card className="glass p-4 border-accent/20">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-accent mb-1">5 лет</div>
+                        <div className="text-sm text-muted-foreground">Опыт в продажах</div>
+                        <Badge className="mt-2 bg-accent/20 text-accent">Middle</Badge>
+                      </div>
+                    </Card>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-bold text-lg flex items-center gap-2">
+                        <Icon name="Brain" size={20} className="text-primary" />
+                        Психологический профиль
+                      </h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Экстраверсия</span>
+                            <span className="font-bold text-primary">85%</span>
+                          </div>
+                          <Progress value={85} className="h-2" />
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Добросовестность</span>
+                            <span className="font-bold text-secondary">78%</span>
+                          </div>
+                          <Progress value={78} className="h-2" />
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Открытость опыту</span>
+                            <span className="font-bold text-accent">82%</span>
+                          </div>
+                          <Progress value={82} className="h-2" />
+                        </div>
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Эмоциональная стабильность</span>
+                            <span className="font-bold text-green-400">76%</span>
+                          </div>
+                          <Progress value={76} className="h-2" />
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Прогноз успешности</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">ML-модель предсказывает вероятность прохождения испытательного срока с точностью 92%</p>
+
+                    <div className="space-y-4">
+                      <h4 className="font-bold text-lg flex items-center gap-2">
+                        <Icon name="Target" size={20} className="text-secondary" />
+                        Ключевые компетенции
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between glass p-3 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Icon name="MessageSquare" size={16} className="text-primary" />
+                            <span className="text-sm">Коммуникация</span>
+                          </div>
+                          <Badge className="bg-primary/20 text-primary">94%</Badge>
+                        </div>
+                        <div className="flex items-center justify-between glass p-3 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Icon name="Zap" size={16} className="text-secondary" />
+                            <span className="text-sm">Мотивация</span>
+                          </div>
+                          <Badge className="bg-secondary/20 text-secondary">87%</Badge>
+                        </div>
+                        <div className="flex items-center justify-between glass p-3 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Icon name="Shield" size={16} className="text-accent" />
+                            <span className="text-sm">Стрессоустойчивость</span>
+                          </div>
+                          <Badge className="bg-accent/20 text-accent">83%</Badge>
+                        </div>
+                        <div className="flex items-center justify-between glass p-3 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <Icon name="Users" size={16} className="text-green-400" />
+                            <span className="text-sm">Лидерство</span>
+                          </div>
+                          <Badge className="bg-green-400/20 text-green-400">78%</Badge>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="Shield" size={24} className="text-white" />
+                  <Card className="glass-dark p-6 border-accent/30">
+                    <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
+                      <Icon name="Lightbulb" size={20} className="text-accent" />
+                      Рекомендации AI
+                    </h4>
+                    <div className="space-y-3 text-sm text-muted-foreground">
+                      <div className="flex gap-3">
+                        <Icon name="CheckCircle2" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                        <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <Icon name="AlertCircle" size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                        <p><strong className="text-foreground">Области развития:</strong> Стоит обратить внимание на управление стрессом в высоконагруженных ситуациях</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <Icon name="TrendingUp" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
+                        <p><strong className="text-foreground">Прогноз:</strong> Высокая вероятность (92%) успешного прохождения испытательного срока и достижения KPI</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Проверка достоверности</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">Детекция несоответствий в резюме, верификация опыта работы и рекомендаций</p>
-                    </div>
-                  </div>
+                  </Card>
 
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                      <Icon name="FileText" size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2">Подробный отчёт</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">PDF-документ с графиками, рекомендациями и сравнением с профилем вакансии</p>
-                    </div>
+                  <div className="flex justify-center gap-4 pt-4">
+                    <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
+                      <Icon name="Rocket" size={18} className="mr-2" />
+                      Найти такого кандидата
+                    </Button>
+                    <Button variant="outline" onClick={() => setShowReport(false)} className="hover:neon-glow">
+                      Закрыть отчёт
+                    </Button>
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-10 p-6 glass rounded-lg border border-accent/30">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                    <Icon name="Sparkles" size={32} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-xl mb-1">Уникальность нашего AI</h4>
-                    <p className="text-sm text-muted-foreground">Обучен на 50,000+ успешных наймов в российских компаниях</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-3xl font-bold text-primary mb-1">50K+</div>
-                    <div className="text-xs text-muted-foreground">Кандидатов</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-secondary mb-1">98%</div>
-                    <div className="text-xs text-muted-foreground">Точность</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-accent mb-1">30 сек</div>
-                    <div className="text-xs text-muted-foreground">Анализ</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-primary mb-1">15+</div>
-                    <div className="text-xs text-muted-foreground">Параметров</div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
+              </Card>
+            </div>
+          )}
         </div>
       </section>
 
