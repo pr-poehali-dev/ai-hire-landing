@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Generate invite link",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-User-Email": "ipzlenko@gmail.com"
+      },
+      "body": {
+        "max_uses": 1,
+        "expires_in_hours": 168
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "token": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

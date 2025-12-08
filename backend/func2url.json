@@ -1,4 +1,6 @@
 {
+  "generate-invite": "https://functions.poehali.dev/03013315-5e44-41da-b1e9-c7b03a5c5bdf",
+  "admin-reset-password": "https://functions.poehali.dev/42bd944e-1e61-412f-8844-c9f3b34d0419",
   "notifications": "https://functions.poehali.dev/798a79c3-974a-4494-a98e-7fcf168bd3e9",
   "export-leads": "https://functions.poehali.dev/f9015ccd-0c31-47ee-be4f-f5c16ba760f6",
   "ai-assistant": "https://functions.poehali.dev/b5093c80-da38-4c7f-8452-5125c945efe3",

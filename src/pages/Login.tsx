@@ -1,23 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
+  const [searchParams] = useSearchParams();
   const [isReset, setIsReset] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resetToken, setResetToken] = useState('');
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: ''
+    password: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,42 +73,25 @@ const Login = () => {
           }
         }
       } else {
-        const url = isLogin 
-          ? 'https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656'
-          : 'https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071';
-
-        const body = isLogin 
-          ? { email: formData.email, password: formData.password }
-          : { email: formData.email, password: formData.password, name: formData.name };
-
-        const response = await fetch(url, {
+        const response = await fetch('https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
+          body: JSON.stringify({ email: formData.email, password: formData.password })
         });
 
         const data = await response.json();
 
         if (response.ok && data.success) {
-          if (isLogin) {
-            localStorage.setItem('auth_token', data.token);
-            localStorage.setItem('user_email', data.user.email);
-            localStorage.setItem('user_name', data.user.name || '');
-            
-            toast({ 
-              title: 'Добро пожаловать! 🚀', 
-              description: 'Вы успешно вошли в систему' 
-            });
-            
-            navigate('/crm');
-          } else {
-            toast({ 
-              title: 'Регистрация завершена! 🎉', 
-              description: 'Теперь войдите в систему' 
-            });
-            setIsLogin(true);
-            setFormData({ email: formData.email, password: '', name: '' });
-          }
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('user_email', data.user.email);
+          localStorage.setItem('user_name', data.user.name || '');
+          
+          toast({ 
+            title: 'Добро пожаловать! 🚀', 
+            description: 'Вы успешно вошли в систему' 
+          });
+          
+          navigate('/crm');
         } else {
           throw new Error(data.error || 'Ошибка');
         }
@@ -140,33 +122,12 @@ const Login = () => {
           </div>
           
           <h1 className="text-3xl font-bold neon-text mb-2">
-            {isReset ? 'Восстановление пароля' : isLogin ? 'Вход в CRM' : 'Регистрация'}
+            {isReset ? 'Восстановление пароля' : 'Вход в CRM'}
           </h1>
           <p className="text-muted-foreground">
-            {isReset ? 'Введите email для восстановления' : isLogin ? 'Войдите в систему управления заявками' : 'Создайте аккаунт для доступа к CRM'}
+            {isReset ? 'Введите email для восстановления' : 'Войдите в систему управления заявками'}
           </p>
         </div>
-
-        {!isReset && (
-          <div className="flex gap-2 mb-6">
-            <Button
-              type="button"
-              variant={isLogin ? 'default' : 'outline'}
-              className={`flex-1 ${isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
-              onClick={() => setIsLogin(true)}
-            >
-              Вход
-            </Button>
-            <Button
-              type="button"
-              variant={!isLogin ? 'default' : 'outline'}
-              className={`flex-1 ${!isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
-              onClick={() => setIsLogin(false)}
-            >
-              Регистрация
-            </Button>
-          </div>
-        )}
 
         {isReset && (
           <Button
@@ -181,20 +142,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && !isReset && (
-            <div className="space-y-2">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Icon name="User" size={16} className="text-primary" />
-                Имя
-              </label>
-              <Input
-                placeholder="Иван Иванов"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-              />
-            </div>
-          )}
 
           {!resetToken && (
             <div className="space-y-2">
