@@ -11,7 +11,9 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [isReset, setIsReset] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resetToken, setResetToken] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -88,31 +90,45 @@ const Login = () => {
           </div>
           
           <h1 className="text-3xl font-bold neon-text mb-2">
-            {isLogin ? 'Вход в CRM' : 'Регистрация'}
+            {isReset ? 'Восстановление пароля' : isLogin ? 'Вход в CRM' : 'Регистрация'}
           </h1>
           <p className="text-muted-foreground">
-            {isLogin ? 'Войдите в систему управления заявками' : 'Создайте аккаунт для доступа к CRM'}
+            {isReset ? 'Введите email для восстановления' : isLogin ? 'Войдите в систему управления заявками' : 'Создайте аккаунт для доступа к CRM'}
           </p>
         </div>
 
-        <div className="flex gap-2 mb-6">
+        {!isReset && (
+          <div className="flex gap-2 mb-6">
+            <Button
+              type="button"
+              variant={isLogin ? 'default' : 'outline'}
+              className={`flex-1 ${isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
+              onClick={() => setIsLogin(true)}
+            >
+              Вход
+            </Button>
+            <Button
+              type="button"
+              variant={!isLogin ? 'default' : 'outline'}
+              className={`flex-1 ${!isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
+              onClick={() => setIsLogin(false)}
+            >
+              Регистрация
+            </Button>
+          </div>
+        )}
+
+        {isReset && (
           <Button
             type="button"
-            variant={isLogin ? 'default' : 'outline'}
-            className={`flex-1 ${isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
-            onClick={() => setIsLogin(true)}
+            variant="outline"
+            className="w-full mb-6"
+            onClick={() => { setIsReset(false); setResetToken(''); }}
           >
-            Вход
+            <Icon name="ArrowLeft" size={16} className="mr-2" />
+            Назад к входу
           </Button>
-          <Button
-            type="button"
-            variant={!isLogin ? 'default' : 'outline'}
-            className={`flex-1 ${!isLogin ? 'neon-glow bg-gradient-to-r from-primary to-secondary' : ''}`}
-            onClick={() => setIsLogin(false)}
-          >
-            Регистрация
-          </Button>
-        </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
@@ -180,6 +196,17 @@ const Login = () => {
             )}
           </Button>
         </form>
+
+        {isLogin && !isReset && (
+          <div className="mt-4 text-center">
+            <button
+              onClick={() => setIsReset(true)}
+              className="text-sm text-muted-foreground hover:text-primary transition-all"
+            >
+              Забыли пароль?
+            </button>
+          </div>
+        )}
 
         <div className="mt-6 text-center">
           <button

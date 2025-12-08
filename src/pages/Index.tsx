@@ -215,6 +215,55 @@ const Index = () => {
       </header>
 
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-3 md:px-4 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
+            {[
+              { img: 'https://i.pravatar.cc/200?img=12', status: 'analyzing', name: 'Кандидат #1247' },
+              { img: 'https://i.pravatar.cc/200?img=23', status: 'approved', name: 'Кандидат #1248' },
+              { img: 'https://i.pravatar.cc/200?img=33', status: 'interview', name: 'Кандидат #1249' },
+              { img: 'https://i.pravatar.cc/200?img=47', status: 'analyzing', name: 'Кандидат #1250' },
+              { img: 'https://i.pravatar.cc/200?img=14', status: 'approved', name: 'Кандидат #1251' },
+              { img: 'https://i.pravatar.cc/200?img=25', status: 'interview', name: 'Кандидат #1252' },
+              { img: 'https://i.pravatar.cc/200?img=32', status: 'analyzing', name: 'Кандидат #1253' },
+              { img: 'https://i.pravatar.cc/200?img=28', status: 'approved', name: 'Кандидат #1254' },
+              { img: 'https://i.pravatar.cc/200?img=35', status: 'interview', name: 'Кандидат #1255' },
+              { img: 'https://i.pravatar.cc/200?img=41', status: 'analyzing', name: 'Кандидат #1256' },
+              { img: 'https://i.pravatar.cc/200?img=15', status: 'approved', name: 'Кандидат #1257' },
+              { img: 'https://i.pravatar.cc/200?img=20', status: 'interview', name: 'Кандидат #1258' }
+            ].map((candidate, idx) => (
+              <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
+                <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
+                  <img src={candidate.img} alt={candidate.name} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2">
+                    <div className="text-[8px] md:text-xs font-bold text-white drop-shadow-lg truncate">{candidate.name}</div>
+                    <div className="flex items-center gap-1 mt-1">
+                      {candidate.status === 'analyzing' && (
+                        <div className="flex items-center gap-1">
+                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-pulse" />
+                          <span className="text-[7px] md:text-[9px] text-blue-400">AI анализ</span>
+                        </div>
+                      )}
+                      {candidate.status === 'approved' && (
+                        <div className="flex items-center gap-1">
+                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-green-400 rounded-full" />
+                          <span className="text-[7px] md:text-[9px] text-green-400">Одобрен</span>
+                        </div>
+                      )}
+                      {candidate.status === 'interview' && (
+                        <div className="flex items-center gap-1">
+                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-purple-400 rounded-full animate-pulse" />
+                          <span className="text-[7px] md:text-[9px] text-purple-400">Интервью</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="container mx-auto relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">

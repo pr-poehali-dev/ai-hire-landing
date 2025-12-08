@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Request reset with valid email",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "test@example.com"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Request reset without email",
+      "method": "POST",
+      "path": "/",
+      "body": {},
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Email is required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

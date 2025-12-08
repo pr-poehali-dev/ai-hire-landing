@@ -1,4 +1,6 @@
 {
+  "reset-password": "https://functions.poehali.dev/594ecf2c-625e-46c1-ac73-2078fdcd39e0",
+  "request-reset": "https://functions.poehali.dev/5abb26ce-21bf-442e-a2d0-45f452b38e21",
   "register": "https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071",
   "login": "https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656",
   "get-leads": "https://functions.poehali.dev/a93ddbce-6315-4a84-8e82-7f3434116541",

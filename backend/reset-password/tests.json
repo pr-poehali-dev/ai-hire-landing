@@ -1,0 +1,45 @@
+{
+  "tests": [
+    {
+      "name": "Reset password with invalid token",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "token": "invalid_token",
+        "new_password": "newpass123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Invalid or expired token"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Reset password without token",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "new_password": "newpass123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Token and new password are required"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Reset password with short password",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "token": "some_token",
+        "new_password": "123"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Password must be at least 6 characters"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
