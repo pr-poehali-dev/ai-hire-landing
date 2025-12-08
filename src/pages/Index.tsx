@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
+import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -20,6 +21,31 @@ const Index = () => {
     stress: 0,
     leadership: 0
   });
+  const [calcParams, setCalcParams] = useState({
+    positions: 1,
+    urgency: 24,
+    level: 2
+  });
+
+  const calculatePrice = () => {
+    const basePrice = 35000;
+    const positionMultiplier = calcParams.positions;
+    const urgencyMultiplier = calcParams.urgency === 12 ? 1.5 : calcParams.urgency === 24 ? 1 : 0.85;
+    const levelMultiplier = calcParams.level === 1 ? 1 : calcParams.level === 2 ? 2.14 : 3.14;
+    return Math.round(basePrice * positionMultiplier * urgencyMultiplier * levelMultiplier);
+  };
+
+  const getLevelName = (level: number) => {
+    if (level === 1) return 'Junior / Middle';
+    if (level === 2) return 'Senior';
+    return 'Team Lead / C-level';
+  };
+
+  const getUrgencyName = (hours: number) => {
+    if (hours === 12) return '12 часов';
+    if (hours === 24) return '24 часа';
+    return '48 часов';
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,8 +134,8 @@ const Index = () => {
 
             <nav className="hidden md:flex items-center gap-6">
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
-              <button onClick={() => scrollToSection('benefits')} className="text-sm hover:text-primary transition-all hover:scale-110">Преимущества</button>
-              <button onClick={() => scrollToSection('pricing')} className="text-sm hover:text-primary transition-all hover:scale-110">Тарифы</button>
+              <button onClick={() => scrollToSection('calculator')} className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</button>
+              <button onClick={() => scrollToSection('video-cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>
               <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
             </nav>
 
@@ -590,7 +616,182 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="team" className="py-20 px-4">
+      <section id="calculator" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💰 Калькулятор стоимости</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">Рассчитайте стоимость подбора</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Настройте параметры и узнайте точную цену прямо сейчас
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-8">
+            <Card className="glass-dark p-8 space-y-8 hover:neon-glow transition-all animate-fade-in">
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold">Количество вакансий</h3>
+                      <p className="text-sm text-muted-foreground">Сколько сотрудников нужно найти</p>
+                    </div>
+                    <Badge className="text-2xl px-6 py-2 bg-primary/20 text-primary neon-glow">
+                      {calcParams.positions}
+                    </Badge>
+                  </div>
+                  <Slider 
+                    value={[calcParams.positions]} 
+                    onValueChange={(v) => setCalcParams({...calcParams, positions: v[0]})}
+                    min={1}
+                    max={10}
+                    step={1}
+                    className="cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>1 человек</span>
+                    <span>10 человек</span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-border/50" />
+
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold">Срочность</h3>
+                      <p className="text-sm text-muted-foreground">За какое время нужен результат</p>
+                    </div>
+                    <Badge className="text-lg px-4 py-2 bg-secondary/20 text-secondary neon-glow">
+                      {getUrgencyName(calcParams.urgency)}
+                    </Badge>
+                  </div>
+                  <Slider 
+                    value={[calcParams.urgency === 12 ? 0 : calcParams.urgency === 24 ? 1 : 2]} 
+                    onValueChange={(v) => {
+                      const urgencyMap = [12, 24, 48];
+                      setCalcParams({...calcParams, urgency: urgencyMap[v[0]]});
+                    }}
+                    min={0}
+                    max={2}
+                    step={1}
+                    className="cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>12 часов</span>
+                    <span>24 часа</span>
+                    <span>48 часов</span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-border/50" />
+
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold">Уровень специалиста</h3>
+                      <p className="text-sm text-muted-foreground">Какую позицию нужно закрыть</p>
+                    </div>
+                    <Badge className="text-lg px-4 py-2 bg-accent/20 text-accent neon-glow">
+                      {getLevelName(calcParams.level)}
+                    </Badge>
+                  </div>
+                  <Slider 
+                    value={[calcParams.level]} 
+                    onValueChange={(v) => setCalcParams({...calcParams, level: v[0]})}
+                    min={1}
+                    max={3}
+                    step={1}
+                    className="cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>Junior/Middle</span>
+                    <span>Senior</span>
+                    <span>Lead/C-level</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <div className="space-y-6">
+              <Card className="glass-dark p-8 space-y-6 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <div className="text-center space-y-4">
+                  <div className="flex items-center justify-center gap-2">
+                    <Icon name="Calculator" size={32} className="text-primary animate-pulse" />
+                    <h3 className="text-2xl font-bold">Итоговая стоимость</h3>
+                  </div>
+                  
+                  <div className="py-8">
+                    <div className="text-7xl font-bold neon-text animate-scale-in">
+                      {calculatePrice().toLocaleString('ru-RU')}
+                    </div>
+                    <div className="text-2xl text-muted-foreground mt-2">рублей</div>
+                  </div>
+
+                  <div className="glass p-6 rounded-lg space-y-3 text-left">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Количество:</span>
+                      <span className="font-bold">{calcParams.positions} {calcParams.positions === 1 ? 'вакансия' : 'вакансии'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Срок:</span>
+                      <span className="font-bold text-secondary">{getUrgencyName(calcParams.urgency)}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Уровень:</span>
+                      <span className="font-bold text-accent">{getLevelName(calcParams.level)}</span>
+                    </div>
+                  </div>
+
+                  <Button onClick={() => scrollToSection('cta')} size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-lg py-6 mt-4">
+                    🔥 Заказать подбор
+                  </Button>
+                </div>
+              </Card>
+
+              <Card className="glass-dark p-6 space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                <div className="flex items-center gap-3">
+                  <Icon name="Gift" size={24} className="text-accent animate-pulse" />
+                  <h4 className="font-bold">Что входит в стоимость:</h4>
+                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <span>AI-анализ кандидатов и видео-интервью</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <span>Проверка рекомендаций и опыта работы</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <span>Гарантия замены на испытательном сроке</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <span>Поддержка HR-специалиста весь период</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Icon name="CheckCircle2" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                    <span>Возврат денег, если не найдем кандидата</span>
+                  </li>
+                </ul>
+              </Card>
+
+              <Card className="glass-dark p-6 border-accent/30 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <Icon name="Percent" size={24} className="text-accent animate-pulse" />
+                  <h4 className="font-bold text-accent">Специальное предложение</h4>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  При заказе от 3 вакансий — скидка 15%. При заказе от 5 вакансий — скидка 25%!
+                </p>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="team" className="py-20 px-4 bg-muted/5">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Наша команда</h2>
