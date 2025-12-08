@@ -452,55 +452,55 @@ const Index = () => {
           </div>
 
           {showReport && (
-            <div className="max-w-6xl mx-auto mt-12 md:mt-20 animate-scale-in">
-              <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow relative overflow-hidden">
+            <div className="max-w-6xl mx-auto mt-8 md:mt-12 lg:mt-20 px-3 md:px-0 animate-scale-in">
+              <Card className="glass-dark p-4 sm:p-6 md:p-8 lg:p-12 border-primary/30 neon-glow relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 animate-pulse" style={{ animationDuration: '3s' }}></div>
                 </div>
 
                 <div className="relative">
-                  <div className="flex items-center justify-between mb-8 animate-fade-in">
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow animate-pulse" style={{ animationDuration: '2s' }}>
-                        <Icon name="FileText" size={32} className="text-white" />
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 gap-4 animate-fade-in">
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow animate-pulse" style={{ animationDuration: '2s' }}>
+                        <Icon name="FileText" size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
                       </div>
                       <div>
-                        <Badge className="text-sm px-4 py-1 neon-glow mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
-                        <h3 className="text-2xl md:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
-                        <p className="text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
+                        <Badge className="text-xs sm:text-sm px-3 sm:px-4 py-1 neon-glow mb-1.5 md:mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
+                        <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="hover:neon-glow hover:scale-110 transition-all animate-fade-in" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
-                      <Icon name="X" size={20} />
+                    <Button variant="outline" size="sm" className="hover:neon-glow hover:scale-110 transition-all animate-fade-in self-end sm:self-auto" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
+                      <Icon name="X" size={18} className="sm:w-5 sm:h-5" />
                     </Button>
                   </div>
 
-                  <div className="space-y-6">
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <Card className="glass p-4 border-primary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                  <div className="space-y-4 md:space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+                      <Card className="glass p-3 sm:p-4 border-primary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.5s' }}>
                         <div className="text-center">
-                          <div className="text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
-                          <div className="text-sm text-muted-foreground">Общая оценка</div>
-                          <Badge className="mt-2 bg-primary/20 text-primary">Высокий уровень</Badge>
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground">Общая оценка</div>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-primary/20 text-primary">Высокий уровень</Badge>
                         </div>
                       </Card>
-                      <Card className="glass p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                         <div className="text-center">
-                          <div className="text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
-                          <div className="text-sm text-muted-foreground">Прогноз успеха</div>
-                          <Badge className="mt-2 bg-secondary/20 text-secondary">Рекомендован</Badge>
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground">Прогноз успеха</div>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Рекомендован</Badge>
                         </div>
                       </Card>
-                      <Card className="glass p-4 border-accent/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
                         <div className="text-center">
-                          <div className="text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
-                          <div className="text-sm text-muted-foreground">Опыт в продажах</div>
-                          <Badge className="mt-2 bg-secondary/20 text-secondary">Middle</Badge>
+                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
+                          <div className="text-xs sm:text-sm text-muted-foreground">Опыт в продажах</div>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Middle</Badge>
                         </div>
                       </Card>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                         <h4 className="font-bold text-lg flex items-center gap-2">
                           <Icon name="Brain" size={20} className="text-primary animate-pulse" />
@@ -743,11 +743,151 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="why-us" className="py-12 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12 md:mb-16 space-y-3 md:space-y-4">
+            <Badge className="text-base md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">⭐ Почему мы</Badge>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold neon-text">Почему выбирают нас</h2>
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+              Мы объединили искусственный интеллект, 20+ лет опыта в продажах и систему финансовых гарантий
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto">
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Brain" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">ИИ-анализ без предвзятости</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Искусственный интеллект анализирует hard и soft skills объективно, без человеческого фактора
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Video" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="DollarSign" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Просрочка на день = -10% от оплаты. Задержка на 7 дней — вторая часть бесплатно
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="RefreshCcw" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На тарифе "Еще вчера" — бессрочная гарантия замены кандидата по любой причине
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Target" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Более 20 лет опыта в продажах — знаем специфику и понимаем вашу нишу
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Sparkles" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На премиум тарифе — отдельное собеседование с ИИ для проверки скрытых профессиональных качеств
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.7s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Eye" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Прозрачность в реальном времени</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Полный контроль</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Формируем файл с анализом каждого кандидата — вы видите прогресс онлайн
+              </p>
+            </Card>
+
+            <Card className="glass-dark p-4 md:p-6 hover:neon-glow transition-all hover-scale animate-fade-in sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.8s' }}>
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Briefcase" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Помогаем внедрить KPI и систему адаптации для максимальной эффективности нового сотрудника
+              </p>
+            </Card>
+          </div>
+
+          <div className="text-center mt-8 md:mt-12">
+            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8">
+              🚀 Получить кандидата завтра
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <section id="team" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Наша команда</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="text-center mb-12 md:mb-16 space-y-3 md:space-y-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold neon-text">Наша команда</h2>
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
               Профессиональные HR-специалисты с многолетним опытом
             </p>
           </div>

@@ -42,12 +42,14 @@ export const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps
         {testimonials.map((testimonial, idx) => (
           <div key={idx} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3">
             <Card className="glass-dark overflow-hidden hover:neon-glow transition-all h-full">
-              <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 overflow-hidden">
-                <img src={testimonial.img} alt={testimonial.person} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="font-bold text-lg text-white drop-shadow-lg">{testimonial.company}</h3>
-                  <p className="text-sm text-white/90 drop-shadow-md">{testimonial.person} • {testimonial.role}</p>
+              <div className="relative h-32 bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 overflow-hidden">
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-primary/30 rounded-full blur-3xl"></div>
+                  <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/30 rounded-full blur-3xl"></div>
+                </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                  <h3 className="font-bold text-xl md:text-2xl text-white drop-shadow-lg neon-text">{testimonial.company}</h3>
+                  <p className="text-sm text-white/90 drop-shadow-md mt-1">{testimonial.person} • {testimonial.role}</p>
                 </div>
               </div>
 
