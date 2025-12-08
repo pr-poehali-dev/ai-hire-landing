@@ -350,7 +350,7 @@ const Index = () => {
               </p>
               <div className="inline-block px-4 py-2 md:px-6 md:py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
-                  <span className="text-primary font-extrabold">Гарантия результата</span> или вернём 100% денег
+                  Если не уложимся в сроки - <span className="text-primary font-extrabold">не платите</span>
                 </p>
               </div>
             </div>
@@ -393,8 +393,8 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 md:gap-8">
-            <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all">
+          <div className="max-w-4xl mx-auto">
+            <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all mb-6 md:mb-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Icon name="Star" size={24} className="text-secondary" />
@@ -465,68 +465,6 @@ const Index = () => {
                 )}
               </Button>
             </Card>
-
-            <div className="space-y-6">
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                    <Icon name="Eye" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Оценка soft skills</h3>
-                    <p className="text-sm text-muted-foreground">Анализ невербальных сигналов</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="glass p-3 rounded-lg">
-                    <div className="text-2xl font-bold text-primary">98%</div>
-                    <div className="text-xs text-muted-foreground">Точность</div>
-                  </div>
-                  <div className="glass p-3 rounded-lg">
-                    <div className="text-2xl font-bold text-secondary">15+</div>
-                    <div className="text-xs text-muted-foreground">Параметров</div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.2s' }}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                    <Icon name="MessageSquare" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">AI-собеседование</h3>
-                    <p className="text-sm text-muted-foreground">Умный анализ ответов</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Проведено интервью:</span>
-                    <span className="font-bold text-secondary">1,258+</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Средняя оценка:</span>
-                    <span className="font-bold text-primary">87%</span>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="glass-dark p-6 hover:neon-glow transition-all animate-fade-in hover-scale" style={{ animationDelay: '0.4s' }}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                    <Icon name="TrendingUp" size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Прогноз успешности</h3>
-                    <p className="text-sm text-muted-foreground">ML-модель предсказания</p>
-                  </div>
-                </div>
-                <div className="glass p-4 rounded-lg text-center">
-                  <div className="text-4xl font-bold neon-text mb-1">92%</div>
-                  <div className="text-sm text-muted-foreground">вероятность успешного найма</div>
-                </div>
-              </Card>
-            </div>
           </div>
 
           {showReport && (
@@ -887,8 +825,8 @@ const Index = () => {
             </Card>
           </div>
 
-          <div className="text-center mt-8 md:mt-12">
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8">
+          <div className="flex justify-center mt-8 md:mt-12">
+            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8 w-full sm:w-auto">
               🚀 Получить кандидата завтра
             </Button>
           </div>
@@ -1313,7 +1251,7 @@ const Index = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   required
-                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
+                  className="glass border-primary/30 h-12 md:h-14 text-base focus:neon-glow transition-all"
                 />
 
                 <Input 
@@ -1322,10 +1260,10 @@ const Index = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   required
-                  className="glass border-primary/30 h-12 sm:h-14 text-base sm:text-lg focus:neon-glow transition-all"
+                  className="glass border-primary/30 h-12 md:h-14 text-base focus:neon-glow transition-all"
                 />
 
-                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-base sm:text-lg md:text-xl py-6 sm:py-7 md:py-8" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-base md:text-lg h-12 md:h-14" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Icon name="Loader2" className="animate-spin mr-2" size={20} />

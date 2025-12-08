@@ -270,30 +270,26 @@ const SalesManagers = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              <div>
-                <Input
-                  placeholder="Ваше имя"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                  className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-lg py-6"
-                />
-              </div>
-              <div>
-                <Input
-                  placeholder="Ваш телефон"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  required
-                  className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-lg py-6"
-                />
-              </div>
+              <Input
+                placeholder="Ваше имя *"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base md:text-lg h-12 md:h-14"
+              />
+              <Input
+                placeholder="Номер телефона *"
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                required
+                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base md:text-lg h-12 md:h-14"
+              />
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
                 size="lg"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xl py-7 font-bold"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base md:text-xl h-12 md:h-14 font-bold"
               >
                 {isSubmitting ? 'Отправка...' : 'Получить кандидатов за 24 часа 🚀'}
               </Button>

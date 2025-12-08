@@ -306,30 +306,26 @@ const Marketers = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Input
-                  placeholder="Ваше имя"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                  className="bg-white/10 border-pink-500/30 text-white placeholder:text-gray-400 text-lg py-6"
-                />
-              </div>
-              <div>
-                <Input
-                  placeholder="Ваш телефон"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  required
-                  className="bg-white/10 border-pink-500/30 text-white placeholder:text-gray-400 text-lg py-6"
-                />
-              </div>
+              <Input
+                placeholder="Ваше имя *"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+                className="bg-white/10 border-pink-500/30 text-white placeholder:text-gray-400 h-12 md:h-14 text-base md:text-lg"
+              />
+              <Input
+                placeholder="Номер телефона *"
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                required
+                className="bg-white/10 border-pink-500/30 text-white placeholder:text-gray-400 h-12 md:h-14 text-base md:text-lg"
+              />
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
                 size="lg"
-                className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white text-xl py-7 font-bold"
+                className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-bold h-12 md:h-14 text-base md:text-lg"
               >
                 {isSubmitting ? 'Отправка...' : 'Получить маркетологов 🎨'}
               </Button>

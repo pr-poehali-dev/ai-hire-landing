@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
@@ -17,10 +17,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
-    company: '',
-    vacancy: '',
-    requirements: ''
+    phone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,9 +32,6 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          company: formData.company,
-          vacancy: formData.vacancy,
-          requirements: formData.requirements,
           source: source,
           form_type: 'ai_scan'
         })
@@ -50,7 +44,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
         description: 'Мы свяжемся с вами в течение 1 часа для проведения анализа'
       });
 
-      setFormData({ name: '', phone: '', company: '', vacancy: '', requirements: '' });
+      setFormData({ name: '', phone: '' });
       onClose();
     } catch (error) {
       toast({
@@ -120,7 +114,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all"
+              className="glass border-primary/30 focus:neon-glow transition-all h-12 text-base"
             />
 
             <Input
@@ -129,38 +123,15 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all"
-            />
-
-            <Input
-              placeholder="Компания"
-              value={formData.company}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="glass border-primary/30 focus:neon-glow transition-all"
-            />
-
-            <Input
-              placeholder="Вакансия *"
-              value={formData.vacancy}
-              onChange={(e) => setFormData({ ...formData, vacancy: e.target.value })}
-              required
-              className="glass border-primary/30 focus:neon-glow transition-all"
-            />
-
-            <Textarea
-              placeholder="Основные требования (опыт, навыки, зарплатные ожидания)"
-              value={formData.requirements}
-              onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
-              rows={3}
-              className="glass border-primary/30 focus:neon-glow transition-all resize-none"
+              className="glass border-primary/30 focus:neon-glow transition-all h-12 text-base"
             />
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all"
+              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-12"
             >
               {isSubmitting ? (
                 <>
@@ -178,7 +149,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               type="button"
               variant="outline"
               onClick={onClose}
-              className="hover:neon-glow hover:scale-105 transition-all"
+              className="hover:neon-glow hover:scale-105 transition-all h-12"
             >
               Отмена
             </Button>

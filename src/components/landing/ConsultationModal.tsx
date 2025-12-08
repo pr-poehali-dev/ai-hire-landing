@@ -12,7 +12,7 @@ interface ConsultationModalProps {
 
 const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
   const { toast } = useToast();
-  const [consultForm, setConsultForm] = useState({ name: '', phone: '', company: '', vacancy: '' });
+  const [consultForm, setConsultForm] = useState({ name: '', phone: '' });
   const [isConsultSubmitting, setIsConsultSubmitting] = useState(false);
 
   const handleConsultSubmit = async (e: React.FormEvent) => {
@@ -26,8 +26,6 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         body: JSON.stringify({
           name: consultForm.name,
           phone: consultForm.phone,
-          company: consultForm.company,
-          vacancy: consultForm.vacancy,
           source: 'consultation_modal',
           form_type: 'consultation',
           page: window.location.pathname.split('/')[1] || 'main'
@@ -37,7 +35,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
       if (!response.ok) throw new Error('Failed to submit');
       
       toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
-      setConsultForm({ name: '', phone: '', company: '', vacancy: '' });
+      setConsultForm({ name: '', phone: '' });
       onClose();
     } catch (error) {
       toast({ 
@@ -76,60 +74,22 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         </div>
 
         <form onSubmit={handleConsultSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="User" size={16} className="text-primary" />
-              Ваше имя *
-            </label>
-            <Input
-              placeholder="Иван Иванов"
-              value={consultForm.name}
-              onChange={(e) => setConsultForm({...consultForm, name: e.target.value})}
-              required
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
+          <Input
+            placeholder="Ваше имя *"
+            value={consultForm.name}
+            onChange={(e) => setConsultForm({...consultForm, name: e.target.value})}
+            required
+            className="glass border-primary/30 h-12 md:h-14 text-base focus:neon-glow transition-all"
+          />
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="Phone" size={16} className="text-secondary" />
-              Телефон *
-            </label>
-            <Input
-              type="tel"
-              placeholder="+7 (999) 123-45-67"
-              value={consultForm.phone}
-              onChange={(e) => setConsultForm({...consultForm, phone: e.target.value})}
-              required
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="Building2" size={16} className="text-secondary" />
-              Компания
-            </label>
-            <Input
-              placeholder="ООО 'Ваша компания'"
-              value={consultForm.company}
-              onChange={(e) => setConsultForm({...consultForm, company: e.target.value})}
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="Briefcase" size={16} className="text-primary" />
-              Вакансия
-            </label>
-            <Input
-              placeholder="Менеджер по продажам"
-              value={consultForm.vacancy}
-              onChange={(e) => setConsultForm({...consultForm, vacancy: e.target.value})}
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
+          <Input
+            type="tel"
+            placeholder="Номер телефона *"
+            value={consultForm.phone}
+            onChange={(e) => setConsultForm({...consultForm, phone: e.target.value})}
+            required
+            className="glass border-primary/30 h-12 md:h-14 text-base focus:neon-glow transition-all"
+          />
 
           <Card className="glass p-3 md:p-4 border-secondary/30 space-y-2">
             <div className="flex items-center gap-2">
@@ -159,7 +119,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
           <Button
             type="submit"
             size="lg"
-            className="w-full neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-105 transition-all text-base md:text-lg py-5 md:py-6"
+            className="w-full neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-105 transition-all text-base md:text-lg h-12 md:h-14"
             disabled={isConsultSubmitting}
           >
             {isConsultSubmitting ? (
