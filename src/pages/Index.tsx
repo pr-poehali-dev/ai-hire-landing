@@ -273,22 +273,32 @@ const Index = () => {
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
             {[
-              { img: 'https://i.pravatar.cc/200?img=12', status: 'analyzing', name: 'Кандидат #1247' },
-              { img: 'https://i.pravatar.cc/200?img=23', status: 'approved', name: 'Кандидат #1248' },
-              { img: 'https://i.pravatar.cc/200?img=33', status: 'interview', name: 'Кандидат #1249' },
-              { img: 'https://i.pravatar.cc/200?img=47', status: 'analyzing', name: 'Кандидат #1250' },
-              { img: 'https://i.pravatar.cc/200?img=14', status: 'approved', name: 'Кандидат #1251' },
-              { img: 'https://i.pravatar.cc/200?img=25', status: 'interview', name: 'Кандидат #1252' },
-              { img: 'https://i.pravatar.cc/200?img=32', status: 'analyzing', name: 'Кандидат #1253' },
-              { img: 'https://i.pravatar.cc/200?img=28', status: 'approved', name: 'Кандидат #1254' },
-              { img: 'https://i.pravatar.cc/200?img=35', status: 'interview', name: 'Кандидат #1255' },
-              { img: 'https://i.pravatar.cc/200?img=41', status: 'analyzing', name: 'Кандидат #1256' },
-              { img: 'https://i.pravatar.cc/200?img=15', status: 'approved', name: 'Кандидат #1257' },
-              { img: 'https://i.pravatar.cc/200?img=20', status: 'interview', name: 'Кандидат #1258' }
+              { img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1247' },
+              { img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1248' },
+              { img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1249' },
+              { img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1250' },
+              { img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1251' },
+              { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1252' },
+              { img: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1253' },
+              { img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1254' },
+              { img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1255' },
+              { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1256' },
+              { img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1257' },
+              { img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1258' }
             ].map((candidate, idx) => (
               <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
-                  <img src={candidate.img} alt={candidate.name} className="w-full h-full object-cover" />
+                  <img 
+                    src={candidate.img} 
+                    alt={candidate.name} 
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(candidate.name)}&size=400&background=random`;
+                    }}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-2">
                     <div className="text-[8px] md:text-xs font-bold text-white drop-shadow-lg truncate">{candidate.name}</div>
