@@ -1,0 +1,6 @@
+# Redirect non-www to www
+http://1-day-hr.ru/* https://www.1-day-hr.ru/:splat 301!
+https://1-day-hr.ru/* https://www.1-day-hr.ru/:splat 301!
+
+# Fallback for SPA routing
+/*    /index.html   200

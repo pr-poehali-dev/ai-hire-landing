@@ -9,6 +9,8 @@ import Calculator from "./pages/Calculator";
 import CRM from "./pages/CRM";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import CanonicalUrl from "./components/CanonicalUrl";
+import DomainRedirect from "./components/DomainRedirect";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +19,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <DomainRedirect />
       <BrowserRouter>
+        <CanonicalUrl />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/calculator" element={<Calculator />} />
