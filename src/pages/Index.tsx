@@ -268,7 +268,7 @@ const Index = () => {
         <div className="container mx-auto relative z-10 px-4">
           <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
-              ✨ Первое HR-агентство с AI подбором
+              ✨ Первое HR-агентство с AI-подбором
             </Badge>
             
             <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
