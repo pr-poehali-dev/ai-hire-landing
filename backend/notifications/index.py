@@ -33,6 +33,25 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     
     try:
+        if method == 'POST':
+            body_data = json.loads(event.get('body', '{}'))
+            action = body_data.get('action')
+            
+            if action == 'get_webhook_logs':
+                cursor.execute('''
+                    SELECT * FROM webhook_logs 
+                    ORDER BY created_at DESC 
+                    LIMIT 100
+                ''')
+                logs = cursor.fetchall()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True, 'logs': [dict(log) for log in logs]}, default=str),
+                    'isBase64Encoded': False
+                }
+        
         if method == 'GET':
             params = event.get('queryStringParameters') or {}
             notification_type = params.get('type', 'all')

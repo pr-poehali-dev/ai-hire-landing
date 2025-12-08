@@ -9,6 +9,7 @@ import Calculator from "./pages/Calculator";
 import CRM from "./pages/CRM";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import WebhookLogs from "./pages/WebhookLogs";
 import NotFound from "./pages/NotFound";
 import CanonicalUrl from "./components/CanonicalUrl";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/crm" element={<CRM />} />
+          <Route path="/crm/webhooks" element={<WebhookLogs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

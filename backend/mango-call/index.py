@@ -7,6 +7,15 @@ import hashlib
 import hmac
 import requests
 
+def log_webhook(cursor, source: str, event_type: str, payload: Dict, status: str = 'received', error: str = None):
+    '''Логирование вебхука в БД'''
+    cursor.execute('''
+        INSERT INTO webhook_logs (source, event_type, payload, status, error_message)
+        VALUES (%s, %s, %s, %s, %s)
+        RETURNING id
+    ''', (source, event_type, json.dumps(payload), status, error))
+    return cursor.fetchone()['id']
+
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
     API для интеграции с Манго Офис
@@ -61,30 +70,44 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             path = event.get('path', '')
             
             if 'webhook' in path:
-                call_data = body_data.get('call', {})
+                # Логируем входящий вебхук
+                log_id = log_webhook(cursor, 'mango', body_data.get('event', 'call'), body_data)
                 
-                cursor.execute('''
-                    INSERT INTO lead_calls (lead_id, phone_number, direction, duration, recording_url, status, mango_call_id)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
-                    RETURNING id
-                ''', (
-                    body_data.get('lead_id', 0),
-                    call_data.get('to', ''),
-                    call_data.get('direction', 'outbound'),
-                    call_data.get('duration', 0),
-                    call_data.get('recording_url'),
-                    call_data.get('status', 'completed'),
-                    call_data.get('call_id')
-                ))
-                
-                conn.commit()
-                
-                return {
-                    'statusCode': 200,
-                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
-                    'body': json.dumps({'success': True}),
-                    'isBase64Encoded': False
-                }
+                try:
+                    call_data = body_data.get('call', {})
+                    
+                    cursor.execute('''
+                        INSERT INTO lead_calls (lead_id, phone_number, direction, duration, recording_url, status, mango_call_id)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id
+                    ''', (
+                        body_data.get('lead_id', 0),
+                        call_data.get('to', ''),
+                        call_data.get('direction', 'outbound'),
+                        call_data.get('duration', 0),
+                        call_data.get('recording_url'),
+                        call_data.get('status', 'completed'),
+                        call_data.get('call_id')
+                    ))
+                    
+                    # Обновляем статус лога
+                    cursor.execute('UPDATE webhook_logs SET status = %s, processed_at = CURRENT_TIMESTAMP WHERE id = %s', 
+                                   ('processed', log_id))
+                    
+                    conn.commit()
+                    
+                    return {
+                        'statusCode': 200,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({'success': True}),
+                        'isBase64Encoded': False
+                    }
+                except Exception as e:
+                    # Логируем ошибку
+                    cursor.execute('UPDATE webhook_logs SET status = %s, error_message = %s WHERE id = %s', 
+                                   ('error', str(e), log_id))
+                    conn.commit()
+                    raise
             else:
                 lead_id = body_data.get('lead_id')
                 phone = body_data.get('phone')

@@ -624,6 +624,11 @@ const CRM = () => {
                 )}
               </div>
 
+              <Button size="sm" onClick={() => navigate('/crm/webhooks')} className="glass">
+                <Icon name="Webhook" size={16} className="mr-2" />
+                Вебхуки
+              </Button>
+
               <Button size="sm" onClick={generateDailyPlan} disabled={isGeneratingPlan} className="glass">
                 <Icon name="Calendar" size={16} className="mr-2" />
                 {isGeneratingPlan ? 'Генерация...' : 'План дня'}
