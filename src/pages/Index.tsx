@@ -1015,7 +1015,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-12 px-4 border-t border-border/50 bg-muted/5">
+      <footer className="py-12 px-4 pb-32 md:pb-12 border-t border-border/50 bg-muted/5 relative z-10">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
