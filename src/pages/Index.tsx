@@ -8,9 +8,14 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-// import ChatWidget from '@/components/landing/ChatWidget';
 import ConsultationModal from '@/components/landing/ConsultationModal';
 import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   const { toast } = useToast();
@@ -201,6 +206,55 @@ const Index = () => {
             </div>
 
             <nav className="hidden md:flex items-center gap-6">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
+                  Специализации <Icon name="chevron-down" className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="glass border-primary/20">
+                  <DropdownMenuItem asChild>
+                    <Link to="/sales-managers" className="flex items-center gap-2">
+                      <Icon name="trending-up" className="w-4 h-4" />
+                      Менеджеры по продажам
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/it-specialists" className="flex items-center gap-2">
+                      <Icon name="code" className="w-4 h-4" />
+                      IT-специалисты
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/marketplace-managers" className="flex items-center gap-2">
+                      <Icon name="shopping-cart" className="w-4 h-4" />
+                      Менеджеры по маркетплейсам
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/accountants" className="flex items-center gap-2">
+                      <Icon name="calculator" className="w-4 h-4" />
+                      Бухгалтеры
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/marketers" className="flex items-center gap-2">
+                      <Icon name="megaphone" className="w-4 h-4" />
+                      Маркетологи
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/directors" className="flex items-center gap-2">
+                      <Icon name="crown" className="w-4 h-4" />
+                      Директора и топ-менеджеры
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/retail-sales" className="flex items-center gap-2">
+                      <Icon name="shopping-bag" className="w-4 h-4" />
+                      Продавцы-консультанты
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
               <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
               <button onClick={() => scrollToSection('cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>

@@ -12,6 +12,13 @@ import Register from "./pages/Register";
 import WebhookLogs from "./pages/WebhookLogs";
 import NotFound from "./pages/NotFound";
 import CanonicalUrl from "./components/CanonicalUrl";
+import SalesManagers from "./pages/SalesManagers";
+import ITSpecialists from "./pages/ITSpecialists";
+import MarketplaceManagers from "./pages/MarketplaceManagers";
+import Accountants from "./pages/Accountants";
+import Marketers from "./pages/Marketers";
+import Directors from "./pages/Directors";
+import RetailSales from "./pages/RetailSales";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +31,13 @@ const App = () => (
         <CanonicalUrl />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/sales-managers" element={<SalesManagers />} />
+          <Route path="/it-specialists" element={<ITSpecialists />} />
+          <Route path="/marketplace-managers" element={<MarketplaceManagers />} />
+          <Route path="/accountants" element={<Accountants />} />
+          <Route path="/marketers" element={<Marketers />} />
+          <Route path="/directors" element={<Directors />} />
+          <Route path="/retail-sales" element={<RetailSales />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
