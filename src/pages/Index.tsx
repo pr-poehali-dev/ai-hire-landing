@@ -330,9 +330,9 @@ const Index = () => {
               НАЙДЕМ СОТРУДНИКА<br />за 24 часа
             </h1>
             
-            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-accent/20 to-secondary/20 border-2 border-accent animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
+            <div className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-primary animate-fade-in neon-glow" style={{ animationDelay: '0.4s' }}>
               <p className="text-lg md:text-2xl font-bold">
-                Или вернем деньги. <span className="text-accent neon-text">Гарантия 100%</span>
+                Или вернем деньги. <span className="text-primary neon-text">Гарантия 100%</span>
               </p>
             </div>
 
