@@ -25,44 +25,94 @@ const Login = () => {
     setIsSubmitting(true);
 
     try {
-      const url = isLogin 
-        ? 'https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656'
-        : 'https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071';
-
-      const body = isLogin 
-        ? { email: formData.email, password: formData.password }
-        : { email: formData.email, password: formData.password, name: formData.name };
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        if (isLogin) {
-          localStorage.setItem('auth_token', data.token);
-          localStorage.setItem('user_email', data.user.email);
-          localStorage.setItem('user_name', data.user.name || '');
-          
-          toast({ 
-            title: 'Добро пожаловать! 🚀', 
-            description: 'Вы успешно вошли в систему' 
+      if (isReset) {
+        if (!resetToken) {
+          const response = await fetch('https://functions.poehali.dev/5abb26ce-21bf-442e-a2d0-45f452b38e21', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: formData.email })
           });
-          
-          navigate('/crm');
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            if (data.token) {
+              setResetToken(data.token);
+              toast({ 
+                title: 'Токен получен! 🔑', 
+                description: 'Введите новый пароль' 
+              });
+            } else {
+              toast({ 
+                title: 'Проверьте почту', 
+                description: 'Если email существует, инструкция отправлена' 
+              });
+            }
+          } else {
+            throw new Error(data.error || 'Ошибка');
+          }
         } else {
-          toast({ 
-            title: 'Регистрация завершена! 🎉', 
-            description: 'Теперь войдите в систему' 
+          const response = await fetch('https://functions.poehali.dev/594ecf2c-625e-46c1-ac73-2078fdcd39e0', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: resetToken, new_password: formData.password })
           });
-          setIsLogin(true);
-          setFormData({ email: formData.email, password: '', name: '' });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            toast({ 
+              title: 'Пароль изменён! 🎉', 
+              description: 'Теперь войдите с новым паролем' 
+            });
+            setIsReset(false);
+            setResetToken('');
+            setIsLogin(true);
+            setFormData({ email: '', password: '', name: '' });
+          } else {
+            throw new Error(data.error || 'Ошибка');
+          }
         }
       } else {
-        throw new Error(data.error || 'Ошибка');
+        const url = isLogin 
+          ? 'https://functions.poehali.dev/7c9852b6-3eca-44e3-966d-f3ecbcb52656'
+          : 'https://functions.poehali.dev/ed435586-cc3a-4110-823d-40bef1675071';
+
+        const body = isLogin 
+          ? { email: formData.email, password: formData.password }
+          : { email: formData.email, password: formData.password, name: formData.name };
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          if (isLogin) {
+            localStorage.setItem('auth_token', data.token);
+            localStorage.setItem('user_email', data.user.email);
+            localStorage.setItem('user_name', data.user.name || '');
+            
+            toast({ 
+              title: 'Добро пожаловать! 🚀', 
+              description: 'Вы успешно вошли в систему' 
+            });
+            
+            navigate('/crm');
+          } else {
+            toast({ 
+              title: 'Регистрация завершена! 🎉', 
+              description: 'Теперь войдите в систему' 
+            });
+            setIsLogin(true);
+            setFormData({ email: formData.email, password: '', name: '' });
+          }
+        } else {
+          throw new Error(data.error || 'Ошибка');
+        }
       }
     } catch (error: any) {
       toast({ 
@@ -131,7 +181,7 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
+          {!isLogin && !isReset && (
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Icon name="User" size={16} className="text-primary" />
@@ -146,36 +196,58 @@ const Login = () => {
             </div>
           )}
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="Mail" size={16} className="text-primary" />
-              Email *
-            </label>
-            <Input
-              type="email"
-              placeholder="example@mail.com"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              required
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
+          {!resetToken && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Icon name="Mail" size={16} className="text-primary" />
+                Email *
+              </label>
+              <Input
+                type="email"
+                placeholder="example@mail.com"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                required
+                className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+              />
+            </div>
+          )}
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium flex items-center gap-2">
-              <Icon name="Lock" size={16} className="text-secondary" />
-              Пароль *
-            </label>
-            <Input
-              type="password"
-              placeholder="Минимум 6 символов"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              required
-              minLength={6}
-              className="glass border-primary/30 h-12 focus:neon-glow transition-all"
-            />
-          </div>
+          {!isReset && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Icon name="Lock" size={16} className="text-secondary" />
+                Пароль *
+              </label>
+              <Input
+                type="password"
+                placeholder="Минимум 6 символов"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                required
+                minLength={6}
+                className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+              />
+            </div>
+          )}
+
+          {isReset && resetToken && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Icon name="Lock" size={16} className="text-secondary" />
+                Новый пароль *
+              </label>
+              <Input
+                type="password"
+                placeholder="Минимум 6 символов"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                required
+                minLength={6}
+                className="glass border-primary/30 h-12 focus:neon-glow transition-all"
+              />
+            </div>
+          )}
 
           <Button
             type="submit"
@@ -187,6 +259,11 @@ const Login = () => {
               <>
                 <Icon name="Loader2" className="animate-spin mr-2" size={20} />
                 Загрузка...
+              </>
+            ) : isReset ? (
+              <>
+                <Icon name="Key" size={20} className="mr-2" />
+                {resetToken ? 'Установить новый пароль' : 'Получить токен'}
               </>
             ) : (
               <>
