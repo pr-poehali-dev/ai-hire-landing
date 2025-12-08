@@ -510,154 +510,160 @@ const Index = () => {
           </div>
 
           {showReport && (
-            <div className="max-w-6xl mx-auto mt-12 md:mt-20 animate-fade-in">
-              <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                      <Icon name="FileText" size={32} className="text-white" />
-                    </div>
-                    <div>
-                      <Badge className="text-sm px-4 py-1 neon-glow mb-2">📊 Пример отчёта</Badge>
-                      <h3 className="text-2xl md:text-3xl font-bold neon-text">Детальный отчёт кандидата</h3>
-                      <p className="text-sm text-muted-foreground">Александр Петров • Менеджер по продажам</p>
-                    </div>
-                  </div>
-                  <Button variant="outline" className="hover:neon-glow" onClick={() => setShowReport(false)}>
-                    <Icon name="X" size={20} />
-                  </Button>
+            <div className="max-w-6xl mx-auto mt-12 md:mt-20 animate-scale-in">
+              <Card className="glass-dark p-8 md:p-12 border-primary/30 neon-glow relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 animate-pulse" style={{ animationDuration: '3s' }}></div>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <Card className="glass p-4 border-primary/20">
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-primary mb-1">{Math.round(skillScores.communication)}%</div>
-                        <div className="text-sm text-muted-foreground">Общая оценка</div>
-                        <Badge className="mt-2 bg-primary/20 text-primary">Высокий уровень</Badge>
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-8 animate-fade-in">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow animate-pulse" style={{ animationDuration: '2s' }}>
+                        <Icon name="FileText" size={32} className="text-white" />
                       </div>
-                    </Card>
-                    <Card className="glass p-4 border-secondary/20">
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-secondary mb-1">92%</div>
-                        <div className="text-sm text-muted-foreground">Прогноз успеха</div>
-                        <Badge className="mt-2 bg-secondary/20 text-secondary">Рекомендован</Badge>
+                      <div>
+                        <Badge className="text-sm px-4 py-1 neon-glow mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
+                        <h3 className="text-2xl md:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
+                        <p className="text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
                       </div>
-                    </Card>
-                    <Card className="glass p-4 border-accent/20">
-                      <div className="text-center">
-                        <div className="text-4xl font-bold text-accent mb-1">5 лет</div>
-                        <div className="text-sm text-muted-foreground">Опыт в продажах</div>
-                        <Badge className="mt-2 bg-accent/20 text-accent">Middle</Badge>
-                      </div>
-                    </Card>
+                    </div>
+                    <Button variant="outline" className="hover:neon-glow hover:scale-110 transition-all animate-fade-in" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
+                      <Icon name="X" size={20} />
+                    </Button>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <h4 className="font-bold text-lg flex items-center gap-2">
-                        <Icon name="Brain" size={20} className="text-primary" />
-                        Психологический профиль
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <Card className="glass p-4 border-primary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
+                          <div className="text-sm text-muted-foreground">Общая оценка</div>
+                          <Badge className="mt-2 bg-primary/20 text-primary">Высокий уровень</Badge>
+                        </div>
+                      </Card>
+                      <Card className="glass p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
+                          <div className="text-sm text-muted-foreground">Прогноз успеха</div>
+                          <Badge className="mt-2 bg-secondary/20 text-secondary">Рекомендован</Badge>
+                        </div>
+                      </Card>
+                      <Card className="glass p-4 border-accent/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-accent mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
+                          <div className="text-sm text-muted-foreground">Опыт в продажах</div>
+                          <Badge className="mt-2 bg-accent/20 text-accent">Middle</Badge>
+                        </div>
+                      </Card>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                        <h4 className="font-bold text-lg flex items-center gap-2">
+                          <Icon name="Brain" size={20} className="text-primary animate-pulse" />
+                          Психологический профиль
+                        </h4>
+                        <div className="space-y-3">
+                          <div className="animate-fade-in" style={{ animationDelay: '0.9s' }}>
+                            <div className="flex justify-between text-sm mb-1">
+                              <span>Экстраверсия</span>
+                              <span className="font-bold text-primary">85%</span>
+                            </div>
+                            <Progress value={85} className="h-2" />
+                          </div>
+                          <div className="animate-fade-in" style={{ animationDelay: '1s' }}>
+                            <div className="flex justify-between text-sm mb-1">
+                              <span>Добросовестность</span>
+                              <span className="font-bold text-secondary">78%</span>
+                            </div>
+                            <Progress value={78} className="h-2" />
+                          </div>
+                          <div className="animate-fade-in" style={{ animationDelay: '1.1s' }}>
+                            <div className="flex justify-between text-sm mb-1">
+                              <span>Открытость опыту</span>
+                              <span className="font-bold text-accent">82%</span>
+                            </div>
+                            <Progress value={82} className="h-2" />
+                          </div>
+                          <div className="animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                            <div className="flex justify-between text-sm mb-1">
+                              <span>Эмоциональная стабильность</span>
+                              <span className="font-bold text-green-400">76%</span>
+                            </div>
+                            <Progress value={76} className="h-2" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '1s' }}>
+                        <h4 className="font-bold text-lg flex items-center gap-2">
+                          <Icon name="Target" size={20} className="text-secondary animate-pulse" />
+                          Ключевые компетенции
+                        </h4>
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.1s' }}>
+                            <div className="flex items-center gap-2">
+                              <Icon name="MessageSquare" size={16} className="text-primary" />
+                              <span className="text-sm">Коммуникация</span>
+                            </div>
+                            <Badge className="bg-primary/20 text-primary">94%</Badge>
+                          </div>
+                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                            <div className="flex items-center gap-2">
+                              <Icon name="Zap" size={16} className="text-secondary" />
+                              <span className="text-sm">Мотивация</span>
+                            </div>
+                            <Badge className="bg-secondary/20 text-secondary">87%</Badge>
+                          </div>
+                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.3s' }}>
+                            <div className="flex items-center gap-2">
+                              <Icon name="Shield" size={16} className="text-accent" />
+                              <span className="text-sm">Стрессоустойчивость</span>
+                            </div>
+                            <Badge className="bg-accent/20 text-accent">83%</Badge>
+                          </div>
+                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                            <div className="flex items-center gap-2">
+                              <Icon name="Users" size={16} className="text-green-400" />
+                              <span className="text-sm">Лидерство</span>
+                            </div>
+                            <Badge className="bg-green-400/20 text-green-400">78%</Badge>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Card className="glass-dark p-6 border-accent/30 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '1.5s' }}>
+                      <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
+                        <Icon name="Lightbulb" size={20} className="text-accent animate-pulse" />
+                        Рекомендации AI
                       </h4>
-                      <div className="space-y-3">
-                        <div>
-                          <div className="flex justify-between text-sm mb-1">
-                            <span>Экстраверсия</span>
-                            <span className="font-bold text-primary">85%</span>
-                          </div>
-                          <Progress value={85} className="h-2" />
+                      <div className="space-y-3 text-sm text-muted-foreground">
+                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.6s' }}>
+                          <Icon name="CheckCircle2" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                          <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
                         </div>
-                        <div>
-                          <div className="flex justify-between text-sm mb-1">
-                            <span>Добросовестность</span>
-                            <span className="font-bold text-secondary">78%</span>
-                          </div>
-                          <Progress value={78} className="h-2" />
+                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.7s' }}>
+                          <Icon name="AlertCircle" size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                          <p><strong className="text-foreground">Области развития:</strong> Стоит обратить внимание на управление стрессом в высоконагруженных ситуациях</p>
                         </div>
-                        <div>
-                          <div className="flex justify-between text-sm mb-1">
-                            <span>Открытость опыту</span>
-                            <span className="font-bold text-accent">82%</span>
-                          </div>
-                          <Progress value={82} className="h-2" />
-                        </div>
-                        <div>
-                          <div className="flex justify-between text-sm mb-1">
-                            <span>Эмоциональная стабильность</span>
-                            <span className="font-bold text-green-400">76%</span>
-                          </div>
-                          <Progress value={76} className="h-2" />
+                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.8s' }}>
+                          <Icon name="TrendingUp" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
+                          <p><strong className="text-foreground">Прогноз:</strong> Высокая вероятность (92%) успешного прохождения испытательного срока и достижения KPI</p>
                         </div>
                       </div>
-                    </div>
+                    </Card>
 
-                    <div className="space-y-4">
-                      <h4 className="font-bold text-lg flex items-center gap-2">
-                        <Icon name="Target" size={20} className="text-secondary" />
-                        Ключевые компетенции
-                      </h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between glass p-3 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <Icon name="MessageSquare" size={16} className="text-primary" />
-                            <span className="text-sm">Коммуникация</span>
-                          </div>
-                          <Badge className="bg-primary/20 text-primary">94%</Badge>
-                        </div>
-                        <div className="flex items-center justify-between glass p-3 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <Icon name="Zap" size={16} className="text-secondary" />
-                            <span className="text-sm">Мотивация</span>
-                          </div>
-                          <Badge className="bg-secondary/20 text-secondary">87%</Badge>
-                        </div>
-                        <div className="flex items-center justify-between glass p-3 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <Icon name="Shield" size={16} className="text-accent" />
-                            <span className="text-sm">Стрессоустойчивость</span>
-                          </div>
-                          <Badge className="bg-accent/20 text-accent">83%</Badge>
-                        </div>
-                        <div className="flex items-center justify-between glass p-3 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <Icon name="Users" size={16} className="text-green-400" />
-                            <span className="text-sm">Лидерство</span>
-                          </div>
-                          <Badge className="bg-green-400/20 text-green-400">78%</Badge>
-                        </div>
-                      </div>
+                    <div className="flex justify-center gap-4 pt-4 animate-fade-in" style={{ animationDelay: '1.9s' }}>
+                      <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all">
+                        <Icon name="Rocket" size={18} className="mr-2" />
+                        Найти такого кандидата
+                      </Button>
+                      <Button variant="outline" onClick={() => setShowReport(false)} className="hover:neon-glow hover:scale-110 transition-all">
+                        Закрыть отчёт
+                      </Button>
                     </div>
-                  </div>
-
-                  <Card className="glass-dark p-6 border-accent/30">
-                    <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                      <Icon name="Lightbulb" size={20} className="text-accent" />
-                      Рекомендации AI
-                    </h4>
-                    <div className="space-y-3 text-sm text-muted-foreground">
-                      <div className="flex gap-3">
-                        <Icon name="CheckCircle2" size={16} className="text-primary flex-shrink-0 mt-0.5" />
-                        <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
-                      </div>
-                      <div className="flex gap-3">
-                        <Icon name="AlertCircle" size={16} className="text-accent flex-shrink-0 mt-0.5" />
-                        <p><strong className="text-foreground">Области развития:</strong> Стоит обратить внимание на управление стрессом в высоконагруженных ситуациях</p>
-                      </div>
-                      <div className="flex gap-3">
-                        <Icon name="TrendingUp" size={16} className="text-secondary flex-shrink-0 mt-0.5" />
-                        <p><strong className="text-foreground">Прогноз:</strong> Высокая вероятность (92%) успешного прохождения испытательного срока и достижения KPI</p>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <div className="flex justify-center gap-4 pt-4">
-                    <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
-                      <Icon name="Rocket" size={18} className="mr-2" />
-                      Найти такого кандидата
-                    </Button>
-                    <Button variant="outline" onClick={() => setShowReport(false)} className="hover:neon-glow">
-                      Закрыть отчёт
-                    </Button>
                   </div>
                 </div>
               </Card>
