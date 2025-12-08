@@ -116,9 +116,9 @@ const Index = () => {
     { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://randomuser.me/api/portraits/women/13.jpg' },
     { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://randomuser.me/api/portraits/women/14.jpg' },
     { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://randomuser.me/api/portraits/women/15.jpg' },
-    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/16.jpg' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/13.jpg' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/17.jpg' },
+    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/65.jpg' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/32.jpg' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/44.jpg' },
     { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://randomuser.me/api/portraits/men/14.jpg' },
     { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://randomuser.me/api/portraits/women/18.jpg' }
   ];
