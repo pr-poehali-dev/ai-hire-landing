@@ -1052,13 +1052,13 @@ const Index = () => {
               <h4 className="font-bold">Навигация</h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <button onClick={() => scrollToSection('demo')} className="text-left hover:text-primary transition-all hover:scale-110">AI Демо</button>
-                <button onClick={() => scrollToSection('calculator')} className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</button>
+                <Link to="/calculator" className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
                 <button onClick={() => scrollToSection('cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
                 <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
-                <a href="/crm" className="text-left hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
+                <Link to="/crm" className="text-left hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
                   <Icon name="LayoutDashboard" size={14} />
                   CRM
-                </a>
+                </Link>
               </div>
             </div>
           </div>
