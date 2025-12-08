@@ -113,14 +113,14 @@ const Index = () => {
   };
 
   const teamMembers = [
-    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces' },
-    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=faces' }
+    { name: 'Дарья Коломанова', role: 'Ведущий HR-специалист', spec: 'IT-рекрутмент', exp: '8 лет', hires: '250+', img: 'https://randomuser.me/api/portraits/women/13.jpg' },
+    { name: 'Ангелина Малиновская', role: 'Senior HR-менеджер', spec: 'Продажи и маркетинг', exp: '6 лет', hires: '180+', img: 'https://randomuser.me/api/portraits/women/14.jpg' },
+    { name: 'Дарья Морозова', role: 'Team Lead HR', spec: 'Стратегический найм', exp: '10 лет', hires: '320+', img: 'https://randomuser.me/api/portraits/women/15.jpg' },
+    { name: 'Марианна Ковалёва', role: 'HR-специалист', spec: 'Маркетплейсы', exp: '5 лет', hires: '150+', img: 'https://randomuser.me/api/portraits/women/16.jpg' },
+    { name: 'Алексей Соколов', role: 'HR-аналитик', spec: 'Финтех', exp: '7 лет', hires: '220+', img: 'https://randomuser.me/api/portraits/men/13.jpg' },
+    { name: 'Екатерина Волкова', role: 'Recruitment Lead', spec: 'Стартапы', exp: '12 лет', hires: '400+', img: 'https://randomuser.me/api/portraits/women/17.jpg' },
+    { name: 'Михаил Петров', role: 'Junior HR', spec: 'Ритейл', exp: '3 года', hires: '80+', img: 'https://randomuser.me/api/portraits/men/14.jpg' },
+    { name: 'Светлана Новикова', role: 'Senior Recruiter', spec: 'EdTech и Healthcare', exp: '9 лет', hires: '290+', img: 'https://randomuser.me/api/portraits/women/18.jpg' }
   ];
 
   const testimonials = [
@@ -129,7 +129,7 @@ const Index = () => {
       person: 'Дмитрий Козлов',
       role: 'Tech Lead',
       text: 'AI-анализ выявил кандидата, который работал с похожей архитектурой в банковской сфере. Это был неочевидный выбор, но именно то, что нам было нужно.',
-      img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/men/15.jpg',
       stats: { speed: '16ч', quality: '96%', period: '8 мес' },
       rating: 5,
       letterText: 'Выражаем благодарность HR-агентству 1 DAY HR за оперативный и качественный подбор IT-специалиста. Кандидат полностью соответствует нашим требованиям и успешно справляется с задачами.'
@@ -139,7 +139,7 @@ const Index = () => {
       person: 'Анна Смирнова',
       role: 'COO',
       text: 'Критически важно было найти человека быстро. 1 DAY HR справились за сутки, и это был именно тот специалист, который нам был нужен. Рост продаж +40% за первый квартал.',
-      img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/women/19.jpg',
       stats: { speed: '20ч', quality: '94%', period: '6 мес' },
       rating: 5,
       letterText: 'Благодарим команду 1 DAY HR за профессионализм и индивидуальный подход. Найденный специалист значительно повысил эффективность нашего отдела продаж.'
@@ -149,7 +149,7 @@ const Index = () => {
       person: 'Елена Соколова',
       role: 'Head of AI Department',
       text: 'Искали полгода классическими методами. 1 DAY HR нашли идеального кандидата за сутки. Система AI-анализа показала совместимость с нашей командой 94%.',
-      img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/women/20.jpg',
       stats: { speed: '24ч', quality: '98%', period: '10 мес' },
       rating: 5,
       letterText: 'Отмечаем высокий уровень сервиса агентства 1 DAY HR. Использование AI-технологий позволило найти уникального специалиста, который органично влился в нашу команду.'
@@ -159,7 +159,7 @@ const Index = () => {
       person: 'Максим Петров',
       role: 'Product Manager',
       text: 'Боялись, что проект встанет. Но за сутки нашли специалиста, который не только закрыл задачу, но и провёл рефакторинг всего приложения.',
-      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/men/16.jpg',
       stats: { speed: '18ч', quality: '95%', period: '7 мес' },
       rating: 5,
       letterText: 'Признательны агентству 1 DAY HR за срочный подбор разработчика. Кандидат превзошел ожидания, продемонстрировав глубокую экспертизу и инициативность.'
@@ -169,7 +169,7 @@ const Index = () => {
       person: 'Алексей Морозов',
       role: 'Sales Director',
       text: 'ИИ-анализ показал скрытые навыки кандидата в телекоме, которые мы бы упустили. За первый месяц вернул трёх крупных клиентов. Результат превзошёл все ожидания!',
-      img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/men/17.jpg',
       stats: { speed: '22ч', quality: '93%', period: '5 мес' },
       rating: 5,
       letterText: 'Выражаем признательность 1 DAY HR за тщательный отбор кандидатов. Подобранный менеджер по продажам показал выдающиеся результаты с первых дней работы.'
@@ -179,7 +179,7 @@ const Index = () => {
       person: 'Ирина Федорова',
       role: 'Head of Sales',
       text: 'Кандидат знал наших конкурентов изнутри благодаря глубокому анализу AI-системы. За квартал увеличил выручку на 150% и выстроил новые процессы продаж.',
-      img: 'https://images.unsplash.com/photo-1491349174775-aaafddd81942?w=400&h=400&fit=crop&crop=faces',
+      img: 'https://randomuser.me/api/portraits/women/21.jpg',
       stats: { speed: '19ч', quality: '97%', period: '9 мес' },
       rating: 5,
       letterText: 'Благодарим 1 DAY HR за системный подход к подбору персонала. Специалист не просто закрыл вакансию, а стал стратегическим игроком нашей команды.'
@@ -273,18 +273,18 @@ const Index = () => {
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
             {[
-              { img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1247' },
-              { img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1248' },
-              { img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1249' },
-              { img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1250' },
-              { img: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1251' },
-              { img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1252' },
-              { img: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1253' },
-              { img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1254' },
-              { img: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1255' },
-              { img: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&h=400&fit=crop&crop=faces', status: 'analyzing', name: 'Кандидат #1256' },
-              { img: 'https://images.unsplash.com/photo-1560087637-bf797bc7796a?w=400&h=400&fit=crop&crop=faces', status: 'approved', name: 'Кандидат #1257' },
-              { img: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=400&h=400&fit=crop&crop=faces', status: 'interview', name: 'Кандидат #1258' }
+              { img: 'https://randomuser.me/api/portraits/women/1.jpg', status: 'analyzing', name: 'Кандидат #1247' },
+              { img: 'https://randomuser.me/api/portraits/men/2.jpg', status: 'approved', name: 'Кандидат #1248' },
+              { img: 'https://randomuser.me/api/portraits/women/3.jpg', status: 'interview', name: 'Кандидат #1249' },
+              { img: 'https://randomuser.me/api/portraits/women/4.jpg', status: 'analyzing', name: 'Кандидат #1250' },
+              { img: 'https://randomuser.me/api/portraits/women/5.jpg', status: 'approved', name: 'Кандидат #1251' },
+              { img: 'https://randomuser.me/api/portraits/men/6.jpg', status: 'interview', name: 'Кандидат #1252' },
+              { img: 'https://randomuser.me/api/portraits/men/7.jpg', status: 'analyzing', name: 'Кандидат #1253' },
+              { img: 'https://randomuser.me/api/portraits/men/8.jpg', status: 'approved', name: 'Кандидат #1254' },
+              { img: 'https://randomuser.me/api/portraits/women/9.jpg', status: 'interview', name: 'Кандидат #1255' },
+              { img: 'https://randomuser.me/api/portraits/men/10.jpg', status: 'analyzing', name: 'Кандидат #1256' },
+              { img: 'https://randomuser.me/api/portraits/women/11.jpg', status: 'approved', name: 'Кандидат #1257' },
+              { img: 'https://randomuser.me/api/portraits/men/12.jpg', status: 'interview', name: 'Кандидат #1258' }
             ].map((candidate, idx) => (
               <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
