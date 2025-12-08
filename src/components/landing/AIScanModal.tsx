@@ -65,14 +65,14 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] glass-dark border-primary/30 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[600px] glass-dark border-primary/30 max-h-[90vh] overflow-y-auto p-4 md:p-6">
         <DialogHeader>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-              <Icon name="brain" className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-2 md:gap-3 mb-2">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+              <Icon name="brain" className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
             <div>
-              <DialogTitle className="text-2xl font-bold neon-text">
+              <DialogTitle className="text-lg md:text-2xl font-bold neon-text">
                 Бесплатное AI-сканирование
               </DialogTitle>
               <Badge className="mt-1 bg-green-500/20 text-green-400 border-green-500/30">
@@ -80,7 +80,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               </Badge>
             </div>
           </div>
-          <DialogDescription className="text-base leading-relaxed pt-4">
+          <DialogDescription className="text-sm md:text-base leading-relaxed pt-3 md:pt-4">
             <div className="space-y-4">
               <p className="text-muted-foreground">
                 Проведём глубокий анализ вашей вакансии и рынка за <span className="text-primary font-bold">30 минут</span>:
@@ -94,8 +94,8 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
                   { icon: 'clock', text: 'Спрогнозируем точные сроки закрытия вакансии' },
                   { icon: 'lightbulb', text: 'Дадим рекомендации по улучшению условий найма' }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 text-sm">
-                    <Icon name={item.icon as any} className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-2 md:gap-3 text-xs md:text-sm">
+                    <Icon name={item.icon as any} className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-foreground">{item.text}</span>
                   </div>
                 ))}
@@ -113,7 +113,7 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4 mt-3 md:mt-4">
           <div className="space-y-3">
             <Input
               placeholder="Ваше имя *"

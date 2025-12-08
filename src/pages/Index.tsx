@@ -339,17 +339,17 @@ const Index = () => {
               ✨ Первое HR агентство с AI-подбором
             </Badge>
             
-            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Вакансия стоит уже неделю?<br />
               <span className="text-secondary">Закроем за 24 часа</span>
             </h1>
             
             <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <p className="text-xl md:text-2xl text-muted-foreground">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground px-2">
                 Каждый день без сотрудника = упущенная прибыль, перегруженная команда и срыв планов
               </p>
-              <div className="inline-block px-6 py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
-                <p className="text-lg md:text-2xl font-bold">
+              <div className="inline-block px-4 py-2 md:px-6 md:py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
                   <span className="text-primary font-extrabold">Гарантия результата</span> или вернём 100% денег
                 </p>
               </div>
@@ -370,12 +370,12 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8">
                 <Icon name="brain" className="mr-2" size={24} />
                 Бесплатное AI-сканирование
               </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-base md:text-xl px-8 md:px-12 py-6 md:py-8 border-2">
+              <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
                 🔥 Найти сотрудника
               </Button>
             </div>

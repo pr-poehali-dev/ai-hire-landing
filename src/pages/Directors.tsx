@@ -71,10 +71,10 @@ const Directors = () => {
         
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center max-w-5xl mx-auto mb-16">
-            <Badge className="mb-6 bg-gradient-to-r from-indigo-600 to-violet-600 border-0 text-white px-6 py-2 text-lg">
+            <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-indigo-600 to-violet-600 border-0 text-white px-4 py-1.5 md:px-6 md:py-2 text-sm md:text-lg">
               👑 EXECUTIVE SEARCH BOUTIQUE
             </Badge>
-            <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight">
               <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
                 Лидеры
               </span>
@@ -83,25 +83,25 @@ const Directors = () => {
                 которые трансформируют компании
               </span>
             </h1>
-            <p className="text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
               180+ топ-менеджеров от руководителей отделов до CEO и партнёров
               <br />
               <span className="text-indigo-400 font-bold">Конфиденциальный поиск. Только проверенные лидеры рынка</span>
             </p>
             
-            <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8 md:mb-12">
               {[
                 { value: '180+', label: 'Executive назначений', icon: 'crown' },
                 { value: '25+', label: 'Средний опыт, лет', icon: 'briefcase' },
                 { value: '95%', label: 'Удержание после года', icon: 'shield-check' },
                 { value: '7 дней', label: 'До первых кандидатов', icon: 'zap' }
               ].map((stat, i) => (
-                <Card key={i} className="bg-white/5 backdrop-blur-lg border-indigo-500/30 p-6 hover:bg-white/10 transition-all">
-                  <Icon name={stat.icon as any} className="w-10 h-10 mx-auto mb-3 text-indigo-400" />
-                  <div className="text-4xl font-black text-transparent bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text mb-2">
+                <Card key={i} className="bg-white/5 backdrop-blur-lg border-indigo-500/30 p-3 md:p-6 hover:bg-white/10 transition-all">
+                  <Icon name={stat.icon as any} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-indigo-400" />
+                  <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text mb-1 md:mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-xs md:text-sm text-gray-400">{stat.label}</div>
                 </Card>
               ))}
             </div>
@@ -110,7 +110,7 @@ const Directors = () => {
       </section>
 
       {/* Executive Approach */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-indigo-900/10 to-transparent">
+      <section className="relative py-12 md:py-20 px-4 bg-gradient-to-b from-indigo-900/10 to-transparent">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">

@@ -53,16 +53,16 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-4 animate-fade-in" onClick={onClose}>
-      <Card className="glass-dark p-4 sm:p-6 md:p-8 max-w-lg w-full neon-glow animate-scale-in max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between mb-4 sm:mb-6">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in" onClick={onClose}>
+      <Card className="glass-dark p-4 md:p-6 lg:p-8 max-w-lg w-full neon-glow animate-scale-in max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
               <Icon name="Calendar" size={24} className="text-white" />
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold neon-text">Бесплатная консультация</h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">Перезвоним в течение 30 минут</p>
+              <h2 className="text-lg md:text-xl lg:text-2xl font-bold neon-text">Бесплатная консультация</h2>
+              <p className="text-xs md:text-sm text-muted-foreground">Перезвоним в течение 30 минут</p>
             </div>
           </div>
           <Button
@@ -131,12 +131,12 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
             />
           </div>
 
-          <Card className="glass p-3 sm:p-4 border-secondary/30 space-y-2">
+          <Card className="glass p-3 md:p-4 border-secondary/30 space-y-2">
             <div className="flex items-center gap-2">
               <Icon name="Gift" size={20} className="text-secondary" />
-              <h4 className="font-bold text-sm sm:text-base text-secondary">Что вы получите:</h4>
+              <h4 className="font-bold text-sm md:text-base text-secondary">Что вы получите:</h4>
             </div>
-            <ul className="space-y-1 text-sm text-muted-foreground">
+            <ul className="space-y-1 text-xs md:text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Icon name="CheckCircle2" size={14} className="text-primary flex-shrink-0" />
                 Разбор вашей вакансии и требований
@@ -159,7 +159,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
           <Button
             type="submit"
             size="lg"
-            className="w-full neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-105 transition-all text-base sm:text-lg py-5 sm:py-6"
+            className="w-full neon-glow bg-gradient-to-r from-secondary to-primary hover:opacity-90 hover:scale-105 transition-all text-base md:text-lg py-5 md:py-6"
             disabled={isConsultSubmitting}
           >
             {isConsultSubmitting ? (

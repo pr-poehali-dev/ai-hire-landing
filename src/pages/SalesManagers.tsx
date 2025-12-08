@@ -71,10 +71,10 @@ const SalesManagers = () => {
         
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center max-w-5xl mx-auto mb-16">
-            <Badge className="mb-6 bg-gradient-to-r from-purple-600 to-pink-600 border-0 text-white px-6 py-2 text-lg">
+            <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-purple-600 to-pink-600 border-0 text-white px-4 py-1.5 md:px-6 md:py-2 text-sm md:text-lg">
               🏆 #1 В ПОДБОРЕ МЕНЕДЖЕРОВ ПО ПРОДАЖАМ
             </Badge>
-            <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
                 Найдём менеджера
               </span>
@@ -83,25 +83,25 @@ const SalesManagers = () => {
                 который закроет план
               </span>
             </h1>
-            <p className="text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
               1200+ закрытых вакансий в B2B и B2C продажах
               <br />
               <span className="text-purple-400 font-bold">Гарантируем результат за 24 часа</span>
             </p>
             
-            <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8 md:mb-12">
               {[
                 { value: '847', label: 'Менеджеров трудоустроено', icon: 'users' },
                 { value: '94%', label: 'Проходят испытательный', icon: 'trophy' },
                 { value: '2.4x', label: 'Средний рост продаж', icon: 'trending-up' },
                 { value: '24ч', label: 'Поиск кандидатов', icon: 'clock' }
               ].map((stat, i) => (
-                <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/30 p-6 hover:bg-white/10 transition-all">
-                  <Icon name={stat.icon as any} className="w-10 h-10 mx-auto mb-3 text-purple-400" />
-                  <div className="text-4xl font-black text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text mb-2">
+                <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/30 p-3 md:p-6 hover:bg-white/10 transition-all">
+                  <Icon name={stat.icon as any} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-purple-400" />
+                  <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text mb-1 md:mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-xs md:text-sm text-gray-400">{stat.label}</div>
                 </Card>
               ))}
             </div>
@@ -110,16 +110,16 @@ const SalesManagers = () => {
       </section>
 
       {/* Exclusive Benefits */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-transparent">
+      <section className="relative py-12 md:py-20 px-4 bg-gradient-to-b from-purple-900/10 to-transparent">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
               Что вы получите
             </h2>
-            <p className="text-2xl text-purple-300">Эксклюзивный пакет услуг премиум-уровня</p>
+            <p className="text-base md:text-xl lg:text-2xl text-purple-300">Эксклюзивный пакет услуг премиум-уровня</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 icon: 'target',
@@ -158,11 +158,11 @@ const SalesManagers = () => {
                 bonus: 'Экономия 150,000₽'
               }
             ].map((item, i) => (
-              <Card key={i} className="relative bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur-xl border-purple-500/30 p-8 hover:scale-105 transition-all overflow-hidden group">
+              <Card key={i} className="relative bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur-xl border-purple-500/30 p-4 md:p-8 hover:scale-105 transition-all overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform" />
-                <Icon name={item.icon as any} className="w-16 h-16 mb-6 text-purple-400" />
-                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-                <p className="text-gray-300 mb-4 leading-relaxed">{item.desc}</p>
+                <Icon name={item.icon as any} className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-6 text-purple-400" />
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">{item.title}</h3>
+                <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4 leading-relaxed">{item.desc}</p>
                 <Badge className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-500/50 text-green-300">
                   ✨ {item.bonus}
                 </Badge>
@@ -182,7 +182,7 @@ const SalesManagers = () => {
             <p className="text-2xl text-gray-300">Эксперты в каждой нише продаж</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
               { title: 'B2B продажи', desc: 'Корпоративные клиенты, холодные звонки, тендеры', icon: 'building', cases: '340+' },
               { title: 'B2C розница', desc: 'Активные продажи в салонах, магазинах, шоурумах', icon: 'shopping-bag', cases: '280+' },
@@ -269,7 +269,7 @@ const SalesManagers = () => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <Input
                   placeholder="Ваше имя"

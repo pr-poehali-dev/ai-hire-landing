@@ -71,10 +71,10 @@ const Accountants = () => {
         
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="text-center max-w-5xl mx-auto mb-16">
-            <Badge className="mb-6 bg-gradient-to-r from-emerald-600 to-teal-600 border-0 text-white px-6 py-2 text-lg">
+            <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-emerald-600 to-teal-600 border-0 text-white px-4 py-1.5 md:px-6 md:py-2 text-sm md:text-lg">
               💎 ПРЕМИУМ ФИНАНСОВЫЙ ПОДБОР
             </Badge>
-            <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent">
                 Бухгалтер
               </span>
@@ -83,25 +83,25 @@ const Accountants = () => {
                 который наведёт порядок в финансах
               </span>
             </h1>
-            <p className="text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
               380+ бухгалтеров трудоустроено в бизнесах от стартапов до холдингов
               <br />
               <span className="text-emerald-400 font-bold">0 штрафов от ФНС у 98% наших клиентов</span>
             </p>
             
-            <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8 md:mb-12">
               {[
                 { value: '380+', label: 'Бухгалтеров нанято', icon: 'user-check' },
                 { value: '98%', label: 'Без налоговых штрафов', icon: 'shield-check' },
                 { value: '15 лет', label: 'Средний опыт', icon: 'award' },
                 { value: '24ч', label: 'До кандидатов', icon: 'clock' }
               ].map((stat, i) => (
-                <Card key={i} className="bg-white/5 backdrop-blur-lg border-emerald-500/30 p-6 hover:bg-white/10 transition-all">
-                  <Icon name={stat.icon as any} className="w-10 h-10 mx-auto mb-3 text-emerald-400" />
-                  <div className="text-4xl font-black text-transparent bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text mb-2">
+                <Card key={i} className="bg-white/5 backdrop-blur-lg border-emerald-500/30 p-3 md:p-6 hover:bg-white/10 transition-all">
+                  <Icon name={stat.icon as any} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-emerald-400" />
+                  <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text mb-1 md:mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-xs md:text-sm text-gray-400">{stat.label}</div>
                 </Card>
               ))}
             </div>
@@ -110,7 +110,7 @@ const Accountants = () => {
       </section>
 
       {/* Accounting Expertise */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-emerald-900/10 to-transparent">
+      <section className="relative py-12 md:py-20 px-4 bg-gradient-to-b from-emerald-900/10 to-transparent">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
