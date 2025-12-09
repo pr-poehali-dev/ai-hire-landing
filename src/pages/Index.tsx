@@ -404,7 +404,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-8 md:py-12 px-4 md:px-6 relative">
+      <section className="py-8 md:py-12 px-4 md:px-6 relative overflow-hidden">
         <div className="container mx-auto text-center mb-6">
           <h2 className="text-2xl md:text-4xl font-bold neon-text mb-2">
             Закрываем вакансии в любой отрасли
@@ -414,128 +414,252 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+        <div className="relative overflow-x-auto overflow-y-hidden w-full -mx-4 px-4">
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
+          <div className="flex gap-2 md:gap-3 animate-scroll-mobile md:animate-scroll-fast min-w-max">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="Code" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">IT-специалисты</h3>
+                <h3 className="font-bold text-xs md:text-sm">IT-специалисты</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Frontend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Backend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">DevOps</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">DevOps</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="TrendingUp" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Продажи</h3>
+                <h3 className="font-bold text-xs md:text-sm">Продажи</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">B2B Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">B2C Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Key Account</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Key Account</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
                   <Icon name="ShoppingCart" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Маркетплейсы</h3>
+                <h3 className="font-bold text-xs md:text-sm">Маркетплейсы</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">WB</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Ozon</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Аналитик</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">WB</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Ozon</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Аналитик</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="Crown" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Руководители</h3>
+                <h3 className="font-bold text-xs md:text-sm">Руководители</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">CEO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">COO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">CFO</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">CFO</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
                   <Icon name="Megaphone" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Маркетологи</h3>
+                <h3 className="font-bold text-xs md:text-sm">Маркетологи</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Digital</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">SMM</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Content</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Digital</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Content</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="Headphones" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Поддержка</h3>
+                <h3 className="font-bold text-xs md:text-sm">Поддержка</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Customer Success</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Support</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Support</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="DollarSign" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Финансисты</h3>
+                <h3 className="font-bold text-xs md:text-sm">Финансисты</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Бухгалтер</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Фин. аналитик</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Фин. аналитик</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="Cog" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Производство</h3>
+                <h3 className="font-bold text-xs md:text-sm">Производство</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Инженер</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs px-2 py-0.5">Технолог</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Технолог</Badge>
               </div>
             </Card>
 
-            <Card className="glass-dark p-3 md:p-4 hover:shadow-lg transition-all hover:scale-105">
-              <div className="flex items-center gap-2 md:gap-3 mb-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="hard-hat" size={14} className="md:w-4 md:h-4 text-white" />
                 </div>
-                <h3 className="font-bold text-sm md:text-base">Строители</h3>
+                <h3 className="font-bold text-xs md:text-sm">Строители</h3>
               </div>
-              <div className="flex flex-wrap gap-1 md:gap-1.5">
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Прораб</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Мастер</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">Рабочие</Badge>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Прораб</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Мастер</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Рабочие</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Code" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">IT-специалисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">DevOps</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="TrendingUp" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Продажи</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Key Account</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="ShoppingCart" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Маркетплейсы</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">WB</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Ozon</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Crown" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Руководители</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">CFO</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Megaphone" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Маркетологи</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Digital</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Content</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Headphones" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Поддержка</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Support</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="DollarSign" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Финансисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Фин. аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Cog" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Производство</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-[10px] md:text-xs px-1.5 py-0.5">Технолог</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="hard-hat" size={14} className="md:w-4 md:h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-xs md:text-sm">Строители</h3>
+              </div>
+              <div className="flex flex-wrap gap-0.5 md:gap-1">
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Прораб</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Мастер</Badge>
+                <Badge className="bg-primary/20 text-primary text-[10px] md:text-xs px-1.5 py-0.5">Рабочие</Badge>
               </div>
             </Card>
           </div>
