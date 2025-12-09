@@ -400,39 +400,39 @@ const Index = () => {
             <h2 className="text-4xl md:text-5xl font-bold neon-text">
               Решаем проблемы с кадрами<br />любой сложности
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
               От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
             </p>
-            
-            <div className="relative overflow-hidden py-8 mt-8 glass rounded-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-              <div className="flex gap-4 animate-scroll px-4">
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
-              </div>
-            </div>
+          </div>
+        </div>
+        
+        <div className="relative overflow-hidden py-6 md:py-8 mt-8 w-full">
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
+          <div className="flex gap-3 md:gap-4 animate-scroll-fast">
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Менеджер по продажам</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Frontend разработчик</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Маркетолог</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Бухгалтер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">HR-менеджер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Product Manager</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Директор по развитию</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Backend разработчик</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">SMM-специалист</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Контент-менеджер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">DevOps инженер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Head of Sales</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Аналитик данных</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">UI/UX дизайнер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Project Manager</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Customer Success</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Менеджер по продажам</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Frontend разработчик</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Маркетолог</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Бухгалтер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">HR-менеджер</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Product Manager</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-primary/10 border-primary/20">Директор по развитию</Badge>
+            <Badge className="text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 whitespace-nowrap bg-secondary/10 border-secondary/20">Backend разработчик</Badge>
           </div>
         </div>
       </section>
