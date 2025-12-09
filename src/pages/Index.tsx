@@ -274,22 +274,24 @@ const Index = () => {
       </header>
 
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
-            {[
-              { img: 'https://randomuser.me/api/portraits/women/1.jpg', status: 'analyzing', name: 'Кандидат #1247' },
-              { img: 'https://randomuser.me/api/portraits/men/2.jpg', status: 'approved', name: 'Кандидат #1248' },
-              { img: 'https://randomuser.me/api/portraits/women/3.jpg', status: 'interview', name: 'Кандидат #1249' },
-              { img: 'https://randomuser.me/api/portraits/women/4.jpg', status: 'analyzing', name: 'Кандидат #1250' },
-              { img: 'https://randomuser.me/api/portraits/women/5.jpg', status: 'approved', name: 'Кандидат #1251' },
-              { img: 'https://randomuser.me/api/portraits/men/6.jpg', status: 'interview', name: 'Кандидат #1252' },
-              { img: 'https://randomuser.me/api/portraits/men/7.jpg', status: 'analyzing', name: 'Кандидат #1253' },
-              { img: 'https://randomuser.me/api/portraits/men/8.jpg', status: 'approved', name: 'Кандидат #1254' },
-              { img: 'https://randomuser.me/api/portraits/women/9.jpg', status: 'interview', name: 'Кандидат #1255' },
-              { img: 'https://randomuser.me/api/portraits/men/10.jpg', status: 'analyzing', name: 'Кандидат #1256' },
-              { img: 'https://randomuser.me/api/portraits/women/11.jpg', status: 'approved', name: 'Кандидат #1257' },
-              { img: 'https://randomuser.me/api/portraits/men/12.jpg', status: 'interview', name: 'Кандидат #1258' }
-            ].map((candidate, idx) => (
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5"></div>
+          <div className="absolute inset-0 opacity-20">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
+              {[
+                { img: 'https://randomuser.me/api/portraits/women/1.jpg', status: 'analyzing', name: 'Кандидат #1247' },
+                { img: 'https://randomuser.me/api/portraits/men/2.jpg', status: 'approved', name: 'Кандидат #1248' },
+                { img: 'https://randomuser.me/api/portraits/women/3.jpg', status: 'interview', name: 'Кандидат #1249' },
+                { img: 'https://randomuser.me/api/portraits/women/4.jpg', status: 'analyzing', name: 'Кандидат #1250' },
+                { img: 'https://randomuser.me/api/portraits/women/5.jpg', status: 'approved', name: 'Кандидат #1251' },
+                { img: 'https://randomuser.me/api/portraits/men/6.jpg', status: 'interview', name: 'Кандидат #1252' },
+                { img: 'https://randomuser.me/api/portraits/men/7.jpg', status: 'analyzing', name: 'Кандидат #1253' },
+                { img: 'https://randomuser.me/api/portraits/men/8.jpg', status: 'approved', name: 'Кандидат #1254' },
+                { img: 'https://randomuser.me/api/portraits/women/9.jpg', status: 'interview', name: 'Кандидат #1255' },
+                { img: 'https://randomuser.me/api/portraits/men/10.jpg', status: 'analyzing', name: 'Кандидат #1256' },
+                { img: 'https://randomuser.me/api/portraits/women/11.jpg', status: 'approved', name: 'Кандидат #1257' },
+                { img: 'https://randomuser.me/api/portraits/men/12.jpg', status: 'interview', name: 'Кандидат #1258' }
+              ].map((candidate, idx) => (
               <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
                   <img 
