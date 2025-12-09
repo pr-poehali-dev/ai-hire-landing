@@ -355,9 +355,6 @@ const Index = () => {
             </h1>
             
             <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground px-2">
-                Каждый день без сотрудника = упущенная прибыль, перегруженная команда и срыв планов
-              </p>
               <div className="inline-block px-4 py-2 md:px-6 md:py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
                   Если не уложимся в сроки - <span className="text-primary font-extrabold">не платите</span>
