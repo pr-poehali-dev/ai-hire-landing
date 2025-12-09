@@ -1189,7 +1189,7 @@ const Index = () => {
             <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Более 120 компаний уже нашли своих сотрудников через нас
+              Более 500 компаний уже нашли своих сотрудников через нас
             </p>
           </div>
 
