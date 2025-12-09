@@ -10,6 +10,7 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import ConsultationModal from '@/components/landing/ConsultationModal';
 import AIScanModal from '@/components/landing/AIScanModal';
+import VacancyAnalysisModal from '@/components/landing/VacancyAnalysisModal';
 import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 import {
   DropdownMenu,
@@ -32,6 +33,7 @@ const Index = () => {
   });
   const [isConsultFormOpen, setIsConsultFormOpen] = useState(false);
   const [isAIScanOpen, setIsAIScanOpen] = useState(false);
+  const [isVacancyAnalysisOpen, setIsVacancyAnalysisOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
@@ -43,6 +45,17 @@ const Index = () => {
       }));
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const hasSeenPopup = sessionStorage.getItem('vacancyAnalysisPopupSeen');
+    if (!hasSeenPopup) {
+      const timer = setTimeout(() => {
+        setIsVacancyAnalysisOpen(true);
+        sessionStorage.setItem('vacancyAnalysisPopupSeen', 'true');
+      }, 15000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -1465,12 +1478,24 @@ const Index = () => {
 
       <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
         <Button
-          onClick={() => setIsAIScanOpen(true)}
+          onClick={() => setIsVacancyAnalysisOpen(true)}
           size="sm"
           className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
         >
+          <Icon name="sparkles" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <span className="hidden sm:inline">Бесплатный анализ вакансии</span>
+          <span className="sm:hidden">Анализ</span>
+        </Button>
+
+        <Button
+          onClick={() => setIsAIScanOpen(true)}
+          size="sm"
+          variant="outline"
+          className="hover:neon-glow hover:scale-110 transition-all shadow-lg text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
+          style={{ animationDelay: '0.1s' }}
+        >
           <Icon name="brain" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
-          <span className="hidden sm:inline">Бесплатное AI-сканирование</span>
+          <span className="hidden sm:inline">AI-сканирование</span>
           <span className="sm:hidden">AI-скан</span>
         </Button>
         
@@ -1479,7 +1504,7 @@ const Index = () => {
           size="sm"
           variant="outline"
           className="hover:neon-glow hover:scale-110 transition-all shadow-lg text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
-          style={{ animationDelay: '0.1s' }}
+          style={{ animationDelay: '0.2s' }}
         >
           <Icon name="Calendar" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
           <span className="hidden sm:inline">Консультация</span>
@@ -1496,6 +1521,11 @@ const Index = () => {
         isOpen={isAIScanOpen} 
         onClose={() => setIsAIScanOpen(false)}
         source="main_hero_button"
+      />
+
+      <VacancyAnalysisModal 
+        isOpen={isVacancyAnalysisOpen} 
+        onClose={() => setIsVacancyAnalysisOpen(false)}
       />
     </div>
   );
