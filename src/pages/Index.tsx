@@ -1160,7 +1160,7 @@ const Index = () => {
                 <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
                 <Badge className="bg-primary/20 text-primary text-xs">Экономист</Badge>
                 <Badge className="bg-primary/20 text-primary text-xs">Казначей</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+1</span>
+                <Badge className="bg-primary/20 text-primary text-xs">+1</Badge>
               </div>
             </Card>
 
