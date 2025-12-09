@@ -399,19 +399,19 @@ const Index = () => {
             Закрываем вакансии в любой отрасли
           </h2>
           <p className="text-sm md:text-base text-muted-foreground">
-            От линейных специалистов до топ-менеджеров за 24 часа
+            От строителей до топ-менеджеров
           </p>
         </div>
         
         <div className="relative overflow-hidden w-full">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-          <div className="flex gap-3 animate-scroll-fast">
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Icon name="Code" size={20} className="text-white" />
+          <div className="flex gap-2 md:gap-3 animate-scroll-ultra-mobile md:animate-scroll-fast">
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Code" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">IT-специалисты</h3>
+                <h3 className="font-bold text-sm md:text-base">IT-специалисты</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
@@ -420,12 +420,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
-                  <Icon name="TrendingUp" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="TrendingUp" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Продажи</h3>
+                <h3 className="font-bold text-sm md:text-base">Продажи</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
@@ -434,12 +434,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
-                  <Icon name="ShoppingCart" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="ShoppingCart" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Маркетплейсы</h3>
+                <h3 className="font-bold text-sm md:text-base">Маркетплейсы</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">WB</Badge>
@@ -448,12 +448,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Icon name="Crown" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Crown" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Руководители</h3>
+                <h3 className="font-bold text-sm md:text-base">Руководители</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
@@ -462,12 +462,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
-                  <Icon name="Megaphone" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Megaphone" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Маркетологи</h3>
+                <h3 className="font-bold text-sm md:text-base">Маркетологи</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">Digital</Badge>
@@ -476,12 +476,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
-                  <Icon name="Headphones" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Headphones" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Поддержка</h3>
+                <h3 className="font-bold text-sm md:text-base">Поддержка</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
@@ -489,12 +489,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Icon name="DollarSign" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="DollarSign" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Финансисты</h3>
+                <h3 className="font-bold text-sm md:text-base">Финансисты</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
@@ -502,12 +502,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
-                  <Icon name="Cog" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Cog" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Производство</h3>
+                <h3 className="font-bold text-sm md:text-base">Производство</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
@@ -515,12 +515,26 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Icon name="Code" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="hard-hat" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">IT-специалисты</h3>
+                <h3 className="font-bold text-sm md:text-base">Строители</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Прораб</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Мастер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Рабочие</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Code" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">IT-специалисты</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
@@ -529,17 +543,112 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
-                  <Icon name="TrendingUp" size={20} className="text-white" />
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="TrendingUp" size={16} className="md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold">Продажи</h3>
+                <h3 className="font-bold text-sm md:text-base">Продажи</h3>
               </div>
               <div className="flex flex-wrap gap-1">
                 <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
                 <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
                 <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="ShoppingCart" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Маркетплейсы</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">WB</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Ozon</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Crown" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Руководители</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Megaphone" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Маркетологи</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Digital</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Headphones" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Поддержка</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="DollarSign" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Финансисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="Cog" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Производство</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-3 md:p-4 flex-shrink-0 w-48 md:w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Icon name="hard-hat" size={16} className="md:w-5 md:h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-sm md:text-base">Строители</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Прораб</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Мастер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Рабочие</Badge>
               </div>
             </Card>
           </div>

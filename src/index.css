@@ -182,7 +182,7 @@
   }
 
   .animate-scroll-ultra-mobile {
-    animation: scroll 5s linear infinite;
+    animation: scroll 25s linear infinite;
   }
 
   .animate-scroll-desktop {
