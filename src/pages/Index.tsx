@@ -350,8 +350,8 @@ const Index = () => {
             </Badge>
             
             <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Вакансия стоит уже неделю?<br />
-              <span className="text-secondary">Закроем за 24 часа</span>
+              Сложности в найме сотрудников?<br />
+              <span className="text-secondary">Решим за 24 часа</span>
             </h1>
             
             <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
