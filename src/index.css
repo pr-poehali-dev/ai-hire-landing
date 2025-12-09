@@ -50,13 +50,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: "Inter", sans-serif;
-    background: linear-gradient(
-      135deg,
+    background: radial-gradient(
+      ellipse at top,
       #2d1b4e 0%,
-      #4a2b6d 25%,
-      #5b3a7d 50%,
-      #4a2b6d 75%,
-      #2d1b4e 100%
+      #4a2b6d 50%,
+      #5b3a7d 100%
     );
     background-attachment: fixed;
     position: relative;
@@ -104,24 +102,30 @@
   .glass {
     background: rgba(45, 27, 78, 0.5);
     backdrop-filter: blur(30px);
-    border: 1px solid rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
   }
 
   .glass-dark {
     background: rgba(30, 20, 45, 0.7);
     backdrop-filter: blur(30px);
-    border: 1px solid rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
   }
 
   .neon-glow {
     box-shadow:
-      0 0 30px rgba(139, 92, 246, 0.4),
-      0 0 60px rgba(139, 92, 246, 0.2);
+      0 0 20px rgba(139, 92, 246, 0.5),
+      0 0 40px rgba(139, 92, 246, 0.3),
+      0 0 60px rgba(139, 92, 246, 0.2),
+      inset 0 0 15px rgba(139, 92, 246, 0.1);
   }
 
   .neon-text {
     text-shadow:
+      0 0 10px rgba(139, 92, 246, 0.8),
       0 0 20px rgba(139, 92, 246, 0.6),
+      0 0 30px rgba(139, 92, 246, 0.4),
       0 0 40px rgba(139, 92, 246, 0.3);
   }
 
@@ -171,5 +175,13 @@
 
   .animate-scroll-faster {
     animation: scroll 12s linear infinite;
+  }
+
+  .animate-scroll-mobile {
+    animation: scroll 8s linear infinite;
+  }
+
+  .animate-scroll-desktop {
+    animation: scroll 15s linear infinite;
   }
 }
