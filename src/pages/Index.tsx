@@ -333,6 +333,7 @@ const Index = () => {
               </div>
             ))}
           </div>
+          </div>
         </div>
 
         <div className="container mx-auto relative z-10 px-4">
