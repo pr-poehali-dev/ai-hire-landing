@@ -393,53 +393,155 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="specialists" className="py-12 md:py-20 px-4 md:px-6 relative">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-6">
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">
-              Решаем проблемы с кадрами<br />любой сложности
-            </h2>
-            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
-            </p>
-          </div>
+      <section className="py-8 md:py-12 px-4 md:px-6 relative overflow-hidden">
+        <div className="container mx-auto text-center mb-6">
+          <h2 className="text-2xl md:text-4xl font-bold neon-text mb-2">
+            Закрываем вакансии в любой отрасли
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground">
+            От линейных специалистов до топ-менеджеров за 24 часа
+          </p>
         </div>
         
-        <div className="relative overflow-hidden py-8 md:py-12 mt-12 w-full">
+        <div className="relative overflow-hidden w-full">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-          <div className="flex gap-4 md:gap-6 animate-scroll-ultra-mobile md:animate-scroll-desktop">
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Менеджер по продажам</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Frontend разработчик</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Маркетолог</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Бухгалтер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">HR-менеджер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Product Manager</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Директор по развитию</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Backend разработчик</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">SMM-специалист</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Контент-менеджер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">DevOps инженер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Head of Sales</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Аналитик данных</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">UI/UX дизайнер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Project Manager</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Customer Success</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Коммерческий директор</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">QA Engineer</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Руководитель отдела продаж</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Data Scientist</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Финансовый директор</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Business Analyst</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Территориальный менеджер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">System Administrator</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Менеджер по продажам</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Frontend разработчик</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Маркетолог</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Бухгалтер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">HR-менеджер</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Product Manager</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Директор по развитию</span>
-            <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Backend разработчик</span>
+          <div className="flex gap-3 animate-scroll-fast">
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <Icon name="Code" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">IT-специалисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
+                  <Icon name="TrendingUp" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Продажи</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
+                  <Icon name="ShoppingCart" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Маркетплейсы</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">WB</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Ozon</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <Icon name="Crown" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Руководители</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center">
+                  <Icon name="Megaphone" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Маркетологи</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Digital</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
+                  <Icon name="Headphones" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Поддержка</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <Icon name="DollarSign" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Финансисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
+                  <Icon name="Cog" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Производство</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                  <Icon name="Code" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">IT-специалисты</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
+              </div>
+            </Card>
+
+            <Card className="glass-dark p-4 flex-shrink-0 w-64 hover:neon-glow transition-all">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center">
+                  <Icon name="TrendingUp" size={20} className="text-white" />
+                </div>
+                <h3 className="font-bold">Продажи</h3>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
@@ -1002,187 +1104,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="specialists" className="py-12 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-6">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Наша специализация</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">
-              Решаем проблемы с кадрами<br />любой сложности
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
-            </p>
-            
-            <div className="relative overflow-hidden py-8 mt-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-              <div className="flex gap-4 animate-scroll">
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
-              </div>
-            </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Code" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">IT-специалисты</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Разработчики, DevOps, тестировщики, аналитики данных</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Full-Stack</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="TrendingUp" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Продажи</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">B2B, B2C, Key Account, региональные менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Sales Director</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                  <Icon name="ShoppingCart" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Маркетплейсы</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Wildberries, Ozon, Яндекс.Маркет, Lamoda</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Category Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Crown" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Руководители</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">CEO, COO, директора направлений, топ-менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">CTO</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow">
-                  <Icon name="Megaphone" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Маркетологи</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Digital, SMM, контент, performance, бренд-менеджеры</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Digital Marketing</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Performance</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Headphones" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Поддержка</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Customer Success, техподдержка, операторы</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Operators</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Service Manager</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="DollarSign" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Финансисты</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Бухгалтеры, финансовые аналитики, экономисты</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Экономист</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">Казначей</Badge>
-                <Badge className="bg-primary/20 text-primary text-xs">+1</Badge>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 space-y-4 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '0.7s' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary flex items-center justify-center neon-glow">
-                  <Icon name="Cog" size={24} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Производство</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Инженеры, технологи, производственные специалисты</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Мастер участка</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Наладчик</Badge>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       <section id="faq" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
