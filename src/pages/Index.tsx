@@ -404,8 +404,8 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-8 md:py-12 px-4 md:px-6 relative overflow-hidden">
-        <div className="container mx-auto text-center mb-6">
+      <section className="py-8 md:py-12 relative overflow-hidden">
+        <div className="container mx-auto text-center mb-6 px-4 md:px-6">
           <h2 className="text-2xl md:text-4xl font-bold neon-text mb-2">
             Закрываем вакансии в любой отрасли
           </h2>
@@ -414,7 +414,7 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="relative overflow-hidden w-full -mx-4 px-4">
+        <div className="relative overflow-hidden w-full">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
           <div className="flex gap-2 md:gap-3 animate-scroll-mobile md:animate-scroll-fast min-w-max">
             <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
