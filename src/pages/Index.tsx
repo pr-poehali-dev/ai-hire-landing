@@ -347,7 +347,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-8">
             <Badge className="glass text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-fade-in hover:scale-110 transition-all cursor-pointer">
               ✨ Первое HR агентство с AI-подбором
-            </span>
+            </Badge>
             
             <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Сложности в найме сотрудников?<br />
@@ -484,7 +484,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors">ИИ-анализ без предвзятости</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</span>
+                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -500,7 +500,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</span>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -516,7 +516,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</span>
+                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -532,7 +532,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</span>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -548,7 +548,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</span>
+                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -564,7 +564,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</span>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -580,7 +580,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Прозрачный процесс</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Google-таблица онлайн</span>
+                  <Badge className="text-xs bg-primary/20 text-primary">Google-таблица онлайн</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -596,7 +596,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</span>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
@@ -616,7 +616,7 @@ const Index = () => {
       <section id="demo" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
-            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</span>
+            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
             <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
             <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
               AI анализирует видео-интервью и оценивает компетенции
@@ -630,7 +630,7 @@ const Index = () => {
                   <Icon name="Star" size={24} className="text-secondary" />
                   <h3 className="text-2xl font-bold">Анализ завершен</h3>
                 </div>
-                <Badge className="bg-primary/20 text-primary neon-glow">AI-A</span>
+                <Badge className="bg-primary/20 text-primary neon-glow">AI-A</Badge>
               </div>
 
               <div className="space-y-4">
@@ -711,7 +711,7 @@ const Index = () => {
                         <Icon name="FileText" size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
                       </div>
                       <div>
-                        <Badge className="text-xs sm:text-sm px-3 sm:px-4 py-1 neon-glow mb-1.5 md:mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</span>
+                        <Badge className="text-xs sm:text-sm px-3 sm:px-4 py-1 neon-glow mb-1.5 md:mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
                         <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
                         <p className="text-xs sm:text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
                       </div>
@@ -727,21 +727,21 @@ const Index = () => {
                         <div className="text-center">
                           <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
                           <div className="text-xs sm:text-sm text-muted-foreground">Общая оценка</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-primary/20 text-primary">Высокий уровень</span>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-primary/20 text-primary">Высокий уровень</Badge>
                         </div>
                       </Card>
                       <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
                         <div className="text-center">
                           <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
                           <div className="text-xs sm:text-sm text-muted-foreground">Прогноз успеха</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Рекомендован</span>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Рекомендован</Badge>
                         </div>
                       </Card>
                       <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
                         <div className="text-center">
                           <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
                           <div className="text-xs sm:text-sm text-muted-foreground">Опыт в продажах</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Middle</span>
+                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Middle</Badge>
                         </div>
                       </Card>
                     </div>
@@ -795,28 +795,28 @@ const Index = () => {
                               <Icon name="MessageSquare" size={16} className="text-primary" />
                               <span className="text-sm">Коммуникация</span>
                             </div>
-                            <Badge className="bg-primary/20 text-primary">94%</span>
+                            <Badge className="bg-primary/20 text-primary">94%</Badge>
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.2s' }}>
                             <div className="flex items-center gap-2">
                               <Icon name="Zap" size={16} className="text-secondary" />
                               <span className="text-sm">Мотивация</span>
                             </div>
-                            <Badge className="bg-secondary/20 text-secondary">87%</span>
+                            <Badge className="bg-secondary/20 text-secondary">87%</Badge>
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.3s' }}>
                             <div className="flex items-center gap-2">
                               <Icon name="Shield" size={16} className="text-secondary" />
                               <span className="text-sm">Стрессоустойчивость</span>
                             </div>
-                            <Badge className="bg-secondary/20 text-secondary">83%</span>
+                            <Badge className="bg-secondary/20 text-secondary">83%</Badge>
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.4s' }}>
                             <div className="flex items-center gap-2">
                               <Icon name="Users" size={16} className="text-green-400" />
                               <span className="text-sm">Лидерство</span>
                             </div>
-                            <Badge className="bg-green-400/20 text-green-400">78%</span>
+                            <Badge className="bg-green-400/20 text-green-400">78%</Badge>
                           </div>
                         </div>
                       </div>
@@ -892,7 +892,7 @@ const Index = () => {
       <section id="success-charts" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">📊 Аналитика успешности</span>
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">📊 Аналитика успешности</Badge>
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Результаты нашей работы</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Данные по успешности найма за последние 12 месяцев
@@ -978,7 +978,7 @@ const Index = () => {
       <section id="cases" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</span>
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">💼 Отзывы от компаний</Badge>
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Что говорят клиенты</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Более 120 компаний уже нашли своих сотрудников через нас
@@ -1005,7 +1005,7 @@ const Index = () => {
       <section id="specialists" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-6">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Наша специализация</span>
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Наша специализация</Badge>
             <h2 className="text-4xl md:text-5xl font-bold neon-text">
               Решаем проблемы с кадрами<br />любой сложности
             </h2>
@@ -1016,30 +1016,30 @@ const Index = () => {
             <div className="relative overflow-hidden py-8 mt-8">
               <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
               <div className="flex gap-4 animate-scroll">
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</span>
-                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</span>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
               </div>
             </div>
           </div>
@@ -1054,11 +1054,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Разработчики, DevOps, тестировщики, аналитики данных</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Frontend</span>
-                <Badge className="bg-primary/20 text-primary text-xs">Backend</span>
-                <Badge className="bg-primary/20 text-primary text-xs">Full-Stack</span>
-                <Badge className="bg-primary/20 text-primary text-xs">DevOps</span>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</span>
+                <Badge className="bg-primary/20 text-primary text-xs">Frontend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Backend</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Full-Stack</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">DevOps</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
               </div>
             </Card>
 
@@ -1071,11 +1071,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">B2B, B2C, Key Account, региональные менеджеры</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Sales Director</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</span>
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2B Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">B2C Sales</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Key Account</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Sales Director</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
               </div>
             </Card>
 
@@ -1088,11 +1088,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Wildberries, Ozon, Яндекс.Маркет, Lamoda</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Category Manager</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content Manager</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</span>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Category Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Аналитик</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
               </div>
             </Card>
 
@@ -1105,11 +1105,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">CEO, COO, директора направлений, топ-менеджеры</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">CEO</span>
-                <Badge className="bg-primary/20 text-primary text-xs">COO</span>
-                <Badge className="bg-primary/20 text-primary text-xs">CFO</span>
-                <Badge className="bg-primary/20 text-primary text-xs">CTO</span>
-                <Badge className="bg-primary/20 text-primary text-xs">+2</span>
+                <Badge className="bg-primary/20 text-primary text-xs">CEO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">COO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CFO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">CTO</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">+2</Badge>
               </div>
             </Card>
 
@@ -1122,11 +1122,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Digital, SMM, контент, performance, бренд-менеджеры</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Digital Marketing</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Content</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Performance</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+2</span>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Digital Marketing</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">SMM</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Content</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Performance</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+2</Badge>
               </div>
             </Card>
 
@@ -1139,11 +1139,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Customer Success, техподдержка, операторы</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Support</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Operators</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Service Manager</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</span>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Customer Success</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Support</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Operators</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Service Manager</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
               </div>
             </Card>
 
@@ -1156,10 +1156,10 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Бухгалтеры, финансовые аналитики, экономисты</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</span>
-                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</span>
-                <Badge className="bg-primary/20 text-primary text-xs">Экономист</span>
-                <Badge className="bg-primary/20 text-primary text-xs">Казначей</span>
+                <Badge className="bg-primary/20 text-primary text-xs">Бухгалтер</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Фин. аналитик</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Экономист</Badge>
+                <Badge className="bg-primary/20 text-primary text-xs">Казначей</Badge>
                 <Badge className="bg-primary/20 text-primary text-xs">+1</span>
               </div>
             </Card>
@@ -1173,11 +1173,11 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground">Инженеры, технологи, производственные специалисты</p>
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Мастер участка</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">Наладчик</span>
-                <Badge className="bg-secondary/20 text-secondary text-xs">+1</span>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Инженер</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Технолог</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Мастер участка</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">Наладчик</Badge>
+                <Badge className="bg-secondary/20 text-secondary text-xs">+1</Badge>
               </div>
             </Card>
           </div>
@@ -1187,7 +1187,7 @@ const Index = () => {
       <section id="faq" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">❓ Частые вопросы</span>
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">❓ Частые вопросы</Badge>
             <h2 className="text-4xl md:text-5xl font-bold neon-text">Ответы на ваши вопросы</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Всё, что нужно знать о работе с 1 DAY HR
