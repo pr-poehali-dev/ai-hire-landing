@@ -692,7 +692,7 @@ const Index = () => {
             </h2>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Объединили <span className="text-primary font-bold">искусственный интеллект</span>, 
-              <span className="text-secondary font-bold"> 20+ лет опыта</span> и 
+              <span className="text-secondary font-bold"> 20+ лет опыта</span> и  
               <span className="text-primary font-bold">систему финансовых гарантий</span>
             </p>
           </div>
