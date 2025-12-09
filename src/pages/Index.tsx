@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,10 +8,11 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import ConsultationModal from '@/components/landing/ConsultationModal';
-import AIScanModal from '@/components/landing/AIScanModal';
-import VacancyAnalysisModal from '@/components/landing/VacancyAnalysisModal';
-import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
+const ConsultationModal = lazy(() => import('@/components/landing/ConsultationModal'));
+const AIScanModal = lazy(() => import('@/components/landing/AIScanModal'));
+const VacancyAnalysisModal = lazy(() => import('@/components/landing/VacancyAnalysisModal'));
+const TestimonialsCarousel = lazy(() => import('@/components/landing/Carousels').then(m => ({ default: m.TestimonialsCarousel })));
+const TeamCarousel = lazy(() => import('@/components/landing/Carousels').then(m => ({ default: m.TeamCarousel })));
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -205,9 +206,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative">
-      <div className="fixed top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-orb animate-pulse" style={{ animationDuration: '4s' }}></div>
-      <div className="fixed bottom-20 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-orb animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-secondary/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
+      <div className="hidden md:block fixed top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-orb animate-pulse" style={{ animationDuration: '4s' }}></div>
+      <div className="hidden md:block fixed bottom-20 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-orb animate-pulse" style={{ animationDuration: '6s' }}></div>
+      <div className="hidden md:block fixed top-1/2 left-1/2 w-80 h-80 bg-secondary/10 rounded-full blur-orb animate-pulse" style={{ animationDuration: '5s' }}></div>
 
       <header className="fixed top-0 left-0 right-0 z-50 glass animate-fade-in">
         <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
@@ -290,7 +291,7 @@ const Index = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
           
-          <svg className="absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
+          <svg className="hidden md:block absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="neural-grid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
                 <circle cx="0" cy="0" r="2" fill="currentColor" className="text-primary">
@@ -344,11 +345,11 @@ const Index = () => {
             <rect width="100%" height="100%" fill="url(#neural-grid)" />
           </svg>
           
-          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }}></div>
-          <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+          <div className="hidden md:block absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }}></div>
+          <div className="hidden md:block absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+          <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
           
-          <div className="absolute inset-0 opacity-10">
+          <div className="hidden md:block absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary rounded-lg rotate-12 animate-pulse"></div>
             <div className="absolute top-40 right-20 w-24 h-24 border-2 border-secondary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
             <div className="absolute bottom-32 left-1/4 w-40 h-40 border-2 border-primary/50 rounded-lg -rotate-6 animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -413,9 +414,9 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="relative overflow-hidden w-full">
+        <div className="relative overflow-x-auto overflow-y-hidden w-full -mx-4 px-4">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-          <div className="flex gap-2 md:gap-3 animate-scroll-mobile md:animate-scroll-fast">
+          <div className="flex gap-2 md:gap-3 animate-scroll-mobile md:animate-scroll-fast min-w-max">
             <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
               <div className="flex items-center gap-2 md:gap-3 mb-2">
                 <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
@@ -668,20 +669,20 @@ const Index = () => {
       <section id="why-us" className="relative py-20 md:py-32 px-4 md:px-6 overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-secondary/5 to-primary/3 animate-pulse" style={{ animationDuration: '8s' }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/2 via-secondary/3 to-primary/2 animate-pulse" style={{ animationDuration: '8s' }} />
           <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-10 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-            <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/8 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+            <div className="absolute top-10 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
+            <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/4 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/3 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
           </div>
           {/* Pattern overlay */}
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.3) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+          <div className="absolute inset-0 opacity-3" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.3) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         </div>
 
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-16 md:mb-20 space-y-6">
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight animate-fade-in">
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent neon-text">
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
                 Почему нас выбирают
               </span>
               <br />
@@ -697,10 +698,10 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-            <Card className="group relative glass-dark p-6 md:p-8 hover:shadow-lg transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.1s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <Card className="group relative glass-dark p-6 md:p-8 hover:shadow-lg transition-all duration-500 md:hover:scale-105 md:hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
                   <Icon name="Brain" size={24} className="md:w-8 md:h-8 text-white group-hover:rotate-12 transition-transform duration-500" />
                 </div>
                 <div>
@@ -920,7 +921,7 @@ const Index = () => {
 
           {showReport && (
             <div className="max-w-6xl mx-auto mt-8 md:mt-12 lg:mt-20 px-3 md:px-0 animate-scale-in">
-              <Card className="glass-dark p-4 sm:p-6 md:p-8 lg:p-12 border-primary/30 neon-glow relative overflow-hidden">
+              <Card className="glass-dark p-3 sm:p-4 md:p-6 lg:p-8 border-primary/30 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 animate-pulse" style={{ animationDuration: '3s' }}></div>
                 </div>
@@ -928,58 +929,58 @@ const Index = () => {
                 <div className="relative">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 gap-4 animate-fade-in">
                     <div className="flex items-center gap-3 md:gap-4">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow animate-pulse" style={{ animationDuration: '2s' }}>
-                        <Icon name="FileText" size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-pulse" style={{ animationDuration: '2s' }}>
+                        <Icon name="FileText" size={20} className="sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
                       </div>
                       <div>
-                        <Badge className="text-xs sm:text-sm px-3 sm:px-4 py-1 neon-glow mb-1.5 md:mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
-                        <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
+                        <Badge className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 mb-1 sm:mb-1.5 animate-fade-in" style={{ animationDelay: '0.1s' }}>📊 Пример отчёта</Badge>
+                        <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold animate-fade-in" style={{ animationDelay: '0.2s' }}>Детальный отчёт кандидата</h3>
                         <p className="text-xs sm:text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.3s' }}>Александр Петров • Менеджер по продажам</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="hover:neon-glow hover:scale-110 transition-all animate-fade-in self-end sm:self-auto" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
-                      <Icon name="X" size={18} className="sm:w-5 sm:h-5" />
+                    <Button variant="outline" size="sm" className="hover:scale-110 transition-all animate-fade-in self-end sm:self-auto" onClick={() => setShowReport(false)} style={{ animationDelay: '0.4s' }}>
+                      <Icon name="X" size={16} className="sm:w-4 sm:h-4" />
                     </Button>
                   </div>
 
                   <div className="space-y-4 md:space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                      <Card className="glass p-3 sm:p-4 border-primary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+                      <Card className="glass p-2 sm:p-3 border-primary/20 transition-all animate-fade-in" style={{ animationDelay: '0.5s' }}>
                         <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Общая оценка</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-primary/20 text-primary">Высокий уровень</Badge>
+                          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-0.5 sm:mb-1 animate-pulse">{Math.round(skillScores.communication)}%</div>
+                          <div className="text-[10px] sm:text-xs text-muted-foreground">Общая оценка</div>
+                          <Badge className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs px-1 sm:px-2 py-0 sm:py-0.5 bg-primary/20 text-primary">Высокий</Badge>
                         </div>
                       </Card>
-                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                      <Card className="glass p-2 sm:p-3 border-secondary/20 transition-all animate-fade-in" style={{ animationDelay: '0.6s' }}>
                         <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Прогноз успеха</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Рекомендован</Badge>
+                          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary mb-0.5 sm:mb-1 animate-pulse" style={{ animationDelay: '0.2s' }}>92%</div>
+                          <div className="text-[10px] sm:text-xs text-muted-foreground">Прогноз успеха</div>
+                          <Badge className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs px-1 sm:px-2 py-0 sm:py-0.5 bg-secondary/20 text-secondary">ОК</Badge>
                         </div>
                       </Card>
-                      <Card className="glass p-3 sm:p-4 border-secondary/20 hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+                      <Card className="glass p-2 sm:p-3 border-secondary/20 transition-all animate-fade-in" style={{ animationDelay: '0.7s' }}>
                         <div className="text-center">
-                          <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
-                          <div className="text-xs sm:text-sm text-muted-foreground">Опыт в продажах</div>
-                          <Badge className="mt-1.5 sm:mt-2 text-xs bg-secondary/20 text-secondary">Middle</Badge>
+                          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary mb-0.5 sm:mb-1 animate-pulse" style={{ animationDelay: '0.4s' }}>5 лет</div>
+                          <div className="text-[10px] sm:text-xs text-muted-foreground">Опыт</div>
+                          <Badge className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs px-1 sm:px-2 py-0 sm:py-0.5 bg-secondary/20 text-secondary">Middle</Badge>
                         </div>
                       </Card>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-                        <h4 className="font-bold text-lg flex items-center gap-2">
-                          <Icon name="Brain" size={20} className="text-primary animate-pulse" />
+                      <div className="space-y-3 sm:space-y-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                        <h4 className="font-bold text-sm sm:text-base md:text-lg flex items-center gap-2">
+                          <Icon name="Brain" size={16} className="sm:w-5 sm:h-5 text-primary animate-pulse" />
                           Психологический профиль
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-2 sm:space-y-3">
                           <div className="animate-fade-in" style={{ animationDelay: '0.9s' }}>
-                            <div className="flex justify-between text-sm mb-1">
+                            <div className="flex justify-between text-xs sm:text-sm mb-1">
                               <span>Экстраверсия</span>
                               <span className="font-bold text-primary">85%</span>
                             </div>
-                            <Progress value={85} className="h-2" />
+                            <Progress value={85} className="h-1.5 sm:h-2" />
                           </div>
                           <div className="animate-fade-in" style={{ animationDelay: '1s' }}>
                             <div className="flex justify-between text-sm mb-1">
@@ -1005,18 +1006,18 @@ const Index = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-4 animate-fade-in" style={{ animationDelay: '1s' }}>
-                        <h4 className="font-bold text-lg flex items-center gap-2">
-                          <Icon name="Target" size={20} className="text-secondary animate-pulse" />
+                      <div className="space-y-3 sm:space-y-4 animate-fade-in" style={{ animationDelay: '1s' }}>
+                        <h4 className="font-bold text-sm sm:text-base md:text-lg flex items-center gap-2">
+                          <Icon name="Target" size={16} className="sm:w-5 sm:h-5 text-secondary animate-pulse" />
                           Ключевые компетенции
                         </h4>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.1s' }}>
-                            <div className="flex items-center gap-2">
-                              <Icon name="MessageSquare" size={16} className="text-primary" />
-                              <span className="text-sm">Коммуникация</span>
+                        <div className="space-y-2 sm:space-y-3">
+                          <div className="flex items-center justify-between glass p-2 sm:p-3 rounded-lg transition-all animate-fade-in" style={{ animationDelay: '1.1s' }}>
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                              <Icon name="MessageSquare" size={14} className="sm:w-4 sm:h-4 text-primary" />
+                              <span className="text-xs sm:text-sm">Коммуникация</span>
                             </div>
-                            <Badge className="bg-primary/20 text-primary">94%</Badge>
+                            <Badge className="bg-primary/20 text-primary text-[10px] sm:text-xs px-1.5 sm:px-2">94%</Badge>
                           </div>
                           <div className="flex items-center justify-between glass p-3 rounded-lg hover:neon-glow transition-all hover:scale-105 animate-fade-in" style={{ animationDelay: '1.2s' }}>
                             <div className="flex items-center gap-2">
@@ -1043,14 +1044,14 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <Card className="glass-dark p-6 border-accent/30 hover:neon-glow transition-all animate-fade-in" style={{ animationDelay: '1.5s' }}>
-                      <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                        <Icon name="Lightbulb" size={20} className="text-secondary animate-pulse" />
+                    <Card className="glass-dark p-3 sm:p-4 md:p-6 border-accent/30 transition-all animate-fade-in" style={{ animationDelay: '1.5s' }}>
+                      <h4 className="font-bold text-sm sm:text-base md:text-lg mb-3 sm:mb-4 flex items-center gap-2">
+                        <Icon name="Lightbulb" size={16} className="sm:w-5 sm:h-5 text-secondary animate-pulse" />
                         Рекомендации AI
                       </h4>
-                      <div className="space-y-3 text-sm text-muted-foreground">
-                        <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.6s' }}>
-                          <Icon name="CheckCircle2" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                      <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex gap-2 sm:gap-3 animate-fade-in" style={{ animationDelay: '1.6s' }}>
+                          <Icon name="CheckCircle2" size={14} className="sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
                           <p><strong className="text-foreground">Сильные стороны:</strong> Отличные коммуникативные навыки, высокая мотивация к достижению результатов, опыт работы в B2B сегменте</p>
                         </div>
                         <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '1.7s' }}>
@@ -1064,13 +1065,13 @@ const Index = () => {
                       </div>
                     </Card>
 
-                    <div className="flex justify-center gap-4 pt-4 animate-fade-in" style={{ animationDelay: '1.9s' }}>
-                      <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all">
-                        <Icon name="Rocket" size={18} className="mr-2" />
+                    <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 pt-3 sm:pt-4 animate-fade-in" style={{ animationDelay: '1.9s' }}>
+                      <Button onClick={() => scrollToSection('cta')} className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs sm:text-sm">
+                        <Icon name="Rocket" size={16} className="sm:w-4 sm:h-4 mr-2" />
                         Найти такого кандидата
                       </Button>
-                      <Button variant="outline" onClick={() => setShowReport(false)} className="hover:neon-glow hover:scale-110 transition-all">
-                        Закрыть отчёт
+                      <Button variant="outline" onClick={() => setShowReport(false)} className="hover:scale-105 transition-all text-xs sm:text-sm">
+                        Закрыть
                       </Button>
                     </div>
                   </div>
@@ -1206,7 +1207,9 @@ const Index = () => {
             </p>
           </div>
 
-          <TestimonialsCarousel testimonials={testimonials} />
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><Icon name="loader-2" className="animate-spin" size={32} /></div>}>
+            <TestimonialsCarousel testimonials={testimonials} />
+          </Suspense>
         </div>
       </section>
 
@@ -1219,7 +1222,9 @@ const Index = () => {
             </p>
           </div>
 
-          <TeamCarousel teamMembers={teamMembers} />
+          <Suspense fallback={<div className="h-96 flex items-center justify-center"><Icon name="loader-2" className="animate-spin" size={32} /></div>}>
+            <TeamCarousel teamMembers={teamMembers} />
+          </Suspense>
         </div>
       </section>
 
@@ -1512,21 +1517,11 @@ const Index = () => {
         </Button>
       </div>
 
-      <ConsultationModal 
-        isOpen={isConsultFormOpen} 
-        onClose={() => setIsConsultFormOpen(false)} 
-      />
-
-      <AIScanModal 
-        isOpen={isAIScanOpen} 
-        onClose={() => setIsAIScanOpen(false)}
-        source="main_hero_button"
-      />
-
-      <VacancyAnalysisModal 
-        isOpen={isVacancyAnalysisOpen} 
-        onClose={() => setIsVacancyAnalysisOpen(false)}
-      />
+      <Suspense fallback={null}>
+        {isConsultFormOpen && <ConsultationModal isOpen={isConsultFormOpen} onClose={() => setIsConsultFormOpen(false)} />}
+        {isAIScanOpen && <AIScanModal isOpen={isAIScanOpen} onClose={() => setIsAIScanOpen(false)} source="main_hero_button" />}
+        {isVacancyAnalysisOpen && <VacancyAnalysisModal isOpen={isVacancyAnalysisOpen} onClose={() => setIsVacancyAnalysisOpen(false)} />}
+      </Suspense>
     </div>
   );
 };
