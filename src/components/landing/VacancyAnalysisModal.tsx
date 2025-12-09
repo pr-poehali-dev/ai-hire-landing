@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
@@ -17,10 +16,7 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
-    company: '',
-    position: '',
-    description: ''
+    phone: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,9 +30,6 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
         body: JSON.stringify({
           name: formData.name,
           phone: formData.phone,
-          company: formData.company,
-          position: formData.position,
-          description: formData.description,
           source: 'vacancy_analysis_popup',
           form_type: 'vacancy_analysis',
           page: 'main'
@@ -50,7 +43,7 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
         description: 'Мы проанализируем вашу вакансию и свяжемся с вами в течение 2 часов' 
       });
       
-      setFormData({ name: '', phone: '', company: '', position: '', description: '' });
+      setFormData({ name: '', phone: '' });
       onClose();
     } catch (error) {
       toast({ 
@@ -160,31 +153,6 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
               className="glass border-primary/30 focus:neon-glow transition-all"
             />
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input 
-              placeholder="Название компании"
-              value={formData.company}
-              onChange={(e) => setFormData({...formData, company: e.target.value})}
-              className="glass border-primary/30 focus:neon-glow transition-all"
-            />
-
-            <Input 
-              placeholder="Должность для поиска *"
-              value={formData.position}
-              onChange={(e) => setFormData({...formData, position: e.target.value})}
-              required
-              className="glass border-primary/30 focus:neon-glow transition-all"
-            />
-          </div>
-
-          <Textarea 
-            placeholder="Краткое описание задач и требований к кандидату (опционально)"
-            value={formData.description}
-            onChange={(e) => setFormData({...formData, description: e.target.value})}
-            rows={4}
-            className="glass border-primary/30 focus:neon-glow transition-all resize-none"
-          />
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Button 
