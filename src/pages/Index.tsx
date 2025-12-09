@@ -414,9 +414,9 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="relative overflow-x-auto overflow-y-hidden w-full -mx-4 px-4">
+        <div className="relative overflow-hidden w-full -mx-4 px-4">
           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-          <div className="flex gap-2 md:gap-3 min-w-max">
+          <div className="flex gap-2 md:gap-3 animate-scroll-mobile md:animate-scroll-fast min-w-max">
             <Card className="glass-dark p-2 md:p-3 flex-shrink-0 w-40 md:w-52 hover:shadow-lg transition-all">
               <div className="flex items-center gap-2 md:gap-3 mb-2">
                 <div className="w-7 h-7 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
