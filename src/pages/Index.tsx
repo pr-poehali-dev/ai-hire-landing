@@ -393,13 +393,83 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="demo" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
+      <section id="specialists" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
         <div className="container mx-auto">
-          <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
-            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
-            <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
-            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              AI анализирует видео-интервью и оценивует компетенции
+          <div className="text-center mb-16 space-y-6">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Наша специализация</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">
+              Решаем проблемы с кадрами<br />любой сложности
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
+            </p>
+            
+            <div className="relative overflow-hidden py-8 mt-8">
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
+              <div className="flex gap-4 animate-scroll">
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-us" className="relative py-20 md:py-32 px-4 md:px-6 overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/10 to-primary/5 animate-pulse" style={{ animationDuration: '8s' }} />
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-10 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
+            <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+          </div>
+          {/* Pattern overlay */}
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.3) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="text-center mb-16 md:mb-20 space-y-6">
+            <div className="inline-block animate-bounce" style={{ animationDuration: '3s' }}>
+              <Badge className="text-lg md:text-xl px-6 md:px-8 py-2 md:py-3 neon-glow bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-primary/30 backdrop-blur-xl">
+                ⭐ Наши преимущества
+              </Badge>
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight animate-fade-in">
+              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent neon-text">
+                Почему нас выбирают
+              </span>
+              <br />
+              <span className="text-3xl sm:text-4xl md:text-5xl text-muted-foreground font-normal">
+                500+ компаний
+              </span>
+            </h2>
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Объединили <span className="text-primary font-bold">искусственный интеллект</span>, 
+              <span className="text-secondary font-bold"> 20+ лет опыта</span> и 
+              <span className="text-primary font-bold">систему финансовых гарантий</span>
             </p>
           </div>
 
@@ -958,12 +1028,44 @@ const Index = () => {
 
       <section id="specialists" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Специализация</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold neon-text">Каких специалистов мы нанимаем</h2>
+          <div className="text-center mb-16 space-y-6">
+            <Badge className="text-lg px-6 py-2 neon-glow animate-pulse">🎯 Наша специализация</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold neon-text">
+              Решаем проблемы с кадрами<br />любой сложности
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Подбираем специалистов любого профиля за 24 часа с помощью AI-технологий
+              От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
             </p>
+            
+            <div className="relative overflow-hidden py-8 mt-8">
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
+              <div className="flex gap-4 animate-scroll">
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">SMM-специалист</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Контент-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">DevOps инженер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Head of Sales</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Аналитик данных</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">UI/UX дизайнер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Project Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Customer Success</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Бухгалтер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">HR-менеджер</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Product Manager</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Директор по развитию</Badge>
+                <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Backend разработчик</Badge>
+              </div>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
