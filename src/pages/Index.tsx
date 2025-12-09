@@ -473,6 +473,154 @@ const Index = () => {
             </p>
           </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
+            <Card className="group relative glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Brain" size={24} className="md:w-8 md:h-8 text-white group-hover:rotate-12 transition-transform duration-500" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors">ИИ-анализ без предвзятости</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Искусственный интеллект анализирует hard и soft skills объективно, без человеческого фактора
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.2s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Video" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="DollarSign" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Просрочка на день = -10% от оплаты. Задержка на 7 дней — вторая часть бесплатно
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.4s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="RefreshCcw" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На тарифе "Еще вчера" — бессрочная гарантия замены кандидата по любой причине
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.5s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Target" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                У нас группа компаний. Под каждое направление создан отдельный проект, который специализируется на вашей нише
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.6s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Sparkles" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                На премиум тарифе — отдельное собеседование с ИИ для проверки скрытых профессиональных качеств
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.7s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Eye" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Прозрачный процесс</h3>
+                  <Badge className="text-xs bg-primary/20 text-primary">Google-таблица онлайн</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Формируем файл с анализом каждого кандидата — вы видите прогресс онлайн
+              </p>
+            </Card>
+
+            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.8s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
+                  <Icon name="Briefcase" size={20} className="md:w-6 md:h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
+                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Помогаем внедрить KPI и систему адаптации для максимальной эффективности нового сотрудника
+              </p>
+            </Card>
+          </div>
+
+          <div className="flex justify-center mt-8 md:mt-12">
+            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8 w-full sm:w-auto">
+              🚀 Получить кандидата завтра
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" className="py-12 md:py-20 px-4 md:px-6 bg-muted/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-8 md:mb-16 space-y-3 md:space-y-4">
+            <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
+            <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
+              AI анализирует видео-интервью и оценивает компетенции
+            </p>
+          </div>
+
           <div className="max-w-4xl mx-auto">
             <Card className="glass-dark p-4 md:p-8 space-y-4 md:space-y-6 animate-scale-in hover:neon-glow transition-all mb-6 md:mb-8">
               <div className="flex items-center justify-between">
@@ -735,180 +883,6 @@ const Index = () => {
                 <Icon name="Target" size={20} className="md:w-6 md:h-6 text-primary mx-auto animate-pulse" />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="why-us" className="relative py-20 md:py-32 px-4 md:px-6 overflow-hidden">
-        {/* Animated background */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/10 to-primary/5 animate-pulse" style={{ animationDuration: '8s' }} />
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-10 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
-            <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-          </div>
-          {/* Pattern overlay */}
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.3) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        </div>
-
-        <div className="container mx-auto relative z-10">
-          <div className="text-center mb-16 md:mb-20 space-y-6">
-            <div className="inline-block animate-bounce" style={{ animationDuration: '3s' }}>
-              <Badge className="text-lg md:text-xl px-6 md:px-8 py-2 md:py-3 neon-glow bg-gradient-to-r from-primary/20 to-secondary/20 border-2 border-primary/30 backdrop-blur-xl">
-                ⭐ Наши преимущества
-              </Badge>
-            </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight animate-fade-in">
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent neon-text">
-                Почему нас выбирают
-              </span>
-              <br />
-              <span className="text-3xl sm:text-4xl md:text-5xl text-muted-foreground font-normal">
-                500+ компаний
-              </span>
-            </h2>
-            <p className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Объединили <span className="text-primary font-bold">искусственный интеллект</span>, 
-              <span className="text-secondary font-bold"> 20+ лет опыта</span> и 
-              <span className="text-primary font-bold">систему финансовых гарантий</span>
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-            <Card className="group relative glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.1s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Brain" size={24} className="md:w-8 md:h-8 text-white group-hover:rotate-12 transition-transform duration-500" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg md:text-xl mb-2 group-hover:text-primary transition-colors">ИИ-анализ без предвзятости</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Точность 90%+</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Искусственный интеллект анализирует hard и soft skills объективно, без человеческого фактора
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.2s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Video" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Ролевые проверки</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Видео каждого кандидата</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.3s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="DollarSign" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Финансовые гарантии</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Реальная ответственность</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Просрочка на день = -10% от оплаты. Задержка на 7 дней — вторая часть бесплатно
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.4s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="RefreshCcw" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Безлимитная замена</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Даже через 2 года</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                На тарифе "Еще вчера" — бессрочная гарантия замены кандидата по любой причине
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.5s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Target" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                У нас группа компаний. Под каждое направление создан отдельный проект, который специализируется на вашей нише
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden" style={{ animationDelay: '0.6s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Sparkles" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Дополнительный ИИ-скрининг</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Hard skills тест</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                На премиум тарифе — отдельное собеседование с ИИ для проверки скрытых профессиональных качеств
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.7s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Eye" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Прозрачный процесс</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Google-таблица онлайн</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Формируем файл с анализом каждого кандидата — вы видите прогресс онлайн
-              </p>
-            </Card>
-
-            <Card className="group glass-dark p-6 md:p-8 hover:neon-glow transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-fade-in overflow-hidden sm:col-span-2 lg:col-span-1" style={{ animationDelay: '0.8s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center neon-glow flex-shrink-0">
-                  <Icon name="Briefcase" size={20} className="md:w-6 md:h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-base md:text-lg mb-1">Авторская адаптация</h3>
-                  <Badge className="text-xs bg-secondary/20 text-secondary">Готов работать с 1 дня</Badge>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Помогаем внедрить KPI и систему адаптации для максимальной эффективности нового сотрудника
-              </p>
-            </Card>
-          </div>
-
-          <div className="flex justify-center mt-8 md:mt-12">
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8 w-full sm:w-auto">
-              🚀 Получить кандидата завтра
-            </Button>
           </div>
         </div>
       </section>
