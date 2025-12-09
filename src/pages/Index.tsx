@@ -404,9 +404,9 @@ const Index = () => {
               От линейных специалистов до топ-менеджеров. Находим нужных людей за 24 часа в любой отрасли
             </p>
             
-            <div className="relative overflow-hidden py-8 mt-8">
+            <div className="relative overflow-hidden py-8 mt-8 glass rounded-2xl">
               <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 pointer-events-none"></div>
-              <div className="flex gap-4 animate-scroll">
+              <div className="flex gap-4 animate-scroll px-4">
                 <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Менеджер по продажам</Badge>
                 <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Frontend разработчик</Badge>
                 <Badge className="glass text-sm px-4 py-2 whitespace-nowrap">Маркетолог</Badge>
