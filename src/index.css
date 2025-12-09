@@ -181,6 +181,10 @@
     animation: scroll 8s linear infinite;
   }
 
+  .animate-scroll-ultra-mobile {
+    animation: scroll 5s linear infinite;
+  }
+
   .animate-scroll-desktop {
     animation: scroll 15s linear infinite;
   }
