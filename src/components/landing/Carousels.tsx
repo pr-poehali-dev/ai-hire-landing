@@ -141,7 +141,7 @@ export const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps
 };
 
 export const TeamCarousel = ({ teamMembers }: TeamCarouselProps) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 3500, stopOnInteraction: false })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 2000, stopOnInteraction: false })]);
 
   return (
     <div className="overflow-hidden" ref={emblaRef}>
