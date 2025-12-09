@@ -275,64 +275,17 @@ const Index = () => {
 
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5"></div>
-          <div className="absolute inset-0 opacity-20">
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8 p-4 md:p-8">
-              {[
-                { img: 'https://randomuser.me/api/portraits/women/1.jpg', status: 'analyzing', name: 'Кандидат #1247' },
-                { img: 'https://randomuser.me/api/portraits/men/2.jpg', status: 'approved', name: 'Кандидат #1248' },
-                { img: 'https://randomuser.me/api/portraits/women/3.jpg', status: 'interview', name: 'Кандидат #1249' },
-                { img: 'https://randomuser.me/api/portraits/women/4.jpg', status: 'analyzing', name: 'Кандидат #1250' },
-                { img: 'https://randomuser.me/api/portraits/women/5.jpg', status: 'approved', name: 'Кандидат #1251' },
-                { img: 'https://randomuser.me/api/portraits/men/6.jpg', status: 'interview', name: 'Кандидат #1252' },
-                { img: 'https://randomuser.me/api/portraits/men/7.jpg', status: 'analyzing', name: 'Кандидат #1253' },
-                { img: 'https://randomuser.me/api/portraits/men/8.jpg', status: 'approved', name: 'Кандидат #1254' },
-                { img: 'https://randomuser.me/api/portraits/women/9.jpg', status: 'interview', name: 'Кандидат #1255' },
-                { img: 'https://randomuser.me/api/portraits/men/10.jpg', status: 'analyzing', name: 'Кандидат #1256' },
-                { img: 'https://randomuser.me/api/portraits/women/11.jpg', status: 'approved', name: 'Кандидат #1257' },
-                { img: 'https://randomuser.me/api/portraits/men/12.jpg', status: 'interview', name: 'Кандидат #1258' }
-              ].map((candidate, idx) => (
-              <div key={idx} className="relative animate-fade-in hover-scale" style={{ animationDelay: `${idx * 0.1}s` }}>
-                <div className="relative aspect-square rounded-lg overflow-hidden glass border border-border/30">
-                  <img 
-                    src={candidate.img} 
-                    alt={candidate.name} 
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(candidate.name)}&size=400&background=random`;
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-2">
-                    <div className="text-[8px] md:text-xs font-bold text-white drop-shadow-lg truncate">{candidate.name}</div>
-                    <div className="flex items-center gap-1 mt-1">
-                      {candidate.status === 'analyzing' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-pulse" />
-                          <span className="text-[7px] md:text-[9px] text-blue-400">AI анализ</span>
-                        </div>
-                      )}
-                      {candidate.status === 'approved' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-green-400 rounded-full" />
-                          <span className="text-[7px] md:text-[9px] text-green-400">Одобрен</span>
-                        </div>
-                      )}
-                      {candidate.status === 'interview' && (
-                        <div className="flex items-center gap-1">
-                          <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-purple-400 rounded-full animate-pulse" />
-                          <span className="text-[7px] md:text-[9px] text-purple-400">Интервью</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
+          
+          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+          
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary rounded-lg rotate-12 animate-pulse"></div>
+            <div className="absolute top-40 right-20 w-24 h-24 border-2 border-secondary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute bottom-32 left-1/4 w-40 h-40 border-2 border-primary/50 rounded-lg -rotate-6 animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-20 right-1/3 w-28 h-28 border-2 border-secondary/50 rounded-full animate-pulse" style={{ animationDelay: '3s' }}></div>
           </div>
         </div>
 
