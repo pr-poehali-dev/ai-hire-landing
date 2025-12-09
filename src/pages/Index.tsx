@@ -350,391 +350,46 @@ const Index = () => {
             </Badge>
             
             <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight neon-text animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Закроем вакансию за 24 часа<br />
-              <span className="text-secondary">или работаем бесплатно</span>
+              Сложности в найме сотрудников?<br />
+              <span className="text-secondary">Решим за 24 часа</span>
             </h1>
             
             <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground px-2">
-                <span className="font-bold text-primary">Гарантия в договоре:</span> идеальный кандидат за сутки + пожизненная замена
+                Каждый день без сотрудника = упущенная прибыль, перегруженная команда и срыв планов
               </p>
-              <div className="inline-block px-4 py-2 md:px-6 md:py-3 rounded-lg glass border-2 border-primary animate-pulse-slow" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
+              <div className="inline-block px-4 py-2 md:px-6 md:py-3 rounded-lg glass border-2 border-primary" style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' }}>
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
-                  <Icon name="clock" className="inline w-6 h-6 mr-2" />
-                  Каждый день простоя = <span className="text-destructive font-extrabold">-100 000₽</span> упущенной прибыли
+                  Если не уложимся в сроки - <span className="text-primary font-extrabold">не платите</span>
                 </p>
               </div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-sm md:text-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="zap" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" />
-                <span className="text-xs md:text-base">Подбор за 24ч</span>
+                <Icon name="Brain" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" />
+                <span className="text-xs md:text-base">ИИ-анализ</span>
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Brain" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <span className="text-xs md:text-base">AI-оценка 94%</span>
+                <Icon name="Shield" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '0.5s' }} />
+                <span className="text-xs md:text-base">Пожизненная гарантия</span>
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="Shield" size={18} className="md:w-5 md:h-5 text-primary animate-pulse" style={{ animationDelay: '1s' }} />
-                <span className="text-xs md:text-base">Замена навсегда</span>
-              </div>
-              <div className="flex items-center gap-1.5 md:gap-2 hover-scale cursor-pointer">
-                <Icon name="wallet" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '1.5s' }} />
-                <span className="text-xs md:text-base">Оплата по факту</span>
+                <Icon name="Target" size={18} className="md:w-5 md:h-5 text-secondary animate-pulse" style={{ animationDelay: '1s' }} />
+                <span className="text-xs md:text-base">Ролевые проверки</span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 animate-pulse-slow">
-                <Icon name="rocket" className="mr-2" size={24} />
-                Закрыть вакансию за 24 часа
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => setIsAIScanOpen(true)} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
+              <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8">
                 <Icon name="brain" className="mr-2" size={24} />
-                Бесплатный AI-анализ
+                Бесплатное AI-сканирование
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
+                🔥 Найти сотрудника
               </Button>
             </div>
-            <p className="text-sm md:text-base text-muted-foreground mt-4 animate-fade-in" style={{ animationDelay: '1s' }}>
-              <Icon name="users" className="w-4 h-4 inline mr-1 text-green-500" />
-              Сейчас {stats.inProgress} заявки в работе • Средний срок — 18 часов • Уже закрыто {stats.totalClosed} вакансий
-            </p>
           </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-background via-primary/5 to-background">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 neon-text">
-              Почему клиенты выбирают нас, а не обычные агентства
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground">Честное сравнение по ключевым метрикам</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="glass-dark p-6 border-2 border-destructive/30 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-destructive/20 rounded-full border border-destructive/50">
-                <span className="text-xs font-bold text-destructive">Обычные агентства</span>
-              </div>
-              <div className="space-y-6 mt-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="x-circle" className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Срок подбора: 2-4 недели</p>
-                    <p className="text-sm text-muted-foreground">Пока ищут — теряете прибыль</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="x-circle" className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Гарантия: 1-3 месяца</p>
-                    <p className="text-sm text-muted-foreground">Если уволился — долгие споры</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="x-circle" className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Оценка: интуиция HR</p>
-                    <p className="text-sm text-muted-foreground">Субъективно, без данных</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="x-circle" className="w-5 h-5 text-destructive mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Оплата: 100% аванс</p>
-                    <p className="text-sm text-muted-foreground">Платите до результата</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 border-4 border-primary neon-glow relative scale-105">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary rounded-full">
-                <span className="text-xs font-bold">1 DAY HR с AI</span>
-              </div>
-              <div className="space-y-6 mt-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="check-circle" className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1 text-primary">Срок подбора: 24 часа</p>
-                    <p className="text-sm text-muted-foreground">Бизнес не останавливается</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="check-circle" className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1 text-primary">Гарантия: пожизненная</p>
-                    <p className="text-sm text-muted-foreground">Замена без доплат всегда</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="check-circle" className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1 text-primary">Оценка: AI + 47 параметров</p>
-                    <p className="text-sm text-muted-foreground">Точность подбора 94%</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="check-circle" className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1 text-primary">Оплата: после результата</p>
-                    <p className="text-sm text-muted-foreground">Риск на нас, не на вас</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 border-2 border-muted/30 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-muted/20 rounded-full border border-muted/50">
-                <span className="text-xs font-bold text-muted-foreground">Самостоятельный поиск</span>
-              </div>
-              <div className="space-y-6 mt-4">
-                <div className="flex items-start gap-3">
-                  <Icon name="alert-circle" className="w-5 h-5 text-muted-foreground mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Срок подбора: 1-3 месяца</p>
-                    <p className="text-sm text-muted-foreground">Отвлекаетесь от бизнеса</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="alert-circle" className="w-5 h-5 text-muted-foreground mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Гарантия: нет</p>
-                    <p className="text-sm text-muted-foreground">Ошибка = потеря времени и денег</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="alert-circle" className="w-5 h-5 text-muted-foreground mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Оценка: свой опыт</p>
-                    <p className="text-sm text-muted-foreground">Высокий риск ошибки</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Icon name="alert-circle" className="w-5 h-5 text-muted-foreground mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold mb-1">Ваше время: бесценно</p>
-                    <p className="text-sm text-muted-foreground">Могли бы развивать бизнес</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <div className="mt-12 text-center">
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:scale-105 transition-all">
-              <Icon name="rocket" className="mr-2" />
-              Хочу результат за 24 часа
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 px-4 md:px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 neon-text">
-              Считайте экономику: каждый день без сотрудника = убытки
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="glass-dark p-8 border-destructive/30">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-destructive/20 rounded-lg">
-                  <Icon name="trending-down" className="w-8 h-8 text-destructive" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2 text-destructive">Сколько теряете сейчас</h3>
-                  <p className="text-muted-foreground">Реальная цена пустой вакансии</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Упущенная прибыль (менеджер)</span>
-                  <span className="font-bold text-destructive">~150 000₽/мес</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Переработки команды</span>
-                  <span className="font-bold text-destructive">~80 000₽/мес</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Срыв дедлайнов</span>
-                  <span className="font-bold text-destructive">~200 000₽/проект</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Ваше время на поиск</span>
-                  <span className="font-bold text-destructive">~50 часов</span>
-                </div>
-                <div className="border-t-2 border-destructive/30 pt-4 mt-4">
-                  <div className="flex justify-between items-center text-xl font-bold">
-                    <span>Итого за месяц простоя:</span>
-                    <span className="text-destructive">~430 000₽</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-8 border-primary neon-glow">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <Icon name="trending-up" className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2 text-primary">С нами экономите</h3>
-                  <p className="text-muted-foreground">Инвестиция с гарантией возврата</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Стоимость подбора</span>
-                  <span className="font-bold text-primary">50-70 000₽</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Срок закрытия</span>
-                  <span className="font-bold text-primary">24 часа</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Гарантия замены</span>
-                  <span className="font-bold text-primary">Пожизненно</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded">
-                  <span>Ваше время</span>
-                  <span className="font-bold text-primary">2 часа (брифинг)</span>
-                </div>
-                <div className="border-t-2 border-primary pt-4 mt-4">
-                  <div className="flex justify-between items-center text-xl font-bold">
-                    <span>Экономия за месяц:</span>
-                    <span className="text-primary">~360 000₽</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-2">ROI: 6x за первый месяц работы сотрудника</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-8 text-center border-2 border-primary/30">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              <Icon name="calculator" className="w-8 h-8 inline mr-2 text-primary" />
-              Быстрая математика: откладывать = терять деньги
-            </h3>
-            <p className="text-lg mb-6 max-w-3xl mx-auto">
-              <span className="font-bold text-primary">Каждая неделя без менеджера = минус 100 000₽.</span><br />
-              Через месяц потеряете 400 000₽. А мы закроем вакансию за 24 часа и 60 000₽.
-            </p>
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary text-lg px-8 py-6 hover:scale-105 transition-all">
-              <Icon name="clock" className="mr-2" />
-              Закрыть вакансию за 24 часа
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-background via-secondary/5 to-background">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 px-6 py-2 text-lg bg-primary/20">
-              <Icon name="shield-check" className="w-5 h-5 inline mr-2" />
-              Наши железные гарантии
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold neon-text">
-              Работаем по договору.<br />Все риски берём на себя
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <Card className="glass-dark p-6 border-2 border-primary/30 hover:border-primary hover:neon-glow transition-all">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                  <Icon name="clock" className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Гарантия скорости: 24 часа</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Если не найдём кандидата за сутки — работаем бесплатно до результата
-                  </p>
-                  <div className="bg-primary/10 rounded p-3 text-sm">
-                    <Icon name="check" className="w-4 h-4 inline mr-1 text-primary" />
-                    В договоре: пункт 3.2 «Обязательство по срокам»
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 border-2 border-secondary/30 hover:border-secondary hover:neon-glow transition-all">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-secondary/20 rounded-lg flex-shrink-0">
-                  <Icon name="refresh-cw" className="w-8 h-8 text-secondary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Пожизненная гарантия замены</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Сотрудник уволился? Бесплатно подберём нового. Без ограничений по времени
-                  </p>
-                  <div className="bg-secondary/10 rounded p-3 text-sm">
-                    <Icon name="check" className="w-4 h-4 inline mr-1 text-secondary" />
-                    В договоре: пункт 4.1 «Пожизненная гарантия»
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 border-2 border-primary/30 hover:border-primary hover:neon-glow transition-all">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                  <Icon name="target" className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Гарантия качества: AI-оценка 94%</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Если кандидат не прошёл испытательный — возврат 100% + новый подбор бесплатно
-                  </p>
-                  <div className="bg-primary/10 rounded p-3 text-sm">
-                    <Icon name="check" className="w-4 h-4 inline mr-1 text-primary" />
-                    В договоре: пункт 5.3 «Возврат средств»
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="glass-dark p-6 border-2 border-secondary/30 hover:border-secondary hover:neon-glow transition-all">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-secondary/20 rounded-lg flex-shrink-0">
-                  <Icon name="wallet" className="w-8 h-8 text-secondary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Оплата по факту</h3>
-                  <p className="text-muted-foreground mb-3">
-                    Платите только после собеседования с кандидатом, который вам подходит
-                  </p>
-                  <div className="bg-secondary/10 rounded p-3 text-sm">
-                    <Icon name="check" className="w-4 h-4 inline mr-1 text-secondary" />
-                    В договоре: пункт 6.1 «Условия оплаты»
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <Card className="glass-dark p-8 border-4 border-primary neon-glow text-center">
-            <Icon name="file-text" className="w-16 h-16 mx-auto mb-4 text-primary" />
-            <h3 className="text-2xl font-bold mb-4">Все гарантии — в официальном договоре</h3>
-            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Работаем прозрачно и легально. Каждое обещание закреплено юридически.<br />
-              Шаблон договора пришлём до старта работ
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button onClick={() => scrollToSection('cta')} variant="outline" size="lg" className="border-primary hover:bg-primary/10">
-                <Icon name="download" className="mr-2" />
-                Запросить шаблон договора
-              </Button>
-              <Button onClick={() => scrollToSection('cta')} size="lg" className="bg-gradient-to-r from-primary to-secondary neon-glow hover:scale-105 transition-all">
-                <Icon name="rocket" className="mr-2" />
-                Начать подбор сейчас
-              </Button>
-            </div>
-          </Card>
         </div>
       </section>
 
@@ -785,116 +440,6 @@ const Index = () => {
             <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Product Manager</span>
             <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-primary font-bold neon-text">Директор по развитию</span>
             <span className="text-sm md:text-base px-2 md:px-3 whitespace-nowrap text-secondary font-bold neon-text">Backend разработчик</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 px-4 md:px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 px-6 py-2 text-lg bg-secondary/20">
-              <Icon name="award" className="w-5 h-5 inline mr-2" />
-              Нам доверяют
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold neon-text mb-4">
-              Закрыли 1258+ вакансий для компаний
-            </h2>
-            <p className="text-lg text-muted-foreground">От стартапов до лидеров рынка</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            <div className="flex items-center justify-center p-6 glass rounded-lg hover:neon-glow transition-all">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                <p className="text-sm text-muted-foreground">Компаний-клиентов</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center p-6 glass rounded-lg hover:neon-glow transition-all">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-secondary mb-2">1258</div>
-                <p className="text-sm text-muted-foreground">Закрытых вакансий</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center p-6 glass rounded-lg hover:neon-glow transition-all">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">18ч</div>
-                <p className="text-sm text-muted-foreground">Средний срок</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center p-6 glass rounded-lg hover:neon-glow transition-all">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-secondary mb-2">94%</div>
-                <p className="text-sm text-muted-foreground">Точность AI</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <p className="text-lg text-muted-foreground">Среди наших клиентов:</p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <Card className="glass-dark p-6 flex items-center justify-center hover:border-primary transition-all">
-                <div className="text-center">
-                  <Icon name="code" className="w-12 h-12 mx-auto mb-3 text-primary" />
-                  <p className="font-semibold">IT-компании</p>
-                  <p className="text-xs text-muted-foreground mt-1">150+ проектов</p>
-                </div>
-              </Card>
-              
-              <Card className="glass-dark p-6 flex items-center justify-center hover:border-secondary transition-all">
-                <div className="text-center">
-                  <Icon name="trending-up" className="w-12 h-12 mx-auto mb-3 text-secondary" />
-                  <p className="font-semibold">Продажи</p>
-                  <p className="text-xs text-muted-foreground mt-1">200+ менеджеров</p>
-                </div>
-              </Card>
-              
-              <Card className="glass-dark p-6 flex items-center justify-center hover:border-primary transition-all">
-                <div className="text-center">
-                  <Icon name="shopping-cart" className="w-12 h-12 mx-auto mb-3 text-primary" />
-                  <p className="font-semibold">E-commerce</p>
-                  <p className="text-xs text-muted-foreground mt-1">180+ специалистов</p>
-                </div>
-              </Card>
-              
-              <Card className="glass-dark p-6 flex items-center justify-center hover:border-secondary transition-all">
-                <div className="text-center">
-                  <Icon name="briefcase" className="w-12 h-12 mx-auto mb-3 text-secondary" />
-                  <p className="font-semibold">Финансы</p>
-                  <p className="text-xs text-muted-foreground mt-1">120+ вакансий</p>
-                </div>
-              </Card>
-            </div>
-
-            <Card className="glass-dark p-8 mt-8 border-2 border-primary/30">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <Icon name="star" className="w-10 h-10 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl font-bold mb-2">Средняя оценка: 4.9/5.0</h3>
-                  <p className="text-muted-foreground mb-4">
-                    По отзывам 280+ компаний на независимых площадках
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                    <Badge className="bg-primary/20">«Быстро»</Badge>
-                    <Badge className="bg-secondary/20">«Надёжно»</Badge>
-                    <Badge className="bg-primary/20">«Профессионально»</Badge>
-                    <Badge className="bg-secondary/20">«Рекомендуем»</Badge>
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <Button onClick={() => scrollToSection('cases')} variant="outline" className="border-primary hover:bg-primary/10">
-                    <Icon name="arrow-right" className="mr-2" />
-                    Читать отзывы
-                  </Button>
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
       </section>
