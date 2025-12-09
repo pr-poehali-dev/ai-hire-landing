@@ -399,7 +399,7 @@ const Index = () => {
             <Badge className="text-sm md:text-lg px-4 md:px-6 py-1.5 md:py-2 neon-glow animate-pulse">🤖 Интерактивная демонстрация</Badge>
             <h2 className="text-2xl md:text-5xl font-bold neon-text">Как мы находим лучших кандидатов</h2>
             <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              AI анализирует видео-интервью и оценивает компетенции
+              AI анализирует видео-интервью и оценивует компетенции
             </p>
           </div>
 
@@ -695,7 +695,7 @@ const Index = () => {
               </span>
               <br />
               <span className="text-3xl sm:text-4xl md:text-5xl text-muted-foreground font-normal">
-                1200+ компаний
+                500+ компаний
               </span>
             </h2>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
