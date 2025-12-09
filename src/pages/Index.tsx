@@ -277,6 +277,60 @@ const Index = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
           
+          <svg className="absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="neural-grid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <circle cx="0" cy="0" r="2" fill="currentColor" className="text-primary">
+                  <animate attributeName="r" values="2;3;2" dur="4s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="50" cy="0" r="1.5" fill="currentColor" className="text-secondary">
+                  <animate attributeName="r" values="1.5;2.5;1.5" dur="5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="100" cy="0" r="2" fill="currentColor" className="text-primary">
+                  <animate attributeName="r" values="2;3;2" dur="6s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="0" cy="50" r="1.5" fill="currentColor" className="text-secondary">
+                  <animate attributeName="r" values="1.5;2.5;1.5" dur="4.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="50" cy="50" r="2" fill="currentColor" className="text-primary">
+                  <animate attributeName="r" values="2;3.5;2" dur="5.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="100" cy="50" r="1.5" fill="currentColor" className="text-secondary">
+                  <animate attributeName="r" values="1.5;2.5;1.5" dur="4s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="0" cy="100" r="2" fill="currentColor" className="text-primary">
+                  <animate attributeName="r" values="2;3;2" dur="5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="50" cy="100" r="1.5" fill="currentColor" className="text-secondary">
+                  <animate attributeName="r" values="1.5;2.5;1.5" dur="6s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="100" cy="100" r="2" fill="currentColor" className="text-primary">
+                  <animate attributeName="r" values="2;3;2" dur="4.5s" repeatCount="indefinite" />
+                </circle>
+                
+                <line x1="0" y1="0" x2="50" y2="0" stroke="currentColor" strokeWidth="0.5" className="text-primary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite" />
+                </line>
+                <line x1="50" y1="0" x2="100" y2="0" stroke="currentColor" strokeWidth="0.5" className="text-secondary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite" />
+                </line>
+                <line x1="0" y1="0" x2="0" y2="50" stroke="currentColor" strokeWidth="0.5" className="text-primary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="5s" repeatCount="indefinite" />
+                </line>
+                <line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" strokeWidth="0.5" className="text-secondary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.5s" repeatCount="indefinite" />
+                </line>
+                <line x1="0" y1="50" x2="50" y2="50" stroke="currentColor" strokeWidth="0.5" className="text-primary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4.5s" repeatCount="indefinite" />
+                </line>
+                <line x1="50" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.5" className="text-secondary/30" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="5.5s" repeatCount="indefinite" />
+                </line>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#neural-grid)" />
+          </svg>
+          
           <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }}></div>
           <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
