@@ -38,11 +38,15 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     body_data = json.loads(event.get('body', '{}'))
     
+    print(f"Received lead submission: {body_data}")
+    
     name = body_data.get('name', '').strip()
     phone = body_data.get('phone', '').strip()
     company = body_data.get('company', '').strip()
     vacancy = body_data.get('vacancy', '').strip()
     source = body_data.get('source', 'main_form')
+    form_type = body_data.get('form_type', '')
+    page = body_data.get('page', '')
     
     if not name or not phone:
         return {
@@ -67,9 +71,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         company_escaped = company.replace("'", "''") if company else ''
         vacancy_escaped = vacancy.replace("'", "''") if vacancy else ''
         source_escaped = source.replace("'", "''")
+        form_type_escaped = form_type.replace("'", "''") if form_type else ''
+        page_escaped = page.replace("'", "''") if page else ''
         
         company_value = f"'{company_escaped}'" if company else 'NULL'
         vacancy_value = f"'{vacancy_escaped}'" if vacancy else 'NULL'
+        form_type_value = f"'{form_type_escaped}'" if form_type else 'NULL'
+        page_value = f"'{page_escaped}'" if page else 'NULL'
         
         # Сначала сохраняем в таблицу leads (старая таблица)
         query_leads = f"""
@@ -81,11 +89,24 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         # Теперь сохраняем в lead_data (для CRM) со статусом "Новый лид" (stage_id = 1)
         query_lead_data = f"""
             INSERT INTO t_p27512893_ai_hire_landing.lead_data 
-            (name, phone, company, vacancy, source, stage_id, priority, created_at, updated_at) 
-            VALUES ('{name_escaped}', '{phone_escaped}', {company_value}, {vacancy_value}, '{source_escaped}', 1, 'medium', NOW(), NOW())
+            (name, phone, company, vacancy, source, stage_id, priority, notes, created_at, updated_at) 
+            VALUES (
+                '{name_escaped}', 
+                '{phone_escaped}', 
+                {company_value}, 
+                {vacancy_value}, 
+                '{source_escaped}', 
+                1, 
+                'medium', 
+                CONCAT('Тип формы: ', {form_type_value}, E'\\n', 'Страница: ', {page_value}),
+                NOW(), 
+                NOW()
+            )
             RETURNING id
         """
         cursor.execute(query_lead_data)
+        
+        print(f"Lead saved successfully")
         
         lead_id = cursor.fetchone()[0]
         conn.commit()
