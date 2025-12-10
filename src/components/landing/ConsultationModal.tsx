@@ -20,19 +20,29 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
     setIsConsultSubmitting(true);
     
     try {
+      const timestamp = new Date().toLocaleString('ru-RU');
+      const leadData = {
+        name: consultForm.name,
+        phone: consultForm.phone,
+        source: 'consultation_modal',
+        form_type: 'consultation',
+        page: window.location.pathname.split('/')[1] || 'main',
+        timestamp: timestamp
+      };
+
       const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: consultForm.name,
-          phone: consultForm.phone,
-          source: 'consultation_modal',
-          form_type: 'consultation',
-          page: window.location.pathname.split('/')[1] || 'main'
-        })
+        body: JSON.stringify(leadData)
       });
       
       if (!response.ok) throw new Error('Failed to submit');
+
+      fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData)
+      }).catch(err => console.log('Telegram notification failed:', err));
       
       toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
       setConsultForm({ name: '', phone: '' });

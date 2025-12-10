@@ -95,6 +95,13 @@ const ChatWidget = ({ scrollToSection }: ChatWidgetProps) => {
           </div>
 
           <div className="p-4 border-t border-border/50 space-y-2">
+            <Button
+              onClick={() => window.open('https://t.me/TheDenisZ', '_blank')}
+              className="w-full neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 mb-3"
+            >
+              <Icon name="MessageCircle" size={18} className="mr-2" />
+              Написать в Telegram
+            </Button>
             <div className="flex gap-2">
               <Input
                 placeholder="Напишите сообщение..."

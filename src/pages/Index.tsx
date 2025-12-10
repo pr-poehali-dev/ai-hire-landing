@@ -405,8 +405,14 @@ const Index = () => {
                 <Icon name="brain" className="mr-2" size={24} />
                 Бесплатное AI-сканирование
               </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
-                🔥 Найти сотрудника
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => window.open('https://t.me/TheDenisZ', '_blank')} 
+                className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2"
+              >
+                <Icon name="MessageCircle" className="mr-2" size={24} />
+                Написать в Telegram
               </Button>
             </div>
           </div>
@@ -1362,13 +1368,20 @@ const Index = () => {
                   </p>
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
-                  <Button variant="outline" className="hover:neon-glow hover:scale-105 transition-all">
+                  <Button 
+                    variant="outline" 
+                    className="hover:neon-glow hover:scale-105 transition-all"
+                    onClick={() => window.open('tel:+79955556231', '_self')}
+                  >
                     <Icon name="Phone" size={16} className="mr-2" />
                     Позвонить
                   </Button>
-                  <Button onClick={() => scrollToSection('cta')} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all">
-                    <Icon name="Send" size={16} className="mr-2" />
-                    Написать
+                  <Button 
+                    className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all"
+                    onClick={() => window.open('https://t.me/TheDenisZ', '_blank')}
+                  >
+                    <Icon name="MessageCircle" size={16} className="mr-2" />
+                    Telegram
                   </Button>
                 </div>
               </div>
