@@ -400,18 +400,23 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8">
-                <Icon name="brain" className="mr-2" size={24} />
-                Бесплатное AI-сканирование
-              </Button>
+            <div className="flex flex-col items-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
+                <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8">
+                  <Icon name="brain" className="mr-2" size={24} />
+                  Бесплатное AI-сканирование
+                </Button>
+                <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
+                  🔥 Найти сотрудника
+                </Button>
+              </div>
               <Button 
                 size="lg" 
-                variant="outline" 
+                variant="ghost"
                 onClick={() => window.open('https://t.me/TheDenisZ', '_blank')} 
-                className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2"
+                className="hover:neon-glow hover:scale-110 transition-all text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
               >
-                <Icon name="MessageCircle" className="mr-2" size={24} />
+                <Icon name="MessageCircle" className="mr-2" size={20} />
                 Написать в Telegram
               </Button>
             </div>
