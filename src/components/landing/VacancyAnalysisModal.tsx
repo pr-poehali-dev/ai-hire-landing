@@ -68,90 +68,86 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="glass-dark border-primary/30 max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="glass-dark border-primary/30 max-w-md max-h-[85vh] overflow-y-auto p-4">
         <DialogHeader>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-              <Icon name="brain" size={24} className="text-white" />
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+              <Icon name="brain" size={20} className="text-white" />
             </div>
             <div>
-              <DialogTitle className="text-2xl font-bold neon-text">
-                Бесплатный AI-анализ вакансии
+              <DialogTitle className="text-base md:text-xl font-bold neon-text">
+                AI-анализ вакансии
               </DialogTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                Получите готовую воронку найма и портрет кандидата за 30 минут
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Готовая воронка за 30 минут
               </p>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="space-y-4 mb-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="glass p-3 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="target" size={20} className="text-primary mx-auto mb-2" />
-              <p className="text-xs font-bold">Портрет кандидата</p>
+        <div className="space-y-3 mb-4">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="target" size={16} className="text-primary mx-auto mb-1" />
+              <p className="text-[10px] font-bold">Портрет</p>
             </div>
-            <div className="glass p-3 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="filter" size={20} className="text-secondary mx-auto mb-2" />
-              <p className="text-xs font-bold">Воронка найма</p>
+            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="filter" size={16} className="text-secondary mx-auto mb-1" />
+              <p className="text-[10px] font-bold">Воронка</p>
             </div>
-            <div className="glass p-3 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="trending-up" size={20} className="text-secondary mx-auto mb-2" />
-              <p className="text-xs font-bold">План действий</p>
+            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="trending-up" size={16} className="text-secondary mx-auto mb-1" />
+              <p className="text-[10px] font-bold">План</p>
             </div>
           </div>
 
-          <div className="glass-dark p-4 rounded-lg border-l-4 border-primary">
-            <div className="flex items-start gap-3">
-              <Icon name="sparkles" size={20} className="text-primary flex-shrink-0 mt-0.5" />
-              <div className="space-y-2 text-sm">
-                <p className="font-bold">Что вы получите:</p>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <Icon name="check" size={14} className="text-primary flex-shrink-0 mt-0.5" />
-                    <span>Детальный портрет идеального кандидата с навыками и качествами</span>
+          <div className="glass-dark p-3 rounded-lg border-l-2 border-primary">
+            <div className="flex items-start gap-2">
+              <Icon name="sparkles" size={16} className="text-primary flex-shrink-0 mt-0.5" />
+              <div className="space-y-1.5 text-xs">
+                <p className="font-bold text-xs">Что вы получите:</p>
+                <ul className="space-y-1 text-muted-foreground text-[11px]">
+                  <li className="flex items-start gap-1.5">
+                    <Icon name="check" size={12} className="text-primary flex-shrink-0 mt-0.5" />
+                    <span>Портрет идеального кандидата</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="check" size={14} className="text-secondary flex-shrink-0 mt-0.5" />
-                    <span>Готовую воронку найма с этапами отбора</span>
+                  <li className="flex items-start gap-1.5">
+                    <Icon name="check" size={12} className="text-secondary flex-shrink-0 mt-0.5" />
+                    <span>Готовая воронка найма</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="check" size={14} className="text-secondary flex-shrink-0 mt-0.5" />
-                    <span>Список площадок для поиска + план выхода на кандидатов</span>
+                  <li className="flex items-start gap-1.5">
+                    <Icon name="check" size={12} className="text-secondary flex-shrink-0 mt-0.5" />
+                    <span>План поиска кандидатов</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <Icon name="check" size={14} className="text-primary flex-shrink-0 mt-0.5" />
-                    <span>Прогноз сроков и бюджета закрытия вакансии</span>
+                  <li className="flex items-start gap-1.5">
+                    <Icon name="check" size={12} className="text-primary flex-shrink-0 mt-0.5" />
+                    <span>Прогноз сроков и бюджета</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-sm">
-            <Badge className="bg-primary/20 text-primary">
-              <Icon name="clock" size={12} className="mr-1" />
-              30 минут
+          <div className="flex items-center justify-center gap-1.5 text-[10px]">
+            <Badge className="bg-primary/20 text-primary text-[10px] px-2 py-0.5">
+              <Icon name="clock" size={10} className="mr-1" />
+              30 мин
             </Badge>
-            <Badge className="bg-secondary/20 text-secondary">
-              <Icon name="gift" size={12} className="mr-1" />
+            <Badge className="bg-secondary/20 text-secondary text-[10px] px-2 py-0.5">
+              <Icon name="gift" size={10} className="mr-1" />
               Бесплатно
-            </Badge>
-            <Badge className="bg-secondary/20 text-secondary">
-              <Icon name="shield-check" size={12} className="mr-1" />
-              Без обязательств
             </Badge>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="grid grid-cols-1 gap-2.5">
             <Input 
               placeholder="Ваше имя *"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all"
+              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
             />
 
             <Input 
@@ -160,14 +156,14 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all"
+              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-2.5">
             <Button 
               type="submit" 
-              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all"
+              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-11 text-sm md:text-base"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -186,7 +182,7 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
               type="button" 
               variant="outline" 
               onClick={onClose}
-              className="hover:neon-glow transition-all"
+              className="hover:neon-glow transition-all h-11 text-sm md:text-base"
               disabled={isSubmitting}
             >
               Позже
