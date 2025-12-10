@@ -11,8 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 const ConsultationModal = lazy(() => import('@/components/landing/ConsultationModal'));
 const AIScanModal = lazy(() => import('@/components/landing/AIScanModal'));
 const VacancyAnalysisModal = lazy(() => import('@/components/landing/VacancyAnalysisModal'));
-const TestimonialsCarousel = lazy(() => import('@/components/landing/Carousels').then(m => ({ default: m.TestimonialsCarousel })));
-const TeamCarousel = lazy(() => import('@/components/landing/Carousels').then(m => ({ default: m.TeamCarousel })));
+import { TestimonialsCarousel, TeamCarousel } from '@/components/landing/Carousels';
 import {
   DropdownMenu,
   DropdownMenuContent,
