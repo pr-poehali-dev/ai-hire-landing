@@ -42,17 +42,25 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     body_data = json.loads(event.get('body', '{}'))
     
+    print(f"Received notification request: {body_data}")
+    
     name = body_data.get('name', 'Не указано')
     phone = body_data.get('phone', 'Не указано')
     source = body_data.get('source', 'Неизвестно')
+    form_type = body_data.get('form_type', 'Не указан')
+    page = body_data.get('page', 'Не указана')
     
     message = f'''🔔 <b>Новая заявка!</b>
 
 👤 <b>Имя:</b> {name}
 📱 <b>Телефон:</b> {phone}
 📍 <b>Источник:</b> {source}
+📝 <b>Тип формы:</b> {form_type}
+📄 <b>Страница:</b> {page}
 
 ⏰ Время: {body_data.get('timestamp', 'сейчас')}'''
+    
+    print(f"Sending message to Telegram: {message}")
     
     telegram_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
     
@@ -67,8 +75,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     try:
         with urllib.request.urlopen(req, timeout=10) as response:
             result = json.loads(response.read().decode())
+            print(f"Telegram API response: {result}")
             
             if result.get('ok'):
+                print("Message sent successfully!")
                 return {
                     'statusCode': 200,
                     'headers': {'Access-Control-Allow-Origin': '*'},
@@ -76,12 +86,14 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'success': True, 'message': 'Notification sent'})
                 }
             else:
+                print(f"Telegram API error: {result}")
                 return {
                     'statusCode': 500,
                     'headers': {'Access-Control-Allow-Origin': '*'},
                     'body': json.dumps({'error': 'Telegram API error', 'details': result})
                 }
     except Exception as e:
+        print(f"Exception occurred: {str(e)}")
         return {
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},

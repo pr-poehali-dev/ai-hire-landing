@@ -42,11 +42,15 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
       
       if (!response.ok) throw new Error('Failed to submit');
 
+      console.log('Sending Telegram notification:', leadData);
       fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData)
-      }).catch(err => console.log('Telegram notification failed:', err));
+      })
+        .then(res => res.json())
+        .then(data => console.log('Telegram response:', data))
+        .catch(err => console.error('Telegram notification failed:', err));
       
       toast({ 
         title: 'Заявка отправлена! 🎯', 
