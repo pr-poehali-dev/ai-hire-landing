@@ -17,20 +17,29 @@ const ITSpecialists = () => {
     setIsSubmitting(true);
     
     try {
+      const leadData = {
+        name: formData.name,
+        phone: formData.phone,
+        source: 'it_specialists_contact_form',
+        form_type: 'specialization_page',
+        page: 'it_specialists',
+        vacancy: 'IT-специалист',
+        timestamp: new Date().toLocaleString('ru-RU')
+      };
+
       const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          source: 'it_specialists_contact_form',
-          form_type: 'specialization_page',
-          page: 'it_specialists',
-          vacancy: 'IT-специалист'
-        })
+        body: JSON.stringify(leadData)
       });
       
       if (!response.ok) throw new Error('Failed to submit');
+      
+      fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData)
+      }).catch(err => console.error('Telegram notification failed:', err));
       
       toast({ title: 'Заявка отправлена! 💻', description: 'Ваш tech-рекрутер свяжется с вами в течение 1 часа' });
       setFormData({ name: '', phone: '' });

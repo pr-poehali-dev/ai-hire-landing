@@ -44,19 +44,28 @@ const Calculator = () => {
     setIsSubmitting(true);
 
     try {
+      const leadData = {
+        ...formData,
+        source: 'calculator',
+        vacancy: `${formData.vacancy} (${getLevelName(calcParams.level)}, ${getUrgencyName(calcParams.urgency)}, ${calcParams.positions} ${calcParams.positions === 1 ? 'позиция' : 'позиции'})`,
+        timestamp: new Date().toLocaleString('ru-RU')
+      };
+
       const response = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          source: 'calculator',
-          vacancy: `${formData.vacancy} (${getLevelName(calcParams.level)}, ${getUrgencyName(calcParams.urgency)}, ${calcParams.positions} ${calcParams.positions === 1 ? 'позиция' : 'позиции'})`
-        })
+        body: JSON.stringify(leadData)
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
+        fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(leadData)
+        }).catch(err => console.error('Telegram notification failed:', err));
+
         toast({ 
           title: 'Заявка отправлена! 🚀', 
           description: 'Мы свяжемся с вами в течение 30 минут' 
