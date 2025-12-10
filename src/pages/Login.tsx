@@ -11,6 +11,7 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [isLogin, setIsLogin] = useState(true);
   const [isReset, setIsReset] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resetToken, setResetToken] = useState('');
