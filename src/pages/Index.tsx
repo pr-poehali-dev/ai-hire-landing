@@ -1453,7 +1453,7 @@ const Index = () => {
                 </p>
                 <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
                   <Icon name="MessageCircle" size={16} className="text-secondary" />
-                  <a href="https://t.me/i1dayhunter" target="_blank" rel="noopener noreferrer">Telegram</a>
+                  <a href="https://t.me/TheDenisZ" target="_blank" rel="noopener noreferrer">Telegram</a>
                 </p>
                 <p className="flex items-center gap-2 hover:text-secondary transition-all cursor-pointer hover-scale">
                   <Icon name="Mail" size={16} className="text-secondary" />
