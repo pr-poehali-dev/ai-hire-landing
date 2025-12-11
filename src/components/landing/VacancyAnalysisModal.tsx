@@ -72,86 +72,82 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="glass-dark border-primary/30 max-w-md max-h-[85vh] overflow-y-auto p-4">
-        <DialogHeader>
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-              <Icon name="brain" size={20} className="text-white" />
+      <DialogContent className="glass-dark border-primary/30 max-w-md max-h-[95vh] overflow-hidden flex flex-col p-3 sm:p-4">
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+              <Icon name="brain" size={16} className="text-white sm:w-5 sm:h-5" />
             </div>
             <div>
-              <DialogTitle className="text-base md:text-xl font-bold neon-text">
+              <DialogTitle className="text-sm sm:text-xl font-bold neon-text">
                 AI-анализ вакансии
               </DialogTitle>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">
                 Готовая воронка за 30 минут
               </p>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="space-y-3 mb-4">
-          <div className="grid grid-cols-3 gap-2">
-            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="target" size={16} className="text-primary mx-auto mb-1" />
-              <p className="text-[10px] font-bold">Портрет</p>
+        <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4 flex-1 overflow-y-auto">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+            <div className="glass p-1.5 sm:p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="target" size={14} className="text-primary mx-auto mb-0.5 sm:mb-1 sm:w-4 sm:h-4" />
+              <p className="text-[9px] sm:text-[10px] font-bold">Портрет</p>
             </div>
-            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="filter" size={16} className="text-secondary mx-auto mb-1" />
-              <p className="text-[10px] font-bold">Воронка</p>
+            <div className="glass p-1.5 sm:p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="filter" size={14} className="text-secondary mx-auto mb-0.5 sm:mb-1 sm:w-4 sm:h-4" />
+              <p className="text-[9px] sm:text-[10px] font-bold">Воронка</p>
             </div>
-            <div className="glass p-2 rounded-lg text-center hover:neon-glow transition-all">
-              <Icon name="trending-up" size={16} className="text-secondary mx-auto mb-1" />
-              <p className="text-[10px] font-bold">План</p>
+            <div className="glass p-1.5 sm:p-2 rounded-lg text-center hover:neon-glow transition-all">
+              <Icon name="trending-up" size={14} className="text-secondary mx-auto mb-0.5 sm:mb-1 sm:w-4 sm:h-4" />
+              <p className="text-[9px] sm:text-[10px] font-bold">План</p>
             </div>
           </div>
 
-          <div className="glass-dark p-3 rounded-lg border-l-2 border-primary">
-            <div className="flex items-start gap-2">
-              <Icon name="sparkles" size={16} className="text-primary flex-shrink-0 mt-0.5" />
-              <div className="space-y-1.5 text-xs">
-                <p className="font-bold text-xs">Что вы получите:</p>
-                <ul className="space-y-1 text-muted-foreground text-[11px]">
-                  <li className="flex items-start gap-1.5">
-                    <Icon name="check" size={12} className="text-primary flex-shrink-0 mt-0.5" />
-                    <span>Портрет идеального кандидата</span>
+          <div className="glass-dark p-2 sm:p-3 rounded-lg border-l-2 border-primary">
+            <div className="flex items-start gap-1.5 sm:gap-2">
+              <Icon name="sparkles" size={14} className="text-primary flex-shrink-0 mt-0.5 sm:w-4 sm:h-4" />
+              <div className="space-y-1 sm:space-y-1.5">
+                <p className="font-bold text-[11px] sm:text-xs">Что вы получите:</p>
+                <ul className="space-y-0.5 sm:space-y-1 text-muted-foreground text-[10px] sm:text-[11px]">
+                  <li className="flex items-start gap-1">
+                    <Icon name="check" size={10} className="text-primary flex-shrink-0 mt-0.5 sm:w-3 sm:h-3" />
+                    <span>Портрет кандидата</span>
                   </li>
-                  <li className="flex items-start gap-1.5">
-                    <Icon name="check" size={12} className="text-secondary flex-shrink-0 mt-0.5" />
-                    <span>Готовая воронка найма</span>
+                  <li className="flex items-start gap-1">
+                    <Icon name="check" size={10} className="text-secondary flex-shrink-0 mt-0.5 sm:w-3 sm:h-3" />
+                    <span>Воронка найма</span>
                   </li>
-                  <li className="flex items-start gap-1.5">
-                    <Icon name="check" size={12} className="text-secondary flex-shrink-0 mt-0.5" />
-                    <span>План поиска кандидатов</span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <Icon name="check" size={12} className="text-primary flex-shrink-0 mt-0.5" />
-                    <span>Прогноз сроков и бюджета</span>
+                  <li className="flex items-start gap-1">
+                    <Icon name="check" size={10} className="text-secondary flex-shrink-0 mt-0.5 sm:w-3 sm:h-3" />
+                    <span>План поиска</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-1.5 text-[10px]">
-            <Badge className="bg-primary/20 text-primary text-[10px] px-2 py-0.5">
-              <Icon name="clock" size={10} className="mr-1" />
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5">
+            <Badge className="bg-primary/20 text-primary text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5">
+              <Icon name="clock" size={8} className="mr-0.5 sm:mr-1 sm:w-2.5 sm:h-2.5" />
               30 мин
             </Badge>
-            <Badge className="bg-secondary/20 text-secondary text-[10px] px-2 py-0.5">
-              <Icon name="gift" size={10} className="mr-1" />
+            <Badge className="bg-secondary/20 text-secondary text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5">
+              <Icon name="gift" size={8} className="mr-0.5 sm:mr-1 sm:w-2.5 sm:h-2.5" />
               Бесплатно
             </Badge>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="grid grid-cols-1 gap-2.5">
+        <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3 flex-shrink-0">
+          <div className="grid grid-cols-1 gap-2">
             <Input 
               placeholder="Ваше имя *"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
+              className="glass border-primary/30 focus:neon-glow transition-all h-9 sm:h-11 text-sm sm:text-base"
             />
 
             <Input 
@@ -160,25 +156,25 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
+              className="glass border-primary/30 focus:neon-glow transition-all h-9 sm:h-11 text-sm sm:text-base"
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2.5">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button 
               type="submit" 
-              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-11 text-sm md:text-base"
+              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-9 sm:h-11 text-xs sm:text-base"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <>
-                  <Icon name="loader-2" className="animate-spin mr-2" size={18} />
+                  <Icon name="loader-2" className="animate-spin mr-1.5 sm:mr-2" size={14} />
                   Отправка...
                 </>
               ) : (
                 <>
-                  <Icon name="sparkles" className="mr-2" size={18} />
-                  Получить бесплатный анализ
+                  <Icon name="sparkles" className="mr-1.5 sm:mr-2" size={14} />
+                  Получить анализ
                 </>
               )}
             </Button>
@@ -186,14 +182,14 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
               type="button" 
               variant="outline" 
               onClick={onClose}
-              className="hover:neon-glow transition-all h-11 text-sm md:text-base"
+              className="hover:neon-glow transition-all h-9 sm:h-11 text-xs sm:text-base"
               disabled={isSubmitting}
             >
               Позже
             </Button>
           </div>
 
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-[9px] sm:text-xs text-muted-foreground text-center">
             Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
           </p>
         </form>

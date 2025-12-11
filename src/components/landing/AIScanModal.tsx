@@ -73,32 +73,32 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] glass-dark border-primary/30 max-h-[85vh] overflow-y-auto p-4">
-        <DialogHeader>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
-              <Icon name="brain" className="w-5 h-5 text-white" />
+      <DialogContent className="sm:max-w-[500px] glass-dark border-primary/30 max-h-[95vh] overflow-hidden flex flex-col p-3 sm:p-4">
+        <DialogHeader className="flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center neon-glow">
+              <Icon name="brain" className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <div>
-              <DialogTitle className="text-base md:text-xl font-bold neon-text">
+              <DialogTitle className="text-sm sm:text-xl font-bold neon-text">
                 Бесплатное AI-сканирование
               </DialogTitle>
-              <Badge className="mt-1 bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+              <Badge className="mt-0.5 sm:mt-1 bg-green-500/20 text-green-400 border-green-500/30 text-[10px] sm:text-xs">
                 ✨ Экономия 50,000₽
               </Badge>
             </div>
           </div>
-          <DialogDescription className="text-xs md:text-sm leading-relaxed pt-2">
-            <div className="space-y-3">
-              <div className="grid grid-cols-1 gap-2">
+          <DialogDescription className="text-[10px] sm:text-sm leading-relaxed pt-1.5 sm:pt-2 flex-1 overflow-y-auto">
+            <div className="space-y-2 sm:space-y-3">
+              <div className="grid grid-cols-1 gap-1.5 sm:gap-2">
                 {[
                   { icon: 'target', text: 'Профиль идеального кандидата' },
                   { icon: 'users', text: '10-15 подходящих специалистов' },
                   { icon: 'trending-up', text: 'Оценка рынка и стоимости' },
                   { icon: 'clock', text: 'Прогноз сроков закрытия' }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs">
-                    <Icon name={item.icon as any} className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                    <Icon name={item.icon as any} className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-foreground">{item.text}</span>
                   </div>
                 ))}
@@ -109,14 +109,14 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-3 mt-3">
-          <div className="space-y-2.5">
+        <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3 mt-2 sm:mt-3 flex-shrink-0">
+          <div className="space-y-2">
             <Input
               placeholder="Ваше имя *"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
+              className="glass border-primary/30 focus:neon-glow transition-all h-9 sm:h-11 text-sm sm:text-base"
             />
 
             <Input
@@ -125,25 +125,25 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
-              className="glass border-primary/30 focus:neon-glow transition-all h-11 text-base"
+              className="glass border-primary/30 focus:neon-glow transition-all h-9 sm:h-11 text-sm sm:text-base"
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2.5">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-11 text-sm md:text-base"
+              className="flex-1 neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all h-9 sm:h-11 text-xs sm:text-base"
             >
               {isSubmitting ? (
                 <>
-                  <Icon name="loader-2" className="animate-spin mr-2" size={18} />
+                  <Icon name="loader-2" className="animate-spin mr-1.5 sm:mr-2" size={14} />
                   Отправка...
                 </>
               ) : (
                 <>
-                  <Icon name="brain" className="mr-2" size={18} />
-                  Запустить AI-сканирование
+                  <Icon name="brain" className="mr-1.5 sm:mr-2" size={14} />
+                  Запустить AI
                 </>
               )}
             </Button>
@@ -151,13 +151,13 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
               type="button"
               variant="outline"
               onClick={onClose}
-              className="hover:neon-glow hover:scale-105 transition-all h-11 text-sm md:text-base"
+              className="hover:neon-glow hover:scale-105 transition-all h-9 sm:h-11 text-xs sm:text-base"
             >
               Отмена
             </Button>
           </div>
 
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-[9px] sm:text-xs text-muted-foreground text-center">
             Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
           </p>
         </form>
