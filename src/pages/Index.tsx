@@ -1578,18 +1578,6 @@ const Index = () => {
           <span className="hidden sm:inline">Бесплатный анализ вакансии</span>
           <span className="sm:hidden">Анализ</span>
         </Button>
-
-        <Button
-          onClick={() => setIsAIScanOpen(true)}
-          size="sm"
-          variant="outline"
-          className="hover:neon-glow hover:scale-110 transition-all shadow-lg text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
-          style={{ animationDelay: '0.1s' }}
-        >
-          <Icon name="brain" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
-          <span className="hidden sm:inline">AI-сканирование</span>
-          <span className="sm:hidden">AI-скан</span>
-        </Button>
         
         <Button
           onClick={() => setIsConsultFormOpen(true)}
