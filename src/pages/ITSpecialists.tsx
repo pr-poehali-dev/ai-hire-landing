@@ -71,15 +71,13 @@ const ITSpecialists = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900 overflow-x-hidden">
       {/* Header */}
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-blue-500/20">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center max-w-full">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center">
-              <Icon name="code" className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              1 DAY HR
+        <div className="w-full px-4 py-4 flex justify-between items-center">
+          <a href="tel:+79999999999" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Icon name="phone" className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
+            <span className="text-2xl md:text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap">
+              +7 999 999-99-99
             </span>
-          </Link>
+          </a>
           <div className="flex gap-2">
             <Link to="/">
               <Button variant="outline" size="sm" className="hidden md:inline-flex hover:bg-blue-600/20">
