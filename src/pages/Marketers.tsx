@@ -85,8 +85,8 @@ const Marketers = () => {
               <Button variant="outline" size="sm" className="hidden md:inline-flex hover:bg-pink-600/20">
                 На главную
               </Button>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Icon name="home" className="w-4 h-4" />
+              <Button variant="outline" size="sm" className="md:hidden">
+                На главную
               </Button>
             </Link>
             <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="sm" className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-xs md:text-sm">
@@ -116,6 +116,17 @@ const Marketers = () => {
                 которые приводят клиентов с x5 ROI
               </span>
             </h1>
+            <div className="flex justify-center mb-6 md:mb-8">
+              <Button
+                onClick={() => window.open('https://t.me/TheDenisZ', '_blank')}
+                size="lg"
+                variant="outline"
+                className="hover:scale-105 transition-all text-sm md:text-base"
+              >
+                <Icon name="MessageCircle" className="mr-2" size={20} />
+                Написать в Telegram
+              </Button>
+            </div>
             <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
               620+ маркетологов трудоустроено от SMM до CMO
               <br />
@@ -375,6 +386,17 @@ const Marketers = () => {
         onClose={() => setIsOfferModalOpen(false)}
         specialization="marketers"
       />
+
+      <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50">
+        <Button
+          onClick={() => setIsOfferModalOpen(true)}
+          size="sm"
+          className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 whitespace-nowrap"
+        >
+          <Icon name="sparkles" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <span>Бесплатный анализ<br className="md:hidden" /> проблемных зон</span>
+        </Button>
+      </div>
     </div>
   );
 };
