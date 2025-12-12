@@ -361,18 +361,6 @@ const Index = () => {
       </header>
 
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
-        {/* Mobile Floating Action Button */}
-        <div className="md:hidden fixed top-24 right-4 z-20">
-          <Button 
-            size="lg"
-            onClick={() => setIsAIScanOpen(true)}
-            className="bg-gradient-to-r from-primary to-secondary text-white shadow-2xl hover:shadow-primary/50 transition-all hover:scale-105 px-6 py-6 text-base font-bold"
-          >
-            <Icon name="hand" className="w-6 h-6 mr-2" />
-            AI-Анализ
-          </Button>
-        </div>
-
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
           
@@ -478,10 +466,6 @@ const Index = () => {
 
             <div className="flex flex-col items-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
               <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                <Button size="lg" onClick={() => setIsAIScanOpen(true)} className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8">
-                  <Icon name="brain" className="mr-2" size={24} />
-                  Бесплатное AI-сканирование
-                </Button>
                 <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
                   🔥 Найти сотрудника
                 </Button>
