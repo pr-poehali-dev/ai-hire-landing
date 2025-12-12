@@ -68,10 +68,10 @@ const RetailSales = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-sky-900/20 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-sky-900/20 to-gray-900 overflow-x-hidden">
       {/* Header */}
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-sky-500/20">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center max-w-full">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-sky-600 to-blue-600 flex items-center justify-center">
               <Icon name="shopping-bag" className="w-6 h-6 text-white" />
@@ -102,12 +102,12 @@ const RetailSales = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(14,165,233,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(37,99,235,0.15),transparent_50%)]" />
         
-        <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="container mx-auto max-w-7xl relative z-10 px-4">
           <div className="text-center max-w-5xl mx-auto mb-16">
             <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-sky-600 to-blue-600 border-0 text-white px-4 py-1.5 md:px-6 md:py-2 text-sm md:text-lg">
               🏪 #1 В RETAIL РЕКРУТИНГЕ
             </Badge>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight break-words">
               <span className="bg-gradient-to-r from-sky-400 via-blue-400 to-sky-400 bg-clip-text text-transparent">
                 Продавцы
               </span>
@@ -127,7 +127,7 @@ const RetailSales = () => {
                 Написать в Telegram
               </Button>
             </div>
-            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-8 md:mb-12 leading-relaxed break-words">
               950+ продавцов-консультантов для магазинов, салонов, шоурумов
               <br />
               <span className="text-sky-400 font-bold">Средний чек после найма растёт на 42%</span>
@@ -155,7 +155,7 @@ const RetailSales = () => {
 
       {/* Retail Skills */}
       <section className="relative py-12 md:py-20 px-4 bg-gradient-to-b from-sky-900/10 to-transparent">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
               Навыки наших продавцов
@@ -218,7 +218,7 @@ const RetailSales = () => {
 
       {/* Retail Segments */}
       <section className="relative py-20 px-4">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
               Сегменты retail
@@ -259,7 +259,7 @@ const RetailSales = () => {
 
       {/* Why Our Candidates */}
       <section className="relative py-20 px-4 bg-gradient-to-b from-transparent via-sky-900/10 to-transparent">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
               Почему наши кандидаты лучшие
@@ -315,7 +315,7 @@ const RetailSales = () => {
 
       {/* Contact Form */}
       <section id="contact-form" className="relative py-20 px-4">
-        <div className="container mx-auto max-w-3xl">
+        <div className="container mx-auto max-w-3xl px-4">
           <Card className="bg-gradient-to-br from-sky-900/40 via-blue-900/30 to-sky-900/40 backdrop-blur-xl border-sky-500/30 p-12">
             <div className="text-center mb-10">
               <h2 className="text-5xl font-black text-white mb-4">
@@ -380,7 +380,7 @@ const RetailSales = () => {
         specialization="retail"
       />
 
-      <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50">
+      <div className="fixed bottom-20 right-4 z-[100]">
         <Button
           onClick={() => setIsOfferModalOpen(true)}
           size="sm"
