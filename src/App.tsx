@@ -19,6 +19,7 @@ import Accountants from "./pages/Accountants";
 import Marketers from "./pages/Marketers";
 import Directors from "./pages/Directors";
 import RetailSales from "./pages/RetailSales";
+import PhoneWidget from "./components/PhoneWidget";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <CanonicalUrl />
+        <PhoneWidget />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/sales-managers" element={<SalesManagers />} />

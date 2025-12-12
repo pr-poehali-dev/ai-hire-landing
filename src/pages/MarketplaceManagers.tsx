@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -6,11 +6,24 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
 
 const MarketplaceManagers = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+
+  useEffect(() => {
+    const hasSeenOffer = sessionStorage.getItem('marketplaceOfferSeen');
+    if (!hasSeenOffer) {
+      const timer = setTimeout(() => {
+        setIsOfferModalOpen(true);
+        sessionStorage.setItem('marketplaceOfferSeen', 'true');
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,13 +76,24 @@ const MarketplaceManagers = () => {
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 flex items-center justify-center">
               <Icon name="shopping-cart" className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
+            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
               1 DAY HR
             </span>
           </Link>
-          <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="lg" className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700">
-            Найти менеджера
-          </Button>
+          <div className="flex gap-2">
+            <Link to="/">
+              <Button variant="outline" size="sm" className="hidden md:inline-flex hover:bg-orange-600/20">
+                На главную
+              </Button>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Icon name="home" className="w-4 h-4" />
+              </Button>
+            </Link>
+            <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="sm" className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-xs md:text-sm">
+              <span className="hidden md:inline">Найти менеджера</span>
+              <span className="md:hidden">Заявка</span>
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -335,6 +359,12 @@ const MarketplaceManagers = () => {
           </Card>
         </div>
       </section>
+
+      <SpecializationOfferModal 
+        isOpen={isOfferModalOpen}
+        onClose={() => setIsOfferModalOpen(false)}
+        specialization="marketplace"
+      />
     </div>
   );
 };

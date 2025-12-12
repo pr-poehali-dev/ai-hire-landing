@@ -292,10 +292,70 @@ const Index = () => {
               <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
             </nav>
 
-            <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
-              <span className="hidden sm:inline">Подобрать сотрудника</span>
-              <span className="sm:hidden">Подобрать</span>
-            </Button>
+            <div className="flex items-center gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild className="md:hidden">
+                  <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                    <Icon name="menu" className="w-5 h-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="glass border-primary/20 w-56">
+                  <DropdownMenuItem asChild>
+                    <Link to="/sales-managers" className="flex items-center gap-2">
+                      <Icon name="trending-up" className="w-4 h-4" />
+                      Менеджеры по продажам
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/it-specialists" className="flex items-center gap-2">
+                      <Icon name="code" className="w-4 h-4" />
+                      IT-специалисты
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/marketplace-managers" className="flex items-center gap-2">
+                      <Icon name="shopping-cart" className="w-4 h-4" />
+                      Менеджеры по маркетплейсам
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/accountants" className="flex items-center gap-2">
+                      <Icon name="calculator" className="w-4 h-4" />
+                      Бухгалтеры
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/marketers" className="flex items-center gap-2">
+                      <Icon name="megaphone" className="w-4 h-4" />
+                      Маркетологи
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/directors" className="flex items-center gap-2">
+                      <Icon name="crown" className="w-4 h-4" />
+                      Директора и топ-менеджеры
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/retail-sales" className="flex items-center gap-2">
+                      <Icon name="shopping-bag" className="w-4 h-4" />
+                      Продавцы-консультанты
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/calculator" className="flex items-center gap-2">
+                      <Icon name="calculator" className="w-4 h-4" />
+                      Калькулятор стоимости
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
+              <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
+                <span className="hidden sm:inline">Подобрать сотрудника</span>
+                <span className="sm:hidden">Подобрать</span>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -750,7 +810,7 @@ const Index = () => {
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
-                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки продаж
+                Каждое интервью включает ролевую игру с записью — проверяем реальные навыки
               </p>
             </Card>
 
@@ -794,7 +854,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-base md:text-lg mb-1">Узкая специализация</h3>
-                  <Badge className="text-xs bg-primary/20 text-primary">Только менеджеры</Badge>
+                  <Badge className="text-xs bg-primary/20 text-primary">Только профессионалы</Badge>
                 </div>
               </div>
               <p className="text-sm md:text-base text-muted-foreground">
