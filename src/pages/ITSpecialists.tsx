@@ -394,6 +394,17 @@ const ITSpecialists = () => {
           <span>Бесплатный анализ<br className="md:hidden" /> проблемных зон</span>
         </Button>
       </div>
+
+      {/* Mobile Phone Bar */}
+      <a 
+        href="tel:+79999999999" 
+        className="md:hidden fixed bottom-0 left-0 right-0 z-[101] bg-gradient-to-r from-blue-600 to-cyan-600 py-4 px-4 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-[0_-4px_20px_rgba(59,130,246,0.5)]"
+      >
+        <Icon name="phone" className="w-6 h-6 text-white animate-pulse" />
+        <span className="text-2xl font-black text-white tracking-wide">
+          +7 (995) 555-62-31
+        </span>
+      </a>
     </div>
   );
 };
