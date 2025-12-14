@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 interface SpecializationOfferModalProps {
   isOpen: boolean;
@@ -102,6 +103,8 @@ const SpecializationOfferModal = ({ isOpen, onClose, specialization }: Specializ
     e.preventDefault();
     setIsSubmitting(true);
 
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'specialization_offer', specialization });
+
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
       const leadData = {
@@ -126,6 +129,8 @@ const SpecializationOfferModal = ({ isOpen, onClose, specialization }: Specializ
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData)
       }).catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: `${specialization}_offer_popup` });
 
       toast({
         title: '🎁 Спецпредложение активировано!',

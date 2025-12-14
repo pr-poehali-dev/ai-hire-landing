@@ -34,6 +34,8 @@ interface CRMHeaderProps {
   isGeneratingPlan: boolean;
   exportToExcel: () => void;
   isExporting: boolean;
+  showAnalytics: boolean;
+  setShowAnalytics: (show: boolean) => void;
 }
 
 const CRMHeader = ({
@@ -46,7 +48,9 @@ const CRMHeader = ({
   generateDailyPlan,
   isGeneratingPlan,
   exportToExcel,
-  isExporting
+  isExporting,
+  showAnalytics,
+  setShowAnalytics
 }: CRMHeaderProps) => {
   const navigate = useNavigate();
 
@@ -62,6 +66,15 @@ const CRMHeader = ({
           </button>
 
           <div className="flex items-center gap-3">
+            <Button 
+              size="sm" 
+              onClick={() => setShowAnalytics(!showAnalytics)} 
+              className={showAnalytics ? 'glass bg-primary/20' : 'glass'}
+            >
+              <Icon name="BarChart3" size={16} className="mr-2" />
+              Аналитика
+            </Button>
+
             <div className="relative">
               <Button 
                 variant="outline" 

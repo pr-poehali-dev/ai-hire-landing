@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 interface VacancyAnalysisModalProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'vacancy_analysis' });
     
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
@@ -51,6 +54,9 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
         .then(res => res.json())
         .then(data => console.log('Telegram response:', data))
         .catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.VACANCY_VIEW);
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'vacancy_analysis_popup' });
       
       toast({ 
         title: 'Заявка отправлена! 🎯', 

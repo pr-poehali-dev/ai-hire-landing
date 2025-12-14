@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 const MarketplaceManagers = () => {
   const { toast } = useToast();
@@ -28,6 +29,8 @@ const MarketplaceManagers = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'marketplace_managers_contact', page: 'marketplace_managers' });
     
     try {
       const leadData = {
@@ -53,6 +56,8 @@ const MarketplaceManagers = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData)
       }).catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'marketplace_managers_contact_form' });
       
       toast({ title: 'Заявка отправлена! 📦', description: 'Эксперт по маркетплейсам свяжется с вами в течение 1 часа' });
       setFormData({ name: '', phone: '' });

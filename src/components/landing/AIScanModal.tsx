@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 interface AIScanModalProps {
   isOpen: boolean;
@@ -24,6 +24,8 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'ai_scan' });
 
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
@@ -52,6 +54,8 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
         .then(res => res.json())
         .then(data => console.log('Telegram response:', data))
         .catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: source });
 
       toast({
         title: '🎯 AI-сканирование запланировано!',

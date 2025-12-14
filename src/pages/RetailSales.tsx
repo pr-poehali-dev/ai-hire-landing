@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 const RetailSales = () => {
   const { toast } = useToast();
@@ -28,6 +29,8 @@ const RetailSales = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'retail_sales_contact', page: 'retail_sales' });
     
     try {
       const leadData = {
@@ -53,6 +56,8 @@ const RetailSales = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData)
       }).catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'retail_sales_contact_form' });
       
       toast({ title: 'Заявка отправлена! 🛍️', description: 'Эксперт по retail свяжется с вами в течение 2 часов' });
       setFormData({ name: '', phone: '' });

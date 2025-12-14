@@ -7,6 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 const Calculator = () => {
   const { toast } = useToast();
@@ -43,6 +44,13 @@ const Calculator = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    sendMetrikaGoal(metrikaGoals.CALCULATOR_SUBMIT, {
+      positions: calcParams.positions,
+      urgency: calcParams.urgency,
+      level: getLevelName(calcParams.level),
+      price: calculatePrice()
+    });
+
     try {
       const leadData = {
         ...formData,
@@ -65,6 +73,8 @@ const Calculator = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(leadData)
         }).catch(err => console.error('Telegram notification failed:', err));
+
+        sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'calculator' });
 
         toast({ 
           title: 'Заявка отправлена! 🚀', 
@@ -100,7 +110,15 @@ const Calculator = () => {
               <span className="text-base md:text-xl font-bold neon-text">1 DAY HR</span>
             </button>
 
-            <Button onClick={() => navigate('/')} variant="outline" size="sm" className="text-xs md:text-sm">
+            <Button 
+              onClick={() => {
+                sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'back_to_home_from_calculator' });
+                navigate('/');
+              }} 
+              variant="outline" 
+              size="sm" 
+              className="text-xs md:text-sm"
+            >
               <Icon name="ArrowLeft" size={16} className="mr-1" />
               На главную
             </Button>

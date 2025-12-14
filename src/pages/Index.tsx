@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 const ConsultationModal = lazy(() => import('@/components/landing/ConsultationModal'));
 const AIScanModal = lazy(() => import('@/components/landing/AIScanModal'));
 const VacancyAnalysisModal = lazy(() => import('@/components/landing/VacancyAnalysisModal'));
@@ -89,6 +90,8 @@ const Index = () => {
   const handleSubmit = async (e: React.FormEvent, source: string = 'main_cta_form') => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { source });
     
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
@@ -118,6 +121,8 @@ const Index = () => {
         .then(res => res.json())
         .then(data => console.log('Telegram response:', data))
         .catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source });
       
       toast({ title: 'Заявка отправлена! 🚀', description: 'Мы свяжемся с вами в течение 2 часов' });
       setFormData({ name: '', phone: '' });
@@ -137,6 +142,7 @@ const Index = () => {
   };
 
   const startDemo = () => {
+    sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'start_ai_demo' });
     setIsAnalyzing(true);
     setAnalysisStep(0);
     setSkillScores({ communication: 0, motivation: 0, stress: 0, leadership: 0 });
@@ -287,7 +293,13 @@ const Index = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
-              <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
+              <Link 
+                to="/calculator" 
+                className="text-sm hover:text-primary transition-all hover:scale-110"
+                onClick={() => sendMetrikaGoal(metrikaGoals.CALCULATOR_OPEN, { source: 'header_nav' })}
+              >
+                Калькулятор
+              </Link>
               <button onClick={() => scrollToSection('cases')} className="text-sm hover:text-primary transition-all hover:scale-110">Кейсы</button>
               <button onClick={() => scrollToSection('team')} className="text-sm hover:text-primary transition-all hover:scale-110">Команда</button>
             </nav>
@@ -351,7 +363,14 @@ const Index = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <Button onClick={() => scrollToSection('cta')} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
+              <Button 
+                onClick={() => {
+                  sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'header_cta_button' });
+                  scrollToSection('cta');
+                }} 
+                size="sm" 
+                className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4"
+              >
                 <span className="hidden sm:inline">Подобрать сотрудника</span>
                 <span className="sm:hidden">Подобрать</span>
               </Button>
@@ -466,14 +485,25 @@ const Index = () => {
 
             <div className="flex flex-col items-center gap-3 md:gap-4 pt-2 md:pt-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
               <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                <Button size="lg" variant="outline" onClick={() => scrollToSection('cta')} className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  onClick={() => {
+                    sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'hero_find_employee' });
+                    scrollToSection('cta');
+                  }} 
+                  className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2"
+                >
                   🔥 Найти сотрудника
                 </Button>
               </div>
               <Button 
                 size="lg" 
                 variant="ghost"
-                onClick={() => window.open('https://t.me/TheDenisZ', '_blank')} 
+                onClick={() => {
+                  sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'hero_telegram' });
+                  window.open('https://t.me/TheDenisZ', '_blank');
+                }} 
                 className="hover:neon-glow hover:scale-110 transition-all text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
               >
                 <Icon name="MessageCircle" className="mr-2" size={20} />
@@ -908,7 +938,14 @@ const Index = () => {
           </div>
 
           <div className="flex justify-center mt-8 md:mt-12">
-            <Button onClick={() => scrollToSection('cta')} size="lg" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8 w-full sm:w-auto">
+            <Button 
+              onClick={() => {
+                sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'why_us_cta' });
+                scrollToSection('cta');
+              }} 
+              size="lg" 
+              className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all text-base md:text-lg px-8 md:px-12 py-6 md:py-8 w-full sm:w-auto"
+            >
               🚀 Получить кандидата завтра
             </Button>
           </div>
@@ -1146,7 +1183,13 @@ const Index = () => {
                     </Card>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 pt-3 sm:pt-4 animate-fade-in" style={{ animationDelay: '1.9s' }}>
-                      <Button onClick={() => scrollToSection('cta')} className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs sm:text-sm">
+                      <Button 
+                        onClick={() => {
+                          sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'demo_find_candidate' });
+                          scrollToSection('cta');
+                        }} 
+                        className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs sm:text-sm"
+                      >
                         <Icon name="Rocket" size={16} className="sm:w-4 sm:h-4 mr-2" />
                         Найти такого кандидата
                       </Button>
@@ -1436,14 +1479,20 @@ const Index = () => {
                   <Button 
                     variant="outline" 
                     className="hover:neon-glow hover:scale-105 transition-all"
-                    onClick={() => window.open('tel:+79955556231', '_self')}
+                    onClick={() => {
+                      sendMetrikaGoal(metrikaGoals.PHONE_CLICK, { location: 'faq_section' });
+                      window.open('tel:+79955556231', '_self');
+                    }}
                   >
                     <Icon name="Phone" size={16} className="mr-2" />
                     Позвонить
                   </Button>
                   <Button 
                     className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all"
-                    onClick={() => window.open('https://t.me/TheDenisZ', '_blank')}
+                    onClick={() => {
+                      sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'faq_telegram' });
+                      window.open('https://t.me/TheDenisZ', '_blank');
+                    }}
                   >
                     <Icon name="MessageCircle" size={16} className="mr-2" />
                     Telegram
@@ -1544,7 +1593,13 @@ const Index = () => {
               <h4 className="font-bold">Навигация</h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <button onClick={() => scrollToSection('demo')} className="text-left hover:text-primary transition-all hover:scale-110">AI Демо</button>
-                <Link to="/calculator" className="text-left hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
+                <Link 
+                  to="/calculator" 
+                  className="text-left hover:text-primary transition-all hover:scale-110"
+                  onClick={() => sendMetrikaGoal(metrikaGoals.CALCULATOR_OPEN, { source: 'footer_nav' })}
+                >
+                  Калькулятор
+                </Link>
                 <button onClick={() => scrollToSection('cases')} className="text-left hover:text-primary transition-all hover:scale-110">Кейсы</button>
                 <button onClick={() => scrollToSection('faq')} className="text-left hover:text-primary transition-all hover:scale-110">FAQ</button>
                 <Link to="/crm" className="text-left hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
@@ -1570,7 +1625,10 @@ const Index = () => {
 
       <div className="fixed bottom-4 md:bottom-6 right-3 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
         <Button
-          onClick={() => setIsVacancyAnalysisOpen(true)}
+          onClick={() => {
+            sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'floating_vacancy_analysis' });
+            setIsVacancyAnalysisOpen(true);
+          }}
           size="sm"
           className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
         >
@@ -1580,7 +1638,10 @@ const Index = () => {
         </Button>
         
         <Button
-          onClick={() => setIsConsultFormOpen(true)}
+          onClick={() => {
+            sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'floating_consultation' });
+            setIsConsultFormOpen(true);
+          }}
           size="sm"
           variant="outline"
           className="hover:neon-glow hover:scale-110 transition-all shadow-lg text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 md:h-auto animate-fade-in"
@@ -1602,6 +1663,7 @@ const Index = () => {
       <a 
         href="tel:+79955556231" 
         className="md:hidden fixed bottom-0 left-0 right-0 z-[101] bg-gradient-to-r from-blue-600 to-cyan-600 py-4 px-4 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-[0_-4px_20px_rgba(59,130,246,0.5)]"
+        onClick={() => sendMetrikaGoal(metrikaGoals.PHONE_CLICK, { location: 'mobile_bottom_bar' })}
       >
         <Icon name="phone" className="w-6 h-6 text-white animate-pulse" />
         <span className="text-2xl font-black text-white tracking-wide">

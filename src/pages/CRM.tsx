@@ -5,6 +5,7 @@ import CRMHeader from '@/components/crm/CRMHeader';
 import CRMKanban from '@/components/crm/CRMKanban';
 import LeadDetailsDialog from '@/components/crm/LeadDetailsDialog';
 import CRMModals from '@/components/crm/CRMModals';
+import CRMAnalytics from '@/components/crm/CRMAnalytics';
 
 interface Lead {
   id: number;
@@ -108,6 +109,7 @@ const CRM = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isMangoSettingsOpen, setIsMangoSettingsOpen] = useState(false);
   const [isTestingMango, setIsTestingMango] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
@@ -574,27 +576,33 @@ const CRM = () => {
         isGeneratingPlan={isGeneratingPlan}
         exportToExcel={exportToExcel}
         isExporting={isExporting}
+        showAnalytics={showAnalytics}
+        setShowAnalytics={setShowAnalytics}
       />
 
-      <CRMKanban 
-        stages={stages}
-        isLoading={isLoading}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        filterPriority={filterPriority}
-        setFilterPriority={setFilterPriority}
-        filterSource={filterSource}
-        setFilterSource={setFilterSource}
-        sources={sources}
-        setIsLeadDialogOpen={setIsLeadDialogOpen}
-        setStageForm={setStageForm}
-        setIsStageDialogOpen={setIsStageDialogOpen}
-        handleDragEnd={handleDragEnd}
-        getLeadsByStage={getLeadsByStage}
-        getPriorityColor={getPriorityColor}
-        setSelectedLead={setSelectedLead}
-        fetchLeadDetails={fetchLeadDetails}
-      />
+      {showAnalytics ? (
+        <CRMAnalytics leads={leads} stages={stages} />
+      ) : (
+        <CRMKanban 
+          stages={stages}
+          isLoading={isLoading}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          filterPriority={filterPriority}
+          setFilterPriority={setFilterPriority}
+          filterSource={filterSource}
+          setFilterSource={setFilterSource}
+          sources={sources}
+          setIsLeadDialogOpen={setIsLeadDialogOpen}
+          setStageForm={setStageForm}
+          setIsStageDialogOpen={setIsStageDialogOpen}
+          handleDragEnd={handleDragEnd}
+          getLeadsByStage={getLeadsByStage}
+          getPriorityColor={getPriorityColor}
+          setSelectedLead={setSelectedLead}
+          fetchLeadDetails={fetchLeadDetails}
+        />
+      )}
 
       <LeadDetailsDialog 
         selectedLead={selectedLead}

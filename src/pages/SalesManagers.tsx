@@ -7,6 +7,7 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 const SalesManagers = () => {
   const { toast } = useToast();
@@ -28,6 +29,8 @@ const SalesManagers = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'sales_managers_contact' });
     
     try {
       const leadData = {
@@ -57,6 +60,8 @@ const SalesManagers = () => {
         .then(res => res.json())
         .then(data => console.log('Telegram response:', data))
         .catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'sales_managers_contact_form' });
       
       toast({ title: 'Заявка отправлена! 🎯', description: 'Ваш персональный менеджер свяжется с вами в течение 1 часа' });
       setFormData({ name: '', phone: '' });

@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -18,6 +19,8 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
   const handleConsultSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsConsultSubmitting(true);
+
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'consultation' });
     
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
@@ -47,6 +50,8 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         .then(res => res.json())
         .then(data => console.log('Telegram response:', data))
         .catch(err => console.error('Telegram notification failed:', err));
+
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'consultation_modal' });
       
       toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
       setConsultForm({ name: '', phone: '' });
