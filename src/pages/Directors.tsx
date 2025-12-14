@@ -32,7 +32,7 @@ const Directors = () => {
 
     sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: 'directors_contact', page: 'directors' });
     
-    try;
+    try {
       const leadData = {
         name: formData.name,
         phone: formData.phone,
