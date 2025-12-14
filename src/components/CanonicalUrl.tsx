@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
+declare global {
+  interface Window {
+    ym?: (id: number, method: string, url: string) => void;
+  }
+}
+
 const CanonicalUrl = () => {
   const location = useLocation();
 
@@ -16,6 +22,10 @@ const CanonicalUrl = () => {
     }
     
     link.href = canonicalUrl;
+
+    if (window.ym) {
+      window.ym(105720131, 'hit', window.location.href);
+    }
   }, [location]);
 
   return null;
