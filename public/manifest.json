@@ -1,0 +1,23 @@
+{
+  "name": "1-Day HR - AI подбор персонала",
+  "short_name": "1-Day HR",
+  "description": "Первое HR агентство с AI-подбором",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "https://cdn.poehali.dev/projects/6101e03d-94a3-4421-8a60-a2976f31574c/files/0ae70dd6-2e76-485a-a50b-b55a3a15d33e.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.poehali.dev/projects/6101e03d-94a3-4421-8a60-a2976f31574c/files/0ae70dd6-2e76-485a-a50b-b55a3a15d33e.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
