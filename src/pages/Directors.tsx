@@ -155,6 +155,16 @@ const Directors = () => {
                 </Card>
               ))}
             </div>
+            <div className="flex justify-center">
+              <Button 
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                size="lg"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-lg px-8 py-6 h-auto hover:scale-105 transition-all shadow-lg shadow-indigo-600/50"
+              >
+                <Icon name="Rocket" className="mr-2" size={24} />
+                Подобрать сотрудника
+              </Button>
+            </div>
           </div>
         </div>
       </section>

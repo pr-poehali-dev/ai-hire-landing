@@ -155,6 +155,17 @@ const MarketplaceManagers = () => {
                 </Card>
               ))}
             </div>
+
+            <div className="flex justify-center">
+              <Button 
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                size="lg"
+                className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-lg px-8 py-6 h-auto hover:scale-105 transition-all shadow-lg shadow-orange-500/50"
+              >
+                <Icon name="Rocket" className="mr-2" size={24} />
+                Подобрать сотрудника
+              </Button>
+            </div>
           </div>
         </div>
       </section>
