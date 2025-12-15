@@ -381,6 +381,11 @@ const Index = () => {
 
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
+          <img 
+            src="https://cdn.poehali.dev/files/ФОТО HR.jpg" 
+            alt="HR Team" 
+            className="absolute inset-0 w-full h-full object-cover opacity-80"
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
           
           <svg className="hidden md:block absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
