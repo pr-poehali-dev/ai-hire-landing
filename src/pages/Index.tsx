@@ -124,8 +124,8 @@ const Index = () => {
 
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source });
       
-      toast({ title: 'Заявка отправлена! 🚀', description: 'Мы свяжемся с вами в течение 2 часов' });
       setFormData({ name: '', phone: '' });
+      navigate('/thank-you');
     } catch (error) {
       toast({ 
         title: 'Ошибка отправки', 

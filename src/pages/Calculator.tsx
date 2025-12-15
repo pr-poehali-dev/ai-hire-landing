@@ -76,11 +76,8 @@ const Calculator = () => {
 
         sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'calculator' });
 
-        toast({ 
-          title: 'Заявка отправлена! 🚀', 
-          description: 'Мы свяжемся с вами в течение 30 минут' 
-        });
         setFormData({ name: '', phone: '', company: '', vacancy: '' });
+        navigate('/thank-you');
       } else {
         throw new Error(data.error || 'Ошибка отправки');
       }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +15,7 @@ interface VacancyAnalysisModalProps {
 
 const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -58,13 +60,9 @@ const VacancyAnalysisModal = ({ isOpen, onClose }: VacancyAnalysisModalProps) =>
       sendMetrikaGoal(metrikaGoals.VACANCY_VIEW);
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'vacancy_analysis_popup' });
       
-      toast({ 
-        title: 'Заявка отправлена! 🎯', 
-        description: 'Мы проанализируем вашу вакансию и свяжемся с вами в течение 2 часов' 
-      });
-      
       setFormData({ name: '', phone: '' });
       onClose();
+      navigate('/thank-you');
     } catch (error) {
       toast({ 
         title: 'Ошибка отправки', 

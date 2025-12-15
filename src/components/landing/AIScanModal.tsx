@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
+import { useNavigate } from 'react-router-dom';
 
 interface AIScanModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ interface AIScanModalProps {
 
 const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phone: ''
@@ -57,13 +59,9 @@ const AIScanModal = ({ isOpen, onClose, source = 'ai_scan_popup' }: AIScanModalP
 
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: source });
 
-      toast({
-        title: '🎯 AI-сканирование запланировано!',
-        description: 'Мы свяжемся с вами в течение 1 часа для проведения анализа'
-      });
-
       setFormData({ name: '', phone: '' });
       onClose();
+      navigate('/thank-you');
     } catch (error) {
       toast({
         title: 'Ошибка отправки',

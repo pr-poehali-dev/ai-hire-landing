@@ -5,12 +5,13 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
 import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
 
 const Directors = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
@@ -59,8 +60,8 @@ const Directors = () => {
 
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'directors_contact_form' });
       
-      toast({ title: 'Заявка отправлена! 👔', description: 'Эксперт по executive поиску свяжется с вами лично' });
       setFormData({ name: '', phone: '' });
+      navigate('/thank-you');
     } catch (error) {
       toast({ 
         title: 'Ошибка отправки', 

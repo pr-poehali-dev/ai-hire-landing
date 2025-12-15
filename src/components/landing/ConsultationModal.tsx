@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -13,6 +14,7 @@ interface ConsultationModalProps {
 
 const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [consultForm, setConsultForm] = useState({ name: '', phone: '' });
   const [isConsultSubmitting, setIsConsultSubmitting] = useState(false);
 
@@ -53,9 +55,9 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
 
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: 'consultation_modal' });
       
-      toast({ title: 'Консультация заказана! 🎉', description: 'Мы позвоним вам в течение 30 минут' });
       setConsultForm({ name: '', phone: '' });
       onClose();
+      navigate('/thank-you');
     } catch (error) {
       toast({ 
         title: 'Ошибка отправки', 
