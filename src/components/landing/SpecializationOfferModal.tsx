@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -95,6 +96,7 @@ const offers = {
 
 const SpecializationOfferModal = ({ isOpen, onClose, specialization }: SpecializationOfferModalProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const offer = offers[specialization];
@@ -132,13 +134,9 @@ const SpecializationOfferModal = ({ isOpen, onClose, specialization }: Specializ
 
       sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source: `${specialization}_offer_popup` });
 
-      toast({
-        title: '🎁 Спецпредложение активировано!',
-        description: 'Менеджер свяжется с вами в течение 30 минут'
-      });
-
       setFormData({ name: '', phone: '' });
       onClose();
+      navigate('/thank-you');
     } catch (error) {
       toast({
         title: 'Ошибка отправки',

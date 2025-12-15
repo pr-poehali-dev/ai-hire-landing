@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -22,6 +22,7 @@ import {
 
 const Index = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [stats, setStats] = useState({ totalClosed: 1258, inProgress: 4 });
   const [isAnalyzing, setIsAnalyzing] = useState(false);
