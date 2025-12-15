@@ -386,7 +386,7 @@ const Index = () => {
             alt="HR Team" 
             className="absolute inset-0 w-full h-full object-cover opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/8 to-primary/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-primary/30"></div>
           
           <svg className="hidden md:block absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
             <defs>
