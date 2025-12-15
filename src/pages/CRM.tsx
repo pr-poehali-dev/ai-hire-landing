@@ -110,6 +110,10 @@ const CRM = () => {
   const [isMangoSettingsOpen, setIsMangoSettingsOpen] = useState(false);
   const [isTestingMango, setIsTestingMango] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [selectedLeadIds, setSelectedLeadIds] = useState<Set<number>>(new Set());
+  const [isBulkActionsVisible, setIsBulkActionsVisible] = useState(false);
+  const [selectedLeadIds, setSelectedLeadIds] = useState<Set<number>>(new Set());
+  const [isBulkActionsVisible, setIsBulkActionsVisible] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
@@ -448,6 +452,66 @@ const CRM = () => {
     }
   };
 
+  const toggleLeadSelection = (leadId: number) => {
+    const newSelection = new Set(selectedLeadIds);
+    if (newSelection.has(leadId)) {
+      newSelection.delete(leadId);
+    } else {
+      newSelection.add(leadId);
+    }
+    setSelectedLeadIds(newSelection);
+    setIsBulkActionsVisible(newSelection.size > 0);
+  };
+
+  const selectAllLeads = () => {
+    const allLeadIds = getFilteredLeads().map(lead => lead.id);
+    setSelectedLeadIds(new Set(allLeadIds));
+    setIsBulkActionsVisible(true);
+  };
+
+  const clearSelection = () => {
+    setSelectedLeadIds(new Set());
+    setIsBulkActionsVisible(false);
+  };
+
+  const bulkDeleteLeads = async () => {
+    if (!confirm(`Удалить выбранные лиды (${selectedLeadIds.size})?`)) return;
+
+    try {
+      const deletePromises = Array.from(selectedLeadIds).map(id =>
+        fetch(`https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6/${id}`, {
+          method: 'DELETE'
+        })
+      );
+
+      await Promise.all(deletePromises);
+      toast({ title: `${selectedLeadIds.size} лидов удалено` });
+      clearSelection();
+      fetchLeads();
+    } catch (error) {
+      toast({ title: 'Ошибка при удалении', variant: 'destructive' });
+    }
+  };
+
+  const bulkMoveLeads = async (targetStageId: number) => {
+    try {
+      const updatePromises = Array.from(selectedLeadIds).map(id =>
+        fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, stage_id: targetStageId })
+        })
+      );
+
+      await Promise.all(updatePromises);
+      toast({ title: `${selectedLeadIds.size} лидов перемещено` });
+      clearSelection();
+      fetchLeads();
+    } catch (error) {
+      toast({ title: 'Ошибка при перемещении', variant: 'destructive' });
+    }
+  };
+
   const exportToExcel = async () => {
     setIsExporting(true);
     try {
@@ -601,6 +665,13 @@ const CRM = () => {
           getPriorityColor={getPriorityColor}
           setSelectedLead={setSelectedLead}
           fetchLeadDetails={fetchLeadDetails}
+          selectedLeadIds={selectedLeadIds}
+          toggleLeadSelection={toggleLeadSelection}
+          selectAllLeads={selectAllLeads}
+          clearSelection={clearSelection}
+          bulkDeleteLeads={bulkDeleteLeads}
+          bulkMoveLeads={bulkMoveLeads}
+          isBulkActionsVisible={isBulkActionsVisible}
         />
       )}
 

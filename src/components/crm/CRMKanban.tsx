@@ -45,6 +45,13 @@ interface CRMKanbanProps {
   getPriorityColor: (priority: string) => string;
   setSelectedLead: (lead: Lead) => void;
   fetchLeadDetails: (leadId: number) => void;
+  selectedLeadIds: Set<number>;
+  toggleLeadSelection: (leadId: number) => void;
+  selectAllLeads: () => void;
+  clearSelection: () => void;
+  bulkDeleteLeads: () => void;
+  bulkMoveLeads: (stageId: number) => void;
+  isBulkActionsVisible: boolean;
 }
 
 const CRMKanban = ({
@@ -64,7 +71,14 @@ const CRMKanban = ({
   getLeadsByStage,
   getPriorityColor,
   setSelectedLead,
-  fetchLeadDetails
+  fetchLeadDetails,
+  selectedLeadIds,
+  toggleLeadSelection,
+  selectAllLeads,
+  clearSelection,
+  bulkDeleteLeads,
+  bulkMoveLeads,
+  isBulkActionsVisible
 }: CRMKanbanProps) => {
   return (
     <section className="pt-28 pb-20">
@@ -107,6 +121,33 @@ const CRMKanban = ({
           </div>
 
           <div className="flex gap-2">
+            {isBulkActionsVisible && (
+              <div className="flex items-center gap-2 mr-4 p-2 glass rounded-lg">
+                <span className="text-sm font-medium">{selectedLeadIds.size} выбрано</span>
+                <Select onValueChange={(value) => bulkMoveLeads(parseInt(value))}>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Переместить в..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {stages.map(stage => (
+                      <SelectItem key={stage.id} value={String(stage.id)}>
+                        {stage.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button variant="destructive" size="sm" onClick={bulkDeleteLeads}>
+                  <Icon name="Trash2" size={16} className="mr-1" />
+                  Удалить
+                </Button>
+                <Button variant="ghost" size="sm" onClick={clearSelection}>
+                  Отменить
+                </Button>
+              </div>
+            )}
+            <Button variant="outline" size="sm" onClick={selectAllLeads}>
+              Выбрать всё
+            </Button>
             <Button onClick={() => setIsLeadDialogOpen(true)} className="neon-glow">
               <Icon name="Plus" size={18} className="mr-2" />
               Новый лид
@@ -164,13 +205,31 @@ const CRMKanban = ({
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className="glass p-3 hover:neon-glow transition-all cursor-pointer"
-                                  onClick={() => {
-                                    setSelectedLead(lead);
-                                    fetchLeadDetails(lead.id);
-                                  }}
+                                  className={`glass p-3 hover:neon-glow transition-all cursor-pointer relative ${
+                                    selectedLeadIds.has(lead.id) ? 'ring-2 ring-primary' : ''
+                                  }`}
                                 >
-                                  <div className="space-y-2">
+                                  <div 
+                                    className="absolute top-2 left-2 z-10"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleLeadSelection(lead.id);
+                                    }}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedLeadIds.has(lead.id)}
+                                      onChange={() => {}} 
+                                      className="w-4 h-4 cursor-pointer"
+                                    />
+                                  </div>
+                                  <div 
+                                    className="space-y-2 ml-6"
+                                    onClick={() => {
+                                      setSelectedLead(lead);
+                                      fetchLeadDetails(lead.id);
+                                    }}
+                                  >
                                     <div className="flex items-start justify-between">
                                       <h4 className="font-bold text-sm">{lead.name}</h4>
                                       <Badge className={getPriorityColor(lead.priority)} style={{ fontSize: '9px', padding: '2px 6px' }}>
