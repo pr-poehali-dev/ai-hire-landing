@@ -11,12 +11,13 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     GET /leads?id=123 - получить конкретный лид с деталями
     POST /leads - создать лид
     PATCH /leads - обновить лид или изменить этап
+    DELETE /leads/:id - удалить лид
     POST /stages - создать этап
     PATCH /stages - обновить этап
     DELETE /stages/:id - удалить этап
     '''
     method: str = event.get('httpMethod', 'GET')
-    path: str = event.get('path', '')
+    path: str = event.get('requestContext', {}).get('http', {}).get('path', event.get('path', ''))
     
     if method == 'OPTIONS':
         return {
@@ -247,6 +248,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
         
         elif method == 'DELETE':
+            params = event.get('queryStringParameters') or {}
+            
             if 'stages' in path:
                 stage_id = path.split('/')[-1]
                 
@@ -266,7 +269,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'isBase64Encoded': False
                 }
             else:
-                lead_id = path.split('/')[-1]
+                lead_id = params.get('id')
                 
                 if not lead_id or not lead_id.isdigit():
                     return {

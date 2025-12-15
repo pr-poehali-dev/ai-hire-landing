@@ -522,7 +522,7 @@ const CRM = () => {
 
     try {
       const deletePromises = Array.from(selectedLeadIds).map(id =>
-        fetch(`https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6/${id}`, {
+        fetch(`https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6?id=${id}`, {
           method: 'DELETE'
         })
       );
@@ -532,6 +532,7 @@ const CRM = () => {
       clearSelection();
       fetchLeads();
     } catch (error) {
+      console.error('Bulk delete error:', error);
       toast({ title: 'Ошибка при удалении', variant: 'destructive' });
     }
   };
