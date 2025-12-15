@@ -112,8 +112,6 @@ const CRM = () => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [selectedLeadIds, setSelectedLeadIds] = useState<Set<number>>(new Set());
   const [isBulkActionsVisible, setIsBulkActionsVisible] = useState(false);
-  const [selectedLeadIds, setSelectedLeadIds] = useState<Set<number>>(new Set());
-  const [isBulkActionsVisible, setIsBulkActionsVisible] = useState(false);
   
   const [leadForm, setLeadForm] = useState({
     name: '',
