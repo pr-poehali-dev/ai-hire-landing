@@ -450,6 +450,51 @@ const CRM = () => {
     }
   };
 
+  const exportToExcel = async () => {
+    setIsExporting(true);
+    try {
+      const params = new URLSearchParams({ format: 'excel' });
+      
+      if (filterPriority !== 'all') params.append('priority', filterPriority);
+      if (filterSource !== 'all') params.append('source', filterSource);
+      
+      const response = await fetch(`https://functions.poehali.dev/f9015ccd-0c31-47ee-be4f-f5c16ba760f6?${params}`);
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `leads_export_${new Date().toISOString().split('T')[0]}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        toast({ title: 'Экспорт завершен!' });
+      }
+    } catch (error) {
+      toast({ title: 'Ошибка экспорта', variant: 'destructive' });
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const filteredLeads = leads.filter(lead => {
+    const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lead.company?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesPriority = filterPriority === 'all' || lead.priority === filterPriority;
+    const matchesSource = filterSource === 'all' || lead.source === filterSource;
+    
+    return matchesSearch && matchesPriority && matchesSource;
+  });
+
+  const getLeadsByStage = (stageId: number) => {
+    return filteredLeads.filter(lead => lead.stage_id === stageId);
+  };
+
   const toggleLeadSelection = (leadId: number) => {
     const newSelection = new Set(selectedLeadIds);
     if (newSelection.has(leadId)) {
@@ -462,7 +507,7 @@ const CRM = () => {
   };
 
   const selectAllLeads = () => {
-    const allLeadIds = getFilteredLeads().map(lead => lead.id);
+    const allLeadIds = filteredLeads.map(lead => lead.id);
     setSelectedLeadIds(new Set(allLeadIds));
     setIsBulkActionsVisible(true);
   };
@@ -508,51 +553,6 @@ const CRM = () => {
     } catch (error) {
       toast({ title: 'Ошибка при перемещении', variant: 'destructive' });
     }
-  };
-
-  const exportToExcel = async () => {
-    setIsExporting(true);
-    try {
-      const params = new URLSearchParams({ format: 'excel' });
-      
-      if (filterPriority !== 'all') params.append('priority', filterPriority);
-      if (filterSource !== 'all') params.append('source', filterSource);
-      
-      const response = await fetch(`https://functions.poehali.dev/f9015ccd-0c31-47ee-be4f-f5c16ba760f6?${params}`);
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `leads_export_${new Date().toISOString().split('T')[0]}.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        toast({ title: 'Экспорт завершен!' });
-      }
-    } catch (error) {
-      toast({ title: 'Ошибка экспорта', variant: 'destructive' });
-    } finally {
-      setIsExporting(false);
-    }
-  };
-
-  const filteredLeads = leads.filter(lead => {
-    const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      lead.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      lead.company?.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesPriority = filterPriority === 'all' || lead.priority === filterPriority;
-    const matchesSource = filterSource === 'all' || lead.source === filterSource;
-    
-    return matchesSearch && matchesPriority && matchesSource;
-  });
-
-  const getLeadsByStage = (stageId: number) => {
-    return filteredLeads.filter(lead => lead.stage_id === stageId);
   };
 
   const getPriorityColor = (priority: string) => {
