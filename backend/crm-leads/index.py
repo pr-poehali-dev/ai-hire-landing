@@ -265,6 +265,29 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     'body': json.dumps({'success': True}),
                     'isBase64Encoded': False
                 }
+            else:
+                lead_id = path.split('/')[-1]
+                
+                if not lead_id or not lead_id.isdigit():
+                    return {
+                        'statusCode': 400,
+                        'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                        'body': json.dumps({'success': False, 'error': 'Valid lead ID required'}),
+                        'isBase64Encoded': False
+                    }
+                
+                cursor.execute('DELETE FROM lead_tasks WHERE lead_id = %s', (lead_id,))
+                cursor.execute('DELETE FROM lead_comments WHERE lead_id = %s', (lead_id,))
+                cursor.execute('DELETE FROM lead_calls WHERE lead_id = %s', (lead_id,))
+                cursor.execute('DELETE FROM lead_data WHERE id = %s', (lead_id,))
+                conn.commit()
+                
+                return {
+                    'statusCode': 200,
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+                    'body': json.dumps({'success': True}),
+                    'isBase64Encoded': False
+                }
         
         return {
             'statusCode': 405,
