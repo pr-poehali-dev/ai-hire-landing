@@ -73,20 +73,20 @@ export default function DiagnosticSession() {
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white">
       {/* Header */}
       <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigate('/')}
-              className="hover:bg-white/10"
+              className="hover:bg-white/10 flex-shrink-0"
             >
               <Icon name="ArrowLeft" size={20} />
             </Button>
-            <h1 className="text-xl md:text-2xl font-bold">Стратегическая диагностика</h1>
+            <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold truncate">Стратегическая диагностика</h1>
           </div>
-          <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-            <Icon name="Gift" className="mr-1" size={14} />
+          <Badge className="bg-green-500/20 text-green-300 border-green-500/30 flex-shrink-0 text-xs md:text-sm">
+            <Icon name="Gift" className="mr-1" size={12} />
             Бесплатно
           </Badge>
         </div>
@@ -95,45 +95,66 @@ export default function DiagnosticSession() {
       <div className="pt-24 pb-12 px-4">
         <div className="container mx-auto max-w-6xl">
           {/* Hero Section */}
-          <section className="text-center mb-16 animate-in fade-in duration-500">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-6 animate-pulse">
-              <Icon name="Brain" size={48} />
-            </div>
-            <h2 className="text-4xl md:text-6xl font-black mb-6">
-              Не нанимайте сотрудника,
-              <br />
-              <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
-                пока не узнаете корень проблемы
-              </span>
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              90% компаний нанимают не того специалиста, потому что решают симптом, а не проблему. 
-              Бесплатная диагностическая сессия покажет, что действительно нужно вашему бизнесу.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-6 py-3 text-base">
-                <Icon name="Clock" className="mr-2" size={18} />
-                50 минут
-              </Badge>
-              <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-6 py-3 text-base">
-                <Icon name="Video" className="mr-2" size={18} />
-                Zoom-сессия
-              </Badge>
-              <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-6 py-3 text-base">
-                <Icon name="FileText" className="mr-2" size={18} />
-                Отчёт + план
-              </Badge>
+          <section className="mb-12 md:mb-16">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="text-center lg:text-left order-2 lg:order-1">
+                <div className="inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 md:mb-6 animate-pulse lg:hidden">
+                  <Icon name="Brain" size={40} className="md:hidden" />
+                  <Icon name="Brain" size={48} className="hidden md:block" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight">
+                  Не нанимайте сотрудника,
+                  <br className="hidden sm:block" />
+                  <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
+                    пока не узнаете корень проблемы
+                  </span>
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 md:mb-8 leading-relaxed">
+                  90% компаний нанимают не того специалиста, потому что решают симптом, а не проблему. 
+                  Бесплатная диагностическая сессия покажет, что действительно нужно вашему бизнесу.
+                </p>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
+                  <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                    <Icon name="Clock" className="mr-1 md:mr-2" size={16} />
+                    50 минут
+                  </Badge>
+                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                    <Icon name="Video" className="mr-1 md:mr-2" size={16} />
+                    Zoom-сессия
+                  </Badge>
+                  <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                    <Icon name="FileText" className="mr-1 md:mr-2" size={16} />
+                    Отчёт + план
+                  </Badge>
+                </div>
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-xl border border-white/10">
+                  <img 
+                    src="https://cdn.poehali.dev/projects/6101e03d-94a3-4421-8a60-a2976f31574c/files/b26daba4-43e5-49f4-86ca-c4c474913a72.jpg"
+                    alt="Диагностика бизнес-процессов"
+                    className="w-full h-full object-cover animate-pulse"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2 text-white">
+                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                      <span className="text-sm font-medium">Анализ в реальном времени</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* Problem Statement */}
-          <section className="mb-16">
-            <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 backdrop-blur-xl border-red-500/30 p-8">
-              <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                <Icon name="AlertTriangle" className="text-red-400" size={32} />
-                Типичные ошибки при найме
+          <section className="mb-12 md:mb-16">
+            <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 backdrop-blur-xl border-red-500/30 p-4 sm:p-6 md:p-8">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
+                <Icon name="AlertTriangle" className="text-red-400 flex-shrink-0" size={24} />
+                <span>Типичные ошибки при найме</span>
               </h3>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                 {[
                   {
                     icon: 'x-circle',
@@ -160,20 +181,20 @@ export default function DiagnosticSession() {
                     stat: '61%'
                   }
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 bg-black/30 rounded-lg p-4">
+                  <div key={i} className="flex gap-3 md:gap-4 bg-black/30 rounded-lg p-3 md:p-4">
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
-                        <Icon name={item.icon as any} className="text-red-400" size={24} />
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                        <Icon name={item.icon as any} className="text-red-400" size={20} />
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-bold text-lg">{item.title}</h4>
-                        <Badge className="bg-red-500/20 text-red-300 border-red-500/30">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h4 className="font-bold text-sm sm:text-base lg:text-lg leading-tight">{item.title}</h4>
+                        <Badge className="bg-red-500/20 text-red-300 border-red-500/30 text-xs flex-shrink-0">
                           {item.stat}
                         </Badge>
                       </div>
-                      <p className="text-gray-400">{item.desc}</p>
+                      <p className="text-gray-400 text-xs sm:text-sm">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -182,17 +203,17 @@ export default function DiagnosticSession() {
           </section>
 
           {/* What You Get */}
-          <section className="mb-16">
-            <div className="text-center mb-12">
-              <h3 className="text-4xl md:text-5xl font-black mb-4">
+          <section className="mb-12 md:mb-16">
+            <div className="text-center mb-8 md:mb-12">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 md:mb-4 leading-tight">
                 Что вы получите от диагностики
               </h3>
-              <p className="text-xl text-gray-300">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300">
                 Не просто список кандидатов, а стратегическое решение
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
               {[
                 {
                   icon: 'search',
@@ -228,17 +249,18 @@ export default function DiagnosticSession() {
                   ]
                 }
               ].map((item, i) => (
-                <Card key={i} className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border-white/20 p-8 hover:scale-105 transition-all">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-6`}>
-                    <Icon name={item.icon as any} size={32} />
+                <Card key={i} className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border-white/20 p-4 sm:p-6 md:p-8 hover:scale-105 transition-all">
+                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 md:mb-6`}>
+                    <Icon name={item.icon as any} size={24} className="md:hidden" />
+                    <Icon name={item.icon as any} size={32} className="hidden md:block" />
                   </div>
-                  <h4 className="text-2xl font-bold mb-3">{item.title}</h4>
-                  <p className="text-gray-300 mb-6">{item.desc}</p>
-                  <ul className="space-y-3">
+                  <h4 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 md:mb-3">{item.title}</h4>
+                  <p className="text-gray-300 mb-4 md:mb-6 text-sm md:text-base">{item.desc}</p>
+                  <ul className="space-y-2 md:space-y-3">
                     {item.items.map((bullet, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Icon name="check-circle" className="text-green-400 flex-shrink-0 mt-1" size={18} />
-                        <span className="text-sm text-gray-400">{bullet}</span>
+                        <Icon name="check-circle" className="text-green-400 flex-shrink-0 mt-0.5 md:mt-1" size={16} />
+                        <span className="text-xs sm:text-sm text-gray-400">{bullet}</span>
                       </li>
                     ))}
                   </ul>
@@ -248,17 +270,17 @@ export default function DiagnosticSession() {
           </section>
 
           {/* Process */}
-          <section className="mb-16">
-            <div className="text-center mb-12">
-              <h3 className="text-4xl md:text-5xl font-black mb-4">
+          <section className="mb-12 md:mb-16">
+            <div className="text-center mb-8 md:mb-12">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 md:mb-4">
                 Как проходит сессия
               </h3>
-              <p className="text-xl text-gray-300">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300">
                 Структурированный процесс за 50 минут
               </p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {[
                 {
                   step: '1',
@@ -289,28 +311,28 @@ export default function DiagnosticSession() {
                   icon: 'calendar-check'
                 }
               ].map((item, i) => (
-                <Card key={i} className="relative bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-xl border-purple-500/30 p-6 hover:scale-105 transition-all">
-                  <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center font-black text-2xl shadow-lg">
+                <Card key={i} className="relative bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-xl border-purple-500/30 p-4 sm:p-6 hover:scale-105 transition-all">
+                  <div className="absolute -top-3 -right-3 w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center font-black text-xl md:text-2xl shadow-lg">
                     {item.step}
                   </div>
-                  <Badge className="mb-4 bg-green-500/20 text-green-300 border-green-500/30">
+                  <Badge className="mb-3 md:mb-4 bg-green-500/20 text-green-300 border-green-500/30 text-xs md:text-sm">
                     ⏱ {item.time}
                   </Badge>
-                  <Icon name={item.icon as any} className="w-12 h-12 mb-4 text-purple-400" />
-                  <h4 className="text-xl font-bold mb-3">{item.title}</h4>
-                  <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                  <Icon name={item.icon as any} className="w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4 text-purple-400" />
+                  <h4 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3">{item.title}</h4>
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
                 </Card>
               ))}
             </div>
           </section>
 
           {/* Real Results */}
-          <section className="mb-16">
-            <Card className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-xl border-blue-500/30 p-8">
-              <h3 className="text-3xl font-bold mb-8 text-center">
+          <section className="mb-12 md:mb-16">
+            <Card className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-xl border-blue-500/30 p-4 sm:p-6 md:p-8">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-center">
                 Реальные результаты диагностики
               </h3>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {[
                   {
                     company: 'E-commerce стартап',
@@ -337,19 +359,19 @@ export default function DiagnosticSession() {
                     saved: '540K₽'
                   }
                 ].map((item, i) => (
-                  <div key={i} className="bg-black/30 rounded-lg p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                        <Icon name={item.icon as any} size={24} />
+                  <div key={i} className="bg-black/30 rounded-lg p-4 md:p-6">
+                    <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <Icon name={item.icon as any} size={20} />
                       </div>
-                      <div>
-                        <div className="font-bold">{item.company}</div>
-                        <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                      <div className="min-w-0">
+                        <div className="font-bold text-sm md:text-base truncate">{item.company}</div>
+                        <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs">
                           {item.saved}
                         </Badge>
                       </div>
                     </div>
-                    <div className="space-y-3 text-sm">
+                    <div className="space-y-2 md:space-y-3 text-xs sm:text-sm">
                       <div>
                         <div className="text-red-400 font-semibold mb-1">❌ Запрос:</div>
                         <div className="text-gray-400">{item.problem}</div>
@@ -371,24 +393,24 @@ export default function DiagnosticSession() {
 
           {/* CTA Form */}
           <section id="booking-form">
-            <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 backdrop-blur-xl border-purple-500/30 p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h3 className="text-4xl md:text-5xl font-black mb-4">
+            <Card className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 backdrop-blur-xl border-purple-500/30 p-4 sm:p-6 md:p-8 lg:p-12">
+              <div className="text-center mb-6 md:mb-8">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4">
                   Запишитесь на бесплатную сессию
                 </h3>
-                <p className="text-xl text-gray-300 mb-6">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-4 md:mb-6">
                   Узнайте, что реально нужно вашему бизнесу — найм или другое решение
                 </p>
-                <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 rounded-full px-6 py-3">
-                  <Icon name="shield-check" className="text-green-400" size={20} />
-                  <span className="text-green-300 font-semibold">
-                    Гарантия конфиденциальности — данные не передаются третьим лицам
+                <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-2 md:px-6 md:py-3 max-w-full">
+                  <Icon name="shield-check" className="text-green-400 flex-shrink-0" size={18} />
+                  <span className="text-green-300 font-semibold text-xs sm:text-sm md:text-base">
+                    Гарантия конфиденциальности
                   </span>
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4 md:space-y-6">
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">Ваше имя *</label>
                     <Input
@@ -440,22 +462,22 @@ export default function DiagnosticSession() {
                   type="submit"
                   disabled={isSubmitting}
                   size="lg"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-xl py-8"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-base sm:text-lg md:text-xl py-6 md:py-8"
                 >
                   {isSubmitting ? (
                     <>
-                      <Icon name="Loader2" className="mr-2 animate-spin" size={24} />
+                      <Icon name="Loader2" className="mr-2 animate-spin" size={20} />
                       Отправка...
                     </>
                   ) : (
                     <>
-                      <Icon name="Calendar" className="mr-2" size={24} />
+                      <Icon name="Calendar" className="mr-2" size={20} />
                       Записаться на диагностику
                     </>
                   )}
                 </Button>
 
-                <p className="text-center text-sm text-gray-400">
+                <p className="text-center text-xs sm:text-sm text-gray-400">
                   После отправки мы свяжемся с вами в течение 2 часов для согласования времени сессии
                 </p>
               </form>
@@ -463,33 +485,33 @@ export default function DiagnosticSession() {
           </section>
 
           {/* Why Free */}
-          <section className="mt-16">
-            <Card className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-xl border-gray-700/30 p-8">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold mb-4 flex items-center justify-center gap-3">
-                  <Icon name="help-circle" className="text-purple-400" size={28} />
-                  Почему это бесплатно?
+          <section className="mt-12 md:mt-16">
+            <Card className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-xl border-gray-700/30 p-4 sm:p-6 md:p-8">
+              <div className="text-center mb-4 md:mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 md:mb-4 flex items-center justify-center gap-2 md:gap-3">
+                  <Icon name="help-circle" className="text-purple-400 flex-shrink-0" size={24} />
+                  <span>Почему это бесплатно?</span>
                 </h3>
               </div>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div className="grid sm:grid-cols-3 gap-4 md:gap-6 text-center">
                 <div>
-                  <Icon name="handshake" className="w-12 h-12 mx-auto mb-3 text-blue-400" />
-                  <h4 className="font-bold mb-2">Строим доверие</h4>
-                  <p className="text-sm text-gray-400">
+                  <Icon name="handshake" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-blue-400" />
+                  <h4 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Строим доверие</h4>
+                  <p className="text-xs sm:text-sm text-gray-400">
                     Показываем экспертизу до оплаты. Если поймёте ценность — продолжим работать
                   </p>
                 </div>
                 <div>
-                  <Icon name="filter" className="w-12 h-12 mx-auto mb-3 text-purple-400" />
-                  <h4 className="font-bold mb-2">Фильтруем задачи</h4>
-                  <p className="text-sm text-gray-400">
+                  <Icon name="filter" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-purple-400" />
+                  <h4 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Фильтруем задачи</h4>
+                  <p className="text-xs sm:text-sm text-gray-400">
                     Не все запросы требуют найма. Честно говорим, если есть другое решение
                   </p>
                 </div>
                 <div>
-                  <Icon name="target" className="w-12 h-12 mx-auto mb-3 text-green-400" />
-                  <h4 className="font-bold mb-2">Ищем Win-Win</h4>
-                  <p className="text-sm text-gray-400">
+                  <Icon name="target" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-green-400" />
+                  <h4 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Ищем Win-Win</h4>
+                  <p className="text-xs sm:text-sm text-gray-400">
                     Работаем только с задачами, где уверены в результате. Так все довольны
                   </p>
                 </div>
