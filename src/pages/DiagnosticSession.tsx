@@ -19,35 +19,35 @@ export default function DiagnosticSession() {
     {
       title: 'Фрейминг проблемы',
       description: 'Определяем истинную цель и контекст бизнеса',
-      icon: 'target',
+      icon: 'focus',
       color: 'from-blue-500 to-cyan-500',
       progress: 0
     },
     {
       title: 'Анализ симптомов',
       description: 'Выявляем видимые признаки и их влияние на бизнес',
-      icon: 'activity',
+      icon: 'stethoscope',
       color: 'from-purple-500 to-pink-500',
       progress: 25
     },
     {
       title: 'Исследование процессов',
       description: 'Разбираем workflow и находим узкие места',
-      icon: 'git-branch',
+      icon: 'workflow',
       color: 'from-orange-500 to-red-500',
       progress: 50
     },
     {
       title: 'Корневая причина',
       description: 'Определяем настоящий источник проблемы',
-      icon: 'search',
+      icon: 'scan-search',
       color: 'from-green-500 to-emerald-500',
       progress: 75
     },
     {
       title: 'Решения и план',
       description: 'Формируем 3+ варианта с прогнозом результатов',
-      icon: 'lightbulb',
+      icon: 'clipboard-check',
       color: 'from-yellow-500 to-amber-500',
       progress: 100
     }
@@ -56,7 +56,7 @@ export default function DiagnosticSession() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % diagnosticSteps.length);
-    }, 3000);
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
