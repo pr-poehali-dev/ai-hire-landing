@@ -295,6 +295,14 @@ const Index = () => {
               </DropdownMenu>
               <button onClick={() => scrollToSection('demo')} className="text-sm hover:text-primary transition-all hover:scale-110">AI Демо</button>
               <Link 
+                to="/diagnostic-session" 
+                className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1"
+                onClick={() => sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'header_diagnostic_session' })}
+              >
+                <Icon name="brain" className="w-4 h-4" />
+                Диагностика
+              </Link>
+              <Link 
                 to="/calculator" 
                 className="text-sm hover:text-primary transition-all hover:scale-110"
                 onClick={() => sendMetrikaGoal(metrikaGoals.CALCULATOR_OPEN, { source: 'header_nav' })}
@@ -353,6 +361,12 @@ const Index = () => {
                     <Link to="/retail-sales" className="flex items-center gap-2">
                       <Icon name="shopping-bag" className="w-4 h-4" />
                       Продавцы-консультанты
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/diagnostic-session" className="flex items-center gap-2">
+                      <Icon name="brain" className="w-4 h-4" />
+                      Бесплатная диагностика
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -501,6 +515,18 @@ const Index = () => {
                   className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2"
                 >
                   🔥 Найти сотрудника
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  onClick={() => {
+                    sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'hero_diagnostic_session' });
+                    navigate('/diagnostic-session');
+                  }} 
+                  className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2 border-green-500/50 text-green-400 hover:border-green-500"
+                >
+                  <Icon name="Brain" className="mr-2" size={24} />
+                  Бесплатная диагностика
                 </Button>
               </div>
               <Button 

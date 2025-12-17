@@ -20,6 +20,7 @@ import Marketers from "./pages/Marketers";
 import Directors from "./pages/Directors";
 import RetailSales from "./pages/RetailSales";
 import ThankYou from "./pages/ThankYou";
+import DiagnosticSession from "./pages/DiagnosticSession";
 import PhoneWidget from "./components/PhoneWidget";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/directors" element={<Directors />} />
           <Route path="/retail-sales" element={<RetailSales />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/diagnostic-session" element={<DiagnosticSession />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
