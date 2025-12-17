@@ -20,15 +20,39 @@ export default function DiagnosticSession() {
 
     try {
       const timestamp = new Date().toLocaleString('ru-RU');
-      const message = `🧠 ЗАЯВКА НА ДИАГНОСТИКУ\n\n👤 Имя: ${formData.name}\n📱 Телефон: ${formData.phone}\n🏢 Компания: ${formData.company}\n❗ Проблема: ${formData.problem}\n⏰ Время: ${timestamp}`;
 
-      await fetch('https://api.telegram.org/bot7801505012:AAGrVPuDHHPZBt8BN0A9EzDzQ8lJLTVvWTs/sendMessage', {
+      const crmResponse = await fetch('https://functions.poehali.dev/19fedd69-26c7-42ad-b2c4-72e66ff282e6', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: '-4577488859',
-          text: message,
-          parse_mode: 'HTML'
+          name: formData.name,
+          phone: formData.phone,
+          company: formData.company,
+          vacancy: 'Стратегическая диагностика',
+          source: 'diagnostic-form',
+          priority: 'high',
+          notes: `Проблема: ${formData.problem}`
+        })
+      });
+
+      const crmData = await crmResponse.json();
+
+      if (!crmData.success) {
+        throw new Error('CRM integration failed');
+      }
+
+      await fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          source: 'Форма диагностики',
+          form_type: 'Стратегическая диагностика',
+          page: window.location.href,
+          timestamp: timestamp,
+          company: formData.company,
+          problem: formData.problem
         })
       });
 

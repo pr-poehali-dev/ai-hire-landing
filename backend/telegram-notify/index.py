@@ -49,16 +49,34 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     source = body_data.get('source', 'Неизвестно')
     form_type = body_data.get('form_type', 'Не указан')
     page = body_data.get('page', 'Не указана')
+    company = body_data.get('company', '')
+    problem = body_data.get('problem', '')
     
-    message = f'''🔔 <b>Новая заявка!</b>
-
-👤 <b>Имя:</b> {name}
-📱 <b>Телефон:</b> {phone}
-📍 <b>Источник:</b> {source}
-📝 <b>Тип формы:</b> {form_type}
-📄 <b>Страница:</b> {page}
-
-⏰ Время: {body_data.get('timestamp', 'сейчас')}'''
+    message_parts = [
+        '🔔 <b>Новая заявка!</b>',
+        '',
+        f'👤 <b>Имя:</b> {name}',
+        f'📱 <b>Телефон:</b> {phone}',
+    ]
+    
+    if company:
+        message_parts.append(f'🏢 <b>Компания:</b> {company}')
+    
+    message_parts.extend([
+        f'📍 <b>Источник:</b> {source}',
+        f'📝 <b>Тип формы:</b> {form_type}',
+    ])
+    
+    if problem:
+        message_parts.append(f'❗ <b>Проблема:</b> {problem}')
+    
+    message_parts.extend([
+        f'📄 <b>Страница:</b> {page}',
+        '',
+        f"⏰ Время: {body_data.get('timestamp', 'сейчас')}"
+    ])
+    
+    message = '\n'.join(message_parts)
     
     print(f"Sending message to Telegram: {message}")
     
@@ -81,7 +99,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 print("Message sent successfully!")
                 return {
                     'statusCode': 200,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
                     'isBase64Encoded': False,
                     'body': json.dumps({'success': True, 'message': 'Notification sent'})
                 }

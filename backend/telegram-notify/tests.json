@@ -8,11 +8,14 @@
         "name": "Иван Петров",
         "phone": "+7 999 123-45-67",
         "source": "Главная страница",
+        "form_type": "Тестовая заявка",
+        "page": "https://test.com",
         "timestamp": "2024-12-10 15:30"
       },
       "expectedStatus": 200,
       "expectedBody": {
-        "success": true
+        "success": true,
+        "message": "Notification sent"
       },
       "bodyMatcher": "partial"
     }
