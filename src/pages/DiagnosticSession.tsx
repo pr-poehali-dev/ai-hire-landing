@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,52 @@ export default function DiagnosticSession() {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ name: '', phone: '', company: '', problem: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const diagnosticSteps = [
+    {
+      title: 'Фрейминг проблемы',
+      description: 'Определяем истинную цель и контекст бизнеса',
+      icon: 'target',
+      color: 'from-blue-500 to-cyan-500',
+      progress: 0
+    },
+    {
+      title: 'Анализ симптомов',
+      description: 'Выявляем видимые признаки и их влияние на бизнес',
+      icon: 'activity',
+      color: 'from-purple-500 to-pink-500',
+      progress: 25
+    },
+    {
+      title: 'Исследование процессов',
+      description: 'Разбираем workflow и находим узкие места',
+      icon: 'git-branch',
+      color: 'from-orange-500 to-red-500',
+      progress: 50
+    },
+    {
+      title: 'Корневая причина',
+      description: 'Определяем настоящий источник проблемы',
+      icon: 'search',
+      color: 'from-green-500 to-emerald-500',
+      progress: 75
+    },
+    {
+      title: 'Решения и план',
+      description: 'Формируем 3+ варианта с прогнозом результатов',
+      icon: 'lightbulb',
+      color: 'from-yellow-500 to-amber-500',
+      progress: 100
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStep((prev) => (prev + 1) % diagnosticSteps.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,53 +142,109 @@ export default function DiagnosticSession() {
         <div className="container mx-auto max-w-6xl">
           {/* Hero Section */}
           <section className="mb-12 md:mb-16">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div className="text-center lg:text-left order-2 lg:order-1">
-                <div className="inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 md:mb-6 animate-pulse lg:hidden">
-                  <Icon name="Brain" size={40} className="md:hidden" />
-                  <Icon name="Brain" size={48} className="hidden md:block" />
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight">
-                  Не нанимайте сотрудника,
-                  <br className="hidden sm:block" />
-                  <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
-                    пока не узнаете корень проблемы
-                  </span>
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 md:mb-8 leading-relaxed">
-                  90% компаний нанимают не того специалиста, потому что решают симптом, а не проблему. 
-                  Бесплатная диагностическая сессия покажет, что действительно нужно вашему бизнесу.
-                </p>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                  <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                    <Icon name="Clock" className="mr-1 md:mr-2" size={16} />
-                    50 минут
-                  </Badge>
-                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                    <Icon name="Video" className="mr-1 md:mr-2" size={16} />
-                    Zoom-сессия
-                  </Badge>
-                  <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                    <Icon name="FileText" className="mr-1 md:mr-2" size={16} />
-                    Отчёт + план
-                  </Badge>
-                </div>
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 md:mb-6 animate-pulse">
+                <Icon name="Brain" size={40} className="md:hidden" />
+                <Icon name="Brain" size={48} className="hidden md:block" />
               </div>
-              <div className="order-1 lg:order-2">
-                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-xl border border-white/10">
-                  <img 
-                    src="https://cdn.poehali.dev/projects/6101e03d-94a3-4421-8a60-a2976f31574c/files/b26daba4-43e5-49f4-86ca-c4c474913a72.jpg"
-                    alt="Диагностика бизнес-процессов"
-                    className="w-full h-full object-cover animate-pulse"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex items-center gap-2 text-white">
-                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                      <span className="text-sm font-medium">Анализ в реальном времени</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight max-w-5xl mx-auto">
+                Не нанимайте сотрудника,{' '}
+                <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
+                  пока не узнаете корень проблемы
+                </span>
+              </h2>
+            </div>
+
+            {/* Interactive Diagnostic Video */}
+            <div className="relative max-w-4xl mx-auto mb-8">
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 border border-white/10 shadow-2xl">
+                {/* Main diagnostic visualization */}
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  {diagnosticSteps.map((step, index) => (
+                    <div
+                      key={index}
+                      className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                        index === currentStep 
+                          ? 'opacity-100 scale-100' 
+                          : index === (currentStep - 1 + diagnosticSteps.length) % diagnosticSteps.length
+                          ? 'opacity-0 scale-95'
+                          : 'opacity-0 scale-105'
+                      }`}
+                    >
+                      <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                        <div className={`w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center mb-6 shadow-lg animate-pulse`}>
+                          <Icon name={step.icon as any} size={48} className="text-white" />
+                        </div>
+                        <h3 className="text-2xl md:text-4xl font-black mb-4 text-white">
+                          {step.title}
+                        </h3>
+                        <p className="text-base md:text-xl text-gray-300 max-w-lg">
+                          {step.description}
+                        </p>
+                      </div>
                     </div>
+                  ))}
+                </div>
+
+                {/* Progress bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-2 bg-gray-800">
+                  <div 
+                    className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-1000 ease-linear"
+                    style={{ width: `${diagnosticSteps[currentStep].progress}%` }}
+                  />
+                </div>
+
+                {/* Video controls UI */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-full px-3 py-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                    <span className="text-xs md:text-sm font-medium text-white">
+                      Этап {currentStep + 1} из {diagnosticSteps.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-full px-3 py-2">
+                    <Icon name="play" size={14} className="text-white" />
+                    <span className="text-xs md:text-sm font-medium text-white">
+                      {((currentStep + 1) * 10)}:00
+                    </span>
                   </div>
                 </div>
+
+                {/* Step indicators */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {diagnosticSteps.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentStep 
+                          ? 'bg-white w-6' 
+                          : 'bg-white/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Description and badges */}
+            <div className="text-center max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                90% компаний нанимают не того специалиста, потому что решают симптом, а не проблему. 
+                Бесплатная диагностическая сессия покажет, что действительно нужно вашему бизнесу.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+                <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                  <Icon name="Clock" className="mr-1 md:mr-2" size={16} />
+                  50 минут
+                </Badge>
+                <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                  <Icon name="Video" className="mr-1 md:mr-2" size={16} />
+                  Zoom-сессия
+                </Badge>
+                <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
+                  <Icon name="FileText" className="mr-1 md:mr-2" size={16} />
+                  Отчёт + план
+                </Badge>
               </div>
             </div>
           </section>
