@@ -56,7 +56,7 @@ export default function DiagnosticSession() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % diagnosticSteps.length);
-    }, 1500);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -234,15 +234,15 @@ export default function DiagnosticSession() {
               </p>
               <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                  <Icon name="Clock" className="mr-1 md:mr-2" size={16} />
+                  <Icon name="timer" className="mr-1 md:mr-2" size={16} />
                   50 минут
                 </Badge>
                 <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                  <Icon name="Video" className="mr-1 md:mr-2" size={16} />
+                  <Icon name="video" className="mr-1 md:mr-2" size={16} />
                   Zoom-сессия
                 </Badge>
                 <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2 md:px-6 md:py-3 text-sm md:text-base">
-                  <Icon name="FileText" className="mr-1 md:mr-2" size={16} />
+                  <Icon name="file-check" className="mr-1 md:mr-2" size={16} />
                   Отчёт + план
                 </Badge>
               </div>
@@ -253,31 +253,31 @@ export default function DiagnosticSession() {
           <section className="mb-12 md:mb-16">
             <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 backdrop-blur-xl border-red-500/30 p-4 sm:p-6 md:p-8">
               <h3 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
-                <Icon name="AlertTriangle" className="text-red-400 flex-shrink-0" size={24} />
+                <Icon name="triangle-alert" className="text-red-400 flex-shrink-0" size={24} />
                 <span>Типичные ошибки при найме</span>
               </h3>
               <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                 {[
                   {
-                    icon: 'x-circle',
+                    icon: 'user-plus',
                     title: 'Нанимают "ещё одного такого же"',
                     desc: 'Но проблема не в количестве, а в процессе или навыках',
                     stat: '47%'
                   },
                   {
-                    icon: 'target',
+                    icon: 'copy',
                     title: 'Копируют вакансию конкурентов',
                     desc: 'Не учитывая уникальность своей ситуации и культуры',
                     stat: '38%'
                   },
                   {
-                    icon: 'users',
+                    icon: 'user-x',
                     title: 'Винят людей, а не систему',
                     desc: 'Проблема часто в коммуникации между отделами',
                     stat: '52%'
                   },
                   {
-                    icon: 'trending-down',
+                    icon: 'ban',
                     title: 'Игнорируют корневую причину',
                     desc: 'Например, продажи падают не из-за менеджеров, а из-за плохих лидов',
                     stat: '61%'
@@ -318,7 +318,7 @@ export default function DiagnosticSession() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
               {[
                 {
-                  icon: 'search',
+                  icon: 'microscope',
                   title: 'Диагноз проблемы',
                   desc: 'Выявляем корневую причину через анализ процессов, коммуникаций и целей',
                   color: 'from-blue-600 to-cyan-600',
@@ -340,7 +340,7 @@ export default function DiagnosticSession() {
                   ]
                 },
                 {
-                  icon: 'user-check',
+                  icon: 'badge-check',
                   title: 'Точный портрет специалиста',
                   desc: 'Если найм нужен — получите профиль того, кто РЕАЛЬНО решит задачу',
                   color: 'from-green-600 to-emerald-600',
@@ -361,7 +361,7 @@ export default function DiagnosticSession() {
                   <ul className="space-y-2 md:space-y-3">
                     {item.items.map((bullet, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Icon name="check-circle" className="text-green-400 flex-shrink-0 mt-0.5 md:mt-1" size={16} />
+                        <Icon name="circle-check" className="text-green-400 flex-shrink-0 mt-0.5 md:mt-1" size={16} />
                         <span className="text-xs sm:text-sm text-gray-400">{bullet}</span>
                       </li>
                     ))}
@@ -389,21 +389,21 @@ export default function DiagnosticSession() {
                   time: '5 мин',
                   title: 'Фрейминг',
                   desc: 'Объясняем цель: не обсуждать вакансию, а найти оптимальное решение для бизнеса',
-                  icon: 'target'
+                  icon: 'crosshair'
                 },
                 {
                   step: '2',
                   time: '30 мин',
                   title: 'Глубокая диагностика',
                   desc: 'Задаём системные вопросы по 5 блокам: симптомы, процессы, ресурсы, оргструктура, цели',
-                  icon: 'activity'
+                  icon: 'stethoscope'
                 },
                 {
                   step: '3',
                   time: '10 мин',
                   title: 'Совместная гипотеза',
                   desc: 'Озвучиваем возможные корневые причины и точки приложения усилий',
-                  icon: 'message-square'
+                  icon: 'message-circle'
                 },
                 {
                   step: '4',
@@ -441,7 +441,7 @@ export default function DiagnosticSession() {
                     problem: 'Хотели нанять SMM-менеджера',
                     solution: 'Диагностика показала: проблема в продукте, не в маркетинге',
                     result: 'Сэкономили 180,000₽ на зарплате. Переделали карточки товаров — конверсия +34%',
-                    icon: 'shopping-cart',
+                    icon: 'shopping-bag',
                     saved: '180K₽'
                   },
                   {
@@ -449,7 +449,7 @@ export default function DiagnosticSession() {
                     problem: 'Искали Head of Sales',
                     solution: 'Выяснили: текущий коммерческий директор не умеет работать с подчинёнными',
                     result: 'Наняли Sales Enablement Manager для обучения. Рост продаж +120%',
-                    icon: 'trending-up',
+                    icon: 'chart-line',
                     saved: '4 мес'
                   },
                   {
@@ -457,7 +457,7 @@ export default function DiagnosticSession() {
                     problem: 'Планировали взять 3 логистов',
                     solution: 'Корень — ручной учёт. Внедрили TMS-систему',
                     result: 'Обошлись текущей командой. Экономия 540,000₽/год на зарплатах',
-                    icon: 'truck',
+                    icon: 'package',
                     saved: '540K₽'
                   }
                 ].map((item, i) => (
@@ -591,7 +591,7 @@ export default function DiagnosticSession() {
             <Card className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-xl border-gray-700/30 p-4 sm:p-6 md:p-8">
               <div className="text-center mb-4 md:mb-6">
                 <h3 className="text-xl sm:text-2xl font-bold mb-3 md:mb-4 flex items-center justify-center gap-2 md:gap-3">
-                  <Icon name="help-circle" className="text-purple-400 flex-shrink-0" size={24} />
+                  <Icon name="circle-help" className="text-purple-400 flex-shrink-0" size={24} />
                   <span>Почему это бесплатно?</span>
                 </h3>
               </div>
@@ -604,14 +604,14 @@ export default function DiagnosticSession() {
                   </p>
                 </div>
                 <div>
-                  <Icon name="filter" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-purple-400" />
+                  <Icon name="sliders" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-purple-400" />
                   <h4 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Фильтруем задачи</h4>
                   <p className="text-xs sm:text-sm text-gray-400">
                     Не все запросы требуют найма. Честно говорим, если есть другое решение
                   </p>
                 </div>
                 <div>
-                  <Icon name="target" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-green-400" />
+                  <Icon name="trophy" className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-3 text-green-400" />
                   <h4 className="font-bold mb-1 md:mb-2 text-sm md:text-base">Ищем Win-Win</h4>
                   <p className="text-xs sm:text-sm text-gray-400">
                     Работаем только с задачами, где уверены в результате. Так все довольны
