@@ -516,18 +516,6 @@ const Index = () => {
                 >
                   🔥 Найти сотрудника
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  onClick={() => {
-                    sendMetrikaGoal(metrikaGoals.CTA_CLICK, { action: 'hero_diagnostic_session' });
-                    navigate('/diagnostic-session');
-                  }} 
-                  className="hover:neon-glow hover:scale-110 transition-all text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 lg:py-8 border-2 border-green-500/50 text-green-400 hover:border-green-500"
-                >
-                  <Icon name="Brain" className="mr-2" size={24} />
-                  Бесплатная диагностика
-                </Button>
               </div>
               <Button 
                 size="lg" 
