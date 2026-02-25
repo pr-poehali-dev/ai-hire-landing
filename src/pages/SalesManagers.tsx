@@ -342,9 +342,9 @@ const SalesManagers = () => {
             {[
               {
                 icon: 'target',
-                title: '5 TOP кандидатов',
-                desc: 'Не 3, как у конкурентов, а целых 5 проверенных специалистов с опытом закрытия планов',
-                bonus: '+2 резервных кандидата в подарок'
+                title: '∞ кандидатов',
+                desc: 'Неограниченное количество проверенных специалистов с опытом закрытия планов — пока не найдёте своего',
+                bonus: 'Без лимита на подбор'
               },
               {
                 icon: 'shield-check',
@@ -467,14 +467,14 @@ const SalesManagers = () => {
           <Card className="bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-purple-900/40 backdrop-blur-xl border-purple-500/30 p-12">
             <div className="text-center mb-10">
               <h2 className="text-5xl font-black text-white mb-4">
-                Получите 5 кандидатов
+                Получите кандидатов
               </h2>
               <p className="text-xl text-gray-300 mb-6">
                 Заполните форму и получите через 24 часа:
               </p>
               <div className="space-y-3 text-left max-w-xl mx-auto">
                 {[
-                  'Досье на 5 топовых менеджеров по продажам',
+                  'Неограниченное досье на топовых менеджеров по продажам',
                   'AI-анализ личности каждого кандидата',
                   'Видео-визитки и кейсы из практики',
                   'Рекомендации по выбору и онбординг-план',
