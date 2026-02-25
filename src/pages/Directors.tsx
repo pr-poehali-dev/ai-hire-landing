@@ -128,6 +128,12 @@ const Directors = () => {
                   <DropdownMenuItem asChild><Link to="/calculator" className="flex items-center gap-2"><Icon name="calculator" className="w-4 h-4" />Калькулятор стоимости</Link></DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              <Link to="/">
+                <Button variant="outline" size="sm" className="border-primary/40 hover:bg-primary/10 hover:border-primary text-xs md:text-sm">
+                  <Icon name="home" className="w-4 h-4 mr-1.5" />
+                  На главную
+                </Button>
+              </Link>
               <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
                 <span className="hidden sm:inline">Подобрать сотрудника</span>
                 <span className="sm:hidden">Заявка</span>

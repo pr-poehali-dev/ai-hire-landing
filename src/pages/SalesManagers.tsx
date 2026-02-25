@@ -226,6 +226,12 @@ const SalesManagers = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              <Link to="/">
+                <Button variant="outline" size="sm" className="border-primary/40 hover:bg-primary/10 hover:border-primary text-xs md:text-sm">
+                  <Icon name="home" className="w-4 h-4 mr-1.5" />
+                  На главную
+                </Button>
+              </Link>
               <Button
                 onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                 size="sm"
