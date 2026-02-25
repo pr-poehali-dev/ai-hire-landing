@@ -8,6 +8,12 @@ import { useToast } from '@/hooks/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
 import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const RetailSales = () => {
   const { toast } = useToast();
@@ -76,29 +82,57 @@ const RetailSales = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-sky-900/20 to-gray-900 overflow-x-hidden">
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-sky-500/20">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center max-w-full">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-sky-600 to-blue-600 flex items-center justify-center">
-              <Icon name="shopping-bag" className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-sky-400 to-blue-400 bg-clip-text text-transparent">
-              1 DAY HR
-            </span>
-          </Link>
-          <div className="flex gap-2">
-            <Link to="/">
-              <Button variant="outline" size="sm" className="hidden md:inline-flex hover:bg-sky-600/20">
-                На главную
-              </Button>
-              <Button variant="outline" size="sm" className="md:hidden">
-                На главную
-              </Button>
+      <header className="fixed top-0 left-0 right-0 z-50 glass animate-fade-in">
+        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-1.5 md:gap-2 hover-scale">
+              <div className="text-2xl md:text-3xl font-black tracking-tight">
+                <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                <span className="text-lg md:text-xl font-light text-muted-foreground mx-1">AY</span>
+                <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent neon-text">HR</span>
+              </div>
             </Link>
-            <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="sm" className="bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-xs md:text-sm">
-              <span className="hidden md:inline">Найти продавцов</span>
-              <span className="md:hidden">Заявка</span>
-            </Button>
+            <nav className="hidden md:flex items-center gap-6">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
+                  Специализации <Icon name="chevron-down" className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="glass border-primary/20">
+                  <DropdownMenuItem asChild><Link to="/sales-managers" className="flex items-center gap-2"><Icon name="trending-up" className="w-4 h-4" />Менеджеры по продажам</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/it-specialists" className="flex items-center gap-2"><Icon name="code" className="w-4 h-4" />IT-специалисты</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/marketplace-managers" className="flex items-center gap-2"><Icon name="shopping-cart" className="w-4 h-4" />Менеджеры по маркетплейсам</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/accountants" className="flex items-center gap-2"><Icon name="calculator" className="w-4 h-4" />Бухгалтеры</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/marketers" className="flex items-center gap-2"><Icon name="megaphone" className="w-4 h-4" />Маркетологи</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/directors" className="flex items-center gap-2"><Icon name="crown" className="w-4 h-4" />Директора и топ-менеджеры</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/retail-sales" className="flex items-center gap-2"><Icon name="shopping-bag" className="w-4 h-4" />Продавцы-консультанты</Link></DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Link to="/diagnostic-session" className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1"><Icon name="brain" className="w-4 h-4" />Диагностика</Link>
+              <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">Калькулятор</Link>
+            </nav>
+            <div className="flex items-center gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild className="md:hidden">
+                  <Button variant="ghost" size="sm" className="hover:bg-primary/10">Меню</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="glass border-primary/20 w-56">
+                  <DropdownMenuItem asChild><Link to="/" className="flex items-center gap-2"><Icon name="home" className="w-4 h-4" />На главную</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/sales-managers" className="flex items-center gap-2"><Icon name="trending-up" className="w-4 h-4" />Менеджеры по продажам</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/it-specialists" className="flex items-center gap-2"><Icon name="code" className="w-4 h-4" />IT-специалисты</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/marketplace-managers" className="flex items-center gap-2"><Icon name="shopping-cart" className="w-4 h-4" />Менеджеры по маркетплейсам</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/accountants" className="flex items-center gap-2"><Icon name="calculator" className="w-4 h-4" />Бухгалтеры</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/marketers" className="flex items-center gap-2"><Icon name="megaphone" className="w-4 h-4" />Маркетологи</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/directors" className="flex items-center gap-2"><Icon name="crown" className="w-4 h-4" />Директора и топ-менеджеры</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/retail-sales" className="flex items-center gap-2"><Icon name="shopping-bag" className="w-4 h-4" />Продавцы-консультанты</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/diagnostic-session" className="flex items-center gap-2"><Icon name="brain" className="w-4 h-4" />Бесплатная диагностика</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link to="/calculator" className="flex items-center gap-2"><Icon name="calculator" className="w-4 h-4" />Калькулятор стоимости</Link></DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Button onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })} size="sm" className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-105 transition-all text-xs md:text-sm px-3 md:px-4">
+                <span className="hidden sm:inline">Подобрать сотрудника</span>
+                <span className="sm:hidden">Заявка</span>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
