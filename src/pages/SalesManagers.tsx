@@ -462,39 +462,39 @@ const SalesManagers = () => {
       </section>
 
       {/* Contact Form */}
-      <section id="contact-form" className="relative py-20 px-4">
-        <div className="container mx-auto max-w-3xl px-4">
-          <Card className="bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-purple-900/40 backdrop-blur-xl border-purple-500/30 p-12">
-            <div className="text-center mb-10">
-              <h2 className="text-5xl font-black text-white mb-4">
+      <section id="contact-form" className="relative py-10 md:py-20 px-4">
+        <div className="container mx-auto max-w-3xl px-2 sm:px-4">
+          <Card className="bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-purple-900/40 backdrop-blur-xl border-purple-500/30 p-5 sm:p-8 md:p-12">
+            <div className="text-center mb-6 md:mb-10">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3 md:mb-4">
                 Получите кандидатов
               </h2>
-              <p className="text-xl text-gray-300 mb-6">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 md:mb-6">
                 Заполните форму и получите через 24 часа:
               </p>
-              <div className="space-y-3 text-left max-w-xl mx-auto">
+              <div className="space-y-2 md:space-y-3 text-left max-w-xl mx-auto">
                 {[
                   'Неограниченное досье на топовых менеджеров по продажам',
                   'AI-анализ личности каждого кандидата',
                   'Видео-визитки и кейсы из практики',
                   'Рекомендации по выбору и онбординг-план',
-                  'Гарантию замены на 12 месяцев'
+                  'Пожизненная гарантия замены'
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Icon name="check-circle" className="w-6 h-6 text-green-400 flex-shrink-0 mt-1" />
-                    <span className="text-gray-200">{item}</span>
+                  <div key={i} className="flex items-start gap-2 md:gap-3">
+                    <Icon name="check-circle" className="w-5 h-5 md:w-6 md:h-6 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base text-gray-200">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-6">
               <Input
                 placeholder="Ваше имя *"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                 required
-                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base md:text-lg h-12 md:h-14"
+                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base h-12"
               />
               <Input
                 placeholder="Номер телефона *"
@@ -502,17 +502,17 @@ const SalesManagers = () => {
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 required
-                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base md:text-lg h-12 md:h-14"
+                className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 text-base h-12"
               />
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
                 size="lg"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base md:text-xl h-12 md:h-14 font-bold"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm sm:text-base md:text-xl h-12 md:h-14 font-bold"
               >
                 {isSubmitting ? 'Отправка...' : 'Получить кандидатов за 24 часа 🚀'}
               </Button>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-xs sm:text-sm text-gray-400">
                 Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
               </p>
             </form>
