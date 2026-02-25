@@ -86,10 +86,10 @@ const Marketers = () => {
         <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-1.5 md:gap-2 hover-scale">
-              <div className="text-2xl md:text-3xl font-black tracking-tight">
-                <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
-                <span className="text-lg md:text-xl font-light text-muted-foreground mx-1">AY</span>
-                <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent neon-text">HR</span>
+              <div className="font-black tracking-tight">
+                <span className="text-2xl md:text-6xl font-black bg-gradient-to-br from-primary via-secondary to-secondary bg-clip-text text-transparent neon-text" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.05em' }}>1D</span>
+                <span className="text-sm md:text-xl font-light text-muted-foreground mx-0.5 md:mx-1">AY</span>
+                <span className="text-xl md:text-3xl font-black bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent neon-text">HR</span>
               </div>
             </Link>
             <nav className="hidden md:flex items-center gap-6">
@@ -456,12 +456,12 @@ const Marketers = () => {
 
       {/* Mobile Phone Bar */}
       <a 
-        href="tel:+79955556231" 
+        href="tel:+79115302020" 
         className="md:hidden fixed bottom-0 left-0 right-0 z-[101] bg-gradient-to-r from-blue-600 to-cyan-600 py-4 px-4 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-[0_-4px_20px_rgba(59,130,246,0.5)]"
       >
         <Icon name="phone" className="w-6 h-6 text-white animate-pulse" />
         <span className="text-2xl font-black text-white tracking-wide">
-          +7 (995) 555-62-31
+          +7 (911) 530-20-20
         </span>
       </a>
     </div>
