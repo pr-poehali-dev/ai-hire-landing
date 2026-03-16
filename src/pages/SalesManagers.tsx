@@ -896,12 +896,12 @@ const aiSteps = [
   },
   {
     id: 3,
-    icon: 'MessageSquare',
-    title: 'Психометрика',
-    desc: 'Профиль личности: мотивация, переговоры, закрытие сделок',
-    color: 'from-violet-600 to-purple-500',
-    detail: 'DISC, Big5, тест на стрессоустойчивость',
-    metrics: [{ label: 'Модели', value: '3' }, { label: 'Профиль', value: '15 сек' }]
+    icon: 'Video',
+    title: 'Глубинное видеоинтервью',
+    desc: 'AI-анализ речи, мимики и ответов кандидата в реальном времени',
+    color: 'from-rose-600 to-pink-500',
+    detail: 'Эмоции, уверенность, скорость мышления, продажные паттерны',
+    metrics: [{ label: 'Сигналов', value: '240+' }, { label: 'Анализ', value: 'live' }]
   },
   {
     id: 4,
