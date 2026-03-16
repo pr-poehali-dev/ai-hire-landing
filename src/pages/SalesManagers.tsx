@@ -18,12 +18,129 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const LeadModal = ({
+  isOpen,
+  onClose,
+  title = 'Найти менеджера',
+  source = 'sales_modal',
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  source?: string;
+}) => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [data, setData] = useState({ name: '', phone: '' });
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    sendMetrikaGoal(metrikaGoals.FORM_SUBMIT, { form_type: source });
+    try {
+      const leadData = {
+        name: data.name,
+        phone: data.phone,
+        source,
+        form_type: 'popup',
+        page: 'sales_managers',
+        vacancy: 'Менеджер по продажам',
+        timestamp: new Date().toLocaleString('ru-RU'),
+      };
+      const res = await fetch('https://functions.poehali.dev/6389194d-86d0-46d4-bc95-83e9f660f267', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData),
+      });
+      if (!res.ok) throw new Error('fail');
+      fetch('https://functions.poehali.dev/a7d1db0c-db9c-4d2f-b64e-42c388aed5d5', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData),
+      }).catch(() => {});
+      sendMetrikaGoal(metrikaGoals.LEAD_CREATED, { source });
+      onClose();
+      navigate('/thank-you');
+    } catch {
+      toast({ title: 'Ошибка', description: 'Попробуйте ещё раз', variant: 'destructive' });
+    } finally {
+      setSending(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-md bg-gradient-to-br from-gray-900 via-purple-900/40 to-gray-900 border border-purple-500/40 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-purple-500/20 animate-in fade-in zoom-in-95 duration-200">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <Icon name="X" size={20} />
+        </button>
+
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
+            <Icon name="UserSearch" size={28} className="text-white" />
+          </div>
+          <h3 className="text-2xl font-black text-white mb-2">{title}</h3>
+          <p className="text-gray-400 text-sm">Оставьте контакт — свяжемся в течение 15 минут</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            placeholder="Ваше имя *"
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+            required
+            className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 h-12"
+          />
+          <Input
+            placeholder="Номер телефона *"
+            type="tel"
+            value={data.phone}
+            onChange={(e) => setData({ ...data, phone: e.target.value })}
+            required
+            className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 h-12"
+          />
+          <Button
+            type="submit"
+            disabled={sending}
+            className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold text-base shadow-lg shadow-blue-500/30 transition-all"
+          >
+            {sending ? (
+              <><Icon name="Loader" size={16} className="mr-2 animate-spin" />Отправка...</>
+            ) : (
+              <><Icon name="Rocket" size={16} className="mr-2" />Найти менеджера за 24 часа</>
+            )}
+          </Button>
+          <p className="text-center text-xs text-gray-500">
+            Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 const SalesManagers = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [leadModalSource, setLeadModalSource] = useState('sales_hero_modal');
+  const [leadModalTitle, setLeadModalTitle] = useState('Найти менеджера');
+
+  const openLeadModal = (source: string, title: string) => {
+    setLeadModalSource(source);
+    setLeadModalTitle(title);
+    setIsLeadModalOpen(true);
+  };
 
   useEffect(() => {
     const hasSeenOffer = sessionStorage.getItem('salesOfferSeen');
@@ -103,55 +220,55 @@ const SalesManagers = () => {
             <nav className="hidden md:flex items-center gap-6">
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
-                  Специализации <Icon name="chevron-down" className="w-4 h-4" />
+                  Специализации <Icon name="ChevronDown" className="w-4 h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="glass border-primary/20">
                   <DropdownMenuItem asChild>
                     <Link to="/sales-managers" className="flex items-center gap-2">
-                      <Icon name="trending-up" className="w-4 h-4" />
+                      <Icon name="TrendingUp" className="w-4 h-4" />
                       Менеджеры по продажам
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/it-specialists" className="flex items-center gap-2">
-                      <Icon name="code" className="w-4 h-4" />
+                      <Icon name="Code" className="w-4 h-4" />
                       IT-специалисты
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/marketplace-managers" className="flex items-center gap-2">
-                      <Icon name="shopping-cart" className="w-4 h-4" />
+                      <Icon name="ShoppingCart" className="w-4 h-4" />
                       Менеджеры по маркетплейсам
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/accountants" className="flex items-center gap-2">
-                      <Icon name="calculator" className="w-4 h-4" />
+                      <Icon name="Calculator" className="w-4 h-4" />
                       Бухгалтеры
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/marketers" className="flex items-center gap-2">
-                      <Icon name="megaphone" className="w-4 h-4" />
+                      <Icon name="Megaphone" className="w-4 h-4" />
                       Маркетологи
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/directors" className="flex items-center gap-2">
-                      <Icon name="crown" className="w-4 h-4" />
+                      <Icon name="Crown" className="w-4 h-4" />
                       Директора и топ-менеджеры
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/retail-sales" className="flex items-center gap-2">
-                      <Icon name="shopping-bag" className="w-4 h-4" />
+                      <Icon name="ShoppingBag" className="w-4 h-4" />
                       Продавцы-консультанты
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Link to="/diagnostic-session" className="text-sm hover:text-primary transition-all hover:scale-110 flex items-center gap-1">
-                <Icon name="brain" className="w-4 h-4" />
+                <Icon name="Brain" className="w-4 h-4" />
                 Диагностика
               </Link>
               <Link to="/calculator" className="text-sm hover:text-primary transition-all hover:scale-110">
@@ -169,61 +286,61 @@ const SalesManagers = () => {
                 <DropdownMenuContent align="end" className="glass border-primary/20 w-56">
                   <DropdownMenuItem asChild>
                     <Link to="/" className="flex items-center gap-2">
-                      <Icon name="home" className="w-4 h-4" />
+                      <Icon name="Home" className="w-4 h-4" />
                       На главную
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/sales-managers" className="flex items-center gap-2">
-                      <Icon name="trending-up" className="w-4 h-4" />
+                      <Icon name="TrendingUp" className="w-4 h-4" />
                       Менеджеры по продажам
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/it-specialists" className="flex items-center gap-2">
-                      <Icon name="code" className="w-4 h-4" />
+                      <Icon name="Code" className="w-4 h-4" />
                       IT-специалисты
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/marketplace-managers" className="flex items-center gap-2">
-                      <Icon name="shopping-cart" className="w-4 h-4" />
+                      <Icon name="ShoppingCart" className="w-4 h-4" />
                       Менеджеры по маркетплейсам
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/accountants" className="flex items-center gap-2">
-                      <Icon name="calculator" className="w-4 h-4" />
+                      <Icon name="Calculator" className="w-4 h-4" />
                       Бухгалтеры
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/marketers" className="flex items-center gap-2">
-                      <Icon name="megaphone" className="w-4 h-4" />
+                      <Icon name="Megaphone" className="w-4 h-4" />
                       Маркетологи
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/directors" className="flex items-center gap-2">
-                      <Icon name="crown" className="w-4 h-4" />
+                      <Icon name="Crown" className="w-4 h-4" />
                       Директора и топ-менеджеры
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/retail-sales" className="flex items-center gap-2">
-                      <Icon name="shopping-bag" className="w-4 h-4" />
+                      <Icon name="ShoppingBag" className="w-4 h-4" />
                       Продавцы-консультанты
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/diagnostic-session" className="flex items-center gap-2">
-                      <Icon name="brain" className="w-4 h-4" />
+                      <Icon name="Brain" className="w-4 h-4" />
                       Бесплатная диагностика
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/calculator" className="flex items-center gap-2">
-                      <Icon name="calculator" className="w-4 h-4" />
+                      <Icon name="Calculator" className="w-4 h-4" />
                       Калькулятор стоимости
                     </Link>
                   </DropdownMenuItem>
@@ -231,7 +348,7 @@ const SalesManagers = () => {
               </DropdownMenu>
               <Link to="/">
                 <Button variant="outline" size="sm" className="border-primary/40 hover:bg-primary/10 hover:border-primary text-xs md:text-sm">
-                  <Icon name="home" className="w-4 h-4 mr-1.5" />
+                  <Icon name="Home" className="w-4 h-4 mr-1.5" />
                   На главную
                 </Button>
               </Link>
@@ -267,15 +384,23 @@ const SalesManagers = () => {
                 который закроет план
               </span>
             </h1>
-            <div className="flex justify-center mb-4 md:mb-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4 md:mb-8">
               <Button
                 onClick={() => window.open('https://t.me/TheDenisZ', '_blank')}
                 size="lg"
                 variant="outline"
-                className="transition-all text-sm md:text-base"
+                className="transition-all text-sm md:text-base w-full sm:w-auto"
               >
                 <Icon name="MessageCircle" className="mr-2" size={18} />
                 Написать в Telegram
+              </Button>
+              <Button
+                onClick={() => openLeadModal('sales_hero_find', 'Найти менеджера')}
+                size="lg"
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-500/30 w-full sm:w-auto"
+              >
+                <Icon name="UserSearch" className="mr-2" size={18} />
+                Найти менеджера
               </Button>
             </div>
             <p className="text-sm sm:text-base md:text-2xl lg:text-3xl text-gray-300 mb-6 md:mb-12 leading-relaxed">
@@ -284,12 +409,12 @@ const SalesManagers = () => {
               <span className="text-purple-400 font-bold">Гарантируем результат за 24 часа</span>
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 mb-6 md:mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6">
               {[
-                { value: '847', label: 'Менеджеров трудоустроено', icon: 'users' },
-                { value: '94%', label: 'Проходят испытательный', icon: 'trophy' },
-                { value: '2.4x', label: 'Средний рост продаж', icon: 'trending-up' },
-                { value: '24ч', label: 'Поиск кандидатов', icon: 'clock' }
+                { value: '847', label: 'Менеджеров трудоустроено', icon: 'Users' },
+                { value: '94%', label: 'Проходят испытательный', icon: 'Trophy' },
+                { value: '2.4x', label: 'Средний рост продаж', icon: 'TrendingUp' },
+                { value: '24ч', label: 'Поиск кандидатов', icon: 'Clock' }
               ].map((stat, i) => (
                 <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/30 p-2.5 sm:p-3 md:p-6 transition-all">
                   <Icon name={stat.icon} className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 mx-auto mb-1.5 md:mb-3 text-purple-400" />
@@ -299,17 +424,6 @@ const SalesManagers = () => {
                   <div className="text-xs md:text-sm text-gray-400 leading-tight">{stat.label}</div>
                 </Card>
               ))}
-            </div>
-
-            <div className="flex justify-center">
-              <Button 
-                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-base md:text-lg px-6 md:px-8 py-4 md:py-6 h-auto transition-all shadow-lg shadow-purple-500/50 w-full sm:w-auto"
-              >
-                <Icon name="Rocket" className="mr-2" size={20} />
-                Подобрать сотрудника
-              </Button>
             </div>
           </div>
         </div>
@@ -344,37 +458,37 @@ const SalesManagers = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
             {[
               {
-                icon: 'target',
+                icon: 'Target',
                 title: '∞ кандидатов',
                 desc: 'Неограниченное количество проверенных специалистов с опытом закрытия планов — пока не найдёте своего',
                 bonus: 'Без лимита на подбор'
               },
               {
-                icon: 'shield-check',
+                icon: 'ShieldCheck',
                 title: 'Пожизненная гарантия',
                 desc: 'Бесплатная замена, если менеджер не подошёл — без ограничений по времени',
                 bonus: 'Страховка на всю жизнь'
               },
               {
-                icon: 'brain',
+                icon: 'Brain',
                 title: 'AI-психометрика',
                 desc: 'Анализ 127 параметров личности: стрессоустойчивость, мотивация, переговоры',
                 bonus: 'Технология за $50,000'
               },
               {
-                icon: 'briefcase',
+                icon: 'Briefcase',
                 title: 'Досье на каждого',
                 desc: 'Подробный профиль: кейсы, результаты, рекомендации, видео-интервью',
                 bonus: 'Полная аналитика'
               },
               {
-                icon: 'phone-call',
+                icon: 'PhoneCall',
                 title: 'Выделенный менеджер',
                 desc: 'Персональный HR-эксперт на связи 24/7 для решения любых вопросов',
                 bonus: 'Прямой номер и Telegram'
               },
               {
-                icon: 'rocket',
+                icon: 'Rocket',
                 title: 'Онбординг в подарок',
                 desc: 'План адаптации на 90 дней + скрипты продаж + обучающие материалы',
                 bonus: 'Экономия 150,000₽'
@@ -393,6 +507,22 @@ const SalesManagers = () => {
           </div>
         </div>
       </section>
+
+      {/* Urgent CTA after benefits */}
+      <div className="relative py-6 md:py-10 px-3 sm:px-4 flex justify-center">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 rounded-2xl blur-md opacity-70 group-hover:opacity-100 transition-all duration-300 animate-pulse" />
+          <Button
+            onClick={() => openLeadModal('sales_urgent_cta', 'Срочно нужен менеджер')}
+            size="lg"
+            className="relative bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-black text-base md:text-xl px-8 md:px-12 py-5 md:py-7 h-auto shadow-2xl transition-all rounded-xl"
+          >
+            <Icon name="Zap" size={22} className="mr-2 animate-bounce" />
+            Срочно нужен менеджер
+            <Icon name="ArrowRight" size={18} className="ml-2" />
+          </Button>
+        </div>
+      </div>
 
       {/* AI Case Section — moved here, right after benefits */}
       <AICaseSection />
@@ -520,7 +650,7 @@ const SalesManagers = () => {
                   'Пожизненная гарантия замены'
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2 md:gap-3">
-                    <Icon name="check-circle" className="w-5 h-5 md:w-6 md:h-6 text-green-400 flex-shrink-0 mt-0.5" />
+                    <Icon name="CheckCircle2" className="w-5 h-5 md:w-6 md:h-6 text-green-400 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base text-gray-200">{item}</span>
                   </div>
                 ))}
@@ -565,13 +695,20 @@ const SalesManagers = () => {
         specialization="sales"
       />
 
+      <LeadModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        title={leadModalTitle}
+        source={leadModalSource}
+      />
+
       <div className="fixed bottom-20 right-4 z-[100]">
         <Button
           onClick={() => setIsOfferModalOpen(true)}
           size="sm"
           className="neon-glow bg-gradient-to-r from-primary to-secondary hover:opacity-90 hover:scale-110 transition-all shadow-2xl text-xs md:text-sm px-3 md:px-4 py-2 md:py-3 whitespace-nowrap"
         >
-          <Icon name="sparkles" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
+          <Icon name="Sparkles" size={16} className="md:w-5 md:h-5 mr-1.5 md:mr-2" />
           <span>Бесплатный анализ<br className="md:hidden" /> проблемных зон</span>
         </Button>
       </div>
@@ -581,7 +718,7 @@ const SalesManagers = () => {
         href="tel:+79115302020" 
         className="md:hidden fixed bottom-0 left-0 right-0 z-[101] bg-gradient-to-r from-blue-600 to-cyan-600 py-4 px-4 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity shadow-[0_-4px_20px_rgba(59,130,246,0.5)]"
       >
-        <Icon name="phone" className="w-6 h-6 text-white animate-pulse" />
+        <Icon name="Phone" className="w-6 h-6 text-white animate-pulse" />
         <span className="text-2xl font-black text-white tracking-wide">
           +7 (911) 530-20-20
         </span>
