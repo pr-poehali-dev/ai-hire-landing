@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import SpecializationOfferModal from '@/components/landing/SpecializationOfferModal';
 import { sendMetrikaGoal, metrikaGoals } from '@/utils/metrika';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -289,7 +292,7 @@ const SalesManagers = () => {
                 { value: '24ч', label: 'Поиск кандидатов', icon: 'clock' }
               ].map((stat, i) => (
                 <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/30 p-3 md:p-6 hover:bg-white/10 transition-all">
-                  <Icon name={stat.icon as any} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-purple-400" />
+                  <Icon name={stat.icon} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-purple-400" />
                   <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text mb-1 md:mb-2">
                     {stat.value}
                   </div>
@@ -379,7 +382,7 @@ const SalesManagers = () => {
             ].map((item, i) => (
               <Card key={i} className="relative bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur-xl border-purple-500/30 p-4 md:p-8 hover:scale-105 transition-all overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform" />
-                <Icon name={item.icon as any} className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-6 text-purple-400" />
+                <Icon name={item.icon} className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-6 text-purple-400" />
                 <h3 className="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">{item.title}</h3>
                 <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4 leading-relaxed">{item.desc}</p>
                 <Badge className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-500/50 text-green-300">
@@ -413,7 +416,7 @@ const SalesManagers = () => {
               <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/20 p-6 hover:bg-white/10 transition-all">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
-                    <Icon name={spec.icon as any} className="w-7 h-7 text-white" />
+                    <Icon name={spec.icon} className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-2">{spec.title}</h3>
@@ -460,6 +463,12 @@ const SalesManagers = () => {
           </div>
         </div>
       </section>
+
+      {/* AI Case Section */}
+      <AICaseSection />
+
+      {/* Testimonials */}
+      <SalesTestimonialsSection />
 
       {/* Contact Form */}
       <section id="contact-form" className="relative py-10 md:py-20 px-4">
@@ -548,6 +557,380 @@ const SalesManagers = () => {
         </span>
       </a>
     </div>
+  );
+};
+
+const salesTestimonials = [
+  {
+    company: 'Строй-Инвест',
+    person: 'Максим Орлов',
+    role: 'Коммерческий директор',
+    text: 'Искали B2B-менеджера 3 месяца через агентства — безрезультатно. 1DAYHR дали 5 кандидатов за сутки. Взяли двоих. Первый месяц — план выполнен на 130%.',
+    img: '',
+    stats: { speed: '18ч', quality: '98%', period: '14 мес' },
+    rating: 5,
+    letterText: 'Выражаем благодарность за профессиональный подбор менеджера отдела корпоративных продаж. Кандидат полностью соответствует нашим требованиям и превзошёл плановые показатели.'
+  },
+  {
+    company: 'AutoPremium',
+    person: 'Дарья Соколова',
+    role: 'Директор по персоналу',
+    text: 'Нужен был менеджер в автосалон с опытом в trade-in. Думала — займёт месяц. 1DAYHR нашли идеального кандидата к обеду следующего дня. Работает уже год — рекордные продажи.',
+    img: '',
+    stats: { speed: '21ч', quality: '96%', period: '12 мес' },
+    rating: 5,
+    letterText: 'Рекомендуем компанию 1DAYHR как надёжного партнёра по подбору торгового персонала. Подобранный специалист вошёл в ТОП-3 по объёму продаж уже в первый квартал работы.'
+  },
+  {
+    company: 'SaaS Platform',
+    person: 'Игорь Петров',
+    role: 'CEO',
+    text: 'Найти менеджера по продажам SaaS-продукта — задача нетривиальная. AI-анализ от 1DAYHR нашёл человека с точным профилем: технический бэкграунд + сильные продажи. LTV клиентов вырос на 40%.',
+    img: '',
+    stats: { speed: '24ч', quality: '99%', period: '9 мес' },
+    rating: 5,
+    letterText: 'Компания 1DAYHR продемонстрировала уникальный подход к подбору специалистов по продажам ПО. AI-анализ кандидатов позволил выбрать специалиста, идеально подходящего для продаж сложного IT-продукта.'
+  },
+  {
+    company: 'МегаРитейл',
+    person: 'Анна Белова',
+    role: 'HR-директор',
+    text: 'Открывали 4 новых магазина одновременно. Нужно было закрыть 8 позиций продавцов-консультантов срочно. 1DAYHR справились за 48 часов. Все 8 сотрудников прошли испытательный срок.',
+    img: '',
+    stats: { speed: '48ч', quality: '100%', period: '11 мес' },
+    rating: 5,
+    letterText: 'Благодарим за оперативный подбор команды продавцов для открытия четырёх розничных точек. Все кандидаты успешно прошли обучение и адаптацию в установленные сроки.'
+  },
+];
+
+const SalesTestimonialsSection = () => {
+  const [emblaRef] = useEmblaCarousel(
+    { loop: true, align: 'start' },
+    [Autoplay({ delay: 4500, stopOnInteraction: false })]
+  );
+
+  return (
+    <section className="relative py-16 md:py-24 px-4 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+      <div className="container mx-auto max-w-7xl">
+        <div className="text-center mb-12">
+          <Badge className="mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30 text-sm px-4 py-1.5">
+            ⭐ ОТЗЫВЫ КЛИЕНТОВ
+          </Badge>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+            Они уже нашли своих
+            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> чемпионов</span>
+          </h2>
+          <p className="text-gray-300 text-lg md:text-xl">Реальные результаты компаний, которые доверились 1DAYHR</p>
+        </div>
+
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-6">
+            {salesTestimonials.map((t, idx) => (
+              <div key={idx} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3">
+                <Card className="bg-white/5 backdrop-blur-xl border-purple-500/20 overflow-hidden hover:border-purple-400/40 hover:bg-white/8 transition-all h-full">
+                  <div className="relative h-28 bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-purple-900/30 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-pink-500/20 rounded-full blur-3xl" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                      <h3 className="font-bold text-xl text-white drop-shadow-lg">{t.company}</h3>
+                      <p className="text-sm text-white/80 mt-1">{t.person} • {t.role}</p>
+                    </div>
+                  </div>
+
+                  <div className="p-6 space-y-4">
+                    <div className="flex gap-1">
+                      {[...Array(t.rating)].map((_, i) => (
+                        <Icon key={i} name="Star" size={16} className="text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+
+                    <p className="text-sm text-gray-300 leading-relaxed italic">"{t.text}"</p>
+
+                    <div className="relative bg-white/5 p-4 rounded-lg border border-purple-500/20">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Icon name="FileCheck" size={14} className="text-purple-400" />
+                            <p className="text-xs font-bold uppercase tracking-wider text-purple-400">Благодарственное письмо</p>
+                          </div>
+                          <p className="text-sm font-bold text-white mb-2">{t.company}</p>
+                          <p className="text-xs text-gray-400 leading-relaxed">{t.letterText}</p>
+                        </div>
+                        <div className="relative ml-4 flex-shrink-0">
+                          <div className="w-16 h-16 rounded-full border-4 border-purple-500/40 flex items-center justify-center bg-gradient-to-br from-purple-600/30 to-pink-600/30">
+                            <Icon name="Stamp" size={22} className="text-purple-400" />
+                          </div>
+                          <div className="absolute -bottom-2 -right-2 w-7 h-7 bg-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                            <Icon name="Award" size={14} className="text-white" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-3 border-t border-white/10 mt-3">
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-7 h-7 border-2 border-purple-500/50">
+                            <AvatarImage src={t.img} alt={t.person} />
+                            <AvatarFallback className="bg-gradient-to-br from-purple-600 to-pink-600 text-white text-xs">
+                              {t.person.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="text-xs font-bold text-white">{t.person}</div>
+                            <div className="text-xs text-gray-400">{t.role}</div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-500">{new Date().toLocaleDateString('ru-RU')}</div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2 pt-3 border-t border-white/10">
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-purple-400">{t.stats.speed}</div>
+                        <div className="text-xs text-gray-400">найден</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-pink-400">{t.stats.quality}</div>
+                        <div className="text-xs text-gray-400">качество</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg font-bold text-green-400">{t.stats.period}</div>
+                        <div className="text-xs text-gray-400">работает</div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const aiSteps = [
+  {
+    id: 1,
+    icon: 'Database',
+    title: 'Парсинг базы',
+    desc: '50 000+ резюме менеджеров по продажам',
+    color: 'from-blue-600 to-cyan-500',
+    detail: 'hh.ru, LinkedIn, SuperJob, закрытые базы',
+    metrics: [{ label: 'Резюме', value: '50 284' }, { label: 'За', value: '3 мин' }]
+  },
+  {
+    id: 2,
+    icon: 'Brain',
+    title: 'AI-скоринг',
+    desc: 'Анализ 127 параметров каждого кандидата',
+    color: 'from-purple-600 to-violet-500',
+    detail: 'Опыт продаж, KPI, коммуникации, стрессоустойчивость',
+    metrics: [{ label: 'Параметров', value: '127' }, { label: 'Точность', value: '94%' }]
+  },
+  {
+    id: 3,
+    icon: 'MessageSquare',
+    title: 'Психометрика',
+    desc: 'Профиль личности: мотивация, переговоры, закрытие сделок',
+    color: 'from-pink-600 to-rose-500',
+    detail: 'DISC, Big5, тест на стрессоустойчивость',
+    metrics: [{ label: 'Модели', value: '3' }, { label: 'Профиль', value: '15 сек' }]
+  },
+  {
+    id: 4,
+    icon: 'Target',
+    title: 'Матчинг с компанией',
+    desc: 'Сопоставление с вашим профилем идеального менеджера',
+    color: 'from-orange-500 to-amber-500',
+    detail: 'Продукт, ниша, цикл сделки, команда, KPI',
+    metrics: [{ label: 'Совпадение', value: '97%' }, { label: 'Топ-5', value: 'кандидатов' }]
+  },
+  {
+    id: 5,
+    icon: 'Trophy',
+    title: 'Досье + рекомендация',
+    desc: 'Готовые кандидаты с кейсами и видео-визиткой',
+    color: 'from-green-600 to-emerald-500',
+    detail: 'Кому звонить первым и почему',
+    metrics: [{ label: 'Досье', value: '5 шт' }, { label: 'За', value: '24 часа' }]
+  }
+];
+
+const AICaseSection = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startAnimation = () => {
+    setIsPlaying(true);
+    setActiveStep(0);
+    setProgress(0);
+
+    let step = 0;
+    let prog = 0;
+
+    progressRef.current = setInterval(() => {
+      prog += 2;
+      setProgress(prog);
+      if (prog >= 100) {
+        prog = 0;
+        step = (step + 1) % aiSteps.length;
+        setActiveStep(step);
+        setProgress(0);
+        if (step === 0) {
+          clearInterval(progressRef.current!);
+          setIsPlaying(false);
+        }
+      }
+    }, 100);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, []);
+
+  const current = aiSteps[activeStep];
+
+  return (
+    <section className="relative py-16 md:py-24 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-12">
+          <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 border-0 text-white text-sm px-4 py-1.5">
+            🤖 КАК РАБОТАЕТ AI-АНАЛИЗ
+          </Badge>
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+            От базы к лучшему
+            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> менеджеру за 24ч</span>
+          </h2>
+          <p className="text-gray-300 text-lg">Интерактивный кейс: нажми «Запустить» и смотри как работает наш AI</p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          {/* Steps list */}
+          <div className="space-y-3">
+            {aiSteps.map((step, i) => (
+              <button
+                key={step.id}
+                onClick={() => { setActiveStep(i); setIsPlaying(false); setProgress(0); if (progressRef.current) clearInterval(progressRef.current); }}
+                className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                  activeStep === i
+                    ? 'bg-white/10 border-purple-400/60 scale-[1.02] shadow-lg shadow-purple-500/20'
+                    : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0 ${activeStep === i ? 'shadow-lg' : 'opacity-60'}`}>
+                    <Icon name={step.icon} size={22} className="text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-gray-500">ШАГ {step.id}</span>
+                      {activeStep === i && isPlaying && (
+                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs px-2 py-0 animate-pulse">● РАБОТАЕТ</Badge>
+                      )}
+                      {activeStep === i && !isPlaying && (
+                        <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-xs px-2 py-0">ВЫБРАН</Badge>
+                      )}
+                    </div>
+                    <div className="font-bold text-white">{step.title}</div>
+                    <div className="text-sm text-gray-400 truncate">{step.desc}</div>
+                  </div>
+                  <Icon name={activeStep === i ? 'ChevronRight' : 'ChevronRight'} size={18} className={`flex-shrink-0 ${activeStep === i ? 'text-purple-400' : 'text-gray-600'}`} />
+                </div>
+                {activeStep === i && isPlaying && (
+                  <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full bg-gradient-to-r ${step.color} transition-all duration-100`}
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Preview panel */}
+          <div className="lg:sticky lg:top-24">
+            <Card className="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 border-purple-500/30 overflow-hidden">
+              {/* Terminal header */}
+              <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
+                <div className="w-3 h-3 rounded-full bg-red-500/70" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                <div className="w-3 h-3 rounded-full bg-green-500/70" />
+                <span className="ml-2 text-xs text-gray-500 font-mono">1dayhr-ai-engine.py</span>
+                {isPlaying && <span className="ml-auto text-xs text-green-400 font-mono animate-pulse">● running</span>}
+              </div>
+
+              <div className="p-6 space-y-6">
+                {/* Current step visual */}
+                <div className={`relative p-6 rounded-xl bg-gradient-to-br ${current.color} bg-opacity-10 border border-white/10 overflow-hidden`}>
+                  <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-white/20 to-transparent" />
+                  <div className="relative flex items-center gap-4 mb-4">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${current.color} flex items-center justify-center shadow-2xl`}>
+                      <Icon name={current.icon} size={30} className="text-white" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-400 font-mono mb-1">STEP {current.id}/5</div>
+                      <h3 className="text-xl font-black text-white">{current.title}</h3>
+                      <p className="text-sm text-gray-300">{current.detail}</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {current.metrics.map((m, i) => (
+                      <div key={i} className="bg-white/10 rounded-lg p-3 text-center">
+                        <div className="text-2xl font-black text-white">{m.value}</div>
+                        <div className="text-xs text-gray-400">{m.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Candidate match preview */}
+                <div className="space-y-2">
+                  <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3">Кандидат — матч с компанией</div>
+                  {[
+                    { label: 'Опыт активных продаж', val: 96 },
+                    { label: 'Закрытие холодных сделок', val: 88 },
+                    { label: 'Стрессоустойчивость', val: 92 },
+                    { label: 'Мотивация на результат', val: 99 },
+                  ].map((bar, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <span className="text-xs text-gray-400 w-44 flex-shrink-0">{bar.label}</span>
+                      <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-1000"
+                          style={{ width: isPlaying || activeStep > 0 ? `${bar.val}%` : '0%' }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold text-purple-400 w-8 text-right">{bar.val}%</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <Button
+                  onClick={startAnimation}
+                  disabled={isPlaying}
+                  className={`w-full h-12 font-bold text-base ${isPlaying ? 'bg-gray-700 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-[1.02] transition-all shadow-lg shadow-purple-500/30'}`}
+                >
+                  {isPlaying ? (
+                    <><Icon name="Loader" size={18} className="mr-2 animate-spin" />Анализируем кандидатов...</>
+                  ) : (
+                    <><Icon name="Play" size={18} className="mr-2" />Запустить AI-анализ</>
+                  )}
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
