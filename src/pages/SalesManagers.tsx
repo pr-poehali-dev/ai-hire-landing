@@ -433,7 +433,7 @@ const SalesManagers = () => {
                 <span
                   className="whitespace-nowrap font-black"
                   style={{
-                    background: 'linear-gradient(90deg, #a855f7, #60a5fa, #c084fc, #818cf8, #a855f7)',
+                    background: 'linear-gradient(90deg, #facc15, #fb923c, #f97316, #facc15, #fb923c)',
                     backgroundSize: '200% auto',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
