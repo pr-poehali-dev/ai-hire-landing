@@ -528,13 +528,13 @@ const SalesManagers = () => {
       <AICaseSection />
 
       {/* Specializations */}
-      <section className="relative py-12 md:py-20 px-4">
-        <div className="container mx-auto max-w-7xl px-4">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 md:mb-6 text-white">
+      <section className="relative py-10 md:py-20 px-3 sm:px-4">
+        <div className="container mx-auto max-w-7xl px-0 sm:px-4">
+          <div className="text-center mb-8 md:mb-16 px-2">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black mb-3 md:mb-6 text-white break-words">
               Наши специализации
             </h2>
-            <p className="text-base md:text-2xl text-gray-300">Эксперты в каждой нише продаж</p>
+            <p className="text-sm sm:text-base md:text-2xl text-gray-300">Эксперты в каждой нише продаж</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
@@ -677,7 +677,7 @@ const SalesManagers = () => {
                 type="submit" 
                 disabled={isSubmitting}
                 size="lg"
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-sm sm:text-base md:text-xl h-12 md:h-14 font-bold"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-xs sm:text-base md:text-xl h-12 md:h-14 font-bold leading-tight px-3"
               >
                 {isSubmitting ? 'Отправка...' : 'Получить кандидатов за 24 часа 🚀'}
               </Button>
@@ -777,17 +777,17 @@ const SalesTestimonialsSection = () => {
   );
 
   return (
-    <section className="relative py-16 md:py-24 px-4 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <Badge className="mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30 text-sm px-4 py-1.5">
+    <section className="relative py-10 md:py-24 px-3 sm:px-4 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent overflow-x-hidden">
+      <div className="container mx-auto max-w-7xl px-0">
+        <div className="text-center mb-8 md:mb-12 px-2">
+          <Badge className="mb-3 md:mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30 text-xs sm:text-sm px-3 md:px-4 py-1 md:py-1.5">
             ⭐ ОТЗЫВЫ КЛИЕНТОВ
           </Badge>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 break-words">
             Они уже нашли своих
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> чемпионов</span>
           </h2>
-          <p className="text-gray-300 text-lg md:text-xl">Реальные результаты компаний, которые доверились 1DAYHR</p>
+          <p className="text-gray-300 text-sm sm:text-base md:text-xl">Реальные результаты компаний, которые доверились 1DAYHR</p>
         </div>
 
         <div className="overflow-hidden" ref={emblaRef}>
