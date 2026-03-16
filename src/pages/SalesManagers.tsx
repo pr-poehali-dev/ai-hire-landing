@@ -425,6 +425,16 @@ const SalesManagers = () => {
                 </Card>
               ))}
             </div>
+
+            {/* Price CTA */}
+            <div className="mt-6 md:mt-10 text-center">
+              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+                Стоимость от{' '}
+                <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text">
+                  35 000 ₽
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
