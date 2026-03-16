@@ -293,7 +293,7 @@ const SalesManagers = () => {
               ].map((stat, i) => (
                 <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/30 p-3 md:p-6 hover:bg-white/10 transition-all">
                   <Icon name={stat.icon} className="w-6 h-6 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 text-purple-400" />
-                  <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text mb-1 md:mb-2">
+                  <div className="text-2xl md:text-4xl font-black text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text mb-1 md:mb-2">
                     {stat.value}
                   </div>
                   <div className="text-xs md:text-sm text-gray-400">{stat.label}</div>
@@ -305,7 +305,7 @@ const SalesManagers = () => {
               <Button 
                 onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg px-8 py-6 h-auto hover:scale-105 transition-all shadow-lg shadow-purple-500/50"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg px-8 py-6 h-auto hover:scale-105 transition-all shadow-lg shadow-purple-500/50"
               >
                 <Icon name="Rocket" className="mr-2" size={24} />
                 Подобрать сотрудника
@@ -322,7 +322,7 @@ const SalesManagers = () => {
           alt="Команда менеджеров по продажам"
           className="w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-purple-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-blue-900/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/60 via-transparent to-gray-900/60" />
         <div className="absolute bottom-4 md:bottom-10 left-0 right-0 text-center px-4">
           <p className="text-sm sm:text-base md:text-2xl font-semibold text-white/90 drop-shadow-lg">
@@ -380,8 +380,8 @@ const SalesManagers = () => {
                 bonus: 'Экономия 150,000₽'
               }
             ].map((item, i) => (
-              <Card key={i} className="relative bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur-xl border-purple-500/30 p-4 md:p-8 hover:scale-105 transition-all overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform" />
+              <Card key={i} className="relative bg-gradient-to-br from-purple-900/30 to-blue-900/20 backdrop-blur-xl border-purple-500/30 p-4 md:p-8 hover:scale-105 transition-all overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-blue-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform" />
                 <Icon name={item.icon} className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-6 text-purple-400" />
                 <h3 className="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">{item.title}</h3>
                 <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4 leading-relaxed">{item.desc}</p>
@@ -394,34 +394,67 @@ const SalesManagers = () => {
         </div>
       </section>
 
+      {/* AI Case Section — moved here, right after benefits */}
+      <AICaseSection />
+
       {/* Specializations */}
-      <section className="relative py-20 px-4">
+      <section className="relative py-12 md:py-20 px-4">
         <div className="container mx-auto max-w-7xl px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 md:mb-6 text-white">
               Наши специализации
             </h2>
-            <p className="text-2xl text-gray-300">Эксперты в каждой нише продаж</p>
+            <p className="text-base md:text-2xl text-gray-300">Эксперты в каждой нише продаж</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {[
-              { title: 'B2B продажи', desc: 'Корпоративные клиенты, холодные звонки, тендеры', icon: 'building', cases: '340+' },
-              { title: 'B2C розница', desc: 'Активные продажи в салонах, магазинах, шоурумах', icon: 'shopping-bag', cases: '280+' },
-              { title: 'Сложные продажи', desc: 'Цикл 3-12 месяцев, multiple decision makers', icon: 'network', cases: '156+' },
-              { title: 'SaaS/IT продажи', desc: 'Подписки, онлайн-продукты, облачные решения', icon: 'cloud', cases: '198+' },
-              { title: 'Недвижимость', desc: 'Коммерческая и жилая, ипотека, новостройки', icon: 'home', cases: '224+' },
-              { title: 'Автобизнес', desc: 'Продажа авто, допоборудования, trade-in', icon: 'car', cases: '142+' }
+              {
+                title: 'B2B продажи',
+                desc: 'Корпоративные клиенты, холодные звонки, тендеры',
+                emoji: '🏢',
+                cases: '340+'
+              },
+              {
+                title: 'B2C розница',
+                desc: 'Активные продажи в салонах, магазинах, шоурумах',
+                emoji: '🛍️',
+                cases: '280+'
+              },
+              {
+                title: 'Сложные продажи',
+                desc: 'Цикл 3-12 месяцев, multiple decision makers',
+                emoji: '🎯',
+                cases: '156+'
+              },
+              {
+                title: 'SaaS/IT продажи',
+                desc: 'Подписки, онлайн-продукты, облачные решения',
+                emoji: '💻',
+                cases: '198+'
+              },
+              {
+                title: 'Недвижимость',
+                desc: 'Коммерческая и жилая, ипотека, новостройки',
+                emoji: '🏠',
+                cases: '224+'
+              },
+              {
+                title: 'Автобизнес',
+                desc: 'Продажа авто, допоборудования, trade-in',
+                emoji: '🚗',
+                cases: '142+'
+              }
             ].map((spec, i) => (
-              <Card key={i} className="bg-white/5 backdrop-blur-lg border-purple-500/20 p-6 hover:bg-white/10 transition-all">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
-                    <Icon name={spec.icon} className="w-7 h-7 text-white" />
+              <Card key={i} className="bg-white/5 backdrop-blur-lg border-blue-500/20 p-4 md:p-6 hover:bg-white/10 transition-all">
+                <div className="flex items-start gap-3 md:gap-4">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0 text-2xl md:text-3xl">
+                    {spec.emoji}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-white mb-2">{spec.title}</h3>
-                    <p className="text-sm text-gray-400 mb-3">{spec.desc}</p>
-                    <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-xl font-bold text-white mb-1 md:mb-2">{spec.title}</h3>
+                    <p className="text-xs md:text-sm text-gray-400 mb-2 md:mb-3 leading-relaxed">{spec.desc}</p>
+                    <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 text-xs">
                       {spec.cases} закрытых вакансий
                     </Badge>
                   </div>
@@ -433,39 +466,36 @@ const SalesManagers = () => {
       </section>
 
       {/* Process */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent">
+      <section className="relative py-12 md:py-20 px-4 bg-gradient-to-b from-transparent via-blue-900/10 to-transparent">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-black mb-6 text-white">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-3 md:mb-6 text-white">
               Как мы работаем
             </h2>
-            <p className="text-2xl text-gray-300">Прозрачный процесс за 24 часа</p>
+            <p className="text-base md:text-2xl text-gray-300">Прозрачный процесс за 24 часа</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { step: '1', time: '2 часа', title: 'Глубокий анализ', desc: 'Изучаем продукт, воронку продаж, KPI, портрет идеального менеджера' },
               { step: '2', time: '12 часов', title: 'AI-поиск + хантинг', desc: 'Анализ 50,000+ резюме + переманивание лучших из конкурентов' },
               { step: '3', time: '6 часов', title: 'Тестирование', desc: 'Видео-интервью, тесты продаж, проверка результатов на прошлых местах' },
               { step: '4', time: '4 часа', title: 'Презентация', desc: 'Досье на 5 кандидатов с рекомендациями кого нанимать в первую очередь' }
             ].map((item, i) => (
-              <Card key={i} className="relative bg-gradient-to-br from-purple-900/40 to-transparent backdrop-blur-xl border-purple-500/30 p-8 hover:scale-105 transition-all">
-                <div className="absolute -top-5 -right-5 w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center font-black text-3xl">
+              <Card key={i} className="relative bg-gradient-to-br from-blue-900/30 to-transparent backdrop-blur-xl border-blue-500/30 p-5 md:p-8 hover:scale-105 transition-all">
+                <div className="absolute -top-4 -right-4 w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center font-black text-2xl md:text-3xl">
                   {item.step}
                 </div>
-                <Badge className="mb-4 bg-green-500/20 text-green-300 border-green-500/30">
+                <Badge className="mb-3 md:mb-4 bg-green-500/20 text-green-300 border-green-500/30 text-xs">
                   ⏱ {item.time}
                 </Badge>
-                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4 pr-6">{item.title}</h3>
+                <p className="text-sm md:text-base text-gray-300 leading-relaxed">{item.desc}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
-
-      {/* AI Case Section */}
-      <AICaseSection />
 
       {/* Testimonials */}
       <SalesTestimonialsSection />
@@ -473,7 +503,7 @@ const SalesManagers = () => {
       {/* Contact Form */}
       <section id="contact-form" className="relative py-10 md:py-20 px-4">
         <div className="container mx-auto max-w-3xl px-2 sm:px-4">
-          <Card className="bg-gradient-to-br from-purple-900/40 via-pink-900/30 to-purple-900/40 backdrop-blur-xl border-purple-500/30 p-5 sm:p-8 md:p-12">
+          <Card className="bg-gradient-to-br from-purple-900/40 via-blue-900/20 to-purple-900/40 backdrop-blur-xl border-purple-500/30 p-5 sm:p-8 md:p-12">
             <div className="text-center mb-6 md:mb-10">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3 md:mb-4">
                 Получите кандидатов
@@ -517,7 +547,7 @@ const SalesManagers = () => {
                 type="submit" 
                 disabled={isSubmitting}
                 size="lg"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm sm:text-base md:text-xl h-12 md:h-14 font-bold"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-sm sm:text-base md:text-xl h-12 md:h-14 font-bold"
               >
                 {isSubmitting ? 'Отправка...' : 'Получить кандидатов за 24 часа 🚀'}
               </Button>
@@ -732,7 +762,7 @@ const aiSteps = [
     icon: 'MessageSquare',
     title: 'Психометрика',
     desc: 'Профиль личности: мотивация, переговоры, закрытие сделок',
-    color: 'from-pink-600 to-rose-500',
+    color: 'from-violet-600 to-purple-500',
     detail: 'DISC, Big5, тест на стрессоустойчивость',
     metrics: [{ label: 'Модели', value: '3' }, { label: 'Профиль', value: '15 сек' }]
   },
@@ -797,38 +827,38 @@ const AICaseSection = () => {
   const current = aiSteps[activeStep];
 
   return (
-    <section className="relative py-16 md:py-24 px-4">
+    <section className="relative py-12 md:py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 border-0 text-white text-sm px-4 py-1.5">
+        <div className="text-center mb-8 md:mb-12 px-2">
+          <Badge className="mb-3 md:mb-4 bg-gradient-to-r from-purple-600 to-blue-600 border-0 text-white text-xs md:text-sm px-3 md:px-4 py-1 md:py-1.5">
             🤖 КАК РАБОТАЕТ AI-АНАЛИЗ
           </Badge>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white mb-3 md:mb-4">
             От базы к лучшему
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> менеджеру за 24ч</span>
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"> менеджеру за 24ч</span>
           </h2>
-          <p className="text-gray-300 text-lg">Интерактивный кейс: нажми «Запустить» и смотри как работает наш AI</p>
+          <p className="text-sm md:text-lg text-gray-300">Нажми «Запустить» и смотри как работает наш AI</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 md:gap-8 items-start">
           {/* Steps list */}
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3 order-2 lg:order-1">
             {aiSteps.map((step, i) => (
               <button
                 key={step.id}
                 onClick={() => { setActiveStep(i); setIsPlaying(false); setProgress(0); if (progressRef.current) clearInterval(progressRef.current); }}
-                className={`w-full text-left p-4 rounded-xl border transition-all duration-300 ${
+                className={`w-full text-left p-3 md:p-4 rounded-xl border transition-all duration-300 ${
                   activeStep === i
-                    ? 'bg-white/10 border-purple-400/60 scale-[1.02] shadow-lg shadow-purple-500/20'
+                    ? 'bg-white/10 border-purple-400/60 scale-[1.01] md:scale-[1.02] shadow-lg shadow-purple-500/20'
                     : 'bg-white/5 border-white/10 hover:bg-white/8 hover:border-white/20'
                 }`}
               >
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0 ${activeStep === i ? 'shadow-lg' : 'opacity-60'}`}>
-                    <Icon name={step.icon} size={22} className="text-white" />
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center flex-shrink-0 ${activeStep === i ? 'shadow-lg' : 'opacity-60'}`}>
+                    <Icon name={step.icon} size={18} className="text-white md:w-5 md:h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-0.5 md:mb-1">
                       <span className="text-xs font-bold text-gray-500">ШАГ {step.id}</span>
                       {activeStep === i && isPlaying && (
                         <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs px-2 py-0 animate-pulse">● РАБОТАЕТ</Badge>
@@ -837,13 +867,13 @@ const AICaseSection = () => {
                         <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-xs px-2 py-0">ВЫБРАН</Badge>
                       )}
                     </div>
-                    <div className="font-bold text-white">{step.title}</div>
-                    <div className="text-sm text-gray-400 truncate">{step.desc}</div>
+                    <div className="font-bold text-white text-sm md:text-base">{step.title}</div>
+                    <div className="text-xs md:text-sm text-gray-400 truncate">{step.desc}</div>
                   </div>
-                  <Icon name={activeStep === i ? 'ChevronRight' : 'ChevronRight'} size={18} className={`flex-shrink-0 ${activeStep === i ? 'text-purple-400' : 'text-gray-600'}`} />
+                  <Icon name="ChevronRight" size={16} className={`flex-shrink-0 ${activeStep === i ? 'text-purple-400' : 'text-gray-600'}`} />
                 </div>
                 {activeStep === i && isPlaying && (
-                  <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
+                  <div className="mt-2 md:mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
                     <div
                       className={`h-full bg-gradient-to-r ${step.color} transition-all duration-100`}
                       style={{ width: `${progress}%` }}
@@ -855,36 +885,36 @@ const AICaseSection = () => {
           </div>
 
           {/* Preview panel */}
-          <div className="lg:sticky lg:top-24">
+          <div className="lg:sticky lg:top-24 order-1 lg:order-2">
             <Card className="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 border-purple-500/30 overflow-hidden">
               {/* Terminal header */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
-                <div className="w-3 h-3 rounded-full bg-red-500/70" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                <div className="w-3 h-3 rounded-full bg-green-500/70" />
-                <span className="ml-2 text-xs text-gray-500 font-mono">1dayhr-ai-engine.py</span>
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-3 bg-white/5 border-b border-white/10">
+                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/70" />
+                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/70" />
+                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/70" />
+                <span className="ml-1 md:ml-2 text-xs text-gray-500 font-mono hidden sm:inline">1dayhr-ai-engine.py</span>
                 {isPlaying && <span className="ml-auto text-xs text-green-400 font-mono animate-pulse">● running</span>}
               </div>
 
-              <div className="p-6 space-y-6">
+              <div className="p-4 md:p-6 space-y-4 md:space-y-6">
                 {/* Current step visual */}
-                <div className={`relative p-6 rounded-xl bg-gradient-to-br ${current.color} bg-opacity-10 border border-white/10 overflow-hidden`}>
+                <div className={`relative p-4 md:p-6 rounded-xl bg-gradient-to-br ${current.color} bg-opacity-10 border border-white/10 overflow-hidden`}>
                   <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-white/20 to-transparent" />
-                  <div className="relative flex items-center gap-4 mb-4">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${current.color} flex items-center justify-center shadow-2xl`}>
-                      <Icon name={current.icon} size={30} className="text-white" />
+                  <div className="relative flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${current.color} flex items-center justify-center shadow-2xl flex-shrink-0`}>
+                      <Icon name={current.icon} size={22} className="text-white md:w-8 md:h-8" />
                     </div>
-                    <div>
-                      <div className="text-xs text-gray-400 font-mono mb-1">STEP {current.id}/5</div>
-                      <h3 className="text-xl font-black text-white">{current.title}</h3>
-                      <p className="text-sm text-gray-300">{current.detail}</p>
+                    <div className="min-w-0">
+                      <div className="text-xs text-gray-400 font-mono mb-0.5 md:mb-1">STEP {current.id}/5</div>
+                      <h3 className="text-base md:text-xl font-black text-white leading-tight">{current.title}</h3>
+                      <p className="text-xs md:text-sm text-gray-300 truncate">{current.detail}</p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3">
                     {current.metrics.map((m, i) => (
-                      <div key={i} className="bg-white/10 rounded-lg p-3 text-center">
-                        <div className="text-2xl font-black text-white">{m.value}</div>
+                      <div key={i} className="bg-white/10 rounded-lg p-2 md:p-3 text-center">
+                        <div className="text-lg md:text-2xl font-black text-white">{m.value}</div>
                         <div className="text-xs text-gray-400">{m.label}</div>
                       </div>
                     ))}
@@ -892,23 +922,23 @@ const AICaseSection = () => {
                 </div>
 
                 {/* Candidate match preview */}
-                <div className="space-y-2">
-                  <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3">Кандидат — матч с компанией</div>
+                <div className="space-y-1.5 md:space-y-2">
+                  <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-2 md:mb-3">Кандидат — матч с компанией</div>
                   {[
                     { label: 'Опыт активных продаж', val: 96 },
-                    { label: 'Закрытие холодных сделок', val: 88 },
+                    { label: 'Холодные сделки', val: 88 },
                     { label: 'Стрессоустойчивость', val: 92 },
                     { label: 'Мотивация на результат', val: 99 },
                   ].map((bar, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <span className="text-xs text-gray-400 w-44 flex-shrink-0">{bar.label}</span>
-                      <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div key={i} className="flex items-center gap-2 md:gap-3">
+                      <span className="text-xs text-gray-400 w-28 md:w-44 flex-shrink-0 leading-tight">{bar.label}</span>
+                      <div className="flex-1 h-1.5 md:h-2 bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-1000"
+                          className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-1000"
                           style={{ width: isPlaying || activeStep > 0 ? `${bar.val}%` : '0%' }}
                         />
                       </div>
-                      <span className="text-xs font-bold text-purple-400 w-8 text-right">{bar.val}%</span>
+                      <span className="text-xs font-bold text-blue-400 w-7 md:w-8 text-right">{bar.val}%</span>
                     </div>
                   ))}
                 </div>
@@ -917,12 +947,12 @@ const AICaseSection = () => {
                 <Button
                   onClick={startAnimation}
                   disabled={isPlaying}
-                  className={`w-full h-12 font-bold text-base ${isPlaying ? 'bg-gray-700 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-[1.02] transition-all shadow-lg shadow-purple-500/30'}`}
+                  className={`w-full h-11 md:h-12 font-bold text-sm md:text-base ${isPlaying ? 'bg-gray-700 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 hover:scale-[1.02] transition-all shadow-lg shadow-purple-500/30'}`}
                 >
                   {isPlaying ? (
-                    <><Icon name="Loader" size={18} className="mr-2 animate-spin" />Анализируем кандидатов...</>
+                    <><Icon name="Loader" size={16} className="mr-2 animate-spin" />Анализируем кандидатов...</>
                   ) : (
-                    <><Icon name="Play" size={18} className="mr-2" />Запустить AI-анализ</>
+                    <><Icon name="Play" size={16} className="mr-2" />Запустить AI-анализ</>
                   )}
                 </Button>
               </div>
