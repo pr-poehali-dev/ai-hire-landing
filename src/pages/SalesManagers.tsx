@@ -428,12 +428,23 @@ const SalesManagers = () => {
 
             {/* Price CTA */}
             <div className="mt-6 md:mt-10 text-center">
-              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+              <p className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tight">
                 Стоимость от{' '}
-                <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text">
-                  35 000 ₽
+                <span
+                  className="whitespace-nowrap font-black"
+                  style={{
+                    background: 'linear-gradient(90deg, #a855f7, #60a5fa, #c084fc, #818cf8, #a855f7)',
+                    backgroundSize: '200% auto',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    animation: 'shimmer 3s linear infinite',
+                  }}
+                >
+                  35&nbsp;000&nbsp;₽
                 </span>
               </p>
+              <style>{`@keyframes shimmer { 0% { background-position: 0% center } 100% { background-position: 200% center } }`}</style>
             </div>
           </div>
         </div>
