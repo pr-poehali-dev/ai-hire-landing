@@ -1,13 +1,1 @@
-{
-  "generate-invite": "https://functions.poehali.dev/12edbef3-0e73-4e40-97a6-f9a7b4e4b4c4",
-  "crm-comments": "https://functions.poehali.dev/ba58f2e4-caf3-43bf-8def-1e28fbcac03c",
-  "export-leads": "https://functions.poehali.dev/d2acc931-f68b-4295-8c1f-11d1a853d910",
-  "reset-password": "https://functions.poehali.dev/9e8f4759-ca92-4322-a372-ef295c8e8efb",
-  "submit-lead": "https://functions.poehali.dev/95000735-85f3-4490-bcad-add9f061eda4",
-  "ai-assistant": "https://functions.poehali.dev/2f8a4954-dbbf-433b-9724-88fdc8fc736d",
-  "get-leads": "https://functions.poehali.dev/70efa5ae-6f8d-402f-81e2-450f15c786f6",
-  "login": "https://functions.poehali.dev/1af00987-b191-4448-a299-dea285b37e52",
-  "mango-call": "https://functions.poehali.dev/53cbb782-953f-472a-b5a4-640cbeb6b558",
-  "request-reset": "https://functions.poehali.dev/48c12a91-ce4f-4139-bcf3-778d2184857e",
-  "crm-leads": "https://functions.poehali.dev/8becb088-0812-42ad-9b49-9f6f9cf338ba"
-}
+{}
